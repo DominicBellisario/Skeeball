@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2782061329906099618}
   - component: {fileID: 4418923098186173289}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Trail
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -164,7 +164,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2688131193897522497}
   - component: {fileID: 8604362519159850312}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Line
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -304,7 +304,9 @@ GameObject:
   - component: {fileID: 7541085730549392086}
   - component: {fileID: 4466465823730758105}
   - component: {fileID: 5974239468775639052}
-  m_Layer: 0
+  - component: {fileID: 5537545677074017079}
+  - component: {fileID: 2275854453684810787}
+  m_Layer: 8
   m_Name: Ball
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -440,3 +442,29 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   aimingCircleRadius: 1
   forceMultiplyer: 1000
+--- !u!114 &5537545677074017079
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9073041401583007651}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 40df657b335a87a4a820e20ad840c6d3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  minLineLength: 1
+  maxLineLength: 4
+--- !u!114 &2275854453684810787
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9073041401583007651}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 42d43f746dc288442ad8ff0f24150fa9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
