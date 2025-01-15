@@ -19,28 +19,40 @@ public class LevelManager : MonoBehaviour
     [SerializeField]
     int balls;
 
+    public static LevelManager Instance { get; private set; }
+    private void Awake()
+    {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(this);
+        }
+        else
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+    }
+
     private void Start()
     {
-        //load the level UI
-        SceneManager.LoadScene("LevelUI", LoadSceneMode.Additive);
-
         score = 0;
 
-        //update the score and ball UI with new values
+        //update the score and ball UI with starting values
         UpdateScore(0);
-        UpdateBalls(balls);
+        UpdateBalls(0);
     }
 
     public void UpdateScore(int scoreChange)
     {
         score += scoreChange;
-        LevelUILogic.Instance.UpdateScore(scoreChange);
+        
+        LevelUILogic.Instance.UpdateScore(score);
     }
 
     public void UpdateBalls(int ballsChange)
     {
         balls += ballsChange;
-        LevelUILogic.Instance.UpdateBalls(ballsChange);
+        LevelUILogic.Instance.UpdateBalls(balls);
 
         if (balls <= 0)
         {

@@ -85,6 +85,9 @@ public class BallControls : MonoBehaviour
             if (isHeld)
             {
                 rb.AddForce(-powerPercent * Mathf.Sin(angle) * forceMultiplyer, 0, -powerPercent * Mathf.Cos(angle) * forceMultiplyer);
+
+                //player uses 1 ball
+                LevelManager.Instance.UpdateBalls(-1);
             }
             isHeld = false;
         }

@@ -31,9 +31,17 @@ public class BallHoleInteractions : MonoBehaviour
 
     private void OnTriggerExit(Collider trigger)
     {
+        //if the ball is fully within a hole
         if (trigger.gameObject.tag == "HoleActivateTrigger")
         {
-            rb.gameObject.SetActive(false);
+            //add points to the total point count
+            LevelManager.Instance.UpdateScore(trigger.GetComponentInParent<HoleVariables>().Points);
+
+            //destroy the ball if needed
+            if (trigger.GetComponentInParent<HoleVariables>().DestroyBall)
+            {
+                Destroy(gameObject, 0);
+            }
         }
     }
 }
