@@ -8,9 +8,13 @@ public class HomeScreenLogic : MonoBehaviour
 {
     public void LoadTest()
     {
-        SceneManager.LoadScene("testing");
+        SceneManager.LoadScene("Testing");
         LoadLevelUI();
+    }
 
+    public void LoadLevelSelect()
+    {
+        SceneManager.LoadScene("LevelSelect");
     }
 
     void LoadLevelUI()
