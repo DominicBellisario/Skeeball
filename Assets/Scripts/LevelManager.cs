@@ -6,6 +6,14 @@ using UnityEngine.SceneManagement;
 
 public class LevelManager : MonoBehaviour
 {
+    //the place in the level the balls spawn in
+    [SerializeField]
+    GameObject ballSpawnPos;
+
+    //a list of all balls currently in the level
+    [SerializeField]
+    List<GameObject> ballObjects;
+
     //the current score
     int score;
     //the minimum score needed to beat a level
@@ -69,5 +77,15 @@ public class LevelManager : MonoBehaviour
                 Debug.Log("you lose");
             }
         }
+    }
+
+    /// <summary>
+    /// spawns a new ball with a given position and force
+    /// </summary>
+    /// <param name="pos"></param>
+    /// <param name="force"></param>
+    public void SpawnNewBall(Vector3 pos, Vector3 force)
+    {
+        //GameObject newBall = Instantiate()
     }
 }
