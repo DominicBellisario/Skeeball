@@ -15,9 +15,6 @@ public class LevelUILogic : MonoBehaviour
     [SerializeField]
     TextMeshProUGUI ballsText;
 
-    int currentScore;
-    int currentBalls;
-
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -34,25 +31,22 @@ public class LevelUILogic : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        currentScore = 0;
-        currentBalls = 0;
+
     }
 
     /// <summary>
     /// refresh the score UI with new value
     /// </summary>
-    public void UpdateScore(int scoreChange)
+    public void UpdateScore(int updatedScore)
     {
-        currentScore += scoreChange;
-        scoreText.text = "Score: " + (currentScore);
+        scoreText.text = "Score: " + updatedScore;
     }
 
     /// <summary>
     /// refresh the ball UI with new value
     /// </summary>
-    public void UpdateBalls(int ballsChange)
-    {
-        currentBalls += ballsChange;    
-        ballsText.text = "Balls: " + (currentBalls);
+    public void UpdateBalls(int updatedBallCount)
+    { 
+        ballsText.text = "Extra Balls: " + updatedBallCount;
     }
 }

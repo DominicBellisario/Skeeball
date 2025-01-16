@@ -6,6 +6,10 @@ using UnityEngine.SceneManagement;
 
 public class LevelManager : MonoBehaviour
 {
+    //the ball prefab that will be spawned when needed
+    [SerializeField]
+    GameObject ballPrefab;
+
     //the place in the level the balls spawn in
     [SerializeField]
     GameObject ballSpawnPos;
@@ -25,7 +29,7 @@ public class LevelManager : MonoBehaviour
 
     //the current number of balls
     [SerializeField]
-    int balls;
+    int numberOfBalls;
 
     public static LevelManager Instance { get; private set; }
     private void Awake()
@@ -48,6 +52,9 @@ public class LevelManager : MonoBehaviour
         //update the score and ball UI with starting values
         UpdateScore(0);
         UpdateBalls(0);
+
+        //spawn the first ball
+        SpawnNewBall(ballSpawnPos, Vector3.zero);
     }
 
     public void UpdateScore(int scoreChange)
@@ -59,10 +66,44 @@ public class LevelManager : MonoBehaviour
 
     public void UpdateBalls(int ballsChange)
     {
-        balls += ballsChange;
-        LevelUILogic.Instance.UpdateBalls(balls);
+        numberOfBalls += ballsChange;
+        LevelUILogic.Instance.UpdateBalls(numberOfBalls);
+    }
 
-        if (balls <= 0)
+    /// <summary>
+    /// spawns a new ball
+    /// </summary>
+    /// <param name="pos"></param>
+    /// <param name="force"></param>
+    public void SpawnNewBall(GameObject spawnPos, Vector3 velocity)
+    {
+        GameObject newBall = Instantiate(ballPrefab);
+        //set its position and velocity
+        newBall.transform.position = spawnPos.transform.position;
+        newBall.GetComponent<Rigidbody>().velocity = velocity;
+
+        //add the ball to the list
+        ballObjects.Add(newBall);
+    }
+
+    /// <summary>
+    /// destroy a ball
+    /// </summary>
+    /// <param name="ball"></param>
+    public void DestroyBall(GameObject ball)
+    {
+        ballObjects.Remove(ball);
+        Destroy(ball);
+
+        //if there are no more balls in play and the player still has more balls
+        if (ballObjects.Count <= 0 && numberOfBalls > 0)
+        {
+            //spawn another ball and reduce the ball count
+            SpawnNewBall(ballSpawnPos, Vector3.zero);
+            UpdateBalls(-1);
+        }
+        //if there are no balls in play and the player has no more balls, check the win con
+        else if (numberOfBalls <= 0 && ballObjects.Count <= 0)
         {
             if (score >= secretScore)
             {
@@ -77,15 +118,5 @@ public class LevelManager : MonoBehaviour
                 Debug.Log("you lose");
             }
         }
-    }
-
-    /// <summary>
-    /// spawns a new ball with a given position and force
-    /// </summary>
-    /// <param name="pos"></param>
-    /// <param name="force"></param>
-    public void SpawnNewBall(Vector3 pos, Vector3 force)
-    {
-        //GameObject newBall = Instantiate()
     }
 }

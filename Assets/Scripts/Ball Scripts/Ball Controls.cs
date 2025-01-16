@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class BallControls : MonoBehaviour
 {
+    BallLevelInteractions ballLevelInteractions;
+
     //the in game and pixel locations of where the ball starts
     Vector3 ballOrigin;
     Vector2 ballPixelOrigin;
@@ -20,6 +22,7 @@ public class BallControls : MonoBehaviour
 
     //wether or not the player is aiming the ball
     bool isHeld;
+    bool isLaunched;
 
     //the angle that the ball will travel in once released
     float angle;
@@ -34,6 +37,7 @@ public class BallControls : MonoBehaviour
 
     //used by BallEffects to determine the visibility, angle, length, and color of the aiming line
     public bool IsHeld { get{ return isHeld; } }
+    public bool IsLaunched {  get{ return isLaunched; } }
     public float Angle { get { return angle; } }
     public float PowerPercent{ get { return powerPercent; } }
 
@@ -41,6 +45,7 @@ public class BallControls : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        ballLevelInteractions = GetComponent<BallLevelInteractions>();
 
         ballOrigin = gameObject.transform.position;
         ballPixelOrigin = new Vector2(Screen.width / 2, Screen.height / 7f);
@@ -48,6 +53,7 @@ public class BallControls : MonoBehaviour
         pixelAimingCircleRadius = Screen.width * 0.25f;
 
         isHeld = false;
+        isLaunched = false;
 
         angle = 0;
         powerPercent = 0;
@@ -85,9 +91,7 @@ public class BallControls : MonoBehaviour
             if (isHeld)
             {
                 rb.AddForce(-powerPercent * Mathf.Sin(angle) * forceMultiplyer, 0, -powerPercent * Mathf.Cos(angle) * forceMultiplyer);
-
-                //player uses 1 ball
-                LevelManager.Instance.UpdateBalls(-1);
+                ballLevelInteractions.IsLaunched = true;
             }
             isHeld = false;
         }
