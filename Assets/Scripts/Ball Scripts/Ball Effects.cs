@@ -35,7 +35,7 @@ public class BallEffects : MonoBehaviour
             float lineLength = (maxLineLength - minLineLength) * GetComponent<BallControls>().PowerPercent;
 
             aimLine.SetPosition(1, new Vector3(-Mathf.Sin(angle) * lineLength, 0, -Mathf.Cos(angle) * lineLength));
-            Debug.Log(aimLine.GetPosition(1));
+            //Debug.Log(aimLine.GetPosition(1));
         }
         else
         {

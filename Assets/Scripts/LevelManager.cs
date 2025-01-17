@@ -31,6 +31,11 @@ public class LevelManager : MonoBehaviour
     [SerializeField]
     int numberOfBalls;
 
+    //used by results screen to determine win
+    public int Score { get { return score; } }
+    public int MinScore { get { return minScore; } }
+    public int SecretScore { get { return secretScore; } }
+
     public static LevelManager Instance { get; private set; }
     private void Awake()
     {
@@ -101,21 +106,17 @@ public class LevelManager : MonoBehaviour
             SpawnNewBall(ballSpawnPos, Vector3.zero);
             UpdateBalls(-1);
         }
-        //if there are no balls in play and the player has no more balls, check the win con
+        //if there are no balls in play and the player has no more balls
         else if (numberOfBalls <= 0 && ballObjects.Count <= 0)
         {
-            if (score >= secretScore)
-            {
-                Debug.Log("you win but epic");
-            }
-            else if (score >= minScore)
-            {
-                Debug.Log("you win");
-            }
-            else
-            {
-                Debug.Log("you lose");
-            }
+            //disable level ui event handler
+            LevelUILogic.Instance.EventHandler.SetActive(false);
+
+            //bring up the results screen
+            SceneManager.LoadScene("ResultsScreen", LoadSceneMode.Additive);
+
+            //pause the game
+            Time.timeScale = 0;
         }
     }
 }
