@@ -21,7 +21,6 @@ public class LevelManager : MonoBehaviour
     //camera that follows the first ball in the list
     [SerializeField]
     GameObject ballCamera;
-    [SerializeField]
     Vector3 ballCameraOffset;
 
     //the current score
@@ -36,6 +35,9 @@ public class LevelManager : MonoBehaviour
     //the current number of balls
     [SerializeField]
     int numberOfBalls;
+
+    //the time between the last active ball and a new spawn
+    float timeBetweenBalls;
 
     //used by results screen to determine win
     public int Score { get { return score; } }
@@ -59,6 +61,8 @@ public class LevelManager : MonoBehaviour
     private void Start()
     {
         score = 0;
+        timeBetweenBalls = 1;
+        ballCameraOffset = new Vector3(0, 3, -5);
 
         //update the score and ball UI with starting values
         UpdateScore(0);
@@ -107,6 +111,19 @@ public class LevelManager : MonoBehaviour
     }
 
     /// <summary>
+    /// spawns a new ball after a delay and reduces the ball count
+    /// </summary>
+    /// <returns></returns>
+    IEnumerator SpawnNewStartingBall()
+    {
+        yield return new WaitForSeconds(timeBetweenBalls);
+        SpawnNewBall(ballSpawnPos, Vector3.zero);
+        UpdateBalls(-1);
+        //switch to main camera view
+        BallCamera.SetActive(false);
+    }
+
+    /// <summary>
     /// destroy a ball
     /// </summary>
     /// <param name="ball"></param>
@@ -118,12 +135,8 @@ public class LevelManager : MonoBehaviour
         //if there are no more balls in play and the player still has more balls
         if (ballObjects.Count <= 0 && numberOfBalls > 0)
         {
-            //spawn another ball and reduce the ball count
-            SpawnNewBall(ballSpawnPos, Vector3.zero);
-            UpdateBalls(-1);
-
-            //switch to main camera view
-            BallCamera.SetActive(false);
+            //spawn a new ball
+            StartCoroutine(SpawnNewStartingBall());
         }
         //if there are no balls in play and the player has no more balls
         else if (numberOfBalls <= 0 && ballObjects.Count <= 0)
