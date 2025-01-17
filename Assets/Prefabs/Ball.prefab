@@ -41,7 +41,7 @@ TrailRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 626742967710999533}
   m_Enabled: 0
-  m_CastShadows: 1
+  m_CastShadows: 0
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
   m_StaticShadowCaster: 0
@@ -195,7 +195,7 @@ LineRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2943320942816773788}
   m_Enabled: 1
-  m_CastShadows: 1
+  m_CastShadows: 0
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
   m_StaticShadowCaster: 0
@@ -207,7 +207,7 @@ LineRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10306, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: af2f2fa204cf3844fbddb89d3d14ba1b, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -233,7 +233,7 @@ LineRenderer:
   - {x: 0, y: 0, z: 1}
   m_Parameters:
     serializedVersion: 3
-    widthMultiplier: 0.1
+    widthMultiplier: 0.4
     widthCurve:
       serializedVersion: 2
       m_Curve:
@@ -245,7 +245,7 @@ LineRenderer:
         tangentMode: 0
         weightedMode: 0
         inWeight: 0.33333334
-        outWeight: 0.33333334
+        outWeight: 0.8657895
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
@@ -276,14 +276,14 @@ LineRenderer:
       atime6: 0
       atime7: 0
       m_Mode: 0
-      m_ColorSpace: -1
+      m_ColorSpace: 0
       m_NumColorKeys: 2
       m_NumAlphaKeys: 2
     numCornerVertices: 0
     numCapVertices: 0
     alignment: 0
-    textureMode: 0
-    textureScale: {x: 1, y: 1}
+    textureMode: 1
+    textureScale: {x: 2.25, y: 1}
     shadowBias: 0.5
     generateLightingData: 0
   m_MaskInteraction: 0
@@ -454,8 +454,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 40df657b335a87a4a820e20ad840c6d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minLineLength: 1
-  maxLineLength: 4
+  aimLine: {fileID: 8604362519159850312}
+  dottedLineMaterial: {fileID: 2100000, guid: af2f2fa204cf3844fbddb89d3d14ba1b, type: 2}
+  minColor: {r: 1, g: 1, b: 1, a: 1}
+  maxColor: {r: 1, g: 0, b: 0, a: 1}
+  minOffsetSpeed: 1
+  maxOffsetSpeed: 8
+  minLineLength: 0.5
+  maxLineLength: 6
 --- !u!114 &3424388059389155255
 MonoBehaviour:
   m_ObjectHideFlags: 0
