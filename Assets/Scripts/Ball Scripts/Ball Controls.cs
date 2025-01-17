@@ -92,15 +92,22 @@ public class BallControls : MonoBehaviour
             {
                 rb.AddForce(-powerPercent * Mathf.Sin(angle) * forceMultiplyer, 0, -powerPercent * Mathf.Cos(angle) * forceMultiplyer);
                 ballLevelInteractions.IsLaunched = true;
+
+                //switch cam view automatically (toggle in settings later)
+                //LevelManager.Instance.SwitchCameraView();
             }
             isHeld = false;
         }
     }
 
-    //if the player clicks the ball, they are holding it
+    //if the player clicks the ball in the main camera view, they are holding it
     private void OnMouseDown()
     {
-        isHeld = true;
+        if (!LevelManager.Instance.BallCamera.activeInHierarchy)
+        {
+            isHeld = true;
+        }
+        
     }
 
     public float DistanceBetweenTwoPoints(Vector2 point1, Vector2 point2)

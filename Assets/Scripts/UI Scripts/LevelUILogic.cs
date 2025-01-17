@@ -7,6 +7,7 @@ using UnityEngine.SocialPlatforms.Impl;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using System;
+using UnityEngine.UIElements;
 
 public class LevelUILogic : MonoBehaviour
 {
@@ -62,5 +63,10 @@ public class LevelUILogic : MonoBehaviour
 
         //pause the game
         Time.timeScale = 0.0f;
+    }
+
+    public void ToggleCamera()
+    {
+        LevelManager.Instance.SwitchCameraView();
     }
 }

@@ -18,6 +18,12 @@ public class LevelManager : MonoBehaviour
     [SerializeField]
     List<GameObject> ballObjects;
 
+    //camera that follows the first ball in the list
+    [SerializeField]
+    GameObject ballCamera;
+    [SerializeField]
+    Vector3 ballCameraOffset;
+
     //the current score
     int score;
     //the minimum score needed to beat a level
@@ -35,6 +41,7 @@ public class LevelManager : MonoBehaviour
     public int Score { get { return score; } }
     public int MinScore { get { return minScore; } }
     public int SecretScore { get { return secretScore; } }
+    public GameObject BallCamera { get { return ballCamera; } }
 
     public static LevelManager Instance { get; private set; }
     private void Awake()
@@ -59,6 +66,15 @@ public class LevelManager : MonoBehaviour
 
         //spawn the first ball
         SpawnNewBall(ballSpawnPos, Vector3.zero);
+    }
+
+    public void Update()
+    {
+        //ball camera follows the first ball in the list
+        if (ballObjects.Count >= 1)
+        {
+            ballCamera.transform.position = ballObjects[0].transform.position + ballCameraOffset;
+        }
     }
 
     public void UpdateScore(int scoreChange)
@@ -105,6 +121,9 @@ public class LevelManager : MonoBehaviour
             //spawn another ball and reduce the ball count
             SpawnNewBall(ballSpawnPos, Vector3.zero);
             UpdateBalls(-1);
+
+            //switch to main camera view
+            BallCamera.SetActive(false);
         }
         //if there are no balls in play and the player has no more balls
         else if (numberOfBalls <= 0 && ballObjects.Count <= 0)
@@ -118,5 +137,10 @@ public class LevelManager : MonoBehaviour
             //pause the game
             Time.timeScale = 0;
         }
+    }
+
+    public void SwitchCameraView()
+    {
+        ballCamera.SetActive(!ballCamera.activeInHierarchy);
     }
 }
