@@ -17,6 +17,12 @@ public class LevelSelectLogic : MonoBehaviour
         LoadLevelUI();
     }
 
+    public void LoadLevel2()
+    {
+        SceneManager.LoadScene("L2");
+        LoadLevelUI();
+    }
+
     void LoadLevelUI()
     {
         SceneManager.LoadScene("LevelUI", LoadSceneMode.Additive);
