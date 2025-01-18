@@ -6,6 +6,10 @@ using UnityEngine.SceneManagement;
 
 public class LevelManager : MonoBehaviour
 {
+    //the level number
+    [SerializeField]
+    int levelNumber;
+
     //the ball prefab that will be spawned when needed
     [SerializeField]
     GameObject ballPrefab;
@@ -39,7 +43,7 @@ public class LevelManager : MonoBehaviour
     //the time between the last active ball and a new spawn
     float timeBetweenBalls;
 
-    //used by results screen to determine win
+    public int LevelNumber { get { return levelNumber; } }
     public int Score { get { return score; } }
     public int MinScore { get { return minScore; } }
     public int SecretScore { get { return secretScore; } }

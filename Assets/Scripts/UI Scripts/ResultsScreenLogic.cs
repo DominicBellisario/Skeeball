@@ -61,12 +61,14 @@ public class ResultsScreenLogic : MonoBehaviour
         Time.timeScale = 1;
         SceneManager.LoadScene(LevelManager.Instance.gameObject.scene.name);
         SceneManager.LoadScene("LevelUI", LoadSceneMode.Additive);
-        SceneManager.UnloadSceneAsync("PauseScreen");
     }
 
     public void NextLevel()
     {
-        //need array of levels
+        Time.timeScale = 1;
+        int nextLevelNum = LevelManager.Instance.LevelNumber + 1;
+        SceneManager.LoadScene("L" + nextLevelNum.ToString());
+        SceneManager.LoadScene("LevelUI", LoadSceneMode.Additive);
     }
 
     public void LoadMainMenu()
