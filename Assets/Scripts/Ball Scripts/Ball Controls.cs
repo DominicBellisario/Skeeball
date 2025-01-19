@@ -33,6 +33,9 @@ public class BallControls : MonoBehaviour
     [SerializeField]
     int forceMultiplyer;
 
+    [SerializeField]
+    bool ballCamOnLaunch;
+
     //properties
 
     //used by BallEffects to determine the visibility, angle, length, and color of the aiming line
@@ -94,7 +97,11 @@ public class BallControls : MonoBehaviour
                 ballLevelInteractions.IsLaunched = true;
 
                 //switch cam view automatically (toggle in settings later)
-                //LevelManager.Instance.SwitchCameraView();
+                if (ballCamOnLaunch)
+                {
+                    LevelManager.Instance.SwitchCameraView();
+                }
+                
             }
             isHeld = false;
         }
