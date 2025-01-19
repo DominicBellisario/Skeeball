@@ -134,6 +134,7 @@ public class LevelManager : MonoBehaviour
     public void DestroyBall(GameObject ball)
     {
         ballObjects.Remove(ball);
+        ball.GetComponent<BallEffects>().SeparateParticleSystem();
         Destroy(ball);
 
         //if there are no more balls in play and the player still has more balls

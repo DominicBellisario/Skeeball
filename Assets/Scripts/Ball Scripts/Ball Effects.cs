@@ -12,6 +12,8 @@ public class BallEffects : MonoBehaviour
     //the aim line material
     [SerializeField]
     Material dottedLineMaterial;
+    [SerializeField]
+    GameObject particleTrail;
 
     //the min and max texture speed
     [SerializeField]
@@ -20,7 +22,6 @@ public class BallEffects : MonoBehaviour
     float maxOffsetSpeed;
     float offsetDifference;
     float totalOffset;
-
 
     //the length constraignts for the aiming line
     [SerializeField]
@@ -64,6 +65,26 @@ public class BallEffects : MonoBehaviour
         {
             aimLine.enabled = false;
         }
+
+        //turn on new particle trail and destroy old one once ball is launched
+        if (GetComponent<BallControls>().IsLaunched)
+        {
+            particleTrail.SetActive(true);
+
+            GameObject oldParticles = GameObject.Find("Ball Path Particles");
+            if (oldParticles != particleTrail && oldParticles != null)
+            {
+                Destroy(oldParticles);
+            }
+        }
+    }
+
+    /// <summary>
+    /// makes the particle system on ball a top-level object so it does not get destroyed along with ball
+    /// </summary>
+    public void SeparateParticleSystem()
+    {
+        particleTrail.transform.SetParent(null);
     }
 
     //reset the material when the application closes

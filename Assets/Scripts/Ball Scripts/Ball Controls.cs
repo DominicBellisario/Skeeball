@@ -94,6 +94,7 @@ public class BallControls : MonoBehaviour
             if (isHeld)
             {
                 rb.AddForce(-powerPercent * Mathf.Sin(angle) * forceMultiplyer, 0, -powerPercent * Mathf.Cos(angle) * forceMultiplyer);
+                isLaunched = true;
                 ballLevelInteractions.IsLaunched = true;
 
                 //switch cam view automatically (toggle in settings later)
