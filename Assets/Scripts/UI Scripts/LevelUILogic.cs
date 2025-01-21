@@ -20,6 +20,9 @@ public class LevelUILogic : MonoBehaviour
     [SerializeField]
     TextMeshProUGUI ballsText;
 
+    [SerializeField]
+    GameObject powerupButton;
+
     public GameObject EventHandler { get { return eventHandler; } set { eventHandler = value; } }
     public static LevelUILogic Instance { get; private set; }
 
@@ -33,6 +36,11 @@ public class LevelUILogic : MonoBehaviour
         {
             Instance = this;
         }
+    }
+
+    private void Start()
+    {
+        UpdatePowerups();
     }
 
     /// <summary>
@@ -49,6 +57,22 @@ public class LevelUILogic : MonoBehaviour
     public void UpdateBalls(int updatedBallCount)
     { 
         ballsText.text = "Extra Balls: " + updatedBallCount;
+    }
+
+    /// <summary>
+    /// refresh the powerup inventory UI to reflect current values
+    /// </summary>
+    public void UpdatePowerups()
+    {
+        LevelManager levelManager = LevelManager.Instance;
+        if (levelManager.GoldBallPow > 0)
+        {
+            powerupButton.SetActive(true);
+        }
+        else
+        {
+            powerupButton.SetActive(false);
+        }
     }
 
     /// <summary>

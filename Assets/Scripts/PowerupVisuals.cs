@@ -13,9 +13,12 @@ public class PowerupVisuals : MonoBehaviour
     float bobStrength;
     float currentBob;
 
+    float startYPos;
+
     private void Start()
     {
         currentBob = 0;
+        startYPos = transform.position.y;
     }
 
     // Update is called once per frame
@@ -27,6 +30,6 @@ public class PowerupVisuals : MonoBehaviour
         currentBob += Time.deltaTime;
 
         //bob the shape
-        transform.position = new Vector3(transform.position.x, Mathf.Sin(currentBob * bobSpeed) * bobStrength, transform.position.z);
+        transform.position = new Vector3(transform.position.x, startYPos + Mathf.Sin(currentBob * bobSpeed) * bobStrength, transform.position.z);
     }
 }

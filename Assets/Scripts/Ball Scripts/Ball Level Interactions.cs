@@ -56,6 +56,14 @@ public class BallLevelInteractions : MonoBehaviour
         {
             LevelManager.Instance.DestroyBall(gameObject);
         }
+
+        //if the ball hits a powerup, destroy it and add it to the inventory
+        if (trigger.gameObject.tag == "Powerup")
+        {
+            LevelManager.Instance.GoldBallPow++;
+            LevelUILogic.Instance.UpdatePowerups();
+            Destroy(trigger.gameObject);
+        }
     }
 
     private void OnTriggerExit(Collider trigger)

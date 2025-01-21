@@ -37,17 +37,21 @@ public class LevelManager : MonoBehaviour
     int secretScore;
 
     //the current number of balls
-    [SerializeField]
     int numberOfBalls;
 
     //the time between the last active ball and a new spawn
     float timeBetweenBalls;
+
+    //how many of each powerup the player has
+    [SerializeField]
+    int goldBallPow;
 
     public int LevelNumber { get { return levelNumber; } }
     public int Score { get { return score; } }
     public int MinScore { get { return minScore; } }
     public int SecretScore { get { return secretScore; } }
     public GameObject BallCamera { get { return ballCamera; } }
+    public int GoldBallPow { get { return goldBallPow; } set { goldBallPow = value; } }
 
     public static LevelManager Instance { get; private set; }
     private void Awake()
