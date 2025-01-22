@@ -22,6 +22,8 @@ public class LevelManager : MonoBehaviour
     [SerializeField]
     List<GameObject> ballObjects;
 
+    GameObject startingBall;
+
     //camera that follows the first ball in the list
     [SerializeField]
     GameObject ballCamera;
@@ -37,6 +39,7 @@ public class LevelManager : MonoBehaviour
     int secretScore;
 
     //the current number of balls
+    [SerializeField]
     int numberOfBalls;
 
     //the time between the last active ball and a new spawn
@@ -51,6 +54,7 @@ public class LevelManager : MonoBehaviour
     public int MinScore { get { return minScore; } }
     public int SecretScore { get { return secretScore; } }
     public GameObject BallCamera { get { return ballCamera; } }
+    public GameObject StartingBall { get { return startingBall; } }
     public int GoldBallPow { get { return goldBallPow; } set { goldBallPow = value; } }
 
     public static LevelManager Instance { get; private set; }
@@ -77,7 +81,7 @@ public class LevelManager : MonoBehaviour
         UpdateBalls(0);
 
         //spawn the first ball
-        SpawnNewBall(ballSpawnPos, Vector3.zero);
+        StartCoroutine(SpawnNewStartingBall());
     }
 
     public void Update()
@@ -114,6 +118,11 @@ public class LevelManager : MonoBehaviour
         newBall.transform.position = spawnPos.transform.position;
         newBall.GetComponent<Rigidbody>().velocity = velocity;
 
+        //if this is the first ball, set it
+        if (ballObjects.Count <= 0)
+        {
+            startingBall = newBall;
+        }
         //add the ball to the list
         ballObjects.Add(newBall);
     }

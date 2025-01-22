@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
+using UnityEditor.Build;
 using UnityEditorInternal;
 using UnityEngine;
 
@@ -14,6 +15,8 @@ public class BallLevelInteractions : MonoBehaviour
     float tooSlowDespawnTimer;
 
     bool isLaunched;
+
+    bool goldBallEnabled;
 
     public bool IsLaunched { get { return isLaunched; } set { isLaunched = value; } }
 
@@ -41,6 +44,12 @@ public class BallLevelInteractions : MonoBehaviour
         {
             LevelManager.Instance.DestroyBall(gameObject);
         }
+    }
+
+    public void ToggleGoldBall()
+    {
+        goldBallEnabled = !goldBallEnabled;
+        //change material
     }
 
     private void OnTriggerEnter(Collider trigger)
@@ -71,6 +80,8 @@ public class BallLevelInteractions : MonoBehaviour
         //if the ball is fully within a hole
         if (trigger.gameObject.tag == "HoleActivateTrigger")
         {
+            Debug.Log("gold: " + goldBallEnabled);
+
             //add points to the total point count
             LevelManager.Instance.UpdateScore(trigger.GetComponentInParent<HoleVariables>().Points);
 

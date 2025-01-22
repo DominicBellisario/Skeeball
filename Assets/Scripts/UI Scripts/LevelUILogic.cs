@@ -22,6 +22,10 @@ public class LevelUILogic : MonoBehaviour
 
     [SerializeField]
     GameObject powerupButton;
+    [SerializeField]
+    GameObject goldBallButton;
+
+    bool expandedPowerupUI;
 
     public GameObject EventHandler { get { return eventHandler; } set { eventHandler = value; } }
     public static LevelUILogic Instance { get; private set; }
@@ -40,6 +44,7 @@ public class LevelUILogic : MonoBehaviour
 
     private void Start()
     {
+        expandedPowerupUI = false;
         UpdatePowerups();
     }
 
@@ -65,13 +70,24 @@ public class LevelUILogic : MonoBehaviour
     public void UpdatePowerups()
     {
         LevelManager levelManager = LevelManager.Instance;
-        if (levelManager.GoldBallPow > 0)
+        goldBallButton.GetComponentInChildren<TextMeshProUGUI>().text = "Gold Ball: " + levelManager.GoldBallPow;
+        goldBallButton.SetActive(expandedPowerupUI);
+    }
+
+    /// <summary>
+    /// show or hide the powerup ui when the powerups button is clicked
+    /// </summary>
+    public void ToggleExpandedPowerupUI()
+    {
+        expandedPowerupUI = !expandedPowerupUI;
+        UpdatePowerups();
+    }
+
+    public void ToggleGoldBallPowerup()
+    {
+        if (!LevelManager.Instance.StartingBall.GetComponent<BallControls>().IsLaunched)
         {
-            powerupButton.SetActive(true);
-        }
-        else
-        {
-            powerupButton.SetActive(false);
+            LevelManager.Instance.StartingBall.GetComponent<BallLevelInteractions>().ToggleGoldBall();
         }
     }
 
