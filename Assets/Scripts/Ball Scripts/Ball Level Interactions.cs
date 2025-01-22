@@ -16,8 +16,6 @@ public class BallLevelInteractions : MonoBehaviour
 
     bool isLaunched;
 
-    bool goldBallEnabled;
-
     public bool IsLaunched { get { return isLaunched; } set { isLaunched = value; } }
 
     // Start is called before the first frame update
@@ -44,12 +42,6 @@ public class BallLevelInteractions : MonoBehaviour
         {
             LevelManager.Instance.DestroyBall(gameObject);
         }
-    }
-
-    public void ToggleGoldBall()
-    {
-        goldBallEnabled = !goldBallEnabled;
-        //change material
     }
 
     private void OnTriggerEnter(Collider trigger)
@@ -80,10 +72,15 @@ public class BallLevelInteractions : MonoBehaviour
         //if the ball is fully within a hole
         if (trigger.gameObject.tag == "HoleActivateTrigger")
         {
-            Debug.Log("gold: " + goldBallEnabled);
-
-            //add points to the total point count
-            LevelManager.Instance.UpdateScore(trigger.GetComponentInParent<HoleVariables>().Points);
+            //add points to the total point count.  x2 points if gold ball
+            if (GetComponent<BallEffects>().GoldBallEnabled)
+            {
+                LevelManager.Instance.UpdateScore(trigger.GetComponentInParent<HoleVariables>().Points * 2);
+            }
+            else
+            {
+                LevelManager.Instance.UpdateScore(trigger.GetComponentInParent<HoleVariables>().Points);
+            }
 
             //destroy the ball if the hole requires that
             if (trigger.GetComponentInParent<HoleVariables>().DestroyBall)

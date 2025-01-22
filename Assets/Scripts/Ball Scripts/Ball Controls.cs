@@ -97,6 +97,13 @@ public class BallControls : MonoBehaviour
                 isLaunched = true;
                 ballLevelInteractions.IsLaunched = true;
 
+                //use powerups if they were applied to the ball
+                if (GetComponent<BallEffects>().GoldBallEnabled)
+                {
+                    LevelManager.Instance.GoldBallPow--;
+                    LevelUILogic.Instance.UpdatePowerups();
+                }
+
                 //switch cam view automatically (toggle in settings later)
                 if (ballCamOnLaunch)
                 {

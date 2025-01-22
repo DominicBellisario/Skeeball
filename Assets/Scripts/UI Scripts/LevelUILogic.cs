@@ -85,9 +85,9 @@ public class LevelUILogic : MonoBehaviour
 
     public void ToggleGoldBallPowerup()
     {
-        if (!LevelManager.Instance.StartingBall.GetComponent<BallControls>().IsLaunched)
+        if (LevelManager.Instance.GoldBallPow > 0 && !LevelManager.Instance.StartingBall.GetComponent<BallControls>().IsLaunched)
         {
-            LevelManager.Instance.StartingBall.GetComponent<BallLevelInteractions>().ToggleGoldBall();
+            LevelManager.Instance.StartingBall.GetComponent<BallEffects>().ToggleGoldBall();
         }
     }
 

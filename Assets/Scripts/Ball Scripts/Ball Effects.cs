@@ -29,6 +29,15 @@ public class BallEffects : MonoBehaviour
     [SerializeField]
     float maxLineLength;
 
+    [SerializeField]
+    Material defaultMaterial;
+
+    bool goldBallEnabled;
+    [SerializeField]
+    Material goldBallMaterial;
+
+    public bool GoldBallEnabled {  get { return goldBallEnabled; } set { goldBallEnabled = value; } }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -85,6 +94,19 @@ public class BallEffects : MonoBehaviour
     public void SeparateParticleSystem()
     {
         particleTrail.transform.SetParent(null);
+    }
+
+    public void ToggleGoldBall()
+    {
+        goldBallEnabled = !goldBallEnabled;
+        if (goldBallEnabled)
+        {
+            GetComponent<Renderer>().material = goldBallMaterial;
+        }
+        else
+        {
+            GetComponent<Renderer>().material = defaultMaterial;
+        }
     }
 
     //reset the material when the application closes
