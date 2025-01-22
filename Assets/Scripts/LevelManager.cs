@@ -48,6 +48,8 @@ public class LevelManager : MonoBehaviour
     //how many of each powerup the player has
     [SerializeField]
     int goldBallPow;
+    [SerializeField]
+    int markedBallPow;
 
     public int LevelNumber { get { return levelNumber; } }
     public int Score { get { return score; } }
@@ -56,6 +58,7 @@ public class LevelManager : MonoBehaviour
     public GameObject BallCamera { get { return ballCamera; } }
     public GameObject StartingBall { get { return startingBall; } }
     public int GoldBallPow { get { return goldBallPow; } set { goldBallPow = value; } }
+    public int MarkedBallPow { get { return markedBallPow; } set { markedBallPow = value; } }
 
     public static LevelManager Instance { get; private set; }
     private void Awake()

@@ -24,6 +24,8 @@ public class LevelUILogic : MonoBehaviour
     GameObject powerupButton;
     [SerializeField]
     GameObject goldBallButton;
+    [SerializeField]
+    GameObject markedBallButton;
 
     bool expandedPowerupUI;
 
@@ -72,6 +74,8 @@ public class LevelUILogic : MonoBehaviour
         LevelManager levelManager = LevelManager.Instance;
         goldBallButton.GetComponentInChildren<TextMeshProUGUI>().text = "Gold Ball: " + levelManager.GoldBallPow;
         goldBallButton.SetActive(expandedPowerupUI);
+        markedBallButton.GetComponentInChildren<TextMeshProUGUI>().text = "Marked Ball: " + levelManager.MarkedBallPow;
+        markedBallButton.SetActive(expandedPowerupUI);
     }
 
     /// <summary>
@@ -88,6 +92,14 @@ public class LevelUILogic : MonoBehaviour
         if (LevelManager.Instance.GoldBallPow > 0 && !LevelManager.Instance.StartingBall.GetComponent<BallControls>().IsLaunched)
         {
             LevelManager.Instance.StartingBall.GetComponent<BallEffects>().ToggleGoldBall();
+        }
+    }
+
+    public void ToggleMarkedBallPowerup()
+    {
+        if (LevelManager.Instance.MarkedBallPow > 0 && !LevelManager.Instance.StartingBall.GetComponent<BallControls>().IsLaunched)
+        {
+            LevelManager.Instance.StartingBall.GetComponent<BallEffects>().ToggleMarkedBall();
         }
     }
 

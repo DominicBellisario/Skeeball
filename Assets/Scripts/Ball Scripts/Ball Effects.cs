@@ -35,8 +35,12 @@ public class BallEffects : MonoBehaviour
     bool goldBallEnabled;
     [SerializeField]
     Material goldBallMaterial;
+    bool markedBallEnabled;
+    [SerializeField]
+    Material markedBallMaterial;
 
     public bool GoldBallEnabled {  get { return goldBallEnabled; } set { goldBallEnabled = value; } }
+    public bool MarkedBallEnabled { get { return markedBallEnabled; } set { markedBallEnabled = value; } }
 
     // Start is called before the first frame update
     void Start()
@@ -102,6 +106,19 @@ public class BallEffects : MonoBehaviour
         if (goldBallEnabled)
         {
             GetComponent<Renderer>().material = goldBallMaterial;
+        }
+        else
+        {
+            GetComponent<Renderer>().material = defaultMaterial;
+        }
+    }
+
+    public void ToggleMarkedBall()
+    {
+        markedBallEnabled = !markedBallEnabled;
+        if (markedBallEnabled)
+        {
+            GetComponent<Renderer>().material = markedBallMaterial;
         }
         else
         {

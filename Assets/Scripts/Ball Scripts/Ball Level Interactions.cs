@@ -53,15 +53,21 @@ public class BallLevelInteractions : MonoBehaviour
         }
 
         //destroy the ball if it hits the death plane
-        if (trigger.gameObject.tag == "DeathPlain")
+        else if (trigger.gameObject.tag == "DeathPlain")
         {
             LevelManager.Instance.DestroyBall(gameObject);
         }
 
         //if the ball hits a powerup, destroy it and add it to the inventory
-        if (trigger.gameObject.tag == "Powerup")
+        else if (trigger.gameObject.tag == "GoldenBallPowerup")
         {
             LevelManager.Instance.GoldBallPow++;
+            LevelUILogic.Instance.UpdatePowerups();
+            Destroy(trigger.gameObject);
+        }
+        else if (trigger.gameObject.tag == "MarkedBallPowerup")
+        {
+            LevelManager.Instance.MarkedBallPow++;
             LevelUILogic.Instance.UpdatePowerups();
             Destroy(trigger.gameObject);
         }
@@ -80,6 +86,12 @@ public class BallLevelInteractions : MonoBehaviour
             else
             {
                 LevelManager.Instance.UpdateScore(trigger.GetComponentInParent<HoleVariables>().Points);
+            }
+
+            //if the ball was marked, double the hole's point value
+            if (GetComponent<BallEffects>().MarkedBallEnabled)
+            {
+                trigger.gameObject.GetComponentInParent<HoleVariables>().Points *= 2;
             }
 
             //destroy the ball if the hole requires that

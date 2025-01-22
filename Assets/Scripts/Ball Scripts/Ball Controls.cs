@@ -103,6 +103,11 @@ public class BallControls : MonoBehaviour
                     LevelManager.Instance.GoldBallPow--;
                     LevelUILogic.Instance.UpdatePowerups();
                 }
+                if (GetComponent<BallEffects>().MarkedBallEnabled)
+                {
+                    LevelManager.Instance.MarkedBallPow--;
+                    LevelUILogic.Instance.UpdatePowerups();
+                }
 
                 //switch cam view automatically (toggle in settings later)
                 if (ballCamOnLaunch)

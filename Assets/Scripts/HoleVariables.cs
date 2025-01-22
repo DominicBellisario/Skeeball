@@ -12,6 +12,6 @@ public class HoleVariables : MonoBehaviour
     [SerializeField]
     bool destroyBall;
 
-    public int Points { get { return points; } }
+    public int Points { get { return points; } set { points = value; } }
     public bool DestroyBall { get { return destroyBall; } }
 }
