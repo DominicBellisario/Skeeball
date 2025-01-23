@@ -30,9 +30,17 @@ public class BallEffects : MonoBehaviour
     [SerializeField]
     float maxLineLength;
 
+    //a list of all materials cirrently applied to the ball
+    Material[] materials;
+
+    //the base skin for the ball
     [SerializeField]
     Material defaultMaterial;
+    //when a powerup is disabled, this material replaces the powerup material
+    [SerializeField]
+    Material transMaterial;
 
+    //powerup toggles and materials
     bool goldBallEnabled;
     [SerializeField]
     Material goldBallMaterial;
@@ -51,6 +59,8 @@ public class BallEffects : MonoBehaviour
 
         offsetDifference = maxOffsetSpeed - minOffsetSpeed;
         totalOffset = 0;
+
+        materials = GetComponent<MeshRenderer>().materials;
     }
 
     // Update is called once per frame
@@ -101,41 +111,20 @@ public class BallEffects : MonoBehaviour
         particleTrail.transform.SetParent(null);
     }
 
+    //toggles for powerups
     public void ToggleGoldBall()
     {
         goldBallEnabled = !goldBallEnabled;
-        if (goldBallEnabled)
-        {
-
-        }
-        else
-        {
-            RemoveMaterial(goldBallMaterial);
-        }
+        if (goldBallEnabled) { materials[1] = goldBallMaterial; }
+        else { materials[1] = transMaterial; }
+        GetComponent<MeshRenderer>().materials = materials;
     }
-
     public void ToggleMarkedBall()
     {
         markedBallEnabled = !markedBallEnabled;
-        if (markedBallEnabled)
-        {
-            //gameObject.GetComponent<Renderer>().materials.;
-        }
-        else
-        {
-            RemoveMaterial(markedBallMaterial);
-        }
-    }
-
-    private void RemoveMaterial(Material material)
-    {
-        foreach (Material item in GetComponent<Renderer>().materials)
-        {
-            if (item == material)
-            {
-                Destroy(item);
-            }
-        }
+        if (markedBallEnabled) { materials[2] = markedBallMaterial; }
+        else { materials[2] = transMaterial; }
+        GetComponent<MeshRenderer>().materials = materials;
     }
 
     //reset the material when the application closes
