@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -105,11 +106,11 @@ public class BallEffects : MonoBehaviour
         goldBallEnabled = !goldBallEnabled;
         if (goldBallEnabled)
         {
-            GetComponent<Renderer>().material = goldBallMaterial;
+
         }
         else
         {
-            GetComponent<Renderer>().material = defaultMaterial;
+            RemoveMaterial(goldBallMaterial);
         }
     }
 
@@ -118,11 +119,22 @@ public class BallEffects : MonoBehaviour
         markedBallEnabled = !markedBallEnabled;
         if (markedBallEnabled)
         {
-            GetComponent<Renderer>().material = markedBallMaterial;
+            //gameObject.GetComponent<Renderer>().materials.;
         }
         else
         {
-            GetComponent<Renderer>().material = defaultMaterial;
+            RemoveMaterial(markedBallMaterial);
+        }
+    }
+
+    private void RemoveMaterial(Material material)
+    {
+        foreach (Material item in GetComponent<Renderer>().materials)
+        {
+            if (item == material)
+            {
+                Destroy(item);
+            }
         }
     }
 
