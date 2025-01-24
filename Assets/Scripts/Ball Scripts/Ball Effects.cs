@@ -59,8 +59,8 @@ public class BallEffects : MonoBehaviour
     public bool MarkedBallEnabled { get { return markedBallEnabled; } set { markedBallEnabled = value; } }
     public bool TriBallEnabled { get { return triBallEnabled; } set { triBallEnabled = value; } }
 
-    // Start is called before the first frame update
-    void Start()
+
+    private void Awake()
     {
         //linerenderer is in a line, which is a child of the ball
         aimLine.enabled = false;
@@ -117,12 +117,6 @@ public class BallEffects : MonoBehaviour
     public void SeparateParticleSystem()
     {
         particleTrail.transform.SetParent(null);
-    }
-
-    public void SetTriBallPowerups(bool gold, bool marked)
-    {
-        if (gold) { ToggleGoldBall(); }
-        if (marked) { ToggleMarkedBall(); }
     }
 
     //toggles for powerups

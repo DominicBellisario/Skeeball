@@ -117,12 +117,17 @@ public class LevelManager : MonoBehaviour
     /// </summary>
     /// <param name="pos"></param>
     /// <param name="force"></param>
-    public GameObject SpawnNewBall(GameObject spawnPos, Vector3 force)
+    public void SpawnNewBall(GameObject spawnPos, Vector3 force, bool gold, bool marked, bool tri)
     {
         GameObject newBall = Instantiate(ballPrefab);
+
         //set its position and velocity
         newBall.transform.position = spawnPos.transform.position;
         newBall.GetComponent<Rigidbody>().AddForce(force);
+
+        //set the powerup states
+        if (gold) { newBall.GetComponent<BallEffects>().ToggleGoldBall(); }
+        if (marked) { newBall.GetComponent<BallEffects>().ToggleMarkedBall(); }
 
         //if this is the first ball, set it
         if (ballObjects.Count <= 0)
@@ -131,8 +136,6 @@ public class LevelManager : MonoBehaviour
         }
         //add the ball to the list
         ballObjects.Add(newBall);
-
-        return newBall;
     }
 
     /// <summary>
@@ -142,7 +145,7 @@ public class LevelManager : MonoBehaviour
     IEnumerator SpawnNewStartingBall()
     {
         yield return new WaitForSeconds(timeBetweenBalls);
-        SpawnNewBall(ballSpawnPos, Vector3.zero);
+        SpawnNewBall(ballSpawnPos, Vector3.zero, false, false, false);
         UpdateBalls(-1);
         //switch to main camera view
         BallCamera.SetActive(false);

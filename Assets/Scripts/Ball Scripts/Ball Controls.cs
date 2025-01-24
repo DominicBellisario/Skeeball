@@ -118,12 +118,12 @@ public class BallControls : MonoBehaviour
                     LevelManager.Instance.TriBallPow--;
                     effects.DisableTriBalls();
                     //spawn 2 new balls and make their powerup states the same as the parent
-                    GameObject ball = LevelManager.Instance.SpawnNewBall(gameObject,
-                        new Vector3(-powerPercent * Mathf.Sin(angle - triBallAngleRads) * forceMultiplyer, 0, -powerPercent * Mathf.Cos(angle - triBallAngleRads) * forceMultiplyer));
-                    //ball.GetComponent<BallEffects>().SetTriBallPowerups(effects.GoldBallEnabled, effects.MarkedBallEnabled);
-                    GameObject ball2 = LevelManager.Instance.SpawnNewBall(gameObject,
-                        new Vector3(-powerPercent * Mathf.Sin(angle + triBallAngleRads) * forceMultiplyer, 0, -powerPercent * Mathf.Cos(angle + triBallAngleRads) * forceMultiplyer));
-                    //ball2.GetComponent<BallEffects>().SetTriBallPowerups(effects.GoldBallEnabled, effects.MarkedBallEnabled);
+                    LevelManager.Instance.SpawnNewBall(gameObject, 
+                        new Vector3(-powerPercent * Mathf.Sin(angle - triBallAngleRads) * forceMultiplyer, 0, -powerPercent * Mathf.Cos(angle - triBallAngleRads) * forceMultiplyer),
+                        effects.GoldBallEnabled, effects.MarkedBallEnabled, effects.TriBallEnabled);
+                    LevelManager.Instance.SpawnNewBall(gameObject,
+                        new Vector3(-powerPercent * Mathf.Sin(angle + triBallAngleRads) * forceMultiplyer, 0, -powerPercent * Mathf.Cos(angle + triBallAngleRads) * forceMultiplyer),
+                        effects.GoldBallEnabled, effects.MarkedBallEnabled, effects.TriBallEnabled);
                 }
                 LevelUILogic.Instance.UpdatePowerups();
 
