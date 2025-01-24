@@ -14,7 +14,7 @@ public class LevelUILogic : MonoBehaviour
     //turns off when the game is paused
     [SerializeField]
     GameObject eventHandler;
-    
+
     [SerializeField]
     TextMeshProUGUI scoreText;
     [SerializeField]
@@ -26,6 +26,8 @@ public class LevelUILogic : MonoBehaviour
     GameObject goldBallButton;
     [SerializeField]
     GameObject markedBallButton;
+    [SerializeField]
+    GameObject triBallButton;
 
     bool expandedPowerupUI;
 
@@ -62,7 +64,7 @@ public class LevelUILogic : MonoBehaviour
     /// refresh the ball UI with new value
     /// </summary>
     public void UpdateBalls(int updatedBallCount)
-    { 
+    {
         ballsText.text = "Extra Balls: " + updatedBallCount;
     }
 
@@ -76,6 +78,8 @@ public class LevelUILogic : MonoBehaviour
         goldBallButton.SetActive(expandedPowerupUI);
         markedBallButton.GetComponentInChildren<TextMeshProUGUI>().text = "Marked Ball: " + levelManager.MarkedBallPow;
         markedBallButton.SetActive(expandedPowerupUI);
+        triBallButton.GetComponentInChildren<TextMeshProUGUI>().text = "Tri Ball: " + levelManager.TriBallPow;
+        triBallButton.SetActive(expandedPowerupUI);
     }
 
     /// <summary>
@@ -89,17 +93,37 @@ public class LevelUILogic : MonoBehaviour
 
     public void ToggleGoldBallPowerup()
     {
-        if (LevelManager.Instance.GoldBallPow > 0 && !LevelManager.Instance.StartingBall.GetComponent<BallControls>().IsLaunched)
+        LevelManager manager = LevelManager.Instance;
+        if (manager.StartingBall != null)
         {
-            LevelManager.Instance.StartingBall.GetComponent<BallEffects>().ToggleGoldBall();
+            if (manager.GoldBallPow > 0 && !manager.StartingBall.GetComponent<BallControls>().IsLaunched)
+            {
+                manager.StartingBall.GetComponent<BallEffects>().ToggleGoldBall();
+            }
         }
     }
 
     public void ToggleMarkedBallPowerup()
     {
-        if (LevelManager.Instance.MarkedBallPow > 0 && !LevelManager.Instance.StartingBall.GetComponent<BallControls>().IsLaunched)
+        LevelManager manager = LevelManager.Instance;
+        if (manager.StartingBall != null)
         {
-            LevelManager.Instance.StartingBall.GetComponent<BallEffects>().ToggleMarkedBall();
+            if (manager.MarkedBallPow > 0 && !manager.StartingBall.GetComponent<BallControls>().IsLaunched)
+            {
+                manager.StartingBall.GetComponent<BallEffects>().ToggleMarkedBall();
+            }
+        }
+    }
+
+    public void ToggleTriBallPowerup()
+    {
+        LevelManager manager = LevelManager.Instance;
+        if (manager.StartingBall != null)
+        {
+            if (manager.TriBallPow > 0 && !manager.StartingBall.GetComponent<BallControls>().IsLaunched)
+            {
+                manager.StartingBall.GetComponent<BallEffects>().ToggleTriBall();
+            }
         }
     }
 

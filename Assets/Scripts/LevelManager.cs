@@ -50,6 +50,8 @@ public class LevelManager : MonoBehaviour
     int goldBallPow;
     [SerializeField]
     int markedBallPow;
+    [SerializeField]
+    int triBallPow;
 
     public int LevelNumber { get { return levelNumber; } }
     public int Score { get { return score; } }
@@ -59,6 +61,7 @@ public class LevelManager : MonoBehaviour
     public GameObject StartingBall { get { return startingBall; } }
     public int GoldBallPow { get { return goldBallPow; } set { goldBallPow = value; } }
     public int MarkedBallPow { get { return markedBallPow; } set { markedBallPow = value; } }
+    public int TriBallPow { get { return triBallPow; } set { triBallPow = value; } }
 
     public static LevelManager Instance { get; private set; }
     private void Awake()
@@ -114,12 +117,12 @@ public class LevelManager : MonoBehaviour
     /// </summary>
     /// <param name="pos"></param>
     /// <param name="force"></param>
-    public void SpawnNewBall(GameObject spawnPos, Vector3 velocity)
+    public GameObject SpawnNewBall(GameObject spawnPos, Vector3 force)
     {
         GameObject newBall = Instantiate(ballPrefab);
         //set its position and velocity
         newBall.transform.position = spawnPos.transform.position;
-        newBall.GetComponent<Rigidbody>().velocity = velocity;
+        newBall.GetComponent<Rigidbody>().AddForce(force);
 
         //if this is the first ball, set it
         if (ballObjects.Count <= 0)
@@ -128,6 +131,8 @@ public class LevelManager : MonoBehaviour
         }
         //add the ball to the list
         ballObjects.Add(newBall);
+
+        return newBall;
     }
 
     /// <summary>

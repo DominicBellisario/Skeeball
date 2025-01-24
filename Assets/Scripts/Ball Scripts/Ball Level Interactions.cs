@@ -47,27 +47,33 @@ public class BallLevelInteractions : MonoBehaviour
     private void OnTriggerEnter(Collider trigger)
     {
         //if the ball enters a hole, disable its collision with the floor so it can pass through
-        if (trigger.gameObject.tag == "DisableFloorTrigger")
+        if (trigger.gameObject.CompareTag("DisableFloorTrigger"))
         {
             rb.excludeLayers = LayerMask.GetMask("Surface");
         }
 
         //destroy the ball if it hits the death plane
-        else if (trigger.gameObject.tag == "DeathPlain")
+        else if (trigger.gameObject.CompareTag("DeathPlain"))
         {
             LevelManager.Instance.DestroyBall(gameObject);
         }
 
         //if the ball hits a powerup, destroy it and add it to the inventory
-        else if (trigger.gameObject.tag == "GoldenBallPowerup")
+        else if (trigger.gameObject.CompareTag("GoldenBallPowerup"))
         {
             LevelManager.Instance.GoldBallPow++;
             LevelUILogic.Instance.UpdatePowerups();
             Destroy(trigger.gameObject);
         }
-        else if (trigger.gameObject.tag == "MarkedBallPowerup")
+        else if (trigger.gameObject.CompareTag("MarkedBallPowerup"))
         {
             LevelManager.Instance.MarkedBallPow++;
+            LevelUILogic.Instance.UpdatePowerups();
+            Destroy(trigger.gameObject);
+        }
+        else if (trigger.gameObject.CompareTag("TriBallPowerup"))
+        {
+            LevelManager.Instance.TriBallPow++;
             LevelUILogic.Instance.UpdatePowerups();
             Destroy(trigger.gameObject);
         }
@@ -76,7 +82,7 @@ public class BallLevelInteractions : MonoBehaviour
     private void OnTriggerExit(Collider trigger)
     {
         //if the ball is fully within a hole
-        if (trigger.gameObject.tag == "HoleActivateTrigger")
+        if (trigger.gameObject.CompareTag("HoleActivateTrigger"))
         {
             //add points to the total point count.  x2 points if gold ball
             if (GetComponent<BallEffects>().GoldBallEnabled)

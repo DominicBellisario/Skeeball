@@ -16,6 +16,12 @@ public class BallEffects : MonoBehaviour
     [SerializeField]
     GameObject particleTrail;
 
+    //the balls that appear when triball is active
+    [SerializeField]
+    GameObject leftTriBall;
+    [SerializeField]
+    GameObject rightTriBall;
+
     //the min and max texture speed
     [SerializeField]
     float minOffsetSpeed;
@@ -47,9 +53,11 @@ public class BallEffects : MonoBehaviour
     bool markedBallEnabled;
     [SerializeField]
     Material markedBallMaterial;
+    bool triBallEnabled;
 
     public bool GoldBallEnabled {  get { return goldBallEnabled; } set { goldBallEnabled = value; } }
     public bool MarkedBallEnabled { get { return markedBallEnabled; } set { markedBallEnabled = value; } }
+    public bool TriBallEnabled { get { return triBallEnabled; } set { triBallEnabled = value; } }
 
     // Start is called before the first frame update
     void Start()
@@ -111,20 +119,48 @@ public class BallEffects : MonoBehaviour
         particleTrail.transform.SetParent(null);
     }
 
+    public void SetTriBallPowerups(bool gold, bool marked)
+    {
+        if (gold) { ToggleGoldBall(); }
+        if (marked) { ToggleMarkedBall(); }
+    }
+
     //toggles for powerups
     public void ToggleGoldBall()
     {
         goldBallEnabled = !goldBallEnabled;
         if (goldBallEnabled) { materials[1] = goldBallMaterial; }
         else { materials[1] = transMaterial; }
-        GetComponent<MeshRenderer>().materials = materials;
+        UpdateMaterials();
     }
     public void ToggleMarkedBall()
     {
         markedBallEnabled = !markedBallEnabled;
         if (markedBallEnabled) { materials[2] = markedBallMaterial; }
         else { materials[2] = transMaterial; }
+        UpdateMaterials();
+    }
+    public void ToggleTriBall()
+    {
+        triBallEnabled = !triBallEnabled;
+        leftTriBall.SetActive(triBallEnabled);
+        rightTriBall.SetActive(triBallEnabled);
+    }
+
+    public void DisableTriBalls()
+    {
+        leftTriBall.SetActive(false);
+        rightTriBall.SetActive(false);
+    }
+
+    /// <summary>
+    /// updates the ball's materials with the current material array
+    /// </summary>
+    private void UpdateMaterials()
+    {
         GetComponent<MeshRenderer>().materials = materials;
+        leftTriBall.GetComponent<MeshRenderer>().materials = materials;
+        rightTriBall.GetComponent <MeshRenderer>().materials = materials;
     }
 
     //reset the material when the application closes

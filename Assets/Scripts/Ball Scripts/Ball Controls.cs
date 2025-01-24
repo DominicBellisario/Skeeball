@@ -34,6 +34,10 @@ public class BallControls : MonoBehaviour
     int forceMultiplyer;
 
     [SerializeField]
+    float triBallAngle;
+    float triBallAngleRads;
+
+    [SerializeField]
     bool ballCamOnLaunch;
 
     //properties
@@ -60,6 +64,8 @@ public class BallControls : MonoBehaviour
 
         angle = 0;
         powerPercent = 0;
+
+        triBallAngleRads = Mathf.Deg2Rad * triBallAngle;
     }
 
     // Update is called once per frame
@@ -93,21 +99,33 @@ public class BallControls : MonoBehaviour
             //if the player was previously holding the ball and just released it, apply a force to it
             if (isHeld)
             {
+                BallEffects effects = GetComponent<BallEffects>();
                 rb.AddForce(-powerPercent * Mathf.Sin(angle) * forceMultiplyer, 0, -powerPercent * Mathf.Cos(angle) * forceMultiplyer);
                 isLaunched = true;
                 ballLevelInteractions.IsLaunched = true;
 
                 //use powerups if they were applied to the ball
-                if (GetComponent<BallEffects>().GoldBallEnabled)
+                if (effects.GoldBallEnabled)
                 {
                     LevelManager.Instance.GoldBallPow--;
-                    LevelUILogic.Instance.UpdatePowerups();
                 }
-                if (GetComponent<BallEffects>().MarkedBallEnabled)
+                if (effects.MarkedBallEnabled)
                 {
                     LevelManager.Instance.MarkedBallPow--;
-                    LevelUILogic.Instance.UpdatePowerups();
                 }
+                if (effects.TriBallEnabled)
+                {
+                    LevelManager.Instance.TriBallPow--;
+                    effects.DisableTriBalls();
+                    //spawn 2 new balls and make their powerup states the same as the parent
+                    GameObject ball = LevelManager.Instance.SpawnNewBall(gameObject,
+                        new Vector3(-powerPercent * Mathf.Sin(angle - triBallAngleRads) * forceMultiplyer, 0, -powerPercent * Mathf.Cos(angle - triBallAngleRads) * forceMultiplyer));
+                    //ball.GetComponent<BallEffects>().SetTriBallPowerups(effects.GoldBallEnabled, effects.MarkedBallEnabled);
+                    GameObject ball2 = LevelManager.Instance.SpawnNewBall(gameObject,
+                        new Vector3(-powerPercent * Mathf.Sin(angle + triBallAngleRads) * forceMultiplyer, 0, -powerPercent * Mathf.Cos(angle + triBallAngleRads) * forceMultiplyer));
+                    //ball2.GetComponent<BallEffects>().SetTriBallPowerups(effects.GoldBallEnabled, effects.MarkedBallEnabled);
+                }
+                LevelUILogic.Instance.UpdatePowerups();
 
                 //switch cam view automatically (toggle in settings later)
                 if (ballCamOnLaunch)
