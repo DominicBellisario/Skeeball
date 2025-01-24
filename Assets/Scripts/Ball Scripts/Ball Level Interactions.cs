@@ -49,7 +49,7 @@ public class BallLevelInteractions : MonoBehaviour
         //if the ball enters a hole, disable its collision with the floor so it can pass through
         if (trigger.gameObject.CompareTag("DisableFloorTrigger"))
         {
-            rb.excludeLayers = LayerMask.GetMask("Surface");
+            rb.excludeLayers = LayerMask.GetMask("Surface", "Ball");
         }
 
         //destroy the ball if it hits the death plane
