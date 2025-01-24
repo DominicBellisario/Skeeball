@@ -117,12 +117,12 @@ public class LevelManager : MonoBehaviour
     /// </summary>
     /// <param name="pos"></param>
     /// <param name="force"></param>
-    public void SpawnNewBall(GameObject spawnPos, Vector3 force, bool gold, bool marked, bool tri)
+    public void SpawnNewBall(Vector3 spawnPos, Vector3 force, bool gold, bool marked, bool tri)
     {
         GameObject newBall = Instantiate(ballPrefab);
 
         //set its position and velocity
-        newBall.transform.position = spawnPos.transform.position;
+        newBall.transform.position = spawnPos;
         newBall.GetComponent<Rigidbody>().AddForce(force);
 
         //set the powerup states
@@ -134,6 +134,14 @@ public class LevelManager : MonoBehaviour
         {
             startingBall = newBall;
         }
+        //starting ball only enables trail when launched, not when spawn
+        else
+        {
+            newBall.GetComponent<BallEffects>().ActivateParticleTrail();
+        }
+
+        
+
         //add the ball to the list
         ballObjects.Add(newBall);
     }
@@ -145,7 +153,7 @@ public class LevelManager : MonoBehaviour
     IEnumerator SpawnNewStartingBall()
     {
         yield return new WaitForSeconds(timeBetweenBalls);
-        SpawnNewBall(ballSpawnPos, Vector3.zero, false, false, false);
+        SpawnNewBall(ballSpawnPos.transform.position, Vector3.zero, false, false, false);
         UpdateBalls(-1);
         //switch to main camera view
         BallCamera.SetActive(false);

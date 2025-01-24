@@ -10,9 +10,15 @@ public class BallEffects : MonoBehaviour
     //shows the trajectory of the ball while aiming
     [SerializeField]
     LineRenderer aimLine;
+    [SerializeField]
+    LineRenderer leftAimLine;
+    [SerializeField]
+    LineRenderer rightAimLine;
     //the aim line material
     [SerializeField]
     Material dottedLineMaterial;
+
+    //the particle trail
     [SerializeField]
     GameObject particleTrail;
 
@@ -21,6 +27,8 @@ public class BallEffects : MonoBehaviour
     GameObject leftTriBall;
     [SerializeField]
     GameObject rightTriBall;
+
+    float triBallAngleRads;
 
     //the min and max texture speed
     [SerializeField]
@@ -62,13 +70,15 @@ public class BallEffects : MonoBehaviour
 
     private void Awake()
     {
-        //linerenderer is in a line, which is a child of the ball
-        aimLine.enabled = false;
-
         offsetDifference = maxOffsetSpeed - minOffsetSpeed;
         totalOffset = 0;
 
         materials = GetComponent<MeshRenderer>().materials;
+    }
+
+    private void Start()
+    {
+        triBallAngleRads = GetComponent<BallControls>().TriBallAngleRads;
     }
 
     // Update is called once per frame
@@ -83,7 +93,22 @@ public class BallEffects : MonoBehaviour
 
             float lineLength = (maxLineLength - minLineLength) * powerPercent;
 
+            //adjust the aimline
             aimLine.SetPosition(1, new Vector3(-Mathf.Sin(angle) * lineLength, 0, -Mathf.Cos(angle) * lineLength));
+            //if triball is on, adjust the other aimlines
+            if (triBallEnabled)
+            {
+                leftAimLine.enabled = true;
+                rightAimLine.enabled = true;
+
+                leftAimLine.SetPosition(1, new Vector3(-Mathf.Sin(angle - triBallAngleRads) * lineLength, 0, -Mathf.Cos(angle - triBallAngleRads) * lineLength));
+                rightAimLine.SetPosition(1, new Vector3(-Mathf.Sin(angle + triBallAngleRads) * lineLength, 0, -Mathf.Cos(angle + triBallAngleRads) * lineLength));
+            }
+            else
+            {
+                leftAimLine.enabled = false;
+                rightAimLine.enabled = false;
+            }
 
             //dotted line effects
             //offset the texture.  Speed of offset is determined by strength of launch
@@ -96,20 +121,37 @@ public class BallEffects : MonoBehaviour
         else
         {
             aimLine.enabled = false;
-        }
-
-        //turn on new particle trail and destroy old one once ball is launched
-        if (GetComponent<BallControls>().IsLaunched)
-        {
-            particleTrail.SetActive(true);
-
-            GameObject oldParticles = GameObject.Find("Ball Path Particles");
-            if (oldParticles != particleTrail && oldParticles != null)
-            {
-                Destroy(oldParticles);
-            }
+            leftAimLine.enabled = false;
+            rightAimLine.enabled = false;
         }
     }
+
+    public void ResetParticleTrail()
+    {
+        //activates the new particle trail
+        ActivateParticleTrail();
+
+        //gets all particles in the scene and destroys the ones that were created by the last round of balls
+        GameObject[] particles = GameObject.FindGameObjectsWithTag("BallPathParticles");
+        List<GameObject> oldParticles = new List<GameObject>();
+        foreach (GameObject particle in particles)
+        {
+            if (particle != particleTrail && particle != null)
+            {
+                oldParticles.Add(particle);
+            }
+        }
+        foreach (GameObject particle in oldParticles)
+        {
+            Destroy(particle);
+        }
+    }
+
+    public void ActivateParticleTrail()
+    {
+        particleTrail.SetActive(true);
+    }
+
 
     /// <summary>
     /// makes the particle system on ball a top-level object so it does not get destroyed along with ball
@@ -137,8 +179,12 @@ public class BallEffects : MonoBehaviour
     public void ToggleTriBall()
     {
         triBallEnabled = !triBallEnabled;
+        //turns triball visual effects on or off
         leftTriBall.SetActive(triBallEnabled);
         rightTriBall.SetActive(triBallEnabled);
+        leftAimLine.gameObject.SetActive(triBallEnabled);
+        rightAimLine.gameObject.SetActive(triBallEnabled);
+
     }
 
     public void DisableTriBalls()

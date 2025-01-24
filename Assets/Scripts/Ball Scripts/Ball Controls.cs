@@ -47,6 +47,7 @@ public class BallControls : MonoBehaviour
     public bool IsLaunched {  get{ return isLaunched; } }
     public float Angle { get { return angle; } }
     public float PowerPercent{ get { return powerPercent; } }
+    public float TriBallAngleRads { get { return triBallAngleRads; } }
 
     // Start is called before the first frame update
     void Start()
@@ -103,6 +104,8 @@ public class BallControls : MonoBehaviour
                 rb.AddForce(-powerPercent * Mathf.Sin(angle) * forceMultiplyer, 0, -powerPercent * Mathf.Cos(angle) * forceMultiplyer);
                 isLaunched = true;
                 ballLevelInteractions.IsLaunched = true;
+                
+                effects.ResetParticleTrail();
 
                 //use powerups if they were applied to the ball
                 if (effects.GoldBallEnabled)
@@ -118,10 +121,10 @@ public class BallControls : MonoBehaviour
                     LevelManager.Instance.TriBallPow--;
                     effects.DisableTriBalls();
                     //spawn 2 new balls and make their powerup states the same as the parent
-                    LevelManager.Instance.SpawnNewBall(gameObject, 
+                    LevelManager.Instance.SpawnNewBall(new Vector3(gameObject.transform.position.x - .5f, gameObject.transform.position.y, gameObject.transform.position.z), 
                         new Vector3(-powerPercent * Mathf.Sin(angle - triBallAngleRads) * forceMultiplyer, 0, -powerPercent * Mathf.Cos(angle - triBallAngleRads) * forceMultiplyer),
                         effects.GoldBallEnabled, effects.MarkedBallEnabled, effects.TriBallEnabled);
-                    LevelManager.Instance.SpawnNewBall(gameObject,
+                    LevelManager.Instance.SpawnNewBall(new Vector3(gameObject.transform.position.x + .5f, gameObject.transform.position.y, gameObject.transform.position.z),
                         new Vector3(-powerPercent * Mathf.Sin(angle + triBallAngleRads) * forceMultiplyer, 0, -powerPercent * Mathf.Cos(angle + triBallAngleRads) * forceMultiplyer),
                         effects.GoldBallEnabled, effects.MarkedBallEnabled, effects.TriBallEnabled);
                 }
