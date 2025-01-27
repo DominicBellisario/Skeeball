@@ -14,20 +14,20 @@ public class LevelManager : MonoBehaviour
     [SerializeField]
     GameObject ballPrefab;
 
-    //the place in the level the balls spawn in
+    //the place in the level the objects spawn in
     [SerializeField]
-    GameObject ballSpawnPos;
+    GameObject objectSpawnPos;
 
-    //a list of all balls currently in the level
+    //a list of all objects currently in the level
     [SerializeField]
-    List<GameObject> ballObjects;
+    List<GameObject> objects;
 
     GameObject startingBall;
 
-    //camera that follows the first ball in the list
+    //camera that follows the first object in the list
     [SerializeField]
-    GameObject ballCamera;
-    Vector3 ballCameraOffset;
+    GameObject objectCamera;
+    Vector3 objectCameraOffset;
 
     //the current score
     int score;
@@ -38,12 +38,12 @@ public class LevelManager : MonoBehaviour
     [SerializeField]
     int secretScore;
 
-    //the current number of balls
+    //the current number of objects
     [SerializeField]
-    int numberOfBalls;
+    int numberOfObjects;
 
-    //the time between the last active ball and a new spawn
-    float timeBetweenBalls;
+    //the time between the last active objects and a new spawn
+    float timeBetweenObjects;
 
     //how many of each powerup the player has
     [SerializeField]
@@ -57,7 +57,7 @@ public class LevelManager : MonoBehaviour
     public int Score { get { return score; } }
     public int MinScore { get { return minScore; } }
     public int SecretScore { get { return secretScore; } }
-    public GameObject BallCamera { get { return ballCamera; } }
+    public GameObject ObjectCamera { get { return objectCamera; } }
     public GameObject StartingBall { get { return startingBall; } }
     public int GoldBallPow { get { return goldBallPow; } set { goldBallPow = value; } }
     public int MarkedBallPow { get { return markedBallPow; } set { markedBallPow = value; } }
@@ -79,8 +79,8 @@ public class LevelManager : MonoBehaviour
     private void Start()
     {
         score = 0;
-        timeBetweenBalls = 1;
-        ballCameraOffset = new Vector3(0, 3, -5);
+        timeBetweenObjects = 1;
+        objectCameraOffset = new Vector3(0, 3, -5);
 
         //update the score and ball UI with starting values
         UpdateScore(0);
@@ -93,9 +93,9 @@ public class LevelManager : MonoBehaviour
     public void Update()
     {
         //ball camera follows the first ball in the list
-        if (ballObjects.Count >= 1)
+        if (objects.Count >= 1)
         {
-            ballCamera.transform.position = ballObjects[0].transform.position + ballCameraOffset;
+            objectCamera.transform.position = objects[0].transform.position + objectCameraOffset;
         }
     }
 
@@ -108,8 +108,8 @@ public class LevelManager : MonoBehaviour
 
     public void UpdateBalls(int ballsChange)
     {
-        numberOfBalls += ballsChange;
-        LevelUILogic.Instance.UpdateBalls(numberOfBalls);
+        numberOfObjects += ballsChange;
+        LevelUILogic.Instance.UpdateBalls(numberOfObjects);
     }
 
     /// <summary>
@@ -130,7 +130,7 @@ public class LevelManager : MonoBehaviour
         if (marked) { newBall.GetComponent<BallEffects>().ToggleMarkedBall(); }
 
         //if this is the first ball, set it
-        if (ballObjects.Count <= 0)
+        if (objects.Count <= 0)
         {
             startingBall = newBall;
         }
@@ -139,11 +139,8 @@ public class LevelManager : MonoBehaviour
         {
             newBall.GetComponent<BallEffects>().ActivateParticleTrail();
         }
-
-        
-
         //add the ball to the list
-        ballObjects.Add(newBall);
+        objects.Add(newBall);
     }
 
     /// <summary>
@@ -152,31 +149,31 @@ public class LevelManager : MonoBehaviour
     /// <returns></returns>
     IEnumerator SpawnNewStartingBall()
     {
-        yield return new WaitForSeconds(timeBetweenBalls);
-        SpawnNewBall(ballSpawnPos.transform.position, Vector3.zero, false, false, false);
+        yield return new WaitForSeconds(timeBetweenObjects);
+        SpawnNewBall(objectSpawnPos.transform.position, Vector3.zero, false, false, false);
         UpdateBalls(-1);
         //switch to main camera view
-        BallCamera.SetActive(false);
+        objectCamera.SetActive(false);
     }
 
     /// <summary>
-    /// destroy a ball
+    /// destroy an object
     /// </summary>
     /// <param name="ball"></param>
-    public void DestroyBall(GameObject ball)
+    public void DestroyObject(GameObject objectToDestroy)
     {
-        ballObjects.Remove(ball);
-        ball.GetComponent<BallEffects>().SeparateParticleSystem();
-        Destroy(ball);
+        objects.Remove(objectToDestroy);
+        objectToDestroy.GetComponent<ObjectEffects>().SeparateParticleSystem();
+        Destroy(objectToDestroy);
 
-        //if there are no more balls in play and the player still has more balls
-        if (ballObjects.Count <= 0 && numberOfBalls > 0)
+        //if there are no more objects in play and the player still has more objects
+        if (objects.Count <= 0 && numberOfObjects > 0)
         {
             //spawn a new ball
             StartCoroutine(SpawnNewStartingBall());
         }
-        //if there are no balls in play and the player has no more balls
-        else if (numberOfBalls <= 0 && ballObjects.Count <= 0)
+        //if there are no objects in play and the player has no more objects
+        else if (numberOfObjects <= 0 && objects.Count <= 0)
         {
             //disable level ui event handler
             LevelUILogic.Instance.EventHandler.SetActive(false);
@@ -191,6 +188,6 @@ public class LevelManager : MonoBehaviour
 
     public void SwitchCameraView()
     {
-        ballCamera.SetActive(!ballCamera.activeInHierarchy);
+        objectCamera.SetActive(!objectCamera.activeInHierarchy);
     }
 }

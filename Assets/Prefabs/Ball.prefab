@@ -736,7 +736,7 @@ GameObject:
   - component: {fileID: 3601093178073616168}
   m_Layer: 8
   m_Name: Ball Path Particles
-  m_TagString: BallPathParticles
+  m_TagString: ObjectPathParticles
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5771,7 +5771,7 @@ MonoBehaviour:
   aimingCircleRadius: 1
   forceMultiplyer: 1500
   triBallAngle: 2
-  ballCamOnLaunch: 1
+  objectCamOnLaunch: 0
 --- !u!114 &5537545677074017079
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5793,12 +5793,12 @@ MonoBehaviour:
   rightTriBall: {fileID: 7875751145302255018}
   minOffsetSpeed: 1
   maxOffsetSpeed: 8
-  minLineLength: 0.5
-  maxLineLength: 6
   defaultMaterial: {fileID: 2100000, guid: cf78d4bcc3c4a464eb87d74f929a6ee7, type: 2}
   transMaterial: {fileID: 2100000, guid: fde696da516158c4e9dccedfde02d4de, type: 2}
   goldBallMaterial: {fileID: 2100000, guid: 18f711c891d1b0d4195ab6edbb97d9b0, type: 2}
   markedBallMaterial: {fileID: 2100000, guid: 50b0a11446da1324b852fe46dc439803, type: 2}
+  minLineLength: 0.5
+  maxLineLength: 6
 --- !u!114 &3424388059389155255
 MonoBehaviour:
   m_ObjectHideFlags: 0

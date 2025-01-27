@@ -369,12 +369,12 @@ MonoBehaviour:
   levelNumber: 1
   ballPrefab: {fileID: 9073041401583007651, guid: 59b197a2e8862a94593a182c3a64834e,
     type: 3}
-  ballSpawnPos: {fileID: 595228588}
-  ballObjects: []
-  ballCamera: {fileID: 1282396151}
+  objectSpawnPos: {fileID: 595228588}
+  objects: []
+  objectCamera: {fileID: 1282396151}
   minScore: 70
   secretScore: 150
-  numberOfBalls: 5
+  numberOfObjects: 5
   goldBallPow: 3
   markedBallPow: 3
   triBallPow: 3
@@ -894,7 +894,7 @@ GameObject:
   m_Component:
   - component: {fileID: 595228589}
   m_Layer: 0
-  m_Name: Ball Spawn Pos
+  m_Name: Object Spawn Pos
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1916,7 +1916,7 @@ PrefabInstance:
     - target: {fileID: 6755755486412111698, guid: ba063614fab90574d847ffeba2b0100d,
         type: 3}
       propertyPath: m_Name
-      value: Ball Camera
+      value: Object Camera
       objectReference: {fileID: 0}
     - target: {fileID: 7725680354278704052, guid: ba063614fab90574d847ffeba2b0100d,
         type: 3}
