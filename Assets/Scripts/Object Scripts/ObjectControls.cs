@@ -154,7 +154,7 @@ public abstract class ObjectControls : MonoBehaviour
 
     }
 
-    protected virtual void SpawnNewTriObjects(BallEffects effects)
+    protected virtual void SpawnNewTriObjects(ObjectEffects effects)
     {
 
     }

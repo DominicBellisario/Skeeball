@@ -14,16 +14,16 @@ public class BallControls : ObjectControls
     }
 
     /// <summary>
-    /// spawn a new ball and give it this balls force at a slight angle
+    /// spawn new balls and give them this balls force at a slight angle
     /// </summary>
     /// <param name="effects"></param>
-    protected override void SpawnNewTriObjects(BallEffects effects)
+    protected override void SpawnNewTriObjects(ObjectEffects effects)
     {
         base.SpawnNewTriObjects(effects);
-        LevelManager.Instance.SpawnNewBall(new Vector3(gameObject.transform.position.x - .5f, gameObject.transform.position.y, gameObject.transform.position.z),
+        LevelManager.Instance.SpawnNewObject(gameObject, new Vector3(gameObject.transform.position.x - .5f, gameObject.transform.position.y, gameObject.transform.position.z),
                         new Vector3(-powerPercent * Mathf.Sin(angle - triBallAngleRads) * forceMultiplyer, 0, -powerPercent * Mathf.Cos(angle - triBallAngleRads) * forceMultiplyer),
                         effects.GoldBallEnabled, effects.MarkedBallEnabled, effects.TriBallEnabled);
-        LevelManager.Instance.SpawnNewBall(new Vector3(gameObject.transform.position.x + .5f, gameObject.transform.position.y, gameObject.transform.position.z),
+        LevelManager.Instance.SpawnNewObject(gameObject, new Vector3(gameObject.transform.position.x + .5f, gameObject.transform.position.y, gameObject.transform.position.z),
                         new Vector3(-powerPercent * Mathf.Sin(angle + triBallAngleRads) * forceMultiplyer, 0, -powerPercent * Mathf.Cos(angle + triBallAngleRads) * forceMultiplyer),
                         effects.GoldBallEnabled, effects.MarkedBallEnabled, effects.TriBallEnabled);
     }

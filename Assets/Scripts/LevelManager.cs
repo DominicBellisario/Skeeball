@@ -13,6 +13,8 @@ public class LevelManager : MonoBehaviour
     //the ball prefab that will be spawned when needed
     [SerializeField]
     GameObject ballPrefab;
+    [SerializeField]
+    GameObject beanbagPrefab;
 
     //the place in the level the objects spawn in
     [SerializeField]
@@ -84,7 +86,7 @@ public class LevelManager : MonoBehaviour
 
         //update the score and ball UI with starting values
         UpdateScore(0);
-        UpdateBalls(0);
+        UpdateObjects(0);
 
         //spawn the first ball
         StartCoroutine(SpawnNewStartingBall());
@@ -106,7 +108,7 @@ public class LevelManager : MonoBehaviour
         LevelUILogic.Instance.UpdateScore(score);
     }
 
-    public void UpdateBalls(int ballsChange)
+    public void UpdateObjects(int ballsChange)
     {
         numberOfObjects += ballsChange;
         LevelUILogic.Instance.UpdateBalls(numberOfObjects);
@@ -117,30 +119,30 @@ public class LevelManager : MonoBehaviour
     /// </summary>
     /// <param name="pos"></param>
     /// <param name="force"></param>
-    public void SpawnNewBall(Vector3 spawnPos, Vector3 force, bool gold, bool marked, bool tri)
+    public void SpawnNewObject(GameObject objectPrefab, Vector3 spawnPos, Vector3 force, bool gold, bool marked, bool tri)
     {
-        GameObject newBall = Instantiate(ballPrefab);
+        GameObject newObject = Instantiate(objectPrefab);
 
         //set its position and velocity
-        newBall.transform.position = spawnPos;
-        newBall.GetComponent<Rigidbody>().AddForce(force);
+        newObject.transform.position = spawnPos;
+        newObject.GetComponent<Rigidbody>().AddForce(force);
 
         //set the powerup states
-        if (gold) { newBall.GetComponent<BallEffects>().ToggleGoldBall(); }
-        if (marked) { newBall.GetComponent<BallEffects>().ToggleMarkedBall(); }
+        if (gold) { newObject.GetComponent<ObjectEffects>().ToggleGoldBall(); }
+        if (marked) { newObject.GetComponent<ObjectEffects>().ToggleMarkedBall(); }
 
         //if this is the first ball, set it
         if (objects.Count <= 0)
         {
-            startingBall = newBall;
+            startingBall = newObject;
         }
         //starting ball only enables trail when launched, not when spawn
         else
         {
-            newBall.GetComponent<BallEffects>().ActivateParticleTrail();
+            newObject.GetComponent<ObjectEffects>().ActivateParticleTrail();
         }
         //add the ball to the list
-        objects.Add(newBall);
+        objects.Add(newObject);
     }
 
     /// <summary>
@@ -150,8 +152,8 @@ public class LevelManager : MonoBehaviour
     IEnumerator SpawnNewStartingBall()
     {
         yield return new WaitForSeconds(timeBetweenObjects);
-        SpawnNewBall(objectSpawnPos.transform.position, Vector3.zero, false, false, false);
-        UpdateBalls(-1);
+        SpawnNewObject(ballPrefab, objectSpawnPos.transform.position, Vector3.zero, false, false, false);
+        UpdateObjects(-1);
         //switch to main camera view
         objectCamera.SetActive(false);
     }
