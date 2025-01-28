@@ -22,9 +22,9 @@ public class BallControls : ObjectControls
         base.SpawnNewTriObjects(effects);
         LevelManager.Instance.SpawnNewObject(gameObject, new Vector3(gameObject.transform.position.x - .5f, gameObject.transform.position.y, gameObject.transform.position.z),
                         new Vector3(-powerPercent * Mathf.Sin(angle - triBallAngleRads) * forceMultiplyer, 0, -powerPercent * Mathf.Cos(angle - triBallAngleRads) * forceMultiplyer),
-                        effects.GoldBallEnabled, effects.MarkedBallEnabled, effects.TriBallEnabled);
+                        effects.GoldBallEnabled, effects.MarkedBallEnabled, false);
         LevelManager.Instance.SpawnNewObject(gameObject, new Vector3(gameObject.transform.position.x + .5f, gameObject.transform.position.y, gameObject.transform.position.z),
                         new Vector3(-powerPercent * Mathf.Sin(angle + triBallAngleRads) * forceMultiplyer, 0, -powerPercent * Mathf.Cos(angle + triBallAngleRads) * forceMultiplyer),
-                        effects.GoldBallEnabled, effects.MarkedBallEnabled, effects.TriBallEnabled);
+                        effects.GoldBallEnabled, effects.MarkedBallEnabled, false);
     }
 }

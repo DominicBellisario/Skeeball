@@ -25,12 +25,12 @@ public class BeanbagControls : ObjectControls
             new Vector3(gameObject.transform.position.x - .5f, gameObject.transform.position.y, gameObject.transform.position.z),
             new Vector3(-powerPercent * Mathf.Sin(angle - triBallAngleRads) * forceMultiplyer, 
             -powerPercent / 2 * forceMultiplyer, -powerPercent * Mathf.Cos(angle - triBallAngleRads) * forceMultiplyer),
-            effects.GoldBallEnabled, effects.MarkedBallEnabled, effects.TriBallEnabled);
+            effects.GoldBallEnabled, effects.MarkedBallEnabled, false);
         LevelManager.Instance.SpawnNewObject(
             gameObject, 
             new Vector3(gameObject.transform.position.x + .5f, gameObject.transform.position.y, gameObject.transform.position.z),
             new Vector3(-powerPercent * Mathf.Sin(angle + triBallAngleRads) * forceMultiplyer, 
             Mathf.Sin(angle - triBallAngleRads), -powerPercent * Mathf.Cos(angle + triBallAngleRads) * forceMultiplyer),
-            effects.GoldBallEnabled, effects.MarkedBallEnabled, effects.TriBallEnabled);
+            effects.GoldBallEnabled, effects.MarkedBallEnabled, false);
     }
 }

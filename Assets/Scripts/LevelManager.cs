@@ -24,7 +24,7 @@ public class LevelManager : MonoBehaviour
     [SerializeField]
     List<GameObject> objects;
 
-    GameObject startingBall;
+    GameObject startingObject;
 
     //camera that follows the first object in the list
     [SerializeField]
@@ -54,16 +54,20 @@ public class LevelManager : MonoBehaviour
     int markedBallPow;
     [SerializeField]
     int triBallPow;
+    [SerializeField]
+    int lobBallPow;
+    bool lobBallEnabled;
 
     public int LevelNumber { get { return levelNumber; } }
     public int Score { get { return score; } }
     public int MinScore { get { return minScore; } }
     public int SecretScore { get { return secretScore; } }
     public GameObject ObjectCamera { get { return objectCamera; } }
-    public GameObject StartingBall { get { return startingBall; } }
+    public GameObject StartingObject { get { return startingObject; } }
     public int GoldBallPow { get { return goldBallPow; } set { goldBallPow = value; } }
     public int MarkedBallPow { get { return markedBallPow; } set { markedBallPow = value; } }
     public int TriBallPow { get { return triBallPow; } set { triBallPow = value; } }
+    public int LobBallPow { get { return lobBallPow; } set { lobBallPow = value; } }
 
     public static LevelManager Instance { get; private set; }
     private void Awake()
@@ -119,7 +123,7 @@ public class LevelManager : MonoBehaviour
     /// </summary>
     /// <param name="pos"></param>
     /// <param name="force"></param>
-    public void SpawnNewObject(GameObject objectPrefab, Vector3 spawnPos, Vector3 force, bool gold, bool marked, bool tri)
+    public GameObject SpawnNewObject(GameObject objectPrefab, Vector3 spawnPos, Vector3 force, bool gold, bool marked, bool tri)
     {
         GameObject newObject = Instantiate(objectPrefab);
 
@@ -130,11 +134,12 @@ public class LevelManager : MonoBehaviour
         //set the powerup states
         if (gold) { newObject.GetComponent<ObjectEffects>().ToggleGoldBall(); }
         if (marked) { newObject.GetComponent<ObjectEffects>().ToggleMarkedBall(); }
+        if (tri) { newObject.GetComponent<ObjectEffects>().ToggleTriBall(); }
 
         //if this is the first ball, set it
         if (objects.Count <= 0)
         {
-            startingBall = newObject;
+            startingObject = newObject;
         }
         //starting ball only enables trail when launched, not when spawn
         else
@@ -143,6 +148,8 @@ public class LevelManager : MonoBehaviour
         }
         //add the ball to the list
         objects.Add(newObject);
+
+        return newObject;
     }
 
     /// <summary>
@@ -185,6 +192,39 @@ public class LevelManager : MonoBehaviour
 
             //pause the game
             Time.timeScale = 0;
+        }
+    }
+
+    /// <summary>
+    /// manages everything that happens with wther or not lobball is turned on or off
+    /// </summary>
+    public void ToggleLobBall()
+    {
+        lobBallEnabled = !lobBallEnabled;
+        
+        if (lobBallEnabled)
+        {
+            //replace the starting object with a beanbag with the same powerup states
+            GameObject newBeanbag = SpawnNewObject(beanbagPrefab, objectSpawnPos.transform.position, Vector3.zero, objects[0].GetComponent<ObjectEffects>().GoldBallEnabled,
+                objects[0].GetComponent<ObjectEffects>().MarkedBallEnabled, objects[0].GetComponent<ObjectEffects>().TriBallEnabled);
+
+            //make beanbag the starting object
+            objects.Clear();
+            objects.Add(newBeanbag);
+            Destroy(startingObject);
+            startingObject = newBeanbag;
+        }
+        else
+        {
+            //replace the starting object with a ball with the same powerup states
+            GameObject newBall = SpawnNewObject(ballPrefab, objectSpawnPos.transform.position, Vector3.zero, objects[0].GetComponent<ObjectEffects>().GoldBallEnabled,
+                objects[0].GetComponent<ObjectEffects>().MarkedBallEnabled, objects[0].GetComponent<ObjectEffects>().TriBallEnabled);
+
+            //make beanbag the starting object
+            objects.Clear();
+            objects.Add(newBall);
+            Destroy(startingObject);
+            startingObject = newBall;
         }
     }
 

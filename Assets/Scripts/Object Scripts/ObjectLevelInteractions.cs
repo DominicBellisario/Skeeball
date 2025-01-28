@@ -82,7 +82,7 @@ public abstract class ObjectLevelInteractions : MonoBehaviour
         if (trigger.gameObject.CompareTag("HoleActivateTrigger"))
         {
             //add points to the total point count.  x2 points if gold ball
-            if (GetComponent<BallEffects>().GoldBallEnabled)
+            if (GetComponent<ObjectEffects>().GoldBallEnabled)
             {
                 LevelManager.Instance.UpdateScore(trigger.GetComponentInParent<HoleVariables>().Points * 2);
             }
@@ -92,7 +92,7 @@ public abstract class ObjectLevelInteractions : MonoBehaviour
             }
 
             //if the object was marked, double the hole's point value
-            if (GetComponent<BallEffects>().MarkedBallEnabled)
+            if (GetComponent<ObjectEffects>().MarkedBallEnabled)
             {
                 trigger.gameObject.GetComponentInParent<HoleVariables>().Points *= 2;
             }

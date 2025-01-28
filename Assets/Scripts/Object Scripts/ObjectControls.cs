@@ -2,7 +2,7 @@ using UnityEngine;
 
 public abstract class ObjectControls : MonoBehaviour
 {
-    protected BallLevelInteractions objectLevelInteractions;
+    protected ObjectLevelInteractions objectLevelInteractions;
 
     //the in game and pixel locations of where the object starts
     protected Vector3 objectOrigin;
@@ -51,7 +51,7 @@ public abstract class ObjectControls : MonoBehaviour
     protected virtual void Start()
     {
         rb = GetComponent<Rigidbody>();
-        objectLevelInteractions = GetComponent<BallLevelInteractions>();
+        objectLevelInteractions = GetComponent<ObjectLevelInteractions>();
 
         objectOrigin = gameObject.transform.position;
         objectPixelOrigin = new Vector2(Screen.width / 2, Screen.height / 7f);
@@ -98,7 +98,7 @@ public abstract class ObjectControls : MonoBehaviour
             //if the player was previously holding the object and just released it, apply a force to it
             if (isHeld)
             {
-                BallEffects effects = GetComponent<BallEffects>();
+                ObjectEffects effects = GetComponent<ObjectEffects>();
                 LaunchObject();
                 isLaunched = true;
                 objectLevelInteractions.IsLaunched = true;
