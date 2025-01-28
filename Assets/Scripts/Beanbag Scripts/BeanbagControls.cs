@@ -4,13 +4,15 @@ using UnityEngine;
 
 public class BeanbagControls : ObjectControls
 {
+    [SerializeField]
+    int heightMultipliter;
     /// <summary>
     /// launch the beanbag in an arc
     /// </summary>
     protected override void LaunchObject()
     {
         base.LaunchObject();
-        rb.AddForce(-powerPercent * Mathf.Sin(angle) * forceMultiplyer, -powerPercent / 2 * forceMultiplyer, -powerPercent * Mathf.Cos(angle) * forceMultiplyer);
+        rb.AddForce(-powerPercent * Mathf.Sin(angle) * forceMultiplyer, powerPercent / 2 * heightMultipliter, -powerPercent * Mathf.Cos(angle) * forceMultiplyer);
     }
 
     /// <summary>
@@ -23,14 +25,18 @@ public class BeanbagControls : ObjectControls
         LevelManager.Instance.SpawnNewObject(
             gameObject, 
             new Vector3(gameObject.transform.position.x - .5f, gameObject.transform.position.y, gameObject.transform.position.z),
-            new Vector3(-powerPercent * Mathf.Sin(angle - triBallAngleRads) * forceMultiplyer, 
-            -powerPercent / 2 * forceMultiplyer, -powerPercent * Mathf.Cos(angle - triBallAngleRads) * forceMultiplyer),
+            new Vector3(
+                -powerPercent * Mathf.Sin(angle - triBallAngleRads) * forceMultiplyer, 
+                powerPercent / 2 * heightMultipliter,
+                -powerPercent * Mathf.Cos(angle - triBallAngleRads) * forceMultiplyer),
             effects.GoldBallEnabled, effects.MarkedBallEnabled, false);
         LevelManager.Instance.SpawnNewObject(
             gameObject, 
             new Vector3(gameObject.transform.position.x + .5f, gameObject.transform.position.y, gameObject.transform.position.z),
-            new Vector3(-powerPercent * Mathf.Sin(angle + triBallAngleRads) * forceMultiplyer, 
-            Mathf.Sin(angle - triBallAngleRads), -powerPercent * Mathf.Cos(angle + triBallAngleRads) * forceMultiplyer),
+            new Vector3(
+                -powerPercent * Mathf.Sin(angle + triBallAngleRads) * forceMultiplyer,
+                powerPercent / 2 * heightMultipliter,
+                -powerPercent * Mathf.Cos(angle + triBallAngleRads) * forceMultiplyer),
             effects.GoldBallEnabled, effects.MarkedBallEnabled, false);
     }
 }
