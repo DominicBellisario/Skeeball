@@ -42,7 +42,7 @@ public abstract class ObjectControls : MonoBehaviour
 
     //used by BallEffects to determine the visibility, angle, length, and color of the aiming line
     public bool IsHeld { get { return isHeld; } }
-    public bool IsLaunched { get { return isLaunched; } }
+    public bool IsLaunched { get { return isLaunched; } set { isLaunched = value; } }
     public float Angle { get { return angle; } }
     public float PowerPercent { get { return powerPercent; } }
     public float TriBallAngleRads { get { return triBallAngleRads; } }
@@ -89,8 +89,9 @@ public abstract class ObjectControls : MonoBehaviour
                 objectOrigin.y,
                 objectOrigin.z + (Mathf.Cos(angle) * aimingCircleRadius * powerPercent));
 
-            //Debug.Log("held " + powerPercent);
+            
         }
+        //Debug.Log(rb.velocity.magnitude);
 
         //if the player releases the mouse, they release the object
         if (!Input.GetMouseButton(0))
@@ -121,6 +122,11 @@ public abstract class ObjectControls : MonoBehaviour
                     //spawn 2 new objects and make their powerup states the same as the parent
                     SpawnNewTriObjects(effects);
                 }
+                if (LevelManager.Instance.LobBallEnabled)
+                {
+                    LevelManager.Instance.LobBallPow--;
+                    LevelManager.Instance.LobBallEnabled = false;
+                }
                 LevelUILogic.Instance.UpdatePowerups();
 
                 //switch cam view automatically (toggle in settings later)
@@ -149,14 +155,8 @@ public abstract class ObjectControls : MonoBehaviour
         return Mathf.Sqrt(Mathf.Pow(point2.x - point1.x, 2) + Mathf.Pow(point2.y - point1.y, 2));
     }
 
-    protected virtual void LaunchObject()
-    {
+    protected abstract void LaunchObject();
 
-    }
-
-    protected virtual void SpawnNewTriObjects(ObjectEffects effects)
-    {
-
-    }
+    protected abstract void SpawnNewTriObjects(ObjectEffects effects);
 }
 

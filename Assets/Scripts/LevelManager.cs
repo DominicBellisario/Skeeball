@@ -68,6 +68,7 @@ public class LevelManager : MonoBehaviour
     public int MarkedBallPow { get { return markedBallPow; } set { markedBallPow = value; } }
     public int TriBallPow { get { return triBallPow; } set { triBallPow = value; } }
     public int LobBallPow { get { return lobBallPow; } set { lobBallPow = value; } }
+    public bool LobBallEnabled { get { return lobBallEnabled; } set { lobBallEnabled = value; } }
 
     public static LevelManager Instance { get; private set; }
     private void Awake()

@@ -11,7 +11,6 @@ public class BeanbagControls : ObjectControls
     /// </summary>
     protected override void LaunchObject()
     {
-        base.LaunchObject();
         rb.AddForce(-powerPercent * Mathf.Sin(angle) * forceMultiplyer, powerPercent / 2 * heightMultipliter, -powerPercent * Mathf.Cos(angle) * forceMultiplyer);
     }
 
@@ -21,8 +20,7 @@ public class BeanbagControls : ObjectControls
     /// <param name="effects"></param>
     protected override void SpawnNewTriObjects(ObjectEffects effects)
     {
-        base.SpawnNewTriObjects(effects);
-        LevelManager.Instance.SpawnNewObject(
+        GameObject leftObject = LevelManager.Instance.SpawnNewObject(
             gameObject, 
             new Vector3(gameObject.transform.position.x - .5f, gameObject.transform.position.y, gameObject.transform.position.z),
             new Vector3(
@@ -30,7 +28,9 @@ public class BeanbagControls : ObjectControls
                 powerPercent / 2 * heightMultipliter,
                 -powerPercent * Mathf.Cos(angle - triBallAngleRads) * forceMultiplyer),
             effects.GoldBallEnabled, effects.MarkedBallEnabled, false);
-        LevelManager.Instance.SpawnNewObject(
+        leftObject.GetComponent<ObjectLevelInteractions>().IsLaunched = true;
+
+        GameObject rightObject = LevelManager.Instance.SpawnNewObject(
             gameObject, 
             new Vector3(gameObject.transform.position.x + .5f, gameObject.transform.position.y, gameObject.transform.position.z),
             new Vector3(
@@ -38,5 +38,8 @@ public class BeanbagControls : ObjectControls
                 powerPercent / 2 * heightMultipliter,
                 -powerPercent * Mathf.Cos(angle + triBallAngleRads) * forceMultiplyer),
             effects.GoldBallEnabled, effects.MarkedBallEnabled, false);
+        rightObject.GetComponent<ObjectLevelInteractions>().IsLaunched = true;
+
+        
     }
 }

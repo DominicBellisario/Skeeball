@@ -16,10 +16,10 @@ public abstract class ObjectLevelInteractions : MonoBehaviour
     public bool IsLaunched { get { return isLaunched; } set { isLaunched = value; } }
 
     // Start is called before the first frame update
-    protected virtual void Start()
+    protected virtual void Awake()
     {
         rb = GetComponent<Rigidbody>();
-
+        tooSlowDespawnTimer = tooSlowDespawnTime;
         isLaunched = false;
     }
 
@@ -29,6 +29,7 @@ public abstract class ObjectLevelInteractions : MonoBehaviour
         //destroy the object if it moves too slow for too long
         if (rb.velocity.magnitude <= 1 && isLaunched)
         {
+            
             tooSlowDespawnTimer -= Time.deltaTime;
         }
         else

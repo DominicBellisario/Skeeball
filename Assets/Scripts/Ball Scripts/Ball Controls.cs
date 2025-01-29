@@ -9,7 +9,6 @@ public class BallControls : ObjectControls
     /// </summary>
     protected override void LaunchObject()
     {
-        base.LaunchObject();
         rb.AddForce(-powerPercent * Mathf.Sin(angle) * forceMultiplyer, 0, -powerPercent * Mathf.Cos(angle) * forceMultiplyer);
     }
 
@@ -19,12 +18,14 @@ public class BallControls : ObjectControls
     /// <param name="effects"></param>
     protected override void SpawnNewTriObjects(ObjectEffects effects)
     {
-        base.SpawnNewTriObjects(effects);
-        LevelManager.Instance.SpawnNewObject(gameObject, new Vector3(gameObject.transform.position.x - .5f, gameObject.transform.position.y, gameObject.transform.position.z),
+        GameObject leftObject = LevelManager.Instance.SpawnNewObject(gameObject, new Vector3(gameObject.transform.position.x - .5f, gameObject.transform.position.y, gameObject.transform.position.z),
                         new Vector3(-powerPercent * Mathf.Sin(angle - triBallAngleRads) * forceMultiplyer, 0, -powerPercent * Mathf.Cos(angle - triBallAngleRads) * forceMultiplyer),
                         effects.GoldBallEnabled, effects.MarkedBallEnabled, false);
-        LevelManager.Instance.SpawnNewObject(gameObject, new Vector3(gameObject.transform.position.x + .5f, gameObject.transform.position.y, gameObject.transform.position.z),
+        leftObject.GetComponent<ObjectLevelInteractions>().IsLaunched = true;
+
+        GameObject rightObject = LevelManager.Instance.SpawnNewObject(gameObject, new Vector3(gameObject.transform.position.x + .5f, gameObject.transform.position.y, gameObject.transform.position.z),
                         new Vector3(-powerPercent * Mathf.Sin(angle + triBallAngleRads) * forceMultiplyer, 0, -powerPercent * Mathf.Cos(angle + triBallAngleRads) * forceMultiplyer),
                         effects.GoldBallEnabled, effects.MarkedBallEnabled, false);
+        rightObject.GetComponent<ObjectLevelInteractions>().IsLaunched = true;
     }
 }
