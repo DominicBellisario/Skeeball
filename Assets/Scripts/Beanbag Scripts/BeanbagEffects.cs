@@ -24,6 +24,24 @@ public class BeanbagEffects : ObjectEffects
             aimLine.positionCount = positions.Length;
             aimLine.SetPositions(positions);
 
+            if (triBallEnabled)
+            {
+                leftAimLine.enabled = true;
+                positions = UpdateAimLine(angle - triBallAngleRads);
+                leftAimLine.positionCount = positions.Length;
+                leftAimLine.SetPositions(positions);
+
+                rightAimLine.enabled = true;
+                positions = UpdateAimLine(angle + triBallAngleRads);
+                rightAimLine.positionCount = positions.Length;
+                rightAimLine.SetPositions(positions);
+            }
+            else
+            {
+                leftAimLine.enabled = false;
+                rightAimLine.enabled = false;
+            }
+
             //dotted line effects
             //offset the texture.  Speed of offset is determined by strength of launch
             totalOffset -= ((offsetDifference * powerPercent) + minOffsetSpeed) * Time.deltaTime;
