@@ -29,7 +29,7 @@ public abstract class ObjectLevelInteractions : MonoBehaviour
         //destroy the object if it moves too slow for too long
         if (rb.velocity.magnitude <= 1 && isLaunched)
         {
-            
+
             tooSlowDespawnTimer -= Time.deltaTime;
         }
         else

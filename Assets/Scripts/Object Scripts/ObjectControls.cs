@@ -35,9 +35,6 @@ public abstract class ObjectControls : MonoBehaviour
     protected float triBallAngle;
     protected float triBallAngleRads;
 
-    [SerializeField]
-    protected bool objectCamOnLaunch;
-
     //properties
 
     //used by BallEffects to determine the visibility, angle, length, and color of the aiming line
@@ -73,6 +70,7 @@ public abstract class ObjectControls : MonoBehaviour
         //the player is aiming the object
         if (isHeld)
         {
+            rb.Sleep();
             //get the angle between the pixel origin and current mouse pos
             angle = Mathf.Atan2(Input.mousePosition.x - objectPixelOrigin.x, Input.mousePosition.y - objectPixelOrigin.y);
 
@@ -89,7 +87,7 @@ public abstract class ObjectControls : MonoBehaviour
                 objectOrigin.y,
                 objectOrigin.z + (Mathf.Cos(angle) * aimingCircleRadius * powerPercent));
 
-            
+
         }
         //Debug.Log(rb.velocity.magnitude);
 
@@ -127,14 +125,12 @@ public abstract class ObjectControls : MonoBehaviour
                     LevelManager.Instance.LobBallPow--;
                     LevelManager.Instance.LobBallEnabled = false;
                 }
-                LevelUILogic.Instance.UpdatePowerups();
 
-                //switch cam view automatically (toggle in settings later)
-                if (objectCamOnLaunch)
+                if (LevelManager.Instance.SwitchCameraOnLaunch)
                 {
                     LevelManager.Instance.SwitchCameraView();
                 }
-
+                LevelUILogic.Instance.UpdatePowerups();
             }
             isHeld = false;
         }

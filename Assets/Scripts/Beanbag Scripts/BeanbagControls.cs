@@ -6,12 +6,18 @@ public class BeanbagControls : ObjectControls
 {
     [SerializeField]
     int heightMultipliter;
+
+    public Vector3 PredictVelocity(float _angle)
+    {
+        return new Vector3(-powerPercent * Mathf.Sin(_angle) * forceMultiplyer, powerPercent * heightMultipliter, -powerPercent * Mathf.Cos(_angle) * forceMultiplyer);
+    }
+
     /// <summary>
     /// launch the beanbag in an arc
     /// </summary>
     protected override void LaunchObject()
     {
-        rb.AddForce(-powerPercent * Mathf.Sin(angle) * forceMultiplyer, powerPercent / 2 * heightMultipliter, -powerPercent * Mathf.Cos(angle) * forceMultiplyer);
+        rb.AddForce(-powerPercent * Mathf.Sin(angle) * forceMultiplyer, powerPercent * heightMultipliter, -powerPercent * Mathf.Cos(angle) * forceMultiplyer);
     }
 
     /// <summary>
@@ -21,25 +27,25 @@ public class BeanbagControls : ObjectControls
     protected override void SpawnNewTriObjects(ObjectEffects effects)
     {
         GameObject leftObject = LevelManager.Instance.SpawnNewObject(
-            gameObject, 
+            gameObject,
             new Vector3(gameObject.transform.position.x - .5f, gameObject.transform.position.y, gameObject.transform.position.z),
             new Vector3(
-                -powerPercent * Mathf.Sin(angle - triBallAngleRads) * forceMultiplyer, 
-                powerPercent / 2 * heightMultipliter,
+                -powerPercent * Mathf.Sin(angle - triBallAngleRads) * forceMultiplyer,
+                powerPercent * heightMultipliter,
                 -powerPercent * Mathf.Cos(angle - triBallAngleRads) * forceMultiplyer),
             effects.GoldBallEnabled, effects.MarkedBallEnabled, false);
         leftObject.GetComponent<ObjectLevelInteractions>().IsLaunched = true;
 
         GameObject rightObject = LevelManager.Instance.SpawnNewObject(
-            gameObject, 
+            gameObject,
             new Vector3(gameObject.transform.position.x + .5f, gameObject.transform.position.y, gameObject.transform.position.z),
             new Vector3(
                 -powerPercent * Mathf.Sin(angle + triBallAngleRads) * forceMultiplyer,
-                powerPercent / 2 * heightMultipliter,
+                powerPercent * heightMultipliter,
                 -powerPercent * Mathf.Cos(angle + triBallAngleRads) * forceMultiplyer),
             effects.GoldBallEnabled, effects.MarkedBallEnabled, false);
         rightObject.GetComponent<ObjectLevelInteractions>().IsLaunched = true;
 
-        
+
     }
 }

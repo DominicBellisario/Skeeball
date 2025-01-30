@@ -4,6 +4,8 @@ using UnityEngine;
 
 public abstract class ObjectEffects : MonoBehaviour
 {
+    [SerializeField]
+    protected Rigidbody rb;
     //shows the trajectory of the object while aiming
     [SerializeField]
     protected LineRenderer aimLine;
@@ -73,31 +75,9 @@ public abstract class ObjectEffects : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    protected virtual void Update()
     {
-        //activate the aiming line when the ball is held
-        if (GetComponent<ObjectControls>().IsHeld)
-        {
-            float angle = GetComponent<ObjectControls>().Angle;
-            float powerPercent = GetComponent<ObjectControls>().PowerPercent;
-            aimLine.enabled = true;
 
-            UpdateAimLine(angle, powerPercent);
-
-            //dotted line effects
-            //offset the texture.  Speed of offset is determined by strength of launch
-            totalOffset -= ((offsetDifference * powerPercent) + minOffsetSpeed) * Time.deltaTime;
-            dottedLineMaterial.mainTextureOffset = new Vector2(totalOffset, 0);
-
-            //change the color from white to red depending on the power percent
-            dottedLineMaterial.color = new Color(1, 1 - powerPercent, 1 - powerPercent);
-        }
-        else
-        {
-            aimLine.enabled = false;
-            leftAimLine.enabled = false;
-            rightAimLine.enabled = false;
-        }
     }
 
     public void ResetParticleTrail()
@@ -133,6 +113,7 @@ public abstract class ObjectEffects : MonoBehaviour
     public void SeparateParticleSystem()
     {
         particleTrail.transform.SetParent(null);
+        particleTrail.transform.localScale = Vector3.one;
     }
 
     //toggles for powerups
@@ -175,11 +156,6 @@ public abstract class ObjectEffects : MonoBehaviour
         GetComponent<MeshRenderer>().materials = materials;
         leftTriBall.GetComponent<MeshRenderer>().materials = materials;
         rightTriBall.GetComponent<MeshRenderer>().materials = materials;
-    }
-
-    protected virtual void UpdateAimLine(float angle, float powerPercent)
-    {
-
     }
 
     //reset the material when the application closes

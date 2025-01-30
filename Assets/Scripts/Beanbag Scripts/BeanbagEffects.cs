@@ -1,35 +1,66 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.SearchService;
 using UnityEngine;
 
 public class BeanbagEffects : ObjectEffects
 {
-    //the length constraignts for the aiming line
+    //the number of physics frames caculated each frame for the aiming line
     [SerializeField]
-    float minLineLength;
-    [SerializeField]
-    float maxLineLength;
+    int steps;
 
-    protected override void UpdateAimLine(float angle, float powerPercent)
+    protected override void Update()
     {
-        base.UpdateAimLine(angle, powerPercent);
-
-        float lineLength = (maxLineLength - minLineLength) * powerPercent;
-        //adjust the aimline
-        aimLine.SetPosition(1, new Vector3(-Mathf.Sin(angle) * lineLength, 0, -Mathf.Cos(angle) * lineLength));
-        //if triball is on, adjust the other aimlines
-        if (triBallEnabled)
+        base.Update();
+        //activate the aiming line when the ball is held
+        if (GetComponent<ObjectControls>().IsHeld)
         {
-            leftAimLine.enabled = true;
-            rightAimLine.enabled = true;
+            float angle = GetComponent<ObjectControls>().Angle;
+            float powerPercent = GetComponent<ObjectControls>().PowerPercent;
 
-            leftAimLine.SetPosition(1, new Vector3(-Mathf.Sin(angle - triBallAngleRads) * lineLength, 0, -Mathf.Cos(angle - triBallAngleRads) * lineLength));
-            rightAimLine.SetPosition(1, new Vector3(-Mathf.Sin(angle + triBallAngleRads) * lineLength, 0, -Mathf.Cos(angle + triBallAngleRads) * lineLength));
+            //update middle aim line
+            aimLine.enabled = true;
+            Vector3[] positions = UpdateAimLine(angle);
+            aimLine.positionCount = positions.Length;
+            aimLine.SetPositions(positions);
+
+            //dotted line effects
+            //offset the texture.  Speed of offset is determined by strength of launch
+            totalOffset -= ((offsetDifference * powerPercent) + minOffsetSpeed) * Time.deltaTime;
+            dottedLineMaterial.mainTextureOffset = new Vector2(totalOffset, 0);
+
+            //change the color from white to red depending on the power percent
+            dottedLineMaterial.color = new Color(1, 1 - powerPercent, 1 - powerPercent);
         }
         else
         {
+            aimLine.enabled = false;
             leftAimLine.enabled = false;
             rightAimLine.enabled = false;
         }
+    }
+
+    private Vector3[] UpdateAimLine(float angle)
+    {
+        Vector3 position = Vector3.zero;
+
+        //an array of points that make up the aiming line
+        Vector3[] results = new Vector3[steps];
+
+        //caluclate physics variables
+        float timeStep = Time.fixedDeltaTime / Physics.defaultSolverVelocityIterations;
+        Vector3 gravityAccel = timeStep * Physics.gravity;
+        Vector3 moveStep = GetComponent<BeanbagControls>().PredictVelocity(angle) * timeStep;
+
+        //fill in the array with each point
+        results[0] = position;
+        for (int i = 1; i < steps - 1; i++)
+        {
+            moveStep += gravityAccel;
+            position += moveStep;
+            results[i] = position;
+        }
+
+        return results;
     }
 }

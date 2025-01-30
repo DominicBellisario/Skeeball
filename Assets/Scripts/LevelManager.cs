@@ -30,6 +30,8 @@ public class LevelManager : MonoBehaviour
     [SerializeField]
     GameObject objectCamera;
     Vector3 objectCameraOffset;
+    [SerializeField]
+    bool switchCameraOnLaunch;
 
     //the current score
     int score;
@@ -64,6 +66,7 @@ public class LevelManager : MonoBehaviour
     public int SecretScore { get { return secretScore; } }
     public GameObject ObjectCamera { get { return objectCamera; } }
     public GameObject StartingObject { get { return startingObject; } }
+    public bool SwitchCameraOnLaunch { get { return switchCameraOnLaunch; } }
     public int GoldBallPow { get { return goldBallPow; } set { goldBallPow = value; } }
     public int MarkedBallPow { get { return markedBallPow; } set { markedBallPow = value; } }
     public int TriBallPow { get { return triBallPow; } set { triBallPow = value; } }
@@ -109,7 +112,7 @@ public class LevelManager : MonoBehaviour
     public void UpdateScore(int scoreChange)
     {
         score += scoreChange;
-        
+
         LevelUILogic.Instance.UpdateScore(score);
     }
 
@@ -202,7 +205,7 @@ public class LevelManager : MonoBehaviour
     public void ToggleLobBall()
     {
         lobBallEnabled = !lobBallEnabled;
-        
+
         if (lobBallEnabled)
         {
             //replace the starting object with a beanbag with the same powerup states
