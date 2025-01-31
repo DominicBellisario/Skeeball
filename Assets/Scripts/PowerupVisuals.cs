@@ -7,29 +7,10 @@ public class PowerupVisuals : MonoBehaviour
     [SerializeField]
     float rotateSpeed;
 
-    [SerializeField]
-    float bobSpeed;
-    [SerializeField]
-    float bobStrength;
-    float currentBob;
-
-    float startYPos;
-
-    private void Start()
-    {
-        currentBob = 0;
-        startYPos = transform.position.y;
-    }
-
     // Update is called once per frame
     void Update()
     {
         //rotate the shape
         transform.Rotate(new Vector3(0, 1, 0), rotateSpeed * Time.deltaTime);
-        
-        currentBob += Time.deltaTime;
-
-        //bob the shape
-        transform.position = new Vector3(transform.position.x, startYPos + Mathf.Sin(currentBob * bobSpeed) * bobStrength, transform.position.z);
     }
 }

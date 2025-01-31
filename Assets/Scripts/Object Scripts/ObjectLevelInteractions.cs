@@ -92,7 +92,7 @@ public abstract class ObjectLevelInteractions : MonoBehaviour
                 LevelManager.Instance.UpdateScore(trigger.GetComponentInParent<HoleVariables>().Points);
             }
 
-            //if the object was marked, double the hole's point value
+            //if the object was marked, double the hole's point value and make it glow
             if (GetComponent<ObjectEffects>().MarkedBallEnabled)
             {
                 trigger.gameObject.GetComponentInParent<HoleVariables>().Points *= 2;
