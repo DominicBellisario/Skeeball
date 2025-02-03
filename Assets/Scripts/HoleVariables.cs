@@ -8,14 +8,14 @@ public class HoleVariables : MonoBehaviour
     //how many points the hole is worth
     [SerializeField]
     int points;
+    int startingPoints;
     //wether or not the ball is destroyed when passing through
     [SerializeField]
     bool destroyBall;
     [SerializeField]
-    GameObject holeRim;
+    MeshRenderer holeRimMesh;
 
     //all possible hole materials.  Each color has their own subset of materials
-    Material[][] materials;
     [SerializeField]
     Material[] greenMaterials;
     [SerializeField]
@@ -27,13 +27,30 @@ public class HoleVariables : MonoBehaviour
     [SerializeField]
     Material[] goldMaterials;
 
-    public Material[][] Materials { get { return materials; } }
+    public int Points { get { return points; } }
+    public bool DestroyBall { get { return destroyBall; } }
 
     private void Start()
     {
-        materials = new Material[][] { greenMaterials, orangeMaterials, blueMaterials, redMaterials, goldMaterials };
+        startingPoints = points;
     }
 
-    public int Points { get { return points; } set { points = value; } }
-    public bool DestroyBall { get { return destroyBall; } }
+    /// <summary>
+    /// double the points and make the hole rim glow
+    /// </summary>
+    /// <param name="points"></param>
+    public void MarkHole()
+    {
+        points *= 2;
+        if (startingPoints == 10) { ChangeMaterial(greenMaterials, 1); }
+        else if (startingPoints == 20) { ChangeMaterial(orangeMaterials, 1); }
+        else if (startingPoints == 30) { ChangeMaterial(blueMaterials, 1); }
+        else if (startingPoints == 50) { ChangeMaterial(redMaterials, 1); }
+        else if (startingPoints == 100) { ChangeMaterial(goldMaterials, 1); }
+    }
+
+    private void ChangeMaterial(Material[] color, int materialIndex)
+    {
+        holeRimMesh.material = color[materialIndex];
+    }
 }
