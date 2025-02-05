@@ -88,15 +88,20 @@ public abstract class ObjectLevelInteractions : MonoBehaviour
         //if the object is fully within a hole
         if (trigger.gameObject.CompareTag("HoleActivateTrigger"))
         {
+            bool gold = false;
+
             //add points to the total point count.  x2 points if gold ball
             if (GetComponent<ObjectEffects>().GoldBallEnabled)
             {
                 LevelManager.Instance.UpdateScore(trigger.GetComponentInParent<HoleVariables>().Points * 2);
+                gold = true;
             }
             else
             {
                 LevelManager.Instance.UpdateScore(trigger.GetComponentInParent<HoleVariables>().Points);
             }
+
+            trigger.gameObject.GetComponentInParent<HoleVariables>().SpawnHoleText(gold);
 
             //if the object was marked, double the hole's point value and make it glow
             if (GetComponent<ObjectEffects>().MarkedBallEnabled)
