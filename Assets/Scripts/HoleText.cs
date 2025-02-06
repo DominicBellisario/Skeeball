@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class HoleText : MonoBehaviour
@@ -40,7 +41,7 @@ public class HoleText : MonoBehaviour
             //once transparent, destroy
             if (textMesh.color.a <= 0)
             {
-                Destroy(this);
+                Destroy(gameObject);
             }
         }
 
