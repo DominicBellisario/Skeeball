@@ -88,6 +88,15 @@ public abstract class ObjectLevelInteractions : MonoBehaviour
         }
     }
 
+    private void OnTriggerStay(Collider other)
+    {
+        //apply a force in the direction of the fan if it is within its effect
+        if (other.gameObject.CompareTag("Fan"))
+        {
+            rb.AddForce(other.gameObject.transform.up * other.gameObject.GetComponent<FanVariables>().ForceMultiplyer * Time.deltaTime);
+        }
+    }
+
     protected virtual void OnTriggerExit(Collider trigger)
     {
         //if the object is fully within a hole
