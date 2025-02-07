@@ -81,6 +81,11 @@ public abstract class ObjectLevelInteractions : MonoBehaviour
             LevelUILogic.Instance.UpdatePowerups();
             Destroy(trigger.gameObject);
         }
+        else if (trigger.gameObject.CompareTag("2BallPowerup"))
+        {
+            LevelManager.Instance.UpdateObjects(2);
+            Destroy(trigger.gameObject);
+        }
     }
 
     protected virtual void OnTriggerExit(Collider trigger)
