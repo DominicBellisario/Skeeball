@@ -93,7 +93,7 @@ public abstract class ObjectLevelInteractions : MonoBehaviour
         //apply a force in the direction of the fan if it is within its effect
         if (other.gameObject.CompareTag("Fan"))
         {
-            rb.AddForce(other.gameObject.transform.up * other.gameObject.GetComponent<FanVariables>().ForceMultiplyer * Time.deltaTime);
+            rb.AddForce(other.gameObject.transform.up * other.gameObject.GetComponent<FanVariables>().ForceMultiplier * Time.deltaTime);
         }
     }
 
