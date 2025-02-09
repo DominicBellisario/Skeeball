@@ -7,6 +7,7 @@ public class FanVariables : MonoBehaviour
 {
     [SerializeField] ParticleSystem ps;
     [SerializeField] int forceMultiplier;
+    [SerializeField] float scale;
 
     public int ForceMultiplier { get { return forceMultiplier; } }
 
@@ -14,8 +15,8 @@ public class FanVariables : MonoBehaviour
     {
         //set the particle lifetime.  they disapear once they reach the end of the fan's effect
         var main = ps.main;
-        main.startLifetime = ((GetComponent<BoxCollider>().size.y) * gameObject.transform.localScale.y) / ps.main.startSpeed.constant;
-        Debug.Log(GetComponent<BoxCollider>().size.y);
+        main.startLifetime = ((GetComponent<BoxCollider>().size.y) * scale) / ps.main.startSpeed.constant;
+        Debug.Log(gameObject.transform.localScale.y);
         ps.Play();
     }
 }
