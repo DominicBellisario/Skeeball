@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -13,7 +14,8 @@ public class FanVariables : MonoBehaviour
     {
         //set the particle lifetime.  they disapear once they reach the end of the fan's effect
         var main = ps.main;
-        main.startLifetime = ((GetComponent<BoxCollider>().size.y - 1) * gameObject.transform.localScale.y) / ps.main.startSpeed.constant;
+        main.startLifetime = ((GetComponent<BoxCollider>().size.y) * gameObject.transform.localScale.y) / ps.main.startSpeed.constant;
+        Debug.Log(GetComponent<BoxCollider>().size.y);
         ps.Play();
     }
 }
