@@ -59,7 +59,7 @@ public class LevelUILogic : MonoBehaviour
     /// </summary>
     public void UpdateScore(int updatedScore)
     {
-        scoreText.text = "Score: " + updatedScore;
+        scoreText.text = "Score: " + updatedScore + " / " + LevelManager.Instance.MinScore;
     }
 
     /// <summary>
