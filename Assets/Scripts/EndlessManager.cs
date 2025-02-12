@@ -9,6 +9,7 @@ public class EndlessManager : MonoBehaviour
     [SerializeField] int[] mediumLevels;
     [SerializeField] int[] hardLevels;
 
+    [SerializeField] SceneHandler sceneHandler;
     [SerializeField] int totalPoints = 0;
     [SerializeField] float multiplier = 1f;
 
@@ -37,12 +38,7 @@ public class EndlessManager : MonoBehaviour
             Instance = this;
         }
         //set up first level
-        GenerateNewLevel(RandomNumber(0, easyLevels.Length));
-    }
-
-    private void GenerateNewLevel(int levelNumber)
-    {
-        SceneManager.LoadScene(levelNumber);
+        sceneHandler.LoadEndlessLevelAndLevelUI("L" + RandomNumber(0, easyLevels.Length).ToString());
     }
 
     /// <summary>

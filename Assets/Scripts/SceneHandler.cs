@@ -22,4 +22,14 @@ public class SceneHandler : MonoBehaviour
         SceneManager.LoadScene(levelName);
         SceneManager.LoadScene("LevelUI", LoadSceneMode.Additive);
     }
+
+    /// <summary>
+    /// load a playable level along with the level UI
+    /// </summary>
+    /// <param name="levelName"></param>
+    public void LoadEndlessLevelAndLevelUI(string levelName)
+    {
+        SceneManager.LoadScene("E" + levelName);
+        SceneManager.LoadScene("LevelUIEndless", LoadSceneMode.Additive);
+    }
 }
