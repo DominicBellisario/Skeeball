@@ -256,82 +256,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 127205861}
   m_CullTransparentMesh: 1
---- !u!1 &194568170
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 194568172}
-  - component: {fileID: 194568171}
-  - component: {fileID: 194568173}
-  m_Layer: 0
-  m_Name: Game Manager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &194568171
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 194568170}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3f8605c0b98d83947a8f874cd4b894c3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ballPrefab: {fileID: 9073041401583007651, guid: 59b197a2e8862a94593a182c3a64834e,
-    type: 3}
-  beanbagPrefab: {fileID: 6372135606302323029, guid: f07e05250a004cd479606e15b85ad2d6,
-    type: 3}
-  objectCameraOffset: {x: 0, y: 3, z: -5}
-  switchCameraOnLaunch: 1
-  timeBetweenObjects: 1
-  objects: []
---- !u!4 &194568172
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 194568170}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 414, y: 896, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &194568173
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 194568170}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fc1c9060b6718e642a31e4918b8c235a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ballPrefab: {fileID: 0}
-  beanbagPrefab: {fileID: 0}
-  objectCameraOffset: {x: 0, y: 0, z: 0}
-  switchCameraOnLaunch: 0
-  timeBetweenObjects: 0
-  objects: []
-  easyLevels: 01000000020000000300000004000000
-  mediumLevels: 05000000060000000700000008000000
-  hardLevels: 090000000a0000000b0000000c000000
-  totalPoints: 0
-  multiplier: 1
 --- !u!1 &348621785
 GameObject:
   m_ObjectHideFlags: 0
@@ -409,6 +333,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 348738917}
+  - component: {fileID: 348738918}
   m_Layer: 0
   m_Name: Helper
   m_TagString: Untagged
@@ -431,6 +356,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &348738918
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 348738916}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9fd3feba2298f7e429da8bbd90832fa8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &402896447
 GameObject:
   m_ObjectHideFlags: 0
@@ -1327,6 +1264,74 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5a173367e26ffc545a5eb1c954a9cd7f, type: 3}
+--- !u!1001 &4247221427931590876
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4220353475015736242, guid: 038ae214260decc468770b5ac19abef0,
+        type: 3}
+      propertyPath: m_Name
+      value: Game Manager
+      objectReference: {fileID: 0}
+    - target: {fileID: 4281931441652064916, guid: 038ae214260decc468770b5ac19abef0,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 414
+      objectReference: {fileID: 0}
+    - target: {fileID: 4281931441652064916, guid: 038ae214260decc468770b5ac19abef0,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 896
+      objectReference: {fileID: 0}
+    - target: {fileID: 4281931441652064916, guid: 038ae214260decc468770b5ac19abef0,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4281931441652064916, guid: 038ae214260decc468770b5ac19abef0,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4281931441652064916, guid: 038ae214260decc468770b5ac19abef0,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4281931441652064916, guid: 038ae214260decc468770b5ac19abef0,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4281931441652064916, guid: 038ae214260decc468770b5ac19abef0,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4281931441652064916, guid: 038ae214260decc468770b5ac19abef0,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4281931441652064916, guid: 038ae214260decc468770b5ac19abef0,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4281931441652064916, guid: 038ae214260decc468770b5ac19abef0,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 038ae214260decc468770b5ac19abef0, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -1335,6 +1340,6 @@ SceneRoots:
   - {fileID: 2002826815}
   - {fileID: 348621788}
   - {fileID: 402896450}
-  - {fileID: 194568172}
+  - {fileID: 4247221427931590876}
   - {fileID: 348738917}
   - {fileID: 3958096450241882050}

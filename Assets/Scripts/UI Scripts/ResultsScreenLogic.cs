@@ -15,8 +15,6 @@ public class ResultsScreenLogic : MonoBehaviour
     //the next level button.  disabled if the player lost
     [SerializeField] GameObject nextLevelButton;
 
-
-
     private void Start()
     {
         //check how the player did

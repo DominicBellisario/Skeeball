@@ -51,6 +51,7 @@ public abstract class ManagerBase : MonoBehaviour
     public int TriBallPow { get { return triBallPow; } set { triBallPow = value; } }
     public int LobBallPow { get { return lobBallPow; } set { lobBallPow = value; } }
     public bool LobBallEnabled { get { return lobBallEnabled; } set { lobBallEnabled = value; } }
+    public bool Endless { get { return endless; } set { endless = value; } }
 
     protected virtual void Awake()
     {
