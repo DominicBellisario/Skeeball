@@ -59,7 +59,7 @@ public class LevelUILogic : MonoBehaviour
     /// </summary>
     public void UpdateScore(int updatedScore)
     {
-        scoreText.text = "Score: " + updatedScore + " / " + LevelManager.Instance.MinScore;
+        scoreText.text = "Score: " + updatedScore + " / " + Manager.Instance.MinScore;
     }
 
     /// <summary>
@@ -75,14 +75,14 @@ public class LevelUILogic : MonoBehaviour
     /// </summary>
     public void UpdatePowerups()
     {
-        LevelManager levelManager = LevelManager.Instance;
-        goldBallButton.GetComponentInChildren<TextMeshProUGUI>().text = "Gold Ball: " + levelManager.GoldBallPow;
+        Manager manager = Manager.Instance;
+        goldBallButton.GetComponentInChildren<TextMeshProUGUI>().text = "Gold Ball: " + manager.GoldBallPow;
         goldBallButton.SetActive(expandedPowerupUI);
-        markedBallButton.GetComponentInChildren<TextMeshProUGUI>().text = "Marked Ball: " + levelManager.MarkedBallPow;
+        markedBallButton.GetComponentInChildren<TextMeshProUGUI>().text = "Marked Ball: " + manager.MarkedBallPow;
         markedBallButton.SetActive(expandedPowerupUI);
-        triBallButton.GetComponentInChildren<TextMeshProUGUI>().text = "Tri Ball: " + levelManager.TriBallPow;
+        triBallButton.GetComponentInChildren<TextMeshProUGUI>().text = "Tri Ball: " + manager.TriBallPow;
         triBallButton.SetActive(expandedPowerupUI);
-        lobBallButton.GetComponentInChildren<TextMeshProUGUI>().text = "Lob Ball: " + levelManager.LobBallPow;
+        lobBallButton.GetComponentInChildren<TextMeshProUGUI>().text = "Lob Ball: " + manager.LobBallPow;
         lobBallButton.SetActive(expandedPowerupUI);
     }
 
@@ -97,7 +97,7 @@ public class LevelUILogic : MonoBehaviour
 
     public void ToggleGoldBallPowerup()
     {
-        LevelManager manager = LevelManager.Instance;
+        Manager manager = Manager.Instance;
         if (manager.StartingObject != null)
         {
             if (manager.GoldBallPow > 0 && !manager.StartingObject.GetComponent<ObjectControls>().IsLaunched)
@@ -109,7 +109,7 @@ public class LevelUILogic : MonoBehaviour
 
     public void ToggleMarkedBallPowerup()
     {
-        LevelManager manager = LevelManager.Instance;
+        Manager manager = Manager.Instance;
         if (manager.StartingObject != null)
         {
             if (manager.MarkedBallPow > 0 && !manager.StartingObject.GetComponent<ObjectControls>().IsLaunched)
@@ -121,7 +121,7 @@ public class LevelUILogic : MonoBehaviour
 
     public void ToggleTriBallPowerup()
     {
-        LevelManager manager = LevelManager.Instance;
+        Manager manager = Manager.Instance;
         if (manager.StartingObject != null)
         {
             if (manager.TriBallPow > 0 && !manager.StartingObject.GetComponent<ObjectControls>().IsLaunched)
@@ -133,7 +133,7 @@ public class LevelUILogic : MonoBehaviour
 
     public void ToggleLobBallPowerup()
     {
-        LevelManager manager = LevelManager.Instance;
+        Manager manager = Manager.Instance;
         if (manager.StartingObject != null)
         {
             if (manager.LobBallPow > 0 && !manager.StartingObject.GetComponent<ObjectControls>().IsLaunched)
@@ -159,6 +159,6 @@ public class LevelUILogic : MonoBehaviour
 
     public void ToggleCamera()
     {
-        LevelManager.Instance.SwitchCameraView();
+        Manager.Instance.SwitchCameraView();
     }
 }

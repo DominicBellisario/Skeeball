@@ -38,7 +38,7 @@ public abstract class ObjectLevelInteractions : MonoBehaviour
         }
         if (tooSlowDespawnTimer <= 0)
         {
-            LevelManager.Instance.DestroyObject(gameObject);
+            Manager.Instance.DestroyObject(gameObject);
         }
     }
 
@@ -53,37 +53,37 @@ public abstract class ObjectLevelInteractions : MonoBehaviour
         //destroy the object if it hits the death plane
         else if (trigger.gameObject.CompareTag("DeathPlain"))
         {
-            LevelManager.Instance.DestroyObject(gameObject);
+            Manager.Instance.DestroyObject(gameObject);
         }
 
         //if the object hits a powerup, destroy it and add it to the inventory
         else if (trigger.gameObject.CompareTag("GoldenBallPowerup"))
         {
-            LevelManager.Instance.GoldBallPow++;
+            Manager.Instance.GoldBallPow++;
             LevelUILogic.Instance.UpdatePowerups();
             Destroy(trigger.gameObject);
         }
         else if (trigger.gameObject.CompareTag("MarkedBallPowerup"))
         {
-            LevelManager.Instance.MarkedBallPow++;
+            Manager.Instance.MarkedBallPow++;
             LevelUILogic.Instance.UpdatePowerups();
             Destroy(trigger.gameObject);
         }
         else if (trigger.gameObject.CompareTag("TriBallPowerup"))
         {
-            LevelManager.Instance.TriBallPow++;
+            Manager.Instance.TriBallPow++;
             LevelUILogic.Instance.UpdatePowerups();
             Destroy(trigger.gameObject);
         }
         else if (trigger.gameObject.CompareTag("LobBallPowerup"))
         {
-            LevelManager.Instance.LobBallPow++;
+            Manager.Instance.LobBallPow++;
             LevelUILogic.Instance.UpdatePowerups();
             Destroy(trigger.gameObject);
         }
         else if (trigger.gameObject.CompareTag("2BallPowerup"))
         {
-            LevelManager.Instance.UpdateObjects(2);
+            Manager.Instance.UpdateObjects(2);
             Destroy(trigger.gameObject);
         }
     }
@@ -107,12 +107,12 @@ public abstract class ObjectLevelInteractions : MonoBehaviour
             //add points to the total point count.  x2 points if gold ball
             if (GetComponent<ObjectEffects>().GoldBallEnabled)
             {
-                LevelManager.Instance.UpdateScore(trigger.GetComponentInParent<HoleVariables>().Points * 2);
+                Manager.Instance.UpdateScore(trigger.GetComponentInParent<HoleVariables>().Points * 2);
                 gold = true;
             }
             else
             {
-                LevelManager.Instance.UpdateScore(trigger.GetComponentInParent<HoleVariables>().Points);
+                Manager.Instance.UpdateScore(trigger.GetComponentInParent<HoleVariables>().Points);
             }
 
             trigger.gameObject.GetComponentInParent<HoleVariables>().SpawnHoleText(gold);
@@ -126,7 +126,7 @@ public abstract class ObjectLevelInteractions : MonoBehaviour
             //destroy the object if the hole requires that
             if (trigger.GetComponentInParent<HoleVariables>().DestroyBall)
             {
-                LevelManager.Instance.DestroyObject(gameObject);
+                Manager.Instance.DestroyObject(gameObject);
             }
         }
     }

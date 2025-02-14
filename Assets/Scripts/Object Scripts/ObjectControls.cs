@@ -97,6 +97,7 @@ public abstract class ObjectControls : MonoBehaviour
             //if the player was previously holding the object and just released it, apply a force to it
             if (isHeld)
             {
+                Manager manager = Manager.Instance;
                 ObjectEffects effects = GetComponent<ObjectEffects>();
                 LaunchObject();
                 isLaunched = true;
@@ -107,28 +108,28 @@ public abstract class ObjectControls : MonoBehaviour
                 //use powerups if they were applied to the ball
                 if (effects.GoldBallEnabled)
                 {
-                    LevelManager.Instance.GoldBallPow--;
+                    manager.GoldBallPow--;
                 }
                 if (effects.MarkedBallEnabled)
                 {
-                    LevelManager.Instance.MarkedBallPow--;
+                    manager.MarkedBallPow--;
                 }
                 if (effects.TriBallEnabled)
                 {
-                    LevelManager.Instance.TriBallPow--;
+                    manager.TriBallPow--;
                     effects.DisableTriBalls();
                     //spawn 2 new objects and make their powerup states the same as the parent
                     SpawnNewTriObjects(effects);
                 }
-                if (LevelManager.Instance.LobBallEnabled)
+                if (manager.LobBallEnabled)
                 {
-                    LevelManager.Instance.LobBallPow--;
-                    LevelManager.Instance.LobBallEnabled = false;
+                    manager.LobBallPow--;
+                    manager.LobBallEnabled = false;
                 }
 
-                if (LevelManager.Instance.SwitchCameraOnLaunch)
+                if (manager.SwitchCameraOnLaunch)
                 {
-                    LevelManager.Instance.SwitchCameraView();
+                    manager.SwitchCameraView();
                 }
                 LevelUILogic.Instance.UpdatePowerups();
             }
@@ -139,7 +140,7 @@ public abstract class ObjectControls : MonoBehaviour
     //if the player clicks the ball in the main camera view, they are holding it
     protected void OnMouseDown()
     {
-        if (!LevelManager.Instance.ObjectCamera.activeInHierarchy)
+        if (!Manager.Instance.ObjectCamera.activeInHierarchy)
         {
             isHeld = true;
         }

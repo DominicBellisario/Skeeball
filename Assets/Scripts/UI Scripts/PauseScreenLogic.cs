@@ -18,7 +18,7 @@ public class PauseScreenLogic : MonoBehaviour
     public void RestartLevel()
     {
         Time.timeScale = 1;
-        SceneManager.LoadScene(LevelManager.Instance.gameObject.scene.name);
+        SceneManager.LoadScene(Manager.Instance.gameObject.scene.name);
         SceneManager.LoadScene("LevelUI", LoadSceneMode.Additive);
         SceneManager.UnloadSceneAsync("PauseScreen");
     }

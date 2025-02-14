@@ -33,12 +33,12 @@ public class ResultsScreenLogic : MonoBehaviour
     {
         //check how the player did
         //tell the player they epic win and (later), give them an unlock
-        if (LevelManager.Instance.Score >= LevelManager.Instance.SecretScore)
+        if (Manager.Instance.Score >= Manager.Instance.SecretScore)
         {
             resultsText.text = "You Win but EPIC!";
         }
         //tell the player they won
-        else if (LevelManager.Instance.Score >= LevelManager.Instance.MinScore)
+        else if (Manager.Instance.Score >= Manager.Instance.MinScore)
         {
             resultsText.text = "You Win!";
         }
@@ -50,23 +50,23 @@ public class ResultsScreenLogic : MonoBehaviour
         }
 
         //show all the score stuff
-        playerScoreText.text = "Your Score: " + LevelManager.Instance.Score;
-        minScoreText.text = "Min Score: " + LevelManager.Instance.MinScore;
-        secretScoreText.text = "Secret Score: " + LevelManager.Instance.SecretScore;
+        playerScoreText.text = "Your Score: " + Manager.Instance.Score;
+        minScoreText.text = "Min Score: " + Manager.Instance.MinScore;
+        secretScoreText.text = "Secret Score: " + Manager.Instance.SecretScore;
     }
 
     //bring back the level ui and unpause
     public void RetryLevel()
     {
         Time.timeScale = 1;
-        SceneManager.LoadScene(LevelManager.Instance.gameObject.scene.name);
+        SceneManager.LoadScene("L" + Manager.Instance.CurrentLevelNumber.ToString());
         SceneManager.LoadScene("LevelUI", LoadSceneMode.Additive);
     }
 
     public void NextLevel()
     {
         Time.timeScale = 1;
-        int nextLevelNum = LevelManager.Instance.LevelNumber + 1;
+        int nextLevelNum = Manager.Instance.CurrentLevelNumber + 1;
         SceneManager.LoadScene("L" + nextLevelNum.ToString());
         SceneManager.LoadScene("LevelUI", LoadSceneMode.Additive);
     }

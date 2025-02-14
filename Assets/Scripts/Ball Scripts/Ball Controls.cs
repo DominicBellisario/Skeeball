@@ -18,12 +18,12 @@ public class BallControls : ObjectControls
     /// <param name="effects"></param>
     protected override void SpawnNewTriObjects(ObjectEffects effects)
     {
-        GameObject leftObject = LevelManager.Instance.SpawnNewObject(gameObject, new Vector3(gameObject.transform.position.x - .5f, gameObject.transform.position.y, gameObject.transform.position.z),
+        GameObject leftObject = Manager.Instance.SpawnNewObject(gameObject, new Vector3(gameObject.transform.position.x - .5f, gameObject.transform.position.y, gameObject.transform.position.z),
                         new Vector3(-powerPercent * Mathf.Sin(angle - triBallAngleRads) * forceMultiplyer, 0, -powerPercent * Mathf.Cos(angle - triBallAngleRads) * forceMultiplyer),
                         effects.GoldBallEnabled, effects.MarkedBallEnabled, false);
         leftObject.GetComponent<ObjectLevelInteractions>().IsLaunched = true;
 
-        GameObject rightObject = LevelManager.Instance.SpawnNewObject(gameObject, new Vector3(gameObject.transform.position.x + .5f, gameObject.transform.position.y, gameObject.transform.position.z),
+        GameObject rightObject = Manager.Instance.SpawnNewObject(gameObject, new Vector3(gameObject.transform.position.x + .5f, gameObject.transform.position.y, gameObject.transform.position.z),
                         new Vector3(-powerPercent * Mathf.Sin(angle + triBallAngleRads) * forceMultiplyer, 0, -powerPercent * Mathf.Cos(angle + triBallAngleRads) * forceMultiplyer),
                         effects.GoldBallEnabled, effects.MarkedBallEnabled, false);
         rightObject.GetComponent<ObjectLevelInteractions>().IsLaunched = true;

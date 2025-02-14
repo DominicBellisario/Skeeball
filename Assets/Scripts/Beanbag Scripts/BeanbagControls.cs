@@ -36,7 +36,7 @@ public class BeanbagControls : ObjectControls
 
     void SpawnTriBeanbag(ObjectEffects effects, float triPos, float triBallAngle)
     {
-        GameObject beanbag = LevelManager.Instance.SpawnNewObject(
+        GameObject beanbag = Manager.Instance.SpawnNewObject(
             gameObject,
             new Vector3(gameObject.transform.position.x + triPos, gameObject.transform.position.y, gameObject.transform.position.z),
             new Vector3(
