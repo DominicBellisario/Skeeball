@@ -177,6 +177,17 @@ public class Manager : MonoBehaviour
         objectCamera.SetActive(false);
     }
 
+    IEnumerator EndLevel()
+    {
+        yield return new WaitForSeconds(timeBetweenObjects);
+        //disable level ui event handler
+        LevelUILogic.Instance.EventHandler.SetActive(false);
+        //bring up the results screen
+        SceneHandler.Instance.LoadSceneAdditively("ResultsScreen");
+        //pause the game
+        Time.timeScale = 0;
+    }
+
     /// <summary>
     /// destroy an object
     /// </summary>
@@ -196,14 +207,8 @@ public class Manager : MonoBehaviour
         //if there are no objects in play and the player has no more objects
         else if (numberOfObjects <= 0 && objects.Count <= 0)
         {
-            //disable level ui event handler
-            LevelUILogic.Instance.EventHandler.SetActive(false);
-
-            //bring up the results screen
-            SceneHandler.Instance.LoadSceneAdditively("ResultsScreen");
-
-            //pause the game
-            Time.timeScale = 0;
+            //bring up results (after a delay)
+            StartCoroutine(EndLevel());
         }
     }
 
