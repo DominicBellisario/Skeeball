@@ -266,6 +266,7 @@ GameObject:
   m_Component:
   - component: {fileID: 194568172}
   - component: {fileID: 194568171}
+  - component: {fileID: 194568173}
   m_Layer: 0
   m_Name: Game Manager
   m_TagString: Untagged
@@ -293,12 +294,6 @@ MonoBehaviour:
   switchCameraOnLaunch: 1
   timeBetweenObjects: 1
   objects: []
-  sceneHandler: {fileID: 0}
-  easyLevels: 
-  mediumLevels: 
-  hardLevels: 
-  totalPoints: 0
-  multiplier: 1
 --- !u!4 &194568172
 Transform:
   m_ObjectHideFlags: 0
@@ -314,6 +309,29 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &194568173
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 194568170}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc1c9060b6718e642a31e4918b8c235a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ballPrefab: {fileID: 0}
+  beanbagPrefab: {fileID: 0}
+  objectCameraOffset: {x: 0, y: 0, z: 0}
+  switchCameraOnLaunch: 0
+  timeBetweenObjects: 0
+  objects: []
+  easyLevels: 01000000020000000300000004000000
+  mediumLevels: 05000000060000000700000008000000
+  hardLevels: 090000000a0000000b0000000c000000
+  totalPoints: 0
+  multiplier: 1
 --- !u!1 &348621785
 GameObject:
   m_ObjectHideFlags: 0
