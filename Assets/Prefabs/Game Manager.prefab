@@ -9,8 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4281931441652064916}
-  - component: {fileID: 1382881641569958457}
-  - component: {fileID: 7842137598588889684}
+  - component: {fileID: 7562513025274096708}
   m_Layer: 0
   m_Name: Game Manager
   m_TagString: Untagged
@@ -25,15 +24,15 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4220353475015736242}
-  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 414, y: 896, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1382881641569958457
+--- !u!114 &7562513025274096708
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -42,7 +41,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 4220353475015736242}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3f8605c0b98d83947a8f874cd4b894c3, type: 3}
+  m_Script: {fileID: 11500000, guid: cc5b32c5c3f7c594fa85e46d686ce137, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   ballPrefab: {fileID: 9073041401583007651, guid: 59b197a2e8862a94593a182c3a64834e,
@@ -52,24 +51,6 @@ MonoBehaviour:
   objectCameraOffset: {x: 0, y: 3, z: -5}
   switchCameraOnLaunch: 1
   timeBetweenObjects: 1
-  objects: []
---- !u!114 &7842137598588889684
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4220353475015736242}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fc1c9060b6718e642a31e4918b8c235a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ballPrefab: {fileID: 0}
-  beanbagPrefab: {fileID: 0}
-  objectCameraOffset: {x: 0, y: 0, z: 0}
-  switchCameraOnLaunch: 0
-  timeBetweenObjects: 0
   objects: []
   easyLevels: 01000000020000000300000004000000
   mediumLevels: 05000000060000000700000008000000
