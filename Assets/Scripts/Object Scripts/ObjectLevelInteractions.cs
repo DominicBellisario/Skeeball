@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public abstract class ObjectLevelInteractions : MonoBehaviour
@@ -7,8 +5,7 @@ public abstract class ObjectLevelInteractions : MonoBehaviour
     protected Rigidbody rb;
 
     //how long the object has before it is destoryed if it moves too slow
-    [SerializeField]
-    protected float tooSlowDespawnTime;
+    [SerializeField] protected float tooSlowDespawnTime;
     protected float tooSlowDespawnTimer;
 
     protected bool isLaunched;

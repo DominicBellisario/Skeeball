@@ -1,12 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.SceneManagement;
-using UnityEngine.SocialPlatforms.Impl;
-using UnityEngine.SocialPlatforms;
 using TMPro;
-using UnityEngine.UI;
 
 public class ResultsScreenLogic : MonoBehaviour
 {
@@ -59,21 +52,22 @@ public class ResultsScreenLogic : MonoBehaviour
     public void RetryLevel()
     {
         Time.timeScale = 1;
-        SceneManager.LoadScene("L" + Manager.Instance.CurrentLevelNumber.ToString());
-        SceneManager.LoadScene("LevelUI", LoadSceneMode.Additive);
+        SceneHandler.Instance.LoadLevel("L" + Manager.Instance.CurrentLevelNumber.ToString());
+        Manager.Instance.ResetValues();
     }
 
     public void NextLevel()
     {
         Time.timeScale = 1;
         int nextLevelNum = Manager.Instance.CurrentLevelNumber + 1;
-        SceneManager.LoadScene("L" + nextLevelNum.ToString());
-        SceneManager.LoadScene("LevelUI", LoadSceneMode.Additive);
+        SceneHandler.Instance.LoadLevel("L" + nextLevelNum.ToString());
+        Manager.Instance.ResetValues();
     }
 
     public void LoadMainMenu()
     {
         Time.timeScale = 1;
-        SceneManager.LoadScene("HomeScreen");
+        SceneHandler.Instance.LoadScene("HomeScreen");
+        Manager.Instance.ResetValues();
     }
 }

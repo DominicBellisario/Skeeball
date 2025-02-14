@@ -1,31 +1,35 @@
 using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class PauseScreenLogic : MonoBehaviour
 {
-
-    //bring back the level ui and unpause
+    IEnumerator EnableEventHandler()
+    {
+        yield return new WaitForEndOfFrame();
+        LevelUILogic.Instance.EventHandler.SetActive(true);
+    }
+    //unpause, resume game without resetting
     public void ResumeGame()
     {
+        StartCoroutine(EnableEventHandler());
         Time.timeScale = 1;
-        LevelUILogic.Instance.EventHandler.SetActive(true);
-        SceneManager.UnloadSceneAsync("PauseScreen");
+        SceneHandler.Instance.UnloadScene("PauseScreen");
     }
 
+    //unpause, reset level
     public void RestartLevel()
     {
         Time.timeScale = 1;
-        SceneManager.LoadScene(Manager.Instance.gameObject.scene.name);
-        SceneManager.LoadScene("LevelUI", LoadSceneMode.Additive);
-        SceneManager.UnloadSceneAsync("PauseScreen");
+        SceneHandler.Instance.LoadLevel("L" + Manager.Instance.CurrentLevelNumber.ToString());
+        SceneHandler.Instance.UnloadScene("PauseScreen");
+        Manager.Instance.ResetValues();
     }
 
+    //unpause, load main menu
     public void LoadMainMenu()
     {
         Time.timeScale = 1;
-        SceneManager.LoadScene("HomeScreen");
+        SceneHandler.Instance.LoadScene("HomeScreen");
+        Manager.Instance.ResetValues();
     }
 }

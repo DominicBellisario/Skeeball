@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class Manager : MonoBehaviour
 {
@@ -15,11 +14,11 @@ public class Manager : MonoBehaviour
     //the place in the level the objects spawn in
     GameObject objectSpawnPos;
     //a list of all objects currently in the level
-    List<GameObject> objects;
+    [SerializeField] List<GameObject> objects;
     GameObject startingObject;
     //camera that follows the first object in the list
     GameObject objectCamera;
-    
+
 
     //the current score
     int score;
@@ -39,6 +38,15 @@ public class Manager : MonoBehaviour
     int lobBallPow;
     bool lobBallEnabled;
 
+    //endless specific variables
+    [SerializeField] int[] easyLevels;
+    [SerializeField] int[] mediumLevels;
+    [SerializeField] int[] hardLevels;
+    [SerializeField] int totalPoints = 0;
+    [SerializeField] float multiplier = 1f;
+    int currentLevel = 0;
+    int completedLevels = 0;
+
     public static Manager Instance { get; private set; }
     public int CurrentLevelNumber { get { return currentLevelNumber; } }
     public int Score { get { return score; } }
@@ -52,6 +60,9 @@ public class Manager : MonoBehaviour
     public int TriBallPow { get { return triBallPow; } set { triBallPow = value; } }
     public int LobBallPow { get { return lobBallPow; } set { lobBallPow = value; } }
     public bool LobBallEnabled { get { return lobBallEnabled; } set { lobBallEnabled = value; } }
+    //endless
+    public int TotalPoints { get { return totalPoints; } set { totalPoints = value; } }
+    public float Multiplier { get { return multiplier; } set { multiplier = value; } }
 
     private void Awake()
     {
@@ -67,6 +78,15 @@ public class Manager : MonoBehaviour
         }
 
         objects = new List<GameObject>();
+    }
+
+    public void Update()
+    {
+        //ball camera follows the first ball in the list
+        if (objects.Count >= 1)
+        {
+            objectCamera.transform.position = objects[0].transform.position + objectCameraOffset;
+        }
     }
 
     public void RecieveValues(int _currentLevelNumber, GameObject _objectSpawnPos, GameObject _objectCamera, int _startingNumberOfObjects, int _minScore, int _secretScore, int _goldBallPow, int _markedBallPow, int _triBallPow, int _lobBallPow)
@@ -90,13 +110,11 @@ public class Manager : MonoBehaviour
         StartCoroutine(SpawnNewStartingBall());
     }
 
-    public void Update()
+    public void ResetValues()
     {
-        //ball camera follows the first ball in the list
-        if (objects.Count >= 1)
-        {
-            objectCamera.transform.position = objects[0].transform.position + objectCameraOffset;
-        }
+        objects.Clear();
+        UpdateScore(-score);
+        LobBallEnabled = false;
     }
 
     public void UpdateScore(int scoreChange)
@@ -182,7 +200,7 @@ public class Manager : MonoBehaviour
             LevelUILogic.Instance.EventHandler.SetActive(false);
 
             //bring up the results screen
-            SceneManager.LoadScene("ResultsScreen", LoadSceneMode.Additive);
+            SceneHandler.Instance.LoadSceneAdditively("ResultsScreen");
 
             //pause the game
             Time.timeScale = 0;

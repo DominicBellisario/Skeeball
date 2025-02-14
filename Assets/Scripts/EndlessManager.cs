@@ -1,7 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class EndlessManager : MonoBehaviour
 {
@@ -38,17 +35,7 @@ public class EndlessManager : MonoBehaviour
             Instance = this;
         }
         //set up first level
-        sceneHandler.LoadEndlessLevelAndLevelUI("L" + RandomNumber(0, easyLevels.Length).ToString());
-    }
-
-    /// <summary>
-    /// returns a random number rounded to an int
-    /// </summary>
-    /// <param name="min"></param>
-    /// <param name="max"></param>
-    /// <returns></returns>
-    private int RandomNumber(float min, float max)
-    {
-        return Mathf.RoundToInt(Random.Range(min, max));
+        SceneHandler.Instance.LoadScene("EL" + Helper.Instance.RandomInt(0, easyLevels.Length).ToString());
+        SceneHandler.Instance.LoadSceneAdditively("LevelUIEndless");
     }
 }
