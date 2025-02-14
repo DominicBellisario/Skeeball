@@ -2,11 +2,10 @@ using UnityEngine;
 
 public class BeanbagControls : ObjectControls
 {
-    [SerializeField]
-    int heightMultipliter;
-
-    [SerializeField]
-    float rotRange;
+    //the multiplier for the y force of the launch
+    [SerializeField] int heightMultipliter;
+    //the min and max for the rotational force applied when launched
+    [SerializeField] float rotRange;
 
     public Vector3 PredictVelocity(float _angle)
     {

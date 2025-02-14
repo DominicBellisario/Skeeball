@@ -1,16 +1,12 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class BeanbagEffects : ObjectEffects
 {
     //the number of physics frames caculated each frame for the aiming line
-    [SerializeField]
-    int steps;
+    [SerializeField] int steps;
 
     protected override void Update()
     {
-        base.Update();
         //activate the aiming line when the ball is held
         if (GetComponent<ObjectControls>().IsHeld)
         {

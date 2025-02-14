@@ -3,15 +3,12 @@ using UnityEngine;
 public class BallEffects : ObjectEffects
 {
     //the length constraignts for the aiming line
-    [SerializeField]
-    float minLineLength;
-    [SerializeField]
-    float maxLineLength;
+    [SerializeField] float minLineLength;
+    [SerializeField] float maxLineLength;
     float lineLength;
 
     protected override void Update()
     {
-        base.Update();
         //activate the aiming line when the ball is held
         if (GetComponent<ObjectControls>().IsHeld)
         {

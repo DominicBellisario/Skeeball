@@ -1,39 +1,28 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public abstract class ObjectEffects : MonoBehaviour
 {
-    [SerializeField]
-    protected Rigidbody rb;
+    [SerializeField] protected Rigidbody rb;
     //shows the trajectory of the object while aiming
-    [SerializeField]
-    protected LineRenderer aimLine;
-    [SerializeField]
-    protected LineRenderer leftAimLine;
-    [SerializeField]
-    protected LineRenderer rightAimLine;
+    [SerializeField] protected LineRenderer aimLine;
+    [SerializeField] protected LineRenderer leftAimLine;
+    [SerializeField] protected LineRenderer rightAimLine;
     //the aim line material
-    [SerializeField]
-    protected Material dottedLineMaterial;
+    [SerializeField] protected Material dottedLineMaterial;
 
     //the particle trail
-    [SerializeField]
-    protected GameObject particleTrail;
+    [SerializeField] protected GameObject particleTrail;
 
     //the objects that appear when triball is active
-    [SerializeField]
-    protected GameObject leftTriBall;
-    [SerializeField]
-    protected GameObject rightTriBall;
+    [SerializeField] protected GameObject leftTriBall;
+    [SerializeField] protected GameObject rightTriBall;
 
     protected float triBallAngleRads;
 
     //the min and max texture speed
-    [SerializeField]
-    protected float minOffsetSpeed;
-    [SerializeField]
-    protected float maxOffsetSpeed;
+    [SerializeField] protected float minOffsetSpeed;
+    [SerializeField] protected float maxOffsetSpeed;
     protected float offsetDifference;
     protected float totalOffset;
 
@@ -41,19 +30,15 @@ public abstract class ObjectEffects : MonoBehaviour
     protected Material[] materials;
 
     //the base skin for the ball
-    [SerializeField]
-    protected Material defaultMaterial;
+    [SerializeField] protected Material defaultMaterial;
     //when a powerup is disabled, this material replaces the powerup material
-    [SerializeField]
-    protected Material transMaterial;
+    [SerializeField] protected Material transMaterial;
 
     //powerup toggles and materials
     protected bool goldBallEnabled;
-    [SerializeField]
-    protected Material goldBallMaterial;
+    [SerializeField] protected Material goldBallMaterial;
     protected bool markedBallEnabled;
-    [SerializeField]
-    protected Material markedBallMaterial;
+    [SerializeField] protected Material markedBallMaterial;
     protected bool triBallEnabled;
 
     public bool GoldBallEnabled { get { return goldBallEnabled; } set { goldBallEnabled = value; } }
@@ -75,10 +60,7 @@ public abstract class ObjectEffects : MonoBehaviour
     }
 
     // Update is called once per frame
-    protected virtual void Update()
-    {
-
-    }
+    protected abstract void Update();
 
     public void ResetParticleTrail()
     {
@@ -105,7 +87,6 @@ public abstract class ObjectEffects : MonoBehaviour
     {
         particleTrail.SetActive(true);
     }
-
 
     /// <summary>
     /// makes the particle system on ball a top-level object so it does not get destroyed along with ball

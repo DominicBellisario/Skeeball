@@ -12,8 +12,7 @@ public abstract class ObjectControls : MonoBehaviour
     protected Rigidbody rb;
 
     //the radius of the circle the object can move within while aiming
-    [SerializeField]
-    protected float aimingCircleRadius;
+    [SerializeField] protected float aimingCircleRadius;
 
     //the pixel radius of the circle the player can move their finger in to control the object's speed
     protected float pixelAimingCircleRadius;
@@ -28,11 +27,9 @@ public abstract class ObjectControls : MonoBehaviour
     //the percent of max launch force that will be applied to the object
     protected float powerPercent;
 
-    [SerializeField]
-    protected int forceMultiplyer;
+    [SerializeField] protected int forceMultiplyer;
 
-    [SerializeField]
-    protected float triBallAngle;
+    [SerializeField] protected float triBallAngle;
     protected float triBallAngleRads;
 
     //properties
@@ -85,9 +82,8 @@ public abstract class ObjectControls : MonoBehaviour
             transform.position = new Vector3(
                 objectOrigin.x + (Mathf.Sin(angle) * aimingCircleRadius * powerPercent),
                 objectOrigin.y,
-                objectOrigin.z + (Mathf.Cos(angle) * aimingCircleRadius * powerPercent));
-
-
+                objectOrigin.z + (Mathf.Cos(angle) * aimingCircleRadius * powerPercent)
+                );
         }
         //Debug.Log(rb.velocity.magnitude);
 
@@ -144,7 +140,6 @@ public abstract class ObjectControls : MonoBehaviour
         {
             isHeld = true;
         }
-
     }
 
     public float DistanceBetweenTwoPoints(Vector2 point1, Vector2 point2)

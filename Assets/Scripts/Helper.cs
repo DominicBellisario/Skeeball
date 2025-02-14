@@ -7,10 +7,7 @@ public class Helper : MonoBehaviour
     private void Awake()
     {
         //create singleton instance
-        if (Instance != null && Instance != this)
-        {
-            Destroy(this);
-        }
+        if (Instance != null && Instance != this) { Destroy(this); }
         else
         {
             DontDestroyOnLoad(gameObject);

@@ -4,24 +4,16 @@ using UnityEngine;
 public class LevelUILogic : MonoBehaviour
 {
     //turns off when the game is paused
-    [SerializeField]
-    GameObject eventHandler;
+    [SerializeField] GameObject eventHandler;
 
-    [SerializeField]
-    TextMeshProUGUI scoreText;
-    [SerializeField]
-    TextMeshProUGUI ballsText;
+    [SerializeField] TextMeshProUGUI scoreText;
+    [SerializeField] TextMeshProUGUI ballsText;
 
-    [SerializeField]
-    GameObject powerupButton;
-    [SerializeField]
-    GameObject goldBallButton;
-    [SerializeField]
-    GameObject markedBallButton;
-    [SerializeField]
-    GameObject triBallButton;
-    [SerializeField]
-    GameObject lobBallButton;
+    [SerializeField] GameObject powerupButton;
+    [SerializeField] GameObject goldBallButton;
+    [SerializeField] GameObject markedBallButton;
+    [SerializeField] GameObject triBallButton;
+    [SerializeField] GameObject lobBallButton;
 
     bool expandedPowerupUI;
 
@@ -30,14 +22,8 @@ public class LevelUILogic : MonoBehaviour
 
     private void Awake()
     {
-        if (Instance != null && Instance != this)
-        {
-            Destroy(this);
-        }
-        else
-        {
-            Instance = this;
-        }
+        if (Instance != null && Instance != this) { Destroy(this); }
+        else { Instance = this; }
     }
 
     private void Start()

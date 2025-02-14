@@ -1,7 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class HoleText : MonoBehaviour
@@ -49,6 +46,7 @@ public class HoleText : MonoBehaviour
         transform.position = new Vector3(transform.position.x, transform.position.y + (speed * Time.deltaTime), transform.position.z);
     }
 
+    //set the text to the score, and change its color if the ball had a power
     public void SetText(int score, bool goldBall, bool marked)
     {
         if (marked)
@@ -61,6 +59,5 @@ public class HoleText : MonoBehaviour
             score *= 2;
         }
         textMesh.text = score.ToString();
-        
     }
 }

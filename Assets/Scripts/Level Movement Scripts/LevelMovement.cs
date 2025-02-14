@@ -1,21 +1,16 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public abstract class LevelMovement : MonoBehaviour
 {
     //angles per second
-    [SerializeField]
-    protected float speed;
+    [SerializeField] protected float speed;
     //how far the object travels
-    [SerializeField]
-    protected float magnitude;
+    [SerializeField] protected float magnitude;
     //the angle where the object starts in the wave
-    [SerializeField]
-    protected float startingWavePos = 0;
+    [SerializeField] protected float startingWavePos = 0;
     //where the obkect starts in the world
     protected Vector3 startingWorldPos;
-    
+
     protected float currentPos;
     float currentAngle;
 

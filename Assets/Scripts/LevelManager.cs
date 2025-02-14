@@ -1,8 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
-using System.Text;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class LevelManager : MonoBehaviour
 {
@@ -31,6 +27,7 @@ public class LevelManager : MonoBehaviour
 
     private void Start()
     {
+        //sends all starting level values to manager
         Manager.Instance.RecieveValues(levelNumber, objectSpawnPos, objectCamera, numberOfObjects, minScore, secretScore, goldBallPow, markedBallPow, triBallPow, lobBallPow);
     }
 }

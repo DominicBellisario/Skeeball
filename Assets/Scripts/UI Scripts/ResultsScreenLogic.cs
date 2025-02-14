@@ -4,21 +4,16 @@ using TMPro;
 public class ResultsScreenLogic : MonoBehaviour
 {
     //text that shows wether or not the player won
-    [SerializeField]
-    TextMeshProUGUI resultsText;
+    [SerializeField] TextMeshProUGUI resultsText;
     //text that shows the player's final score
-    [SerializeField]
-    TextMeshProUGUI playerScoreText;
+    [SerializeField] TextMeshProUGUI playerScoreText;
     //text that shows the min score for the level
-    [SerializeField]
-    TextMeshProUGUI minScoreText;
+    [SerializeField] TextMeshProUGUI minScoreText;
     //text that shows the secret score for the level
-    [SerializeField]
-    TextMeshProUGUI secretScoreText;
+    [SerializeField] TextMeshProUGUI secretScoreText;
 
     //the next level button.  disabled if the player lost
-    [SerializeField]
-    GameObject nextLevelButton;
+    [SerializeField] GameObject nextLevelButton;
 
 
 

@@ -1,11 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PowerupVisuals : MonoBehaviour
 {
-    [SerializeField]
-    float rotateSpeed;
+    [SerializeField] float rotateSpeed;
 
     // Update is called once per frame
     void Update()
