@@ -45,6 +45,7 @@ public class Manager : MonoBehaviour
     int[] currentDifficulty;
     [SerializeField] int totalPoints = 0;
     [SerializeField] float multiplier = 1f;
+    [SerializeField] int coins = 0;
     int completedLevelsInRound = 0;
     int levelsInCurrentRound = 4;
     int currentRoundNumber = 1;
@@ -111,9 +112,11 @@ public class Manager : MonoBehaviour
         triBallPow = _triBallPow;
         lobBallPow = _lobBallPow;
 
-        //update the score and ball UI with starting values
+        //update UI with starting values
         UpdateScore(0);
         UpdateObjects(0);
+        UpdateCoins(0);
+
 
         //spawn the first ball
         StartCoroutine(SpawnNewStartingBall());
@@ -134,6 +137,7 @@ public class Manager : MonoBehaviour
         currentLevelNumber = 0;
         totalPoints = 0;
         multiplier = 1;
+        coins = 0;
     }
 
     public void BeginEndlessMode()
@@ -188,6 +192,18 @@ public class Manager : MonoBehaviour
     {
         numberOfObjects += ballsChange;
         LevelUILogic.Instance.UpdateBalls(numberOfObjects);
+    }
+
+    public void UpdateMultiplier(float multiplierChange)
+    {
+        multiplier += multiplierChange;
+        LevelUILogic.Instance.UpdateCoins(coins);
+    }
+
+    public void UpdateCoins(int coinsChange)
+    {
+        coins += coinsChange;
+        LevelUILogic.Instance.UpdateCoins(coins);
     }
 
     /// <summary>

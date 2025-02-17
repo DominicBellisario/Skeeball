@@ -19,6 +19,7 @@ public class LevelUILogic : MonoBehaviour
     [SerializeField] GameObject totalScoreText;
     [SerializeField] GameObject multiplierText;
     [SerializeField] GameObject levelAndRoundText;
+    [SerializeField] GameObject coinsText;
 
     bool expandedPowerupUI;
 
@@ -44,6 +45,7 @@ public class LevelUILogic : MonoBehaviour
         totalScoreText.SetActive(true);
         multiplierText.SetActive(true);
         levelAndRoundText.SetActive(true);
+        coinsText.SetActive(true);
         UpdateTotalScore(Manager.Instance.TotalPoints);
         UpdateMultiplier(Manager.Instance.Multiplier);
         UpdateLevelAndRoundText(Manager.Instance.CompletedLevelsInRound, Manager.Instance.LevelsInCurrentRound, Manager.Instance.CurrentRoundNumber);
@@ -94,6 +96,15 @@ public class LevelUILogic : MonoBehaviour
     public void UpdateLevelAndRoundText(int completedLevels, int totalLevels, int currentRound)
     {
         levelAndRoundText.GetComponentInChildren<TextMeshProUGUI>().text = "L: " + completedLevels + "/" + totalLevels + "  R: " + currentRound;
+    }
+    public void UpdateCoins(float multiplier)
+    {
+        multiplierText.GetComponentInChildren<TextMeshProUGUI>().text = "Multiplier: " + multiplier;
+    }
+
+    public void UpdateCoins(int coins)
+    {
+        coinsText.GetComponentInChildren<TextMeshProUGUI>().text = "Coins: " + coins;
     }
 
     /// <summary>
