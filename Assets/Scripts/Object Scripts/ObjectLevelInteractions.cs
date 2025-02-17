@@ -83,6 +83,13 @@ public abstract class ObjectLevelInteractions : MonoBehaviour
             Manager.Instance.UpdateObjects(2);
             Destroy(trigger.gameObject);
         }
+
+        //if the object hits a coin, destroy it and add to the coin count
+        else if (trigger.gameObject.CompareTag("Coin"))
+        {
+            Manager.Instance.UpdateCoins(trigger.gameObject.GetComponent<Coin>().Value);
+            Destroy(trigger.gameObject);
+        }
     }
 
     private void OnTriggerStay(Collider other)

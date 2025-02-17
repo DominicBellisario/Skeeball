@@ -107,10 +107,21 @@ public class Manager : MonoBehaviour
         numberOfObjects = _startingNumberOfObjects;
         minScore = _minScore;
         secretScore = _secretScore;
-        goldBallPow = _goldBallPow;
-        markedBallPow = _markedBallPow;
-        triBallPow = _triBallPow;
-        lobBallPow = _lobBallPow;
+        if (!endless)
+        {
+            goldBallPow = _goldBallPow;
+            markedBallPow = _markedBallPow;
+            triBallPow = _triBallPow;
+            lobBallPow = _lobBallPow;
+        }
+        else
+        {
+            goldBallPow += _goldBallPow;
+            markedBallPow += _markedBallPow;
+            triBallPow += _triBallPow;
+            lobBallPow += _lobBallPow;
+        }
+
 
         //update UI with starting values
         UpdateScore(0);
@@ -165,7 +176,7 @@ public class Manager : MonoBehaviour
         }
         //pick a random number from the unplayed levels
         int levelNumToLoad = unplayedLevels[Helper.Instance.RandomInt(0, unplayedLevels.Count - 1)];
-        
+
         //add it to played levels
         playedLevels.Add(levelNumToLoad);
         //set it as the current level
@@ -260,12 +271,12 @@ public class Manager : MonoBehaviour
         LevelUILogic.Instance.EventHandler.SetActive(false);
         //bring up the results screen
         if (!endless) { SceneHandler.Instance.LoadSceneAdditively("ResultsScreen"); }
-        else 
-        { 
+        else
+        {
             completedLevelsInRound++;
-            SceneHandler.Instance.LoadSceneAdditively("ResultsScreenEndless"); 
+            SceneHandler.Instance.LoadSceneAdditively("ResultsScreenEndless");
         }
-        
+
         //pause the game
         Time.timeScale = 0;
     }
