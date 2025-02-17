@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class Manager : MonoBehaviour
@@ -50,6 +51,9 @@ public class Manager : MonoBehaviour
     int levelsInCurrentRound = 4;
     int currentRoundNumber = 1;
     List<int> playedLevels = new();
+    GameObject[] multiHoles;
+    List<GameObject> activatedMultiHoles = new();
+    int maxActiveHoles = 1;
 
 
     bool endless;
@@ -73,6 +77,7 @@ public class Manager : MonoBehaviour
     public int CompletedLevelsInRound { get { return completedLevelsInRound; } }
     public int LevelsInCurrentRound { get { return levelsInCurrentRound; } }
     public int CurrentRoundNumber { get { return currentRoundNumber; } }
+    public List<GameObject> ActivatedMultiHoles { get { return activatedMultiHoles; } }
 
     protected virtual void Awake()
     {
@@ -99,7 +104,7 @@ public class Manager : MonoBehaviour
         }
     }
 
-    public virtual void RecieveValues(int _currentLevelNumber, GameObject _objectSpawnPos, GameObject _objectCamera, int _startingNumberOfObjects, int _minScore, int _secretScore, int _goldBallPow, int _markedBallPow, int _triBallPow, int _lobBallPow)
+    public virtual void RecieveValues(int _currentLevelNumber, GameObject _objectSpawnPos, GameObject _objectCamera, int _startingNumberOfObjects, int _minScore, int _secretScore, int _goldBallPow, int _markedBallPow, int _triBallPow, int _lobBallPow, GameObject[] _multiHoles)
     {
         currentLevelNumber = _currentLevelNumber;
         objectSpawnPos = _objectSpawnPos;
@@ -107,19 +112,25 @@ public class Manager : MonoBehaviour
         numberOfObjects = _startingNumberOfObjects;
         minScore = _minScore;
         secretScore = _secretScore;
+        //if normal mode
         if (!endless)
         {
+            //reset powerups
             goldBallPow = _goldBallPow;
             markedBallPow = _markedBallPow;
             triBallPow = _triBallPow;
             lobBallPow = _lobBallPow;
+            //no multiholes
+            multiHoles = new GameObject[0];
         }
         else
         {
+            //add to powerups
             goldBallPow += _goldBallPow;
             markedBallPow += _markedBallPow;
             triBallPow += _triBallPow;
             lobBallPow += _lobBallPow;
+            multiHoles = _multiHoles;
         }
 
 
@@ -208,7 +219,7 @@ public class Manager : MonoBehaviour
     public void UpdateMultiplier(float multiplierChange)
     {
         multiplier += multiplierChange;
-        LevelUILogic.Instance.UpdateCoins(coins);
+        LevelUILogic.Instance.UpdateMultiplier(multiplier);
     }
 
     public void UpdateCoins(int coinsChange)
@@ -262,6 +273,24 @@ public class Manager : MonoBehaviour
         UpdateObjects(-1);
         //switch to main camera view
         objectCamera.SetActive(false);
+        //if in endless mode
+        if (endless)
+        {
+            //assign new multiplier holes
+            activatedMultiHoles.Clear();
+            for (int i = 0; i < maxActiveHoles; i++)
+            {
+                GameObject selectedHole = multiHoles[Helper.Instance.RandomInt(0, multiHoles.Count() - 1)];
+                if (!activatedMultiHoles.Contains(selectedHole))
+                {
+                    activatedMultiHoles.Add(selectedHole);
+                }
+            }
+            foreach (GameObject hole in activatedMultiHoles)
+            {
+                Debug.Log(hole.name);
+            }
+        }
     }
 
     private IEnumerator EndLevel()

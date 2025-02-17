@@ -19,6 +19,9 @@ public class LevelManager : MonoBehaviour
     //the starting number of objects
     [SerializeField] int numberOfObjects;
 
+    //all of the holes that can be chosen to add to the multiplier (endless)
+    [SerializeField] GameObject[] multiHoles;
+
     //all of the coin setups (endless)
     [SerializeField] GameObject[] coinPositions;
 
@@ -31,7 +34,7 @@ public class LevelManager : MonoBehaviour
     private void Start()
     {
         //sends all starting level values to manager
-        Manager.Instance.RecieveValues(levelNumber, objectSpawnPos, objectCamera, numberOfObjects, minScore, secretScore, goldBallPow, markedBallPow, triBallPow, lobBallPow);
+        Manager.Instance.RecieveValues(levelNumber, objectSpawnPos, objectCamera, numberOfObjects, minScore, secretScore, goldBallPow, markedBallPow, triBallPow, lobBallPow, multiHoles);
 
         //activates a random coin position object
         coinPositions[Helper.Instance.RandomInt(0, coinPositions.Length - 1)].SetActive(true);

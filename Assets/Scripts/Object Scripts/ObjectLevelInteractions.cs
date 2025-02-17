@@ -1,3 +1,4 @@
+using System.Linq;
 using UnityEngine;
 
 public abstract class ObjectLevelInteractions : MonoBehaviour
@@ -109,6 +110,13 @@ public abstract class ObjectLevelInteractions : MonoBehaviour
             bool gold = false;
             //get the hole's value
             int points = trigger.GetComponentInParent<HoleVariables>().Points;
+
+            //if the hole was an activated multiplier hole, add to the multiplier
+            if (Manager.Instance.ActivatedMultiHoles.Contains(trigger.gameObject.GetComponentInParent<HoleVariables>().gameObject))
+            {
+                Debug.Log("multi");
+                Manager.Instance.UpdateMultiplier(0.5f);
+            }
 
             //x2 points if gold ball
             if (GetComponent<ObjectEffects>().GoldBallEnabled)
