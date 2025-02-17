@@ -44,7 +44,9 @@ public class Manager : MonoBehaviour
     [SerializeField] int[] hardLevels;
     [SerializeField] int totalPoints = 0;
     [SerializeField] float multiplier = 1f;
-    int currentLevel = 0;
+    int completedLevelsInRound = 0;
+    int levelsInCurrentRound = 4;
+    int currentRoundNumber = 1;
     List<int> playedLevels = new();
 
 
@@ -62,7 +64,13 @@ public class Manager : MonoBehaviour
     public int TriBallPow { get { return triBallPow; } set { triBallPow = value; } }
     public int LobBallPow { get { return lobBallPow; } set { lobBallPow = value; } }
     public bool LobBallEnabled { get { return lobBallEnabled; } set { lobBallEnabled = value; } }
-    public bool Endless { get { return endless; } set { endless = value; } }
+    //endless
+    public bool Endless { get { return endless; } }
+    public int TotalPoints { get { return totalPoints; } }
+    public float Multiplier { get { return multiplier; } }
+    public int CompletedLevelsInRound { get { return completedLevelsInRound; } }
+    public int LevelsInCurrentRound { get { return levelsInCurrentRound; } }
+    public int CurrentRoundNumber { get { return currentRoundNumber; } }
 
     protected virtual void Awake()
     {
@@ -112,20 +120,24 @@ public class Manager : MonoBehaviour
 
     public virtual void ResetValues()
     {
-        endless = false;
         objects.Clear();
         UpdateScore(-score);
         LobBallEnabled = false;
+        StopAllCoroutines();
+    }
+
+    public virtual void EndlessReset()
+    {
+        endless = false;
         playedLevels.Clear();
-        currentLevel = 0;
+        currentLevelNumber = 0;
         totalPoints = 0;
         multiplier = 1;
-        StopAllCoroutines();
     }
 
     public void BeginEndlessMode()
     {
-        endless = true;
+        Instance.endless = true;
         Instance.GoToNextEndlessLevel(easyLevels);
     }
 
@@ -151,19 +163,26 @@ public class Manager : MonoBehaviour
         //add it to played levels
         playedLevels.Add(levelNumToLoad);
         //set it as the current level
-        currentLevel = levelNumToLoad;
+        currentLevelNumber = levelNumToLoad;
         //load a random level from these levels
         SceneHandler.Instance.LoadLevel("EL" + levelNumToLoad.ToString());
     }
 
-    public virtual void UpdateScore(int scoreChange)
+    public void UpdateScore(int scoreChange)
     {
+        if (endless) { scoreChange = Mathf.RoundToInt(scoreChange * multiplier); }
         score += scoreChange;
-
         LevelUILogic.Instance.UpdateScore(score);
     }
 
-    public virtual void UpdateObjects(int ballsChange)
+    public void UpdateTotalScore(int scoreChange)
+    {
+        scoreChange = Mathf.RoundToInt(scoreChange * multiplier);
+        totalPoints += scoreChange;
+        LevelUILogic.Instance.UpdateTotalScore(totalPoints);
+    }
+
+    public void UpdateObjects(int ballsChange)
     {
         numberOfObjects += ballsChange;
         LevelUILogic.Instance.UpdateBalls(numberOfObjects);
@@ -174,7 +193,7 @@ public class Manager : MonoBehaviour
     /// </summary>
     /// <param name="pos"></param>
     /// <param name="force"></param>
-    public virtual GameObject SpawnNewObject(GameObject objectPrefab, Vector3 spawnPos, Vector3 force, bool gold, bool marked, bool tri)
+    public GameObject SpawnNewObject(GameObject objectPrefab, Vector3 spawnPos, Vector3 force, bool gold, bool marked, bool tri)
     {
         GameObject newObject = Instantiate(objectPrefab);
 
@@ -207,7 +226,7 @@ public class Manager : MonoBehaviour
     /// spawns a new ball after a delay and reduces the ball count
     /// </summary>
     /// <returns></returns>
-    protected virtual IEnumerator SpawnNewStartingBall()
+    private IEnumerator SpawnNewStartingBall()
     {
         yield return new WaitForSeconds(timeBetweenObjects);
         SpawnNewObject(ballPrefab, objectSpawnPos.transform.position, Vector3.zero, false, false, false);
@@ -216,7 +235,7 @@ public class Manager : MonoBehaviour
         objectCamera.SetActive(false);
     }
 
-    protected virtual IEnumerator EndLevel()
+    private IEnumerator EndLevel()
     {
         yield return new WaitForSeconds(timeBetweenObjects);
         //disable level ui event handler
@@ -231,7 +250,7 @@ public class Manager : MonoBehaviour
     /// destroy an object
     /// </summary>
     /// <param name="ball"></param>
-    public virtual void DestroyObject(GameObject objectToDestroy)
+    public void DestroyObject(GameObject objectToDestroy)
     {
         objects.Remove(objectToDestroy);
         objectToDestroy.GetComponent<ObjectEffects>().SeparateParticleSystem();
@@ -254,7 +273,7 @@ public class Manager : MonoBehaviour
     /// <summary>
     /// manages everything that happens with wther or not lobball is turned on or off
     /// </summary>
-    public virtual void ToggleLobBall()
+    public void ToggleLobBall()
     {
         lobBallEnabled = !lobBallEnabled;
 
@@ -284,7 +303,7 @@ public class Manager : MonoBehaviour
         }
     }
 
-    public virtual void SwitchCameraView()
+    public void SwitchCameraView()
     {
         objectCamera.SetActive(!objectCamera.activeInHierarchy);
     }

@@ -3,6 +3,7 @@ using TMPro;
 
 public class ResultsScreenLogic : MonoBehaviour
 {
+    [SerializeField] GameObject restartButton;
     //text that shows wether or not the player won
     [SerializeField] TextMeshProUGUI resultsText;
     //text that shows the player's final score
@@ -17,6 +18,11 @@ public class ResultsScreenLogic : MonoBehaviour
 
     private void Start()
     {
+        //no restart in endless mode
+        if (Manager.Instance.Endless)
+        {
+            restartButton.SetActive(false);
+        }
         //check how the player did
         //tell the player they epic win and (later), give them an unlock
         if (Manager.Instance.Score >= Manager.Instance.SecretScore)
@@ -62,5 +68,6 @@ public class ResultsScreenLogic : MonoBehaviour
         Time.timeScale = 1;
         SceneHandler.Instance.LoadScene("HomeScreen");
         Manager.Instance.ResetValues();
+        Manager.Instance.EndlessReset();
     }
 }

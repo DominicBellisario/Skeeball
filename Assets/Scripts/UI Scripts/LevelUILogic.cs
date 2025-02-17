@@ -1,3 +1,4 @@
+using System.Collections;
 using TMPro;
 using UnityEngine;
 
@@ -15,6 +16,10 @@ public class LevelUILogic : MonoBehaviour
     [SerializeField] GameObject triBallButton;
     [SerializeField] GameObject lobBallButton;
 
+    [SerializeField] GameObject totalScoreText;
+    [SerializeField] GameObject multiplierText;
+    [SerializeField] GameObject levelAndRoundText;
+
     bool expandedPowerupUI;
 
     public GameObject EventHandler { get { return eventHandler; } set { eventHandler = value; } }
@@ -29,7 +34,19 @@ public class LevelUILogic : MonoBehaviour
     private void Start()
     {
         expandedPowerupUI = false;
+        //activate and update endless info if in endless mode
         UpdatePowerups();
+        if (Manager.Instance.Endless) { SetUpEndlessUI(); }
+    }
+
+    public void SetUpEndlessUI()
+    {
+        totalScoreText.SetActive(true);
+        multiplierText.SetActive(true);
+        levelAndRoundText.SetActive(true);
+        UpdateTotalScore(Manager.Instance.TotalPoints);
+        UpdateMultiplier(Manager.Instance.Multiplier);
+        UpdateLevelAndRoundText(Manager.Instance.CompletedLevelsInRound, Manager.Instance.LevelsInCurrentRound, Manager.Instance.CurrentRoundNumber);
     }
 
     /// <summary>
@@ -62,6 +79,21 @@ public class LevelUILogic : MonoBehaviour
         triBallButton.SetActive(expandedPowerupUI);
         lobBallButton.GetComponentInChildren<TextMeshProUGUI>().text = "Lob Ball: " + manager.LobBallPow;
         lobBallButton.SetActive(expandedPowerupUI);
+    }
+
+    public void UpdateTotalScore(int totalScore)
+    {
+        totalScoreText.GetComponentInChildren<TextMeshProUGUI>().text = "Total Score: " + totalScore;
+    }
+
+    public void UpdateMultiplier(float multiplier)
+    {
+        multiplierText.GetComponentInChildren<TextMeshProUGUI>().text = multiplier + "x multiplier";
+    }
+
+    public void UpdateLevelAndRoundText(int completedLevels, int totalLevels, int currentRound)
+    {
+        levelAndRoundText.GetComponentInChildren<TextMeshProUGUI>().text = "L: " + completedLevels + "/" + totalLevels + "  R: " + currentRound;
     }
 
     /// <summary>

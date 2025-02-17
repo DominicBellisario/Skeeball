@@ -100,18 +100,24 @@ public abstract class ObjectLevelInteractions : MonoBehaviour
         if (trigger.gameObject.CompareTag("HoleActivateTrigger"))
         {
             bool gold = false;
+            //get the hole's value
+            int points = trigger.GetComponentInParent<HoleVariables>().Points;
 
-            //add points to the total point count.  x2 points if gold ball
+            //x2 points if gold ball
             if (GetComponent<ObjectEffects>().GoldBallEnabled)
             {
-                Manager.Instance.UpdateScore(trigger.GetComponentInParent<HoleVariables>().Points * 2);
+                points *= 2;
                 gold = true;
             }
-            else
+
+            //add points to point count
+            Manager.Instance.UpdateScore(points);
+            if (Manager.Instance.Endless)
             {
-                Manager.Instance.UpdateScore(trigger.GetComponentInParent<HoleVariables>().Points);
+                Manager.Instance.UpdateTotalScore(points);
             }
 
+            //spawn hole text
             trigger.gameObject.GetComponentInParent<HoleVariables>().SpawnHoleText(gold);
 
             //if the object was marked, double the hole's point value and make it glow

@@ -3,6 +3,17 @@ using UnityEngine;
 
 public class PauseScreenLogic : MonoBehaviour
 {
+    [SerializeField] GameObject restartButton;
+
+    private void Start()
+    {
+        //no restarting level for endless mode
+        if (Manager.Instance.Endless)
+        {
+            restartButton.SetActive(false);
+        }
+    }
+
     IEnumerator EnableEventHandler()
     {
         yield return new WaitForEndOfFrame();
@@ -31,5 +42,6 @@ public class PauseScreenLogic : MonoBehaviour
         Time.timeScale = 1;
         SceneHandler.Instance.LoadScene("HomeScreen");
         Manager.Instance.ResetValues();
+        Manager.Instance.EndlessReset();
     }
 }
