@@ -42,6 +42,7 @@ public class Manager : MonoBehaviour
     [SerializeField] int[] easyLevels;
     [SerializeField] int[] mediumLevels;
     [SerializeField] int[] hardLevels;
+    int[] currentDifficulty;
     [SerializeField] int totalPoints = 0;
     [SerializeField] float multiplier = 1f;
     int completedLevelsInRound = 0;
@@ -138,14 +139,15 @@ public class Manager : MonoBehaviour
     public void BeginEndlessMode()
     {
         Instance.endless = true;
-        Instance.GoToNextEndlessLevel(easyLevels);
+        Instance.currentDifficulty = easyLevels;
+        Instance.GoToNextEndlessLevel();
     }
 
-    private void GoToNextEndlessLevel(int[] difficulty)
+    public void GoToNextEndlessLevel()
     {
         //make a list of all unplayed levels of the selected difficulty
         List<int> unplayedLevels = new();
-        foreach (int levelNum in difficulty)
+        foreach (int levelNum in currentDifficulty)
         {
             if (!playedLevels.Contains(levelNum))
             {
@@ -241,7 +243,13 @@ public class Manager : MonoBehaviour
         //disable level ui event handler
         LevelUILogic.Instance.EventHandler.SetActive(false);
         //bring up the results screen
-        SceneHandler.Instance.LoadSceneAdditively("ResultsScreen");
+        if (!endless) { SceneHandler.Instance.LoadSceneAdditively("ResultsScreen"); }
+        else 
+        { 
+            completedLevelsInRound++;
+            SceneHandler.Instance.LoadSceneAdditively("ResultsScreenEndless"); 
+        }
+        
         //pause the game
         Time.timeScale = 0;
     }
