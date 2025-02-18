@@ -138,7 +138,7 @@ public abstract class ObjectLevelInteractions : MonoBehaviour
             //if the object was marked, double the hole's point value and make it glow
             if (GetComponent<ObjectEffects>().MarkedBallEnabled)
             {
-                trigger.gameObject.GetComponentInParent<HoleVariables>().MarkHole();
+                trigger.gameObject.GetComponentInParent<HoleVariables>().MakeMarkedHole(true);
             }
 
             //destroy the object if the hole requires that

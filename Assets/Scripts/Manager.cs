@@ -147,7 +147,7 @@ public class Manager : MonoBehaviour
     public virtual void ResetValues()
     {
         objects.Clear();
-        UpdateScore(-score);
+        ResetScore();
         LobBallEnabled = false;
         StopAllCoroutines();
     }
@@ -200,6 +200,12 @@ public class Manager : MonoBehaviour
     {
         if (endless) { scoreChange = Mathf.RoundToInt(scoreChange * multiplier); }
         score += scoreChange;
+        LevelUILogic.Instance.UpdateScore(score);
+    }
+
+    private void ResetScore()
+    {
+        score = 0;
         LevelUILogic.Instance.UpdateScore(score);
     }
 
@@ -284,6 +290,21 @@ public class Manager : MonoBehaviour
                 if (!activatedMultiHoles.Contains(selectedHole))
                 {
                     activatedMultiHoles.Add(selectedHole);
+                }
+            }
+            foreach (GameObject hole in multiHoles)
+            {
+                if (activatedMultiHoles.Contains(hole))
+                {
+                    hole.GetComponent<HoleVariables>().MakeMultiHole();
+                }
+                else if (hole.GetComponent<HoleVariables>().Marked)
+                {
+                    hole.GetComponent<HoleVariables>().MakeMarkedHole(false);
+                }
+                else
+                {
+                    hole.GetComponent<HoleVariables>().MakeNormalHole();
                 }
             }
             foreach (GameObject hole in activatedMultiHoles)

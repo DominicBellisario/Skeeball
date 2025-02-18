@@ -7,6 +7,7 @@ public class HoleVariables : MonoBehaviour
     //how many points the hole is worth
     [SerializeField] int points;
     int startingPoints;
+    bool marked = false;
     //wether or not the ball is destroyed when passing through
     [SerializeField] bool destroyBall;
     [SerializeField] MeshRenderer holeRimMesh;
@@ -19,6 +20,7 @@ public class HoleVariables : MonoBehaviour
     [SerializeField] Material[] goldMaterials;
 
     public int Points { get { return points; } }
+    public bool Marked { get { return marked; } }
     public bool DestroyBall { get { return destroyBall; } }
 
     private void Start()
@@ -26,18 +28,37 @@ public class HoleVariables : MonoBehaviour
         startingPoints = points;
     }
 
+    public void MakeNormalHole()
+    {
+        if (startingPoints == 10) { ChangeMaterial(greenMaterials, 0); }
+        else if (startingPoints == 20) { ChangeMaterial(orangeMaterials, 0); }
+        else if (startingPoints == 30) { ChangeMaterial(blueMaterials, 0); }
+        else if (startingPoints == 50) { ChangeMaterial(redMaterials, 0); }
+        else if (startingPoints == 100) { ChangeMaterial(goldMaterials, 0); }
+    }
+
     /// <summary>
     /// double the points and make the hole rim glow
     /// </summary>
     /// <param name="points"></param>
-    public void MarkHole()
+    public void MakeMarkedHole(bool doublePoints)
     {
-        points *= 2;
+        marked = true;
+        if (doublePoints) { points *= 2; }
         if (startingPoints == 10) { ChangeMaterial(greenMaterials, 1); }
         else if (startingPoints == 20) { ChangeMaterial(orangeMaterials, 1); }
         else if (startingPoints == 30) { ChangeMaterial(blueMaterials, 1); }
         else if (startingPoints == 50) { ChangeMaterial(redMaterials, 1); }
         else if (startingPoints == 100) { ChangeMaterial(goldMaterials, 1); }
+    }
+
+    public void MakeMultiHole()
+    {
+        if (startingPoints == 10) { ChangeMaterial(greenMaterials, 2); }
+        else if (startingPoints == 20) { ChangeMaterial(orangeMaterials, 2); }
+        else if (startingPoints == 30) { ChangeMaterial(blueMaterials, 2); }
+        else if (startingPoints == 50) { ChangeMaterial(redMaterials, 2); }
+        else if (startingPoints == 100) { ChangeMaterial(goldMaterials, 2); }
     }
 
     private void ChangeMaterial(Material[] color, int materialIndex)
