@@ -36,7 +36,6 @@ public class MaterialManager : MonoBehaviour
         foreach (Material material in pulseMaterials)
         {
             material.SetColor("_EmissionColor", new Color(pulseValue, pulseValue, pulseValue));
-            Debug.Log(material.color);
         }
     }
 

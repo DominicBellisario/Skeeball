@@ -111,11 +111,16 @@ public abstract class ObjectLevelInteractions : MonoBehaviour
             //get the hole's value
             int points = trigger.GetComponentInParent<HoleVariables>().Points;
 
+            //if the hole was not bad, they scored
+            if (points >= 0)
+            {
+                Manager.Instance.Scored = true;
+            }
+
             //if the hole was an activated multiplier hole, add to the multiplier
             if (Manager.Instance.ActivatedMultiHoles.Contains(trigger.gameObject.GetComponentInParent<HoleVariables>().gameObject))
             {
-                Debug.Log("multi");
-                Manager.Instance.UpdateMultiplier(0.5f);
+                Manager.Instance.UpdateMultiplier(Manager.Instance.MultiplierIncreaseAmt);
             }
 
             //x2 points if gold ball

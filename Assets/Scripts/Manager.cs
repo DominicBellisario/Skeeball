@@ -46,6 +46,7 @@ public class Manager : MonoBehaviour
     int[] currentDifficulty;
     [SerializeField] int totalPoints = 0;
     [SerializeField] float multiplier = 1f;
+    [SerializeField] float multiplierIncreaseAmt = 0.25f;
     [SerializeField] int coins = 0;
     int completedLevelsInRound = 0;
     int levelsInCurrentRound = 4;
@@ -54,6 +55,7 @@ public class Manager : MonoBehaviour
     GameObject[] multiHoles;
     List<GameObject> activatedMultiHoles = new();
     int maxActiveHoles = 1;
+    bool scored = true;
 
 
     bool endless;
@@ -74,9 +76,11 @@ public class Manager : MonoBehaviour
     public bool Endless { get { return endless; } }
     public int TotalPoints { get { return totalPoints; } }
     public float Multiplier { get { return multiplier; } }
+    public float MultiplierIncreaseAmt { get { return multiplierIncreaseAmt; } }
     public int CompletedLevelsInRound { get { return completedLevelsInRound; } }
     public int LevelsInCurrentRound { get { return levelsInCurrentRound; } }
     public int CurrentRoundNumber { get { return currentRoundNumber; } }
+    public bool Scored { get { return scored; } set { scored = value; } }
     public List<GameObject> ActivatedMultiHoles { get { return activatedMultiHoles; } }
 
     protected virtual void Awake()
@@ -144,14 +148,17 @@ public class Manager : MonoBehaviour
         StartCoroutine(SpawnNewStartingBall());
     }
 
+    //reset level-specific values and ball states
     public virtual void ResetValues()
     {
         objects.Clear();
         ResetScore();
         LobBallEnabled = false;
         StopAllCoroutines();
+        scored = true;
     }
 
+    //reset endless values
     public virtual void EndlessReset()
     {
         endless = false;
@@ -160,6 +167,12 @@ public class Manager : MonoBehaviour
         totalPoints = 0;
         multiplier = 1;
         coins = 0;
+        completedLevelsInRound = 0;
+        currentRoundNumber = 1;
+        goldBallPow = 0;
+        markedBallPow = 0;
+        triBallPow = 0;
+        lobBallPow = 0;
     }
 
     public void BeginEndlessMode()
@@ -282,6 +295,7 @@ public class Manager : MonoBehaviour
         //if in endless mode
         if (endless)
         {
+            scored = false;
             //assign new multiplier holes
             activatedMultiHoles.Clear();
             for (int i = 0; i < maxActiveHoles; i++)
@@ -306,10 +320,6 @@ public class Manager : MonoBehaviour
                 {
                     hole.GetComponent<HoleVariables>().MakeNormalHole();
                 }
-            }
-            foreach (GameObject hole in activatedMultiHoles)
-            {
-                Debug.Log(hole.name);
             }
         }
     }
@@ -341,10 +351,21 @@ public class Manager : MonoBehaviour
         objectToDestroy.GetComponent<ObjectEffects>().SeparateParticleSystem();
         Destroy(objectToDestroy);
 
+        //reset multiplier if player did not score last ball
+        if (objects.Count <= 0 && !scored)
+        {
+            //reset multiplier if player did not score last ball
+            UpdateMultiplier(-multiplier + 1);
+        }
         //if there are no more objects in play and the player still has more objects
         if (objects.Count <= 0 && numberOfObjects > 0)
         {
-            //spawn a new ball
+            //reset multiplier if player did not score last ball
+            if (!scored)
+            {
+                UpdateMultiplier(-multiplier + 1);
+            }
+            //spawn a new ball (after a delay)
             StartCoroutine(SpawnNewStartingBall());
         }
         //if there are no objects in play and the player has no more objects
@@ -353,8 +374,8 @@ public class Manager : MonoBehaviour
             //bring up results (after a delay)
             StartCoroutine(EndLevel());
         }
-    }
 
+    }
     /// <summary>
     /// manages everything that happens with wther or not lobball is turned on or off
     /// </summary>

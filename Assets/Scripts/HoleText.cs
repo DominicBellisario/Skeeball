@@ -1,5 +1,6 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.SocialPlatforms.Impl;
 
 public class HoleText : MonoBehaviour
 {
@@ -47,7 +48,7 @@ public class HoleText : MonoBehaviour
     }
 
     //set the text to the score, and change its color if the ball had a power
-    public void SetText(int score, bool goldBall, bool marked)
+    public void SetColor (bool goldBall, bool marked)
     {
         if (marked)
         {
@@ -56,8 +57,11 @@ public class HoleText : MonoBehaviour
         if (goldBall)
         {
             textMesh.color = Color.yellow;
-            score *= 2;
         }
-        textMesh.text = score.ToString();
+    }
+
+    public void SetText(string text)
+    {
+        textMesh.text = text;
     }
 }

@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class HoleVariables : MonoBehaviour
@@ -70,7 +71,7 @@ public class HoleVariables : MonoBehaviour
     {
         GameObject newHoleText = Instantiate(holeText);
         newHoleText.transform.position = new Vector3(transform.position.x, transform.position.y + 1, transform.position.z);
-        newHoleText.GetComponent<HoleText>().SetText(points, isGold, !(startingPoints == points));
-        
+        newHoleText.GetComponent<HoleText>().SetText(Mathf.RoundToInt(points * Manager.Instance.Multiplier).ToString());
+        newHoleText.GetComponent<HoleText>().SetColor(isGold, !(startingPoints == points));
     }
 }
