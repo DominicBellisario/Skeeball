@@ -11,11 +11,17 @@ public class ShopManager : MonoBehaviour
     [SerializeField] int[] prices;
 
 
-    List<GameObject> activeItems;
+    List<GameObject> activeItems = new();
     int itemAmount;
 
     private void Start()
     {
+        //start with all objects deactivated
+        foreach (GameObject item in itemObjects)
+        {
+            item.SetActive(false);
+        }
+
         //gets a random number of item objects that will be shown
         itemAmount = Helper.Instance.RandomInt(itemRange.x, itemRange.y);
         //activates this number of item objects in the shop
@@ -28,9 +34,9 @@ public class ShopManager : MonoBehaviour
         foreach (GameObject item in activeItems)
         {
             //picks a random item
-            int itemID = Helper.Instance.RandomInt(0, possibleItems.Length);
+            int itemID = Helper.Instance.RandomInt(0, possibleItems.Length - 1);
             //assign values
-            item.GetComponent<ShopObject>().SetValues(possibleItems[itemID], prices[itemID].ToString());
+            item.GetComponent<ShopObject>().SetValues(possibleItems[itemID], "$" + prices[itemID]);
         }
     }
 

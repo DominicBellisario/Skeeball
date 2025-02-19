@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 3809739252283455996}
   - component: {fileID: 3589789952579898469}
   - component: {fileID: 379774058804853277}
+  - component: {fileID: 4117106815307442650}
   m_Layer: 5
   m_Name: Shop Item
   m_TagString: Untagged
@@ -34,7 +35,6 @@ RectTransform:
   - {fileID: 1444730120884935035}
   - {fileID: 3545543088875396250}
   m_Father: {fileID: 0}
-  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -136,6 +136,21 @@ MonoBehaviour:
           m_StringArgument: L4
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &4117106815307442650
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2087803007475399214}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 82a24f37c7a4fbc419c1ba8b5181d326, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  button: {fileID: 379774058804853277}
+  itemText: {fileID: 8938977653076366663}
+  priceText: {fileID: 8325359910687299940}
 --- !u!1 &5909556131595519990
 GameObject:
   m_ObjectHideFlags: 0
@@ -148,7 +163,7 @@ GameObject:
   - component: {fileID: 1219531395799070579}
   - component: {fileID: 8325359910687299940}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: Price
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -167,7 +182,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7667984315710490322}
-  m_RootOrder: -2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -304,11 +318,10 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7667984315710490322}
-  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 26.8}
+  m_AnchoredPosition: {x: 27.5, y: 26.59}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5407670101657749754
@@ -366,8 +379,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 100
-  m_fontSizeBase: 100
+  m_fontSize: 80
+  m_fontSizeBase: 80
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -402,7 +415,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: -288.50403, y: 0, z: -289.53223, w: 0}
+  m_margin: {x: -288.50403, y: 0, z: 123.04497, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0

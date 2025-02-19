@@ -23,6 +23,7 @@ public class Helper : MonoBehaviour
     /// <returns></returns>
     public int RandomInt(float min, float max)
     {
+        Debug.Log(min + ", " + max);
         return Mathf.RoundToInt(Random.Range(min, max));
     }
 }

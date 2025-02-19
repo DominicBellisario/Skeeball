@@ -179,7 +179,8 @@ public class Manager : MonoBehaviour
     {
         Instance.endless = true;
         Instance.currentDifficulty = easyLevels;
-        Instance.GoToNextEndlessLevel();
+        //Instance.GoToNextEndlessLevel();
+        SceneHandler.Instance.LoadScene("Shop");
     }
 
     public void GoToNextEndlessLevel()
