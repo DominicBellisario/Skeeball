@@ -34,7 +34,7 @@ public class ResultsScreenEndless : MonoBehaviour
         //update all of the text
         levelScoreText.text = Manager.Instance.Score + " / " + Manager.Instance.MinScore;
         totalScoreText.text = Manager.Instance.TotalPoints.ToString();
-        levelRemainingText.text = "completed " + Manager.Instance.CompletedLevelsInRound + " / " + Manager.Instance.LevelsInCurrentRound + " levels";
+        levelRemainingText.text = "completed " + Manager.Instance.NumberOfCompletedLevelsInRound + " / " + Manager.Instance.LevelsInCurrentRound + " levels";
     }
 
     public void NextLevel()

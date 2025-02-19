@@ -48,7 +48,7 @@ public class LevelUILogic : MonoBehaviour
         coinsText.SetActive(true);
         UpdateTotalScore(Manager.Instance.TotalPoints);
         UpdateMultiplier(Manager.Instance.Multiplier);
-        UpdateLevelAndRoundText(Manager.Instance.CompletedLevelsInRound, Manager.Instance.LevelsInCurrentRound, Manager.Instance.CurrentRoundNumber);
+        UpdateLevelAndRoundText(Manager.Instance.NumberOfCompletedLevelsInRound, Manager.Instance.LevelsInCurrentRound, Manager.Instance.CurrentRoundNumber);
     }
 
     /// <summary>

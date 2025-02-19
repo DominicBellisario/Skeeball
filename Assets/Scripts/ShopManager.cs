@@ -1,11 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 using UnityEngine.UI;
 
 public class ShopManager : MonoBehaviour
 {
     [SerializeField] Vector2 itemRange;
+    [SerializeField] TextMeshProUGUI coinText;
+    int numberOfCoins = 0;
     [SerializeField] GameObject[] itemObjects;
     [SerializeField] string[] possibleItems;
     [SerializeField] int[] prices;
@@ -16,6 +19,9 @@ public class ShopManager : MonoBehaviour
 
     private void Start()
     {
+        //set coin text
+        UpdateCoinText(Manager.Instance.Coins);
+
         //start with all objects deactivated
         foreach (GameObject item in itemObjects)
         {
@@ -36,7 +42,7 @@ public class ShopManager : MonoBehaviour
             //picks a random item
             int itemID = Helper.Instance.RandomInt(0, possibleItems.Length - 1);
             //assign values
-            item.GetComponent<ShopObject>().SetValues(possibleItems[itemID], "$" + prices[itemID]);
+            item.GetComponent<ShopObject>().SetValues(itemID, possibleItems[itemID], prices[itemID]);
         }
     }
 
@@ -53,5 +59,11 @@ public class ShopManager : MonoBehaviour
         {
             ActivateItem();
         }
+    }
+
+    public void UpdateCoinText(int amount)
+    {
+        numberOfCoins += amount;
+        coinText.text = numberOfCoins.ToString();
     }
 }

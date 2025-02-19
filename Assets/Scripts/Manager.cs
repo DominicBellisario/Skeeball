@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Manager : MonoBehaviour
@@ -43,13 +45,14 @@ public class Manager : MonoBehaviour
     [SerializeField] int[] easyLevels;
     [SerializeField] int[] mediumLevels;
     [SerializeField] int[] hardLevels;
-    int[] currentDifficulty;
+    string currentDifficulty;
+    int[] levelsInCurrentDifficulty;
     [SerializeField] int totalPoints = 0;
     [SerializeField] float multiplier = 1f;
     [SerializeField] float multiplierIncreaseAmt = 0.25f;
     [SerializeField] int coins = 0;
-    int completedLevelsInRound = 0;
-    int levelsInCurrentRound = 4;
+    int numberOfCompletedLevelsInRound = 0;
+    int levelsInCurrentRound = 3;
     int currentRoundNumber = 1;
     List<int> playedLevels = new();
     GameObject[] multiHoles;
@@ -75,9 +78,10 @@ public class Manager : MonoBehaviour
     //endless
     public bool Endless { get { return endless; } }
     public int TotalPoints { get { return totalPoints; } }
+    public int Coins { get { return coins; } set { coins = value; } }
     public float Multiplier { get { return multiplier; } }
     public float MultiplierIncreaseAmt { get { return multiplierIncreaseAmt; } }
-    public int CompletedLevelsInRound { get { return completedLevelsInRound; } }
+    public int NumberOfCompletedLevelsInRound { get { return numberOfCompletedLevelsInRound; } }
     public int LevelsInCurrentRound { get { return levelsInCurrentRound; } }
     public int CurrentRoundNumber { get { return currentRoundNumber; } }
     public bool Scored { get { return scored; } set { scored = value; } }
@@ -167,7 +171,7 @@ public class Manager : MonoBehaviour
         totalPoints = 0;
         multiplier = 1;
         coins = 0;
-        completedLevelsInRound = 0;
+        numberOfCompletedLevelsInRound = 0;
         currentRoundNumber = 1;
         goldBallPow = 0;
         markedBallPow = 0;
@@ -178,16 +182,31 @@ public class Manager : MonoBehaviour
     public void BeginEndlessMode()
     {
         Instance.endless = true;
-        Instance.currentDifficulty = easyLevels;
-        //Instance.GoToNextEndlessLevel();
-        SceneHandler.Instance.LoadScene("Shop");
+        Instance.levelsInCurrentDifficulty = easyLevels;
+        Instance.currentDifficulty = "easy";
+        Instance.numberOfCompletedLevelsInRound = 1;
+        Instance.GoToNextEndlessLevel();
+    }
+
+    public void NextRound()
+    {
+        Instance.currentRoundNumber++;
+        Instance.numberOfCompletedLevelsInRound = 0;
+        Instance.GoToNextEndlessLevel();
     }
 
     public void GoToNextEndlessLevel()
     {
+        //if the round is over, go to shop
+        if (numberOfCompletedLevelsInRound == levelsInCurrentRound)
+        {
+            SceneHandler.Instance.LoadScene("Shop");
+            return;
+        }
+        
         //make a list of all unplayed levels of the selected difficulty
         List<int> unplayedLevels = new();
-        foreach (int levelNum in currentDifficulty)
+        foreach (int levelNum in levelsInCurrentDifficulty)
         {
             if (!playedLevels.Contains(levelNum))
             {
@@ -197,8 +216,15 @@ public class Manager : MonoBehaviour
         //go to next difficulty if all levels are played in the current difficulty
         if (unplayedLevels.Count <= 0)
         {
-            Debug.Log("done with easy");
+            if (currentDifficulty == "easy")
+            {
+                levelsInCurrentDifficulty = mediumLevels;
+                currentDifficulty = "medium";
+                GoToNextEndlessLevel();
+                return;
+            }
         }
+        numberOfCompletedLevelsInRound++;
         //pick a random number from the unplayed levels
         int levelNumToLoad = unplayedLevels[Helper.Instance.RandomInt(0, unplayedLevels.Count - 1)];
 
@@ -332,11 +358,7 @@ public class Manager : MonoBehaviour
         LevelUILogic.Instance.EventHandler.SetActive(false);
         //bring up the results screen
         if (!endless) { SceneHandler.Instance.LoadSceneAdditively("ResultsScreen"); }
-        else
-        {
-            completedLevelsInRound++;
-            SceneHandler.Instance.LoadSceneAdditively("ResultsScreenEndless");
-        }
+        else { SceneHandler.Instance.LoadSceneAdditively("ResultsScreenEndless"); }
 
         //pause the game
         Time.timeScale = 0;
