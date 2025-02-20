@@ -10,35 +10,70 @@ public class Manager : MonoBehaviour
     [SerializeField] GameObject ballPrefab;
     [SerializeField] GameObject beanbagPrefab;
     [SerializeField] Vector3 objectCameraOffset;
+    /// <summary>
+    /// when true, camera automaticaly switches to ball cam when launched
+    /// </summary>
     [SerializeField] bool switchCameraOnLaunch;
-    //the time between the last active objects and a new spawn
+    /// <summary>
+    /// the time between the last active objects and a new spawn
+    /// </summary>
     [SerializeField] float timeBetweenObjects;
-
-    //the place in the level the objects spawn in
+    /// <summary>
+    /// the place in the level the objects spawn in
+    /// </summary>
     GameObject objectSpawnPos;
-    //a list of all objects currently in the level
+    /// <summary>
+    /// a list of all objects currently in the level
+    /// </summary>
     [SerializeField] List<GameObject> objects;
     GameObject startingObject;
-    //camera that follows the first object in the list
+    /// <summary>
+    /// camera that follows the first object in the list
+    /// </summary>
     GameObject objectCamera;
 
 
-    //the current score
+    /// <summary>
+    /// the current level score
+    /// </summary>
     [SerializeField] int score; //serialise debug
-    //the minimum score needed to beat a level
+    /// <summary>
+    /// the minimum score needed to beat the current level
+    /// </summary>
     int minScore;
-    //the minimum score needed to get a secret.  0 for no secret
+    /// <summary>
+    /// the minimum score needed to get a secret.  0 for no secret
+    /// </summary>
     int secretScore;
 
-    //the current number of objects
+    /// <summary>
+    /// the current number of extra balls the player has
+    /// </summary>
     int numberOfObjects;
+    /// <summary>
+    /// the ID of the level being played
+    /// </summary>
     int currentLevelNumber;
 
-    //how many of each powerup the player has
+    /// <summary>
+    /// number of gold ball powwerups
+    /// </summary>
     int goldBallPow;
+    /// <summary>
+    /// number of marked ball powwerups
+    /// </summary>
     int markedBallPow;
+    /// <summary>
+    /// number of tri ball powwerups
+    /// </summary>
     int triBallPow;
+    /// <summary>
+    /// number of lob ball powwerups
+    /// </summary>
     int lobBallPow;
+    /// <summary>
+    /// wether or not the current ball is a lobball
+    /// </summary>
     bool lobBallEnabled;
 
     //endless
@@ -47,21 +82,53 @@ public class Manager : MonoBehaviour
     [SerializeField] int[] hardLevels;
     string currentDifficulty;
     int[] levelsInCurrentDifficulty;
+    /// <summary>
+    /// the players total point count
+    /// </summary>
     [SerializeField] int totalPoints = 0; //serialise debug
     [SerializeField] float multiplier = 1f; //serialise debug
+    /// <summary>
+    /// the amount the multiplier increases by when a multi hole is hit
+    /// </summary>
     [SerializeField] float multiplierIncreaseAmt = 0.25f;
+    /// <summary>
+    /// the current number of coins
+    /// </summary>
     [SerializeField] int coins = 0;
+    /// <summary>
+    /// the number of levels the player completed in the current round
+    /// </summary>
     int numberOfCompletedLevelsInRound = 0;
+    /// <summary>
+    /// the number of levels in each round
+    /// </summary>
     int levelsInCurrentRound = 3;
     int currentRoundNumber = 1;
+    /// <summary>
+    /// a list of all previously played levels
+    /// </summary>
     List<int> playedLevels = new();
+    /// <summary>
+    /// all of the holes in a level that can be selected as a multi hole
+    /// </summary>
     GameObject[] multiHoles;
+    /// <summary>
+    /// all of the holes in a level that are active multi holes
+    /// </summary>
     List<GameObject> activatedMultiHoles = new();
+    /// <summary>
+    /// the maximum active holes possible in a level
+    /// </summary>
     int maxActiveHoles = 1;
+    /// <summary>
+    /// scored = in a launch, at least one ball went into a good hole 
+    /// </summary>
     bool scored = true;
-
-
+    /// <summary>
+    /// wether or not the player is in endless mode or level select
+    /// </summary>
     bool endless;
+
     public static Manager Instance { get; private set; }
     public int CurrentLevelNumber { get { return currentLevelNumber; } }
     public int Score { get { return score; } }
@@ -112,6 +179,20 @@ public class Manager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// when a new level is loaded, send its values to manager and start the level
+    /// </summary>
+    /// <param name="_currentLevelNumber"></param>
+    /// <param name="_objectSpawnPos"></param>
+    /// <param name="_objectCamera"></param>
+    /// <param name="_startingNumberOfObjects"></param>
+    /// <param name="_minScore"></param>
+    /// <param name="_secretScore"></param>
+    /// <param name="_goldBallPow"></param>
+    /// <param name="_markedBallPow"></param>
+    /// <param name="_triBallPow"></param>
+    /// <param name="_lobBallPow"></param>
+    /// <param name="_multiHoles"></param>
     public virtual void RecieveValues(int _currentLevelNumber, GameObject _objectSpawnPos, GameObject _objectCamera, int _startingNumberOfObjects, int _minScore, int _secretScore, int _goldBallPow, int _markedBallPow, int _triBallPow, int _lobBallPow, GameObject[] _multiHoles)
     {
         currentLevelNumber = _currentLevelNumber;
@@ -152,7 +233,9 @@ public class Manager : MonoBehaviour
         StartCoroutine(SpawnNewStartingBall());
     }
 
-    //reset level-specific values and ball states
+    /// <summary>
+    /// reset level-specific values and ball states
+    /// </summary>
     public virtual void ResetValues()
     {
         objects.Clear();
@@ -162,7 +245,9 @@ public class Manager : MonoBehaviour
         scored = true;
     }
 
-    //reset endless values
+    /// <summary>
+    /// reset endless mode
+    /// </summary>
     public virtual void EndlessReset()
     {
         endless = false;
@@ -179,6 +264,9 @@ public class Manager : MonoBehaviour
         lobBallPow = 0;
     }
 
+    /// <summary>
+    /// starts endless mode with easy levels
+    /// </summary>
     public void BeginEndlessMode()
     {
         Instance.endless = true;
@@ -195,6 +283,9 @@ public class Manager : MonoBehaviour
         Instance.GoToNextEndlessLevel();
     }
 
+    /// <summary>
+    /// load a random, unplayed level in the difficulty, or go to the next difficulty if all levels are played
+    /// </summary>
     public void GoToNextEndlessLevel()
     {
         //if the round is over, go to shop
@@ -236,6 +327,10 @@ public class Manager : MonoBehaviour
         SceneHandler.Instance.LoadLevel("EL" + levelNumToLoad.ToString());
     }
 
+    /// <summary>
+    /// update the score and UI
+    /// </summary>
+    /// <param name="scoreChange"></param>
     public void UpdateScore(int scoreChange)
     {
         if (endless) { scoreChange = Mathf.RoundToInt(scoreChange * multiplier); }
@@ -243,12 +338,19 @@ public class Manager : MonoBehaviour
         LevelUILogic.Instance.UpdateScore(score);
     }
 
+    /// <summary>
+    /// reset the score when transitioning levels
+    /// </summary>
     private void ResetScore()
     {
         score = 0;
         LevelUILogic.Instance.UpdateScore(score);
     }
 
+    /// <summary>
+    /// update total score and UI
+    /// </summary>
+    /// <param name="scoreChange"></param>
     public void UpdateTotalScore(int scoreChange)
     {
         scoreChange = Mathf.RoundToInt(scoreChange * multiplier);
@@ -256,18 +358,30 @@ public class Manager : MonoBehaviour
         LevelUILogic.Instance.UpdateTotalScore(totalPoints);
     }
 
+    /// <summary>
+    /// update ball count and UI
+    /// </summary>
+    /// <param name="ballsChange"></param>
     public void UpdateObjects(int ballsChange)
     {
         numberOfObjects += ballsChange;
         LevelUILogic.Instance.UpdateBalls(numberOfObjects);
     }
 
+    /// <summary>
+    /// update multiplier and UI
+    /// </summary>
+    /// <param name="multiplierChange"></param>
     public void UpdateMultiplier(float multiplierChange)
     {
         multiplier += multiplierChange;
         LevelUILogic.Instance.UpdateMultiplier(multiplier);
     }
 
+    /// <summary>
+    /// update coins and UI
+    /// </summary>
+    /// <param name="coinsChange"></param>
     public void UpdateCoins(int coinsChange)
     {
         coins += coinsChange;
@@ -351,6 +465,10 @@ public class Manager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// bring up the results screen after a delay
+    /// </summary>
+    /// <returns></returns>
     private IEnumerator EndLevel()
     {
         yield return new WaitForSeconds(timeBetweenObjects);
@@ -399,8 +517,9 @@ public class Manager : MonoBehaviour
         }
 
     }
+
     /// <summary>
-    /// manages everything that happens with wther or not lobball is turned on or off
+    /// manages everything that happens with wether or not lobball is turned on or off
     /// </summary>
     public void ToggleLobBall()
     {
@@ -432,6 +551,9 @@ public class Manager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// toggle between ball and main camera
+    /// </summary>
     public void SwitchCameraView()
     {
         objectCamera.SetActive(!objectCamera.activeInHierarchy);
