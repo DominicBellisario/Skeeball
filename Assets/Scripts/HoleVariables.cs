@@ -69,9 +69,11 @@ public class HoleVariables : MonoBehaviour
 
     public void SpawnHoleText(bool isGold, Vector3 ballPos)
     {
+        int shownPoints = points;
         GameObject newHoleText = Instantiate(holeText);
         newHoleText.transform.position = ballPos += transform.up;
-        newHoleText.GetComponent<HoleText>().SetText(Mathf.RoundToInt(points * Manager.Instance.Multiplier).ToString());
+        if (isGold) { shownPoints *= 2; }
+        newHoleText.GetComponent<HoleText>().SetText(Mathf.RoundToInt(shownPoints * Manager.Instance.Multiplier).ToString());
         newHoleText.GetComponent<HoleText>().SetColor(isGold, !(startingPoints == points));
     }
 }

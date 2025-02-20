@@ -333,7 +333,6 @@ public class Manager : MonoBehaviour
     /// <param name="scoreChange"></param>
     public void UpdateScore(int scoreChange)
     {
-        if (endless) { scoreChange = Mathf.RoundToInt(scoreChange * multiplier); }
         score += scoreChange;
         LevelUILogic.Instance.UpdateScore(score);
     }
