@@ -184,7 +184,7 @@ public class Manager : MonoBehaviour
         Instance.endless = true;
         Instance.levelsInCurrentDifficulty = easyLevels;
         Instance.currentDifficulty = "easy";
-        Instance.numberOfCompletedLevelsInRound = 2; //SET TO 0 WHEN NOT DEBUGGING
+        Instance.numberOfCompletedLevelsInRound = 0; //SET TO 0 WHEN NOT DEBUGGING
         Instance.GoToNextEndlessLevel();
     }
 

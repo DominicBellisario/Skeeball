@@ -35,7 +35,6 @@ public class ShopObject : MonoBehaviour
         {
             button.onClick.AddListener(delegate { BuyLobBall(); });
         }
-
     }
 
     public void BuyGoldBall()
@@ -48,7 +47,7 @@ public class ShopObject : MonoBehaviour
             shopManager.UpdateGoldText(1);
             SoldOut();
         }
-        else { Debug.Log("not enough money"); }
+        else { shopManager.NotEnoughMoney(); }
     }
     public void BuyMarkedBall()
     {
@@ -60,7 +59,7 @@ public class ShopObject : MonoBehaviour
             shopManager.UpdateMarkedText(1);
             SoldOut();
         }
-        else { Debug.Log("not enough money"); }
+        else { shopManager.NotEnoughMoney(); }
     }
     public void BuyTriBall()
     {
@@ -72,7 +71,7 @@ public class ShopObject : MonoBehaviour
             shopManager.UpdateTriText(1);
             SoldOut();
         }
-        else { Debug.Log("not enough money"); }
+        else { shopManager.NotEnoughMoney(); }
     }
     public void BuyLobBall()
     {
@@ -84,7 +83,7 @@ public class ShopObject : MonoBehaviour
             shopManager.UpdateLobText(1);
             SoldOut();
         }
-        else { Debug.Log("not enough money"); }
+        else { shopManager.NotEnoughMoney(); }
     }
 
     private void SoldOut()
@@ -92,5 +91,5 @@ public class ShopObject : MonoBehaviour
         itemText.text = "Sold Out!";
         priceText.text = "X";
         sold = true;
-    }    
+    }
 }

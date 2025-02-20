@@ -119,4 +119,16 @@ public class ShopManager : MonoBehaviour
         lobBallCount += amount;
         lobBallTxt.text = "Lobball: " + lobBallCount;
     }
+
+    //coin counter flashes red
+    public void NotEnoughMoney()
+    {
+        coinText.color = Color.red;
+        StartCoroutine(ResetCoinColor());
+    }
+    IEnumerator ResetCoinColor()
+    {
+        yield return new WaitForSeconds(1);
+        coinText.color = Color.white;
+    }
 }
