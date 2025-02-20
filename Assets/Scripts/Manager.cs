@@ -24,7 +24,7 @@ public class Manager : MonoBehaviour
 
 
     //the current score
-    int score;
+    [SerializeField] int score; //serialise debug
     //the minimum score needed to beat a level
     int minScore;
     //the minimum score needed to get a secret.  0 for no secret
@@ -47,8 +47,8 @@ public class Manager : MonoBehaviour
     [SerializeField] int[] hardLevels;
     string currentDifficulty;
     int[] levelsInCurrentDifficulty;
-    [SerializeField] int totalPoints = 0;
-    [SerializeField] float multiplier = 1f;
+    [SerializeField] int totalPoints = 0; //serialise debug
+    [SerializeField] float multiplier = 1f; //serialise debug
     [SerializeField] float multiplierIncreaseAmt = 0.25f;
     [SerializeField] int coins = 0;
     int numberOfCompletedLevelsInRound = 0;
@@ -184,14 +184,14 @@ public class Manager : MonoBehaviour
         Instance.endless = true;
         Instance.levelsInCurrentDifficulty = easyLevels;
         Instance.currentDifficulty = "easy";
-        Instance.numberOfCompletedLevelsInRound = 1;
+        Instance.numberOfCompletedLevelsInRound = 0; //SET TO 0 WHEN NOT DEBUGGING
         Instance.GoToNextEndlessLevel();
     }
 
     public void NextRound()
     {
         Instance.currentRoundNumber++;
-        Instance.numberOfCompletedLevelsInRound = 0;
+        Instance.numberOfCompletedLevelsInRound = 0; //SET TO 0 WHEN NOT DEBUGGING
         Instance.GoToNextEndlessLevel();
     }
 

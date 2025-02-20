@@ -20,10 +20,21 @@ public class ShopObject : MonoBehaviour
         priceText.text = "$" + _price;
         if (ID == 0)
         {
-            Debug.Log("shop has gold pow");
             button.onClick.AddListener(delegate { BuyGoldBall(); });
         }
-        
+        else if (ID == 1)
+        {
+            button.onClick.AddListener(delegate { BuyMarkedBall(); });
+        }
+        else if (ID == 2)
+        {
+            button.onClick.AddListener(delegate { BuyTriBall(); });
+        }
+        else if (ID == 3)
+        {
+            button.onClick.AddListener(delegate { BuyLobBall(); });
+        }
+
     }
 
     public void BuyGoldBall()
@@ -33,7 +44,40 @@ public class ShopObject : MonoBehaviour
             shopManager.UpdateCoinText(-price);
             Manager.Instance.Coins -= price;
             Manager.Instance.GoldBallPow++;
-            Debug.Log("bought gold pow");
+            shopManager.UpdateGoldText(1);
+        }
+        else { Debug.Log("not enough money"); }
+    }
+    public void BuyMarkedBall()
+    {
+        if (Manager.Instance.Coins >= price)
+        {
+            shopManager.UpdateCoinText(-price);
+            Manager.Instance.Coins -= price;
+            Manager.Instance.MarkedBallPow++;
+            shopManager.UpdateMarkedText(1);
+        }
+        else { Debug.Log("not enough money"); }
+    }
+    public void BuyTriBall()
+    {
+        if (Manager.Instance.Coins >= price)
+        {
+            shopManager.UpdateCoinText(-price);
+            Manager.Instance.Coins -= price;
+            Manager.Instance.TriBallPow++;
+            shopManager.UpdateTriText(1);
+        }
+        else { Debug.Log("not enough money"); }
+    }
+    public void BuyLobBall()
+    {
+        if (Manager.Instance.Coins >= price)
+        {
+            shopManager.UpdateCoinText(-price);
+            Manager.Instance.Coins -= price;
+            Manager.Instance.LobBallPow++;
+            shopManager.UpdateLobText(1);
         }
         else { Debug.Log("not enough money"); }
     }
