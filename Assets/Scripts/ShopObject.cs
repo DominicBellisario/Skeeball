@@ -12,6 +12,7 @@ public class ShopObject : MonoBehaviour
     [SerializeField] TextMeshProUGUI itemText;
     [SerializeField] TextMeshProUGUI priceText;
     int price;
+    bool sold = false;
     
     public void SetValues(int ID, string _itemText, int _price)
     {
@@ -39,46 +40,57 @@ public class ShopObject : MonoBehaviour
 
     public void BuyGoldBall()
     {
-        if (Manager.Instance.Coins >= price)
+        if (Manager.Instance.Coins >= price && !sold)
         {
             shopManager.UpdateCoinText(-price);
             Manager.Instance.Coins -= price;
             Manager.Instance.GoldBallPow++;
             shopManager.UpdateGoldText(1);
+            SoldOut();
         }
         else { Debug.Log("not enough money"); }
     }
     public void BuyMarkedBall()
     {
-        if (Manager.Instance.Coins >= price)
+        if (Manager.Instance.Coins >= price && !sold)
         {
             shopManager.UpdateCoinText(-price);
             Manager.Instance.Coins -= price;
             Manager.Instance.MarkedBallPow++;
             shopManager.UpdateMarkedText(1);
+            SoldOut();
         }
         else { Debug.Log("not enough money"); }
     }
     public void BuyTriBall()
     {
-        if (Manager.Instance.Coins >= price)
+        if (Manager.Instance.Coins >= price && !sold)
         {
             shopManager.UpdateCoinText(-price);
             Manager.Instance.Coins -= price;
             Manager.Instance.TriBallPow++;
             shopManager.UpdateTriText(1);
+            SoldOut();
         }
         else { Debug.Log("not enough money"); }
     }
     public void BuyLobBall()
     {
-        if (Manager.Instance.Coins >= price)
+        if (Manager.Instance.Coins >= price && !sold)
         {
             shopManager.UpdateCoinText(-price);
             Manager.Instance.Coins -= price;
             Manager.Instance.LobBallPow++;
             shopManager.UpdateLobText(1);
+            SoldOut();
         }
         else { Debug.Log("not enough money"); }
     }
+
+    private void SoldOut()
+    {
+        itemText.text = "Sold Out!";
+        priceText.text = "X";
+        sold = true;
+    }    
 }
