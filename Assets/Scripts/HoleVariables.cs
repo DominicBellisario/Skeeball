@@ -67,10 +67,10 @@ public class HoleVariables : MonoBehaviour
         holeRimMesh.material = color[materialIndex];
     }
 
-    public void SpawnHoleText(bool isGold)
+    public void SpawnHoleText(bool isGold, Vector3 ballPos)
     {
         GameObject newHoleText = Instantiate(holeText);
-        newHoleText.transform.position = new Vector3(transform.position.x, transform.position.y + 1, transform.position.z);
+        newHoleText.transform.position = ballPos += transform.up;
         newHoleText.GetComponent<HoleText>().SetText(Mathf.RoundToInt(points * Manager.Instance.Multiplier).ToString());
         newHoleText.GetComponent<HoleText>().SetColor(isGold, !(startingPoints == points));
     }
