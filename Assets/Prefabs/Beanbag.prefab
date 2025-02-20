@@ -24,13 +24,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 347233036850857728}
-  serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.013241526, y: 0.025804697, z: 0.013241526}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5991352376558414831}
+  m_RootOrder: -2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!120 &1971371689499869943
 LineRenderer:
@@ -161,13 +161,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3976340876362347908}
-  serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5991352376558414831}
+  m_RootOrder: -2
   m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
 --- !u!198 &2551572446454910243
 ParticleSystem:
@@ -5006,15 +5006,13 @@ ParticleSystemRenderer:
   m_RenderAlignment: 0
   m_Pivot: {x: 0, y: 0, z: 0}
   m_Flip: {x: 0, y: 0, z: 0}
+  m_UseCustomVertexStreams: 0
   m_EnableGPUInstancing: 1
   m_ApplyActiveColorSpace: 1
   m_AllowRoll: 1
   m_FreeformStretching: 0
   m_RotateWithStretchDirection: 1
-  m_UseCustomVertexStreams: 0
   m_VertexStreams: 00010304
-  m_UseCustomTrailVertexStreams: 0
-  m_TrailVertexStreams: 00010304
   m_Mesh: {fileID: 0}
   m_Mesh1: {fileID: 0}
   m_Mesh2: {fileID: 0}
@@ -5048,13 +5046,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6122257368527662938}
-  serializedVersion: 2
   m_LocalRotation: {x: -0, y: 0.043619405, z: -0, w: 0.9990483}
   m_LocalPosition: {x: 0.00566, y: 0, z: 0}
   m_LocalScale: {x: 0.013241525, y: 0.025804697, z: 0.013241525}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5991352376558414831}
+  m_RootOrder: -2
   m_LocalEulerAnglesHint: {x: 0, y: 5, z: 0}
 --- !u!120 &2623388387250073406
 LineRenderer:
@@ -5184,13 +5182,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8479726179206608396}
-  serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0.043619405, z: -0, w: 0.9990483}
   m_LocalPosition: {x: -0.00571, y: 0, z: 0}
   m_LocalScale: {x: 0.013241525, y: 0.025804697, z: 0.013241525}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5991352376558414831}
+  m_RootOrder: -2
   m_LocalEulerAnglesHint: {x: 0, y: -5, z: 0}
 --- !u!120 &9009861641220406294
 LineRenderer:
@@ -5320,13 +5318,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9192290818264988617}
-  serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0.0186, z: -0.001}
   m_LocalScale: {x: 0.013241526, y: 0.025804697, z: 0.013241526}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5991352376558414831}
+  m_RootOrder: -2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!96 &9003637444889869929
 TrailRenderer:
@@ -5805,6 +5803,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   aimingCircleRadius: 1
+  tooCloseRadius: 0.2
   forceMultiplyer: 375
   triBallAngle: 2
   heightMultipliter: 750

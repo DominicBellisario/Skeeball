@@ -14,6 +14,9 @@ public abstract class ObjectControls : MonoBehaviour
     //the radius of the circle the object can move within while aiming
     [SerializeField] protected float aimingCircleRadius;
 
+    //if the ball is within this radius when it is released, it does not launch
+    [SerializeField] protected float tooCloseRadius;
+
     //the pixel radius of the circle the player can move their finger in to control the object's speed
     protected float pixelAimingCircleRadius;
 
@@ -72,7 +75,7 @@ public abstract class ObjectControls : MonoBehaviour
             angle = Mathf.Atan2(Input.mousePosition.x - objectPixelOrigin.x, Input.mousePosition.y - objectPixelOrigin.y);
 
             //get the percentage of max force that will be applied to the object upon release
-            powerPercent = DistanceBetweenTwoPoints(objectPixelOrigin, Input.mousePosition) / pixelAimingCircleRadius;
+            powerPercent = Vector2.Distance(objectPixelOrigin, Input.mousePosition) / pixelAimingCircleRadius;
             if (powerPercent > 1)
             {
                 powerPercent = 1;
@@ -87,49 +90,59 @@ public abstract class ObjectControls : MonoBehaviour
         }
         //Debug.Log(rb.velocity.magnitude);
 
-        //if the player releases the mouse, they release the object
+        //if the player releases the mouse
         if (!Input.GetMouseButton(0))
         {
-            //if the player was previously holding the object and just released it, apply a force to it
+            //if the player was previously holding the object and just released it
             if (isHeld)
             {
                 Manager manager = Manager.Instance;
                 ObjectEffects effects = GetComponent<ObjectEffects>();
-                LaunchObject();
-                isLaunched = true;
-                objectLevelInteractions.IsLaunched = true;
 
-                effects.ResetParticleTrail();
+                //if it was within the too close radius, reset it
+                if (Vector2.Distance(new Vector2(objectOrigin.x, objectOrigin.z), new Vector2(transform.position.x, transform.position.z)) <= tooCloseRadius)
+                {
+                    transform.position = objectOrigin;
+                }
+                //if not, launch it
+                else
+                {
+                    LaunchObject();
+                    isLaunched = true;
+                    objectLevelInteractions.IsLaunched = true;
 
-                //use powerups if they were applied to the ball
-                if (effects.GoldBallEnabled)
-                {
-                    manager.GoldBallPow--;
-                }
-                if (effects.MarkedBallEnabled)
-                {
-                    manager.MarkedBallPow--;
-                }
-                if (effects.TriBallEnabled)
-                {
-                    manager.TriBallPow--;
-                    effects.DisableTriBalls();
-                    //spawn 2 new objects and make their powerup states the same as the parent
-                    SpawnNewTriObjects(effects);
-                }
-                if (manager.LobBallEnabled)
-                {
-                    manager.LobBallPow--;
-                    manager.LobBallEnabled = false;
-                }
+                    effects.ResetParticleTrail();
 
-                if (manager.SwitchCameraOnLaunch)
-                {
-                    manager.SwitchCameraView();
+                    //use powerups if they were applied to the ball
+                    if (effects.GoldBallEnabled)
+                    {
+                        manager.GoldBallPow--;
+                    }
+                    if (effects.MarkedBallEnabled)
+                    {
+                        manager.MarkedBallPow--;
+                    }
+                    if (effects.TriBallEnabled)
+                    {
+                        manager.TriBallPow--;
+                        effects.DisableTriBalls();
+                        //spawn 2 new objects and make their powerup states the same as the parent
+                        SpawnNewTriObjects(effects);
+                    }
+                    if (manager.LobBallEnabled)
+                    {
+                        manager.LobBallPow--;
+                        manager.LobBallEnabled = false;
+                    }
+
+                    if (manager.SwitchCameraOnLaunch)
+                    {
+                        manager.SwitchCameraView();
+                    }
+                    LevelUILogic.Instance.UpdatePowerups();
                 }
-                LevelUILogic.Instance.UpdatePowerups();
+                isHeld = false;
             }
-            isHeld = false;
         }
     }
 
@@ -140,11 +153,6 @@ public abstract class ObjectControls : MonoBehaviour
         {
             isHeld = true;
         }
-    }
-
-    public float DistanceBetweenTwoPoints(Vector2 point1, Vector2 point2)
-    {
-        return Mathf.Sqrt(Mathf.Pow(point2.x - point1.x, 2) + Mathf.Pow(point2.y - point1.y, 2));
     }
 
     protected abstract void LaunchObject();
