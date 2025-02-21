@@ -314,6 +314,13 @@ public class Manager : MonoBehaviour
                 GoToNextEndlessLevel();
                 return;
             }
+            else if (currentDifficulty == "medium")
+            {
+                levelsInCurrentDifficulty = hardLevels;
+                currentDifficulty = "hard";
+                GoToNextEndlessLevel();
+                return;
+            }
         }
         numberOfCompletedLevelsInRound++;
         //pick a random number from the unplayed levels
