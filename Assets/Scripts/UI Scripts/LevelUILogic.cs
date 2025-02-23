@@ -64,7 +64,7 @@ public class LevelUILogic : MonoBehaviour
     /// </summary>
     public void UpdateBalls(int updatedBallCount)
     {
-        ballsText.text = "Extra Balls: " + updatedBallCount;
+        ballsText.text = "Balls: " + updatedBallCount;
     }
 
     /// <summary>
