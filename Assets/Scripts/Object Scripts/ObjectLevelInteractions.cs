@@ -91,6 +91,14 @@ public abstract class ObjectLevelInteractions : MonoBehaviour
             Manager.Instance.UpdateCoins(trigger.gameObject.GetComponent<Coin>().Value);
             Destroy(trigger.gameObject);
         }
+
+        //if the object hits a spring, launch it in the direction the spring is facing
+        else if (trigger.gameObject.CompareTag("Spring"))
+        {
+            rb.velocity = Vector3.zero;
+            rb.AddForce(trigger.gameObject.transform.up * trigger.gameObject.GetComponentInParent<Spring>().ForceMultiplier);
+            trigger.gameObject.GetComponentInParent<Spring>().ActivateSpring();
+        }
     }
 
     private void OnTriggerStay(Collider other)
