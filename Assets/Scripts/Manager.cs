@@ -220,6 +220,7 @@ public class Manager : MonoBehaviour
             markedBallPow += _markedBallPow;
             triBallPow += _triBallPow;
             lobBallPow += _lobBallPow;
+            //get multiholes
             multiHoles = _multiHoles;
         }
 
@@ -228,6 +229,7 @@ public class Manager : MonoBehaviour
         UpdateScore(0);
         UpdateObjects(0);
         UpdateCoins(0);
+        LevelUILogic.Instance.UpdateCameraText(0, cameras.Count);
 
 
         //spawn the first ball
@@ -591,5 +593,7 @@ public class Manager : MonoBehaviour
                 cameras[i].SetActive(false);
             }
         }
+        //update the UI
+        LevelUILogic.Instance.UpdateCameraText(currentActiveCamera, cameras.Count);
     }
 }

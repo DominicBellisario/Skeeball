@@ -9,6 +9,7 @@ public class LevelUILogic : MonoBehaviour
 
     [SerializeField] TextMeshProUGUI scoreText;
     [SerializeField] TextMeshProUGUI ballsText;
+    [SerializeField] TextMeshProUGUI cameraText;
 
     [SerializeField] GameObject powerupButton;
     [SerializeField] GameObject goldBallButton;
@@ -181,5 +182,10 @@ public class LevelUILogic : MonoBehaviour
     public void ToggleCamera()
     {
         Manager.Instance.SwitchCameraView(-1);
+    }
+
+    public void UpdateCameraText(int activeCameraNum, int numOfCamerasInLevel)
+    {
+        cameraText.text = "Switch Camera:\n\n" + (activeCameraNum + 1) + "/" + numOfCamerasInLevel;
     }
 }
