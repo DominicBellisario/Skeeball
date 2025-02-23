@@ -1,3 +1,5 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class LevelManager : MonoBehaviour
@@ -8,8 +10,7 @@ public class LevelManager : MonoBehaviour
     //the place in the level the objects spawn in
     [SerializeField] GameObject objectSpawnPos;
 
-    //camera that follows the first object in the list
-    [SerializeField] GameObject objectCamera;
+    [SerializeField] List<GameObject> cameras;
 
     //the minimum score needed to beat a level
     [SerializeField] int minScore;
@@ -34,7 +35,7 @@ public class LevelManager : MonoBehaviour
     private void Start()
     {
         //sends all starting level values to manager
-        Manager.Instance.RecieveValues(levelNumber, objectSpawnPos, objectCamera, numberOfObjects, minScore, secretScore, goldBallPow, markedBallPow, triBallPow, lobBallPow, multiHoles);
+        Manager.Instance.RecieveValues(levelNumber, objectSpawnPos, cameras, numberOfObjects, minScore, secretScore, goldBallPow, markedBallPow, triBallPow, lobBallPow, multiHoles);
 
         //activates a random coin position object if endless mode
         if (Manager.Instance.Endless) { coinPositions[Helper.Instance.RandomInt(0, coinPositions.Length - 1)].SetActive(true); }

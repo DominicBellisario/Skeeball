@@ -137,7 +137,7 @@ public abstract class ObjectControls : MonoBehaviour
 
                     if (manager.SwitchCameraOnLaunch)
                     {
-                        manager.SwitchCameraView();
+                        manager.SwitchCameraView(1);
                     }
                     LevelUILogic.Instance.UpdatePowerups();
                 }
@@ -149,7 +149,7 @@ public abstract class ObjectControls : MonoBehaviour
     //if the player clicks the ball in the main camera view, they are holding it
     protected void OnMouseDown()
     {
-        if (!Manager.Instance.ObjectCamera.activeInHierarchy)
+        if (Manager.Instance.MainCamera.activeInHierarchy)
         {
             isHeld = true;
         }

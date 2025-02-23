@@ -30,7 +30,8 @@ public class Manager : MonoBehaviour
     /// <summary>
     /// camera that follows the first object in the list
     /// </summary>
-    GameObject objectCamera;
+    List<GameObject> cameras;
+    int currentActiveCamera;
 
 
     /// <summary>
@@ -134,7 +135,7 @@ public class Manager : MonoBehaviour
     public int Score { get { return score; } }
     public int MinScore { get { return minScore; } }
     public int SecretScore { get { return secretScore; } }
-    public GameObject ObjectCamera { get { return objectCamera; } }
+    public GameObject MainCamera { get { return cameras[0]; } }
     public GameObject StartingObject { get { return startingObject; } }
     public bool SwitchCameraOnLaunch { get { return switchCameraOnLaunch; } }
     public int GoldBallPow { get { return goldBallPow; } set { goldBallPow = value; } }
@@ -175,7 +176,7 @@ public class Manager : MonoBehaviour
         //ball camera follows the first ball in the list
         if (objects.Count >= 1)
         {
-            objectCamera.transform.position = objects[0].transform.position + objectCameraOffset;
+            cameras[1].transform.position = objects[0].transform.position + objectCameraOffset;
         }
     }
 
@@ -193,11 +194,11 @@ public class Manager : MonoBehaviour
     /// <param name="_triBallPow"></param>
     /// <param name="_lobBallPow"></param>
     /// <param name="_multiHoles"></param>
-    public virtual void RecieveValues(int _currentLevelNumber, GameObject _objectSpawnPos, GameObject _objectCamera, int _startingNumberOfObjects, int _minScore, int _secretScore, int _goldBallPow, int _markedBallPow, int _triBallPow, int _lobBallPow, GameObject[] _multiHoles)
+    public virtual void RecieveValues(int _currentLevelNumber, GameObject _objectSpawnPos, List<GameObject> _cameras, int _startingNumberOfObjects, int _minScore, int _secretScore, int _goldBallPow, int _markedBallPow, int _triBallPow, int _lobBallPow, GameObject[] _multiHoles)
     {
         currentLevelNumber = _currentLevelNumber;
         objectSpawnPos = _objectSpawnPos;
-        objectCamera = _objectCamera;
+        cameras = _cameras;
         numberOfObjects = _startingNumberOfObjects;
         minScore = _minScore;
         secretScore = _secretScore;
@@ -243,6 +244,7 @@ public class Manager : MonoBehaviour
         LobBallEnabled = false;
         StopAllCoroutines();
         scored = true;
+        currentActiveCamera = 0;
     }
 
     /// <summary>
@@ -294,7 +296,7 @@ public class Manager : MonoBehaviour
             SceneHandler.Instance.LoadScene("Shop");
             return;
         }
-        
+
         //make a list of all unplayed levels of the selected difficulty
         List<int> unplayedLevels = new();
         foreach (int levelNum in levelsInCurrentDifficulty)
@@ -438,7 +440,7 @@ public class Manager : MonoBehaviour
         SpawnNewObject(ballPrefab, objectSpawnPos.transform.position, Vector3.zero, false, false, false);
         UpdateObjects(-1);
         //switch to main camera view
-        objectCamera.SetActive(false);
+        SwitchCameraView(0);
         //if in endless mode
         if (endless)
         {
@@ -560,8 +562,34 @@ public class Manager : MonoBehaviour
     /// <summary>
     /// toggle between ball and main camera
     /// </summary>
-    public void SwitchCameraView()
+    public void SwitchCameraView(int activeCamera)
     {
-        objectCamera.SetActive(!objectCamera.activeInHierarchy);
+        //go to next cam if a cam is not given
+        if (activeCamera == -1)
+        {
+            currentActiveCamera++;
+            if (currentActiveCamera >= cameras.Count)
+            {
+                currentActiveCamera = 0;
+            }
+        }
+        //otherwise, switch to the specified camera
+        else
+        {
+            currentActiveCamera = activeCamera;
+        }
+
+        //turn off all cameras except the active one
+        for (int i = 0; i < cameras.Count; i++)
+        {
+            if (i == currentActiveCamera)
+            {
+                cameras[i].SetActive(true);
+            }
+            else
+            {
+                cameras[i].SetActive(false);
+            }
+        }
     }
 }

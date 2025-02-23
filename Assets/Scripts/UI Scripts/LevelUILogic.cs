@@ -180,6 +180,6 @@ public class LevelUILogic : MonoBehaviour
 
     public void ToggleCamera()
     {
-        Manager.Instance.SwitchCameraView();
+        Manager.Instance.SwitchCameraView(-1);
     }
 }
