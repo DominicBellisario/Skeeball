@@ -13,8 +13,8 @@ public class Spring : MonoBehaviour
 
     public void ActivateSpring()
     {
-        springBoard.transform.position += Vector3.up * 0.5f;
-        pole.transform.position += Vector3.up * 0.5f;
+        springBoard.transform.position += transform.up * 0.5f;
+        pole.transform.position += transform.up * 0.5f;
         springBoard.GetComponent<BoxCollider>().enabled = false;
         pole.SetActive(true);
         StartCoroutine(DeactivateSpring());
@@ -23,8 +23,8 @@ public class Spring : MonoBehaviour
     IEnumerator DeactivateSpring()
     {
         yield return new WaitForSeconds(deactivateTime);
-        springBoard.transform.position -= Vector3.up * 0.5f;
-        pole.transform.position -= Vector3.up * 0.5f;
+        springBoard.transform.position -= transform.up * 0.5f;
+        pole.transform.position -= transform.up * 0.5f;
         springBoard.GetComponent<BoxCollider>().enabled = true;
         pole.SetActive(false);
     }
