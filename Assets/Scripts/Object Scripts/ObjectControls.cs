@@ -134,6 +134,10 @@ public abstract class ObjectControls : MonoBehaviour
                         manager.LobBallPow--;
                         manager.LobBallEnabled = false;
                     }
+                    if (effects.DiveBallEnabled)
+                    {
+                        manager.DiveBallPow--;
+                    }
 
                     if (manager.SwitchCameraOnLaunch)
                     {
@@ -144,6 +148,12 @@ public abstract class ObjectControls : MonoBehaviour
                 isHeld = false;
             }
         }
+    }
+
+    //do the diveball thing
+    public void DiveBall()
+    {
+        Debug.Log("DIVE!");
     }
 
     //if the player clicks the ball in the main camera view, they are holding it

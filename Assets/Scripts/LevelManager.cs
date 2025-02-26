@@ -31,11 +31,12 @@ public class LevelManager : MonoBehaviour
     [SerializeField] int markedBallPow;
     [SerializeField] int triBallPow;
     [SerializeField] int lobBallPow;
+    [SerializeField] int diveBallPow;
 
     private void Start()
     {
         //sends all starting level values to manager
-        Manager.Instance.RecieveValues(levelNumber, objectSpawnPos, cameras, numberOfObjects, minScore, secretScore, goldBallPow, markedBallPow, triBallPow, lobBallPow, multiHoles);
+        Manager.Instance.RecieveValues(levelNumber, objectSpawnPos, cameras, numberOfObjects, minScore, secretScore, goldBallPow, markedBallPow, triBallPow, lobBallPow, diveBallPow, multiHoles);
 
         //activates a random coin position object if endless mode
         if (Manager.Instance.Endless) { coinPositions[Helper.Instance.RandomInt(0, coinPositions.Length - 1)].SetActive(true); }

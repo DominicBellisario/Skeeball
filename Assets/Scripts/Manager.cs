@@ -73,6 +73,10 @@ public class Manager : MonoBehaviour
     /// </summary>
     int lobBallPow;
     /// <summary>
+    /// number of dive ball powwerups
+    /// </summary>
+    int diveBallPow;
+    /// <summary>
     /// wether or not the current ball is a lobball
     /// </summary>
     bool lobBallEnabled;
@@ -131,6 +135,7 @@ public class Manager : MonoBehaviour
     bool endless;
 
     public static Manager Instance { get; private set; }
+    public List<GameObject> Objects { get { return objects; } }
     public int CurrentLevelNumber { get { return currentLevelNumber; } }
     public int Score { get { return score; } }
     public int MinScore { get { return minScore; } }
@@ -143,6 +148,7 @@ public class Manager : MonoBehaviour
     public int TriBallPow { get { return triBallPow; } set { triBallPow = value; } }
     public int LobBallPow { get { return lobBallPow; } set { lobBallPow = value; } }
     public bool LobBallEnabled { get { return lobBallEnabled; } set { lobBallEnabled = value; } }
+    public int DiveBallPow { get { return diveBallPow; } set { diveBallPow = value; } }
     //endless
     public bool Endless { get { return endless; } }
     public int TotalPoints { get { return totalPoints; } }
@@ -194,7 +200,8 @@ public class Manager : MonoBehaviour
     /// <param name="_triBallPow"></param>
     /// <param name="_lobBallPow"></param>
     /// <param name="_multiHoles"></param>
-    public virtual void RecieveValues(int _currentLevelNumber, GameObject _objectSpawnPos, List<GameObject> _cameras, int _startingNumberOfObjects, int _minScore, int _secretScore, int _goldBallPow, int _markedBallPow, int _triBallPow, int _lobBallPow, GameObject[] _multiHoles)
+    public virtual void RecieveValues(int _currentLevelNumber, GameObject _objectSpawnPos, List<GameObject> _cameras, int _startingNumberOfObjects, int _minScore, int _secretScore, 
+        int _goldBallPow, int _markedBallPow, int _triBallPow, int _lobBallPow, int _diveBallPow, GameObject[] _multiHoles)
     {
         currentLevelNumber = _currentLevelNumber;
         objectSpawnPos = _objectSpawnPos;
@@ -210,6 +217,7 @@ public class Manager : MonoBehaviour
             markedBallPow = _markedBallPow;
             triBallPow = _triBallPow;
             lobBallPow = _lobBallPow;
+            diveBallPow = _diveBallPow;
             //no multiholes
             multiHoles = new GameObject[0];
         }
@@ -220,6 +228,7 @@ public class Manager : MonoBehaviour
             markedBallPow += _markedBallPow;
             triBallPow += _triBallPow;
             lobBallPow += _lobBallPow;
+            diveBallPow += _diveBallPow;
             //get multiholes
             multiHoles = _multiHoles;
         }
@@ -266,6 +275,7 @@ public class Manager : MonoBehaviour
         markedBallPow = 0;
         triBallPow = 0;
         lobBallPow = 0;
+        diveBallPow = 0;
     }
 
     /// <summary>
@@ -403,7 +413,7 @@ public class Manager : MonoBehaviour
     /// </summary>
     /// <param name="pos"></param>
     /// <param name="force"></param>
-    public GameObject SpawnNewObject(GameObject objectPrefab, Vector3 spawnPos, Vector3 force, bool gold, bool marked, bool tri)
+    public GameObject SpawnNewObject(GameObject objectPrefab, Vector3 spawnPos, Vector3 force, bool gold, bool marked, bool tri, bool dive)
     {
         GameObject newObject = Instantiate(objectPrefab);
 
@@ -415,6 +425,7 @@ public class Manager : MonoBehaviour
         if (gold) { newObject.GetComponent<ObjectEffects>().ToggleGoldBall(); }
         if (marked) { newObject.GetComponent<ObjectEffects>().ToggleMarkedBall(); }
         if (tri) { newObject.GetComponent<ObjectEffects>().ToggleTriBall(); }
+        if (dive) { newObject.GetComponent<ObjectEffects>().ToggleDiveBall(); }
 
         //if this is the first ball, set it
         if (objects.Count <= 0)
@@ -439,7 +450,7 @@ public class Manager : MonoBehaviour
     private IEnumerator SpawnNewStartingBall()
     {
         yield return new WaitForSeconds(timeBetweenObjects);
-        SpawnNewObject(ballPrefab, objectSpawnPos.transform.position, Vector3.zero, false, false, false);
+        SpawnNewObject(ballPrefab, objectSpawnPos.transform.position, Vector3.zero, false, false, false, false);
         UpdateObjects(-1);
         //switch to main camera view
         SwitchCameraView(0);
@@ -539,7 +550,7 @@ public class Manager : MonoBehaviour
         {
             //replace the starting object with a beanbag with the same powerup states
             GameObject newBeanbag = SpawnNewObject(beanbagPrefab, objectSpawnPos.transform.position, Vector3.zero, objects[0].GetComponent<ObjectEffects>().GoldBallEnabled,
-                objects[0].GetComponent<ObjectEffects>().MarkedBallEnabled, objects[0].GetComponent<ObjectEffects>().TriBallEnabled);
+                objects[0].GetComponent<ObjectEffects>().MarkedBallEnabled, objects[0].GetComponent<ObjectEffects>().TriBallEnabled, objects[0].GetComponent<ObjectEffects>().DiveBallEnabled);
 
             //make beanbag the starting object
             objects.Clear();
@@ -551,9 +562,9 @@ public class Manager : MonoBehaviour
         {
             //replace the starting object with a ball with the same powerup states
             GameObject newBall = SpawnNewObject(ballPrefab, objectSpawnPos.transform.position, Vector3.zero, objects[0].GetComponent<ObjectEffects>().GoldBallEnabled,
-                objects[0].GetComponent<ObjectEffects>().MarkedBallEnabled, objects[0].GetComponent<ObjectEffects>().TriBallEnabled);
+                objects[0].GetComponent<ObjectEffects>().MarkedBallEnabled, objects[0].GetComponent<ObjectEffects>().TriBallEnabled, objects[0].GetComponent<ObjectEffects>().DiveBallEnabled);
 
-            //make beanbag the starting object
+            //make ball the starting object
             objects.Clear();
             objects.Add(newBall);
             Destroy(startingObject);
