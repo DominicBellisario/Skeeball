@@ -3110,6 +3110,7 @@ GameObject:
   - component: {fileID: 1279081570}
   - component: {fileID: 1279081569}
   - component: {fileID: 1279081568}
+  - component: {fileID: 1279081572}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -3195,17 +3196,17 @@ RectTransform:
   - {fileID: 69105968}
   - {fileID: 99476020}
   - {fileID: 968782576}
+  - {fileID: 877308923}
+  - {fileID: 645852523}
   - {fileID: 1947409745}
   - {fileID: 1740660476}
   - {fileID: 211382625}
-  - {fileID: 877308923}
-  - {fileID: 645852523}
   - {fileID: 467541206}
+  - {fileID: 426724702}
+  - {fileID: 167600714}
   - {fileID: 1305213379}
   - {fileID: 1101557009}
   - {fileID: 732141078}
-  - {fileID: 426724702}
-  - {fileID: 167600714}
   - {fileID: 1888185929}
   - {fileID: 126820899}
   m_Father: {fileID: 0}
@@ -3215,6 +3216,47 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &1279081572
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1279081566}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cca063d8365b7fc4f892c11281fe8999, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  buttons:
+  - {fileID: 968782577}
+  - {fileID: 877308924}
+  - {fileID: 645852524}
+  - {fileID: 1947409746}
+  - {fileID: 1740660477}
+  - {fileID: 211382626}
+  - {fileID: 467541207}
+  - {fileID: 426724703}
+  - {fileID: 167600715}
+  - {fileID: 1305213380}
+  - {fileID: 1101557010}
+  - {fileID: 732141079}
+  normalColors:
+    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
+    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_ColorMultiplier: 1
+    m_FadeDuration: 0.1
+  secretColors:
+    m_NormalColor: {r: 1, g: 0.9577489, b: 0, a: 0}
+    m_HighlightedColor: {r: 1, g: 0.93891394, b: 0.3537736, a: 0}
+    m_PressedColor: {r: 0.7075472, g: 0.6718884, b: 0, a: 0}
+    m_SelectedColor: {r: 1, g: 0.95686275, b: 0, a: 0}
+    m_DisabledColor: {r: 1, g: 0.95686275, b: 0, a: 0}
+    m_ColorMultiplier: 1
+    m_FadeDuration: 0.1
 --- !u!1 &1305213378
 GameObject:
   m_ObjectHideFlags: 0

@@ -7,6 +7,7 @@ using UnityEngine;
 
 public class Manager : MonoBehaviour
 {
+    [SerializeField] int numberOfLevels;
     [SerializeField] GameObject ballPrefab;
     [SerializeField] GameObject beanbagPrefab;
     [SerializeField] Vector3 objectCameraOffset;
@@ -131,6 +132,7 @@ public class Manager : MonoBehaviour
     bool endless;
 
     public static Manager Instance { get; private set; }
+    public int NumberOfLevels { get { return numberOfLevels; } }
     public int CurrentLevelNumber { get { return currentLevelNumber; } }
     public int Score { get { return score; } }
     public int MinScore { get { return minScore; } }
@@ -489,8 +491,23 @@ public class Manager : MonoBehaviour
         yield return new WaitForSeconds(timeBetweenObjects);
         //disable level ui event handler
         LevelUILogic.Instance.EventHandler.SetActive(false);
-        //bring up the results screen
-        if (!endless) { SceneHandler.Instance.LoadSceneAdditively("ResultsScreen"); }
+        if (!endless) 
+        {
+            //unlock the next level if they won
+            if (score >= minScore && currentLevelNumber != numberOfLevels)
+            {
+                PlayerPrefs.SetInt("unlockLevel_" + (currentLevelNumber + 1), 1);
+            }
+            //unlock the secret if they got secret score
+            if (score >= secretScore)
+            {
+                PlayerPrefs.SetInt("unlockSecret_" + currentLevelNumber, 1);
+            }
+            PlayerPrefs.Save();
+
+            //bring up the results screen
+            SceneHandler.Instance.LoadSceneAdditively("ResultsScreen");
+        }
         else { SceneHandler.Instance.LoadSceneAdditively("ResultsScreenEndless"); }
 
         //pause the game
