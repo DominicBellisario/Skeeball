@@ -365,6 +365,11 @@ public class Manager : MonoBehaviour
     {
         scoreChange = Mathf.RoundToInt(scoreChange * multiplier);
         totalPoints += scoreChange;
+        if (totalPoints > PlayerPrefs.GetInt("highscore"))
+        {
+            PlayerPrefs.SetInt("highscore", totalPoints);
+            PlayerPrefs.Save();
+        }
         LevelUILogic.Instance.UpdateTotalScore(totalPoints);
     }
 

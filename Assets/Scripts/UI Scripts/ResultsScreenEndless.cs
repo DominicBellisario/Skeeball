@@ -7,6 +7,7 @@ public class ResultsScreenEndless : MonoBehaviour
     [SerializeField] TextMeshProUGUI resultsText;
     [SerializeField] TextMeshProUGUI levelScoreText;
     [SerializeField] TextMeshProUGUI totalScoreText;
+    [SerializeField] TextMeshProUGUI highScoreText;
     [SerializeField] TextMeshProUGUI levelRemainingText;
     //the next level button.  disabled if the player lost
     [SerializeField] GameObject nextLevelButton;
@@ -34,6 +35,7 @@ public class ResultsScreenEndless : MonoBehaviour
         //update all of the text
         levelScoreText.text = Manager.Instance.Score + " / " + Manager.Instance.MinScore;
         totalScoreText.text = Manager.Instance.TotalPoints.ToString();
+        if (Manager.Instance.TotalPoints >= PlayerPrefs.GetInt("highscore")) { highScoreText.gameObject.SetActive(true); }
         levelRemainingText.text = "completed " + Manager.Instance.NumberOfCompletedLevelsInRound + " / " + Manager.Instance.LevelsInCurrentRound + " levels";
     }
 
