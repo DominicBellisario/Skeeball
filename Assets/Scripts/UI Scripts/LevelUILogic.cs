@@ -1,3 +1,4 @@
+using System.Collections;
 using TMPro;
 using UnityEngine;
 
@@ -15,7 +16,6 @@ public class LevelUILogic : MonoBehaviour
     [SerializeField] GameObject markedBallButton;
     [SerializeField] GameObject triBallButton;
     [SerializeField] GameObject lobBallButton;
-    [SerializeField] GameObject diveBallButton;
 
     [SerializeField] GameObject totalScoreText;
     [SerializeField] GameObject multiplierText;
@@ -82,8 +82,6 @@ public class LevelUILogic : MonoBehaviour
         triBallButton.SetActive(expandedPowerupUI);
         lobBallButton.GetComponentInChildren<TextMeshProUGUI>().text = "Lob Ball: " + manager.LobBallPow;
         lobBallButton.SetActive(expandedPowerupUI);
-        diveBallButton.GetComponentInChildren<TextMeshProUGUI>().text = "Dive Ball: " + manager.DiveBallPow;
-        diveBallButton.SetActive(expandedPowerupUI);
     }
 
     public void UpdateTotalScore(int totalScore)
@@ -163,18 +161,6 @@ public class LevelUILogic : MonoBehaviour
             if (manager.LobBallPow > 0 && !manager.StartingObject.GetComponent<ObjectControls>().IsLaunched)
             {
                 manager.ToggleLobBall();
-            }
-        }
-    }
-
-    public void ToggleDiveBallPowerup()
-    {
-        Manager manager = Manager.Instance;
-        if (manager.StartingObject != null)
-        {
-            if (manager.DiveBallPow > 0 && !manager.StartingObject.GetComponent<ObjectControls>().IsLaunched)
-            {
-                manager.StartingObject.GetComponent<ObjectEffects>().ToggleDiveBall();
             }
         }
     }

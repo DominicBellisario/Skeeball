@@ -40,12 +40,10 @@ public abstract class ObjectEffects : MonoBehaviour
     protected bool markedBallEnabled;
     [SerializeField] protected Material markedBallMaterial;
     protected bool triBallEnabled;
-    protected bool diveBallEnabled;
 
     public bool GoldBallEnabled { get { return goldBallEnabled; } set { goldBallEnabled = value; } }
     public bool MarkedBallEnabled { get { return markedBallEnabled; } set { markedBallEnabled = value; } }
     public bool TriBallEnabled { get { return triBallEnabled; } set { triBallEnabled = value; } }
-    public bool DiveBallEnabled { get { return diveBallEnabled; } set { diveBallEnabled = value; } }
 
 
     private void Awake()
@@ -123,13 +121,6 @@ public abstract class ObjectEffects : MonoBehaviour
         leftAimLine.gameObject.SetActive(triBallEnabled);
         rightAimLine.gameObject.SetActive(triBallEnabled);
 
-    }
-    public void ToggleDiveBall()
-    {
-        diveBallEnabled = !diveBallEnabled;
-        //if (diveBallEnabled) { materials[2] = markedBallMaterial; }
-        //else { materials[2] = transMaterial; }
-        //UpdateMaterials();
     }
 
     public void DisableTriBalls()

@@ -40,7 +40,7 @@ public class BeanbagControls : ObjectControls
                 -powerPercent * Mathf.Sin(angle + triBallAngle) * forceMultiplyer,
                 powerPercent * heightMultipliter,
                 -powerPercent * Mathf.Cos(angle + triBallAngle) * forceMultiplyer),
-            effects.GoldBallEnabled, effects.MarkedBallEnabled, false, effects.DiveBallEnabled);
+            effects.GoldBallEnabled, effects.MarkedBallEnabled, false);
         beanbag.GetComponent<ObjectLevelInteractions>().IsLaunched = true;
         beanbag.GetComponent<Rigidbody>().AddTorque(new Vector3(Random.Range(-rotRange, rotRange), Random.Range(-rotRange, rotRange), Random.Range(-rotRange, rotRange)));
     }
