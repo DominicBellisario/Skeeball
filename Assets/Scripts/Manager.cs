@@ -144,7 +144,6 @@ public class Manager : MonoBehaviour
     public int MinScore { get { return minScore; } }
     public int SecretScore { get { return secretScore; } }
     public int CurrentCameraPos { get { return currentCameraPosition; } }
-    public bool CanSwitchCamera { get { return canSwitchCamera; } set { canSwitchCamera = value; } }
     public GameObject StartingObject { get { return startingObject; } }
     public bool SwitchCameraOnLaunch { get { return switchCameraOnLaunch; } }
     public int GoldBallPow { get { return goldBallPow; } set { goldBallPow = value; } }
@@ -187,6 +186,7 @@ public class Manager : MonoBehaviour
         {
             cameraPositions[1].transform.position = objects[0].transform.position + objectCameraOffset;
             mainCamera.transform.position = cameraPositions[1].transform.position;
+            mainCamera.transform.rotation = cameraPositions[1].transform.rotation;
         }
     }
 
@@ -618,15 +618,14 @@ public class Manager : MonoBehaviour
         {
             if (i == currentCameraPosition)
             {
-                StartCoroutine(LerpCameraPos(cameraPositions[i].transform));
-                mainCamera.transform.rotation = cameraPositions[i].transform.rotation;
+                StartCoroutine(LerpCamera(cameraPositions[i].transform));
             }
         }
         //update the UI
         LevelUILogic.Instance.UpdateCameraText(currentCameraPosition, cameraPositions.Count);
     }
 
-    IEnumerator LerpCameraPos(Transform targetTransform)
+    IEnumerator LerpCamera(Transform targetTransform)
     {
         //continue moving until it reaches its target
         while (mainCamera.transform.position != targetTransform.position)
@@ -636,6 +635,7 @@ public class Manager : MonoBehaviour
 
             float step = cameraMoveSpeed * Time.deltaTime;
             mainCamera.transform.position = Vector3.Lerp(mainCamera.transform.position, targetTransform.position, step);
+            mainCamera.transform.rotation = Quaternion.Lerp(mainCamera.transform.rotation, targetTransform.rotation, step);
             if (Vector3.Distance(mainCamera.transform.position, targetTransform.position) <= 0.05)
             {
                 mainCamera.transform.position = targetTransform.position;
@@ -643,5 +643,14 @@ public class Manager : MonoBehaviour
             yield return new WaitForEndOfFrame();
         }
         canSwitchCamera = true;
+    }
+
+    public bool CanToggleCamera()
+    {
+        if (canSwitchCamera && objects.Count != 0)
+        {
+            return true;
+        }
+        return false;
     }
 }

@@ -181,11 +181,10 @@ public class LevelUILogic : MonoBehaviour
 
     public void ToggleCamera()
     {
-        if (Manager.Instance.CanSwitchCamera)
+        if (Manager.Instance.CanToggleCamera())
         {
             Manager.Instance.SwitchCameraView(-1);
         }
-
     }
 
     public void UpdateCameraText(int activeCameraNum, int numOfCamerasInLevel)
