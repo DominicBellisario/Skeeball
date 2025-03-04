@@ -34,6 +34,11 @@ public class Manager : MonoBehaviour
     List<GameObject> cameraPositions;
     int currentCameraPosition;
     GameObject mainCamera;
+    /// <summary>
+    /// how fast the camera moves between camera positions
+    /// </summary>
+    [SerializeField] float cameraMoveSpeed;
+    bool canSwitchCamera;
 
 
     /// <summary>
@@ -139,6 +144,7 @@ public class Manager : MonoBehaviour
     public int MinScore { get { return minScore; } }
     public int SecretScore { get { return secretScore; } }
     public int CurrentCameraPos { get { return currentCameraPosition; } }
+    public bool CanSwitchCamera { get { return canSwitchCamera; } set { canSwitchCamera = value; } }
     public GameObject StartingObject { get { return startingObject; } }
     public bool SwitchCameraOnLaunch { get { return switchCameraOnLaunch; } }
     public int GoldBallPow { get { return goldBallPow; } set { goldBallPow = value; } }
@@ -252,6 +258,7 @@ public class Manager : MonoBehaviour
         StopAllCoroutines();
         scored = true;
         currentCameraPosition = 0;
+        canSwitchCamera = true;
     }
 
     /// <summary>
@@ -591,7 +598,7 @@ public class Manager : MonoBehaviour
     /// </summary>
     public void SwitchCameraView(int activeCameraPosition)
     {
-        //go to next cam if a cam is not given
+        //go to next cam position if a cam is not given
         if (activeCameraPosition == -1)
         {
             currentCameraPosition++;
@@ -600,22 +607,41 @@ public class Manager : MonoBehaviour
                 currentCameraPosition = 0;
             }
         }
-        //otherwise, switch to the specified camera
+        //otherwise, switch to the specified position
         else
         {
             currentCameraPosition = activeCameraPosition;
         }
 
-        //turn off all cameras except the active one
+        //lerp camera to the active positon
         for (int i = 0; i < cameraPositions.Count; i++)
         {
             if (i == currentCameraPosition)
             {
-                mainCamera.transform.position = cameraPositions[i].transform.position;
+                StartCoroutine(LerpCameraPos(cameraPositions[i].transform));
                 mainCamera.transform.rotation = cameraPositions[i].transform.rotation;
             }
         }
         //update the UI
         LevelUILogic.Instance.UpdateCameraText(currentCameraPosition, cameraPositions.Count);
+    }
+
+    IEnumerator LerpCameraPos(Transform targetTransform)
+    {
+        //continue moving until it reaches its target
+        while (mainCamera.transform.position != targetTransform.position)
+        {
+            //cannot spam the camera move button
+            canSwitchCamera = false;
+
+            float step = cameraMoveSpeed * Time.deltaTime;
+            mainCamera.transform.position = Vector3.Lerp(mainCamera.transform.position, targetTransform.position, step);
+            if (Vector3.Distance(mainCamera.transform.position, targetTransform.position) <= 0.05)
+            {
+                mainCamera.transform.position = targetTransform.position;
+            }
+            yield return new WaitForEndOfFrame();
+        }
+        canSwitchCamera = true;
     }
 }
