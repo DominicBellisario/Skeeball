@@ -29,10 +29,11 @@ public class Manager : MonoBehaviour
     [SerializeField] List<GameObject> objects;
     GameObject startingObject;
     /// <summary>
-    /// camera that follows the first object in the list
+    /// all camera positions in the current level
     /// </summary>
-    List<GameObject> cameras;
-    int currentActiveCamera;
+    List<GameObject> cameraPositions;
+    int currentCameraPosition;
+    GameObject mainCamera;
 
 
     /// <summary>
@@ -137,7 +138,7 @@ public class Manager : MonoBehaviour
     public int Score { get { return score; } }
     public int MinScore { get { return minScore; } }
     public int SecretScore { get { return secretScore; } }
-    public GameObject MainCamera { get { return cameras[0]; } }
+    public int CurrentCameraPos { get { return currentCameraPosition; } }
     public GameObject StartingObject { get { return startingObject; } }
     public bool SwitchCameraOnLaunch { get { return switchCameraOnLaunch; } }
     public int GoldBallPow { get { return goldBallPow; } set { goldBallPow = value; } }
@@ -175,10 +176,11 @@ public class Manager : MonoBehaviour
 
     public void Update()
     {
-        //ball camera follows the first ball in the list
-        if (objects.Count >= 1)
+        //ball cam pos follows the first ball in the list
+        if (objects.Count >= 1 && currentCameraPosition == 1)
         {
-            cameras[1].transform.position = objects[0].transform.position + objectCameraOffset;
+            cameraPositions[1].transform.position = objects[0].transform.position + objectCameraOffset;
+            mainCamera.transform.position = cameraPositions[1].transform.position;
         }
     }
 
@@ -196,11 +198,12 @@ public class Manager : MonoBehaviour
     /// <param name="_triBallPow"></param>
     /// <param name="_lobBallPow"></param>
     /// <param name="_multiHoles"></param>
-    public virtual void RecieveValues(int _currentLevelNumber, GameObject _objectSpawnPos, List<GameObject> _cameras, int _startingNumberOfObjects, int _minScore, int _secretScore, int _goldBallPow, int _markedBallPow, int _triBallPow, int _lobBallPow, GameObject[] _multiHoles)
+    public virtual void RecieveValues(int _currentLevelNumber, GameObject _objectSpawnPos, GameObject _mainCamera, List<GameObject> _cameraPositions, int _startingNumberOfObjects, int _minScore, int _secretScore, int _goldBallPow, int _markedBallPow, int _triBallPow, int _lobBallPow, GameObject[] _multiHoles)
     {
         currentLevelNumber = _currentLevelNumber;
         objectSpawnPos = _objectSpawnPos;
-        cameras = _cameras;
+        mainCamera = _mainCamera;
+        cameraPositions = _cameraPositions;
         numberOfObjects = _startingNumberOfObjects;
         minScore = _minScore;
         secretScore = _secretScore;
@@ -231,7 +234,7 @@ public class Manager : MonoBehaviour
         UpdateScore(0);
         UpdateObjects(0);
         UpdateCoins(0);
-        LevelUILogic.Instance.UpdateCameraText(0, cameras.Count);
+        LevelUILogic.Instance.UpdateCameraText(0, cameraPositions.Count);
 
 
         //spawn the first ball
@@ -248,7 +251,7 @@ public class Manager : MonoBehaviour
         LobBallEnabled = false;
         StopAllCoroutines();
         scored = true;
-        currentActiveCamera = 0;
+        currentCameraPosition = 0;
     }
 
     /// <summary>
@@ -586,36 +589,33 @@ public class Manager : MonoBehaviour
     /// <summary>
     /// toggle between ball and main camera
     /// </summary>
-    public void SwitchCameraView(int activeCamera)
+    public void SwitchCameraView(int activeCameraPosition)
     {
         //go to next cam if a cam is not given
-        if (activeCamera == -1)
+        if (activeCameraPosition == -1)
         {
-            currentActiveCamera++;
-            if (currentActiveCamera >= cameras.Count)
+            currentCameraPosition++;
+            if (currentCameraPosition >= cameraPositions.Count)
             {
-                currentActiveCamera = 0;
+                currentCameraPosition = 0;
             }
         }
         //otherwise, switch to the specified camera
         else
         {
-            currentActiveCamera = activeCamera;
+            currentCameraPosition = activeCameraPosition;
         }
 
         //turn off all cameras except the active one
-        for (int i = 0; i < cameras.Count; i++)
+        for (int i = 0; i < cameraPositions.Count; i++)
         {
-            if (i == currentActiveCamera)
+            if (i == currentCameraPosition)
             {
-                cameras[i].SetActive(true);
-            }
-            else
-            {
-                cameras[i].SetActive(false);
+                mainCamera.transform.position = cameraPositions[i].transform.position;
+                mainCamera.transform.rotation = cameraPositions[i].transform.rotation;
             }
         }
         //update the UI
-        LevelUILogic.Instance.UpdateCameraText(currentActiveCamera, cameras.Count);
+        LevelUILogic.Instance.UpdateCameraText(currentCameraPosition, cameraPositions.Count);
     }
 }
