@@ -88,6 +88,7 @@ public class Manager : MonoBehaviour
     [SerializeField] int[] easyLevels;
     [SerializeField] int[] mediumLevels;
     [SerializeField] int[] hardLevels;
+    int[] randomLevels;
     string currentDifficulty;
     int[] levelsInCurrentDifficulty;
     /// <summary>
@@ -176,6 +177,12 @@ public class Manager : MonoBehaviour
             Instance = this;
         }
         endless = false;
+        //random levels are all levels in endless mode
+        randomLevels = new int[easyLevels.Count() + mediumLevels.Count() + hardLevels.Count()];
+        for (int i = 0; i < randomLevels.Count(); i++)
+        {
+            randomLevels[i] = i + 1;
+        }
         objects = new List<GameObject>();
     }
 
@@ -334,6 +341,19 @@ public class Manager : MonoBehaviour
             {
                 levelsInCurrentDifficulty = hardLevels;
                 currentDifficulty = "hard";
+                GoToNextEndlessLevel();
+                return;
+            }
+            else if (currentDifficulty == "hard")
+            {
+                levelsInCurrentDifficulty = randomLevels;
+                currentDifficulty = "random";
+                GoToNextEndlessLevel();
+                return;
+            }
+            else if (currentDifficulty == "random")
+            {
+                playedLevels.Clear();
                 GoToNextEndlessLevel();
                 return;
             }

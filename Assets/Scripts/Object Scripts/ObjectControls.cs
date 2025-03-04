@@ -88,7 +88,6 @@ public abstract class ObjectControls : MonoBehaviour
                 objectOrigin.z + (Mathf.Cos(angle) * aimingCircleRadius * powerPercent)
                 );
         }
-        //Debug.Log(rb.velocity.magnitude);
 
         //if the player releases the mouse
         if (!Input.GetMouseButton(0))

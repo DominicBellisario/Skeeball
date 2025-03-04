@@ -37,7 +37,6 @@ public class ShopManager : MonoBehaviour
         ToggleInventory();
 
         //set UI text
-        Debug.Log(Manager.Instance.TotalPoints);
         scoreTxt.text = "Score: " + Manager.Instance.TotalPoints;
         multiTxt.text = "Multi: " + Manager.Instance.Multiplier;
         UpdateCoinText(Manager.Instance.Coins);
