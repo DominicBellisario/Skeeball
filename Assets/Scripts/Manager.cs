@@ -104,6 +104,7 @@ public class Manager : MonoBehaviour
     /// the current number of coins
     /// </summary>
     [SerializeField] int coins = 0;
+    [SerializeField] int maxPowerups;
     /// <summary>
     /// the number of levels the player completed in the current round
     /// </summary>
@@ -162,6 +163,7 @@ public class Manager : MonoBehaviour
     public int LevelsInCurrentRound { get { return levelsInCurrentRound; } }
     public int CurrentRoundNumber { get { return currentRoundNumber; } }
     public bool Scored { get { return scored; } set { scored = value; } }
+    public int MaxPowerups { get { return maxPowerups; } }
     public List<GameObject> ActivatedMultiHoles { get { return activatedMultiHoles; } }
 
     protected virtual void Awake()

@@ -39,7 +39,7 @@ public class ShopObject : MonoBehaviour
 
     public void BuyGoldBall()
     {
-        if (Manager.Instance.Coins >= price && !sold)
+        if (Manager.Instance.Coins >= price && !sold && Manager.Instance.GoldBallPow < Manager.Instance.MaxPowerups)
         {
             shopManager.UpdateCoinText(-price);
             Manager.Instance.Coins -= price;
@@ -51,7 +51,7 @@ public class ShopObject : MonoBehaviour
     }
     public void BuyMarkedBall()
     {
-        if (Manager.Instance.Coins >= price && !sold)
+        if (Manager.Instance.Coins >= price && !sold && Manager.Instance.MarkedBallPow < Manager.Instance.MaxPowerups)
         {
             shopManager.UpdateCoinText(-price);
             Manager.Instance.Coins -= price;
@@ -63,7 +63,7 @@ public class ShopObject : MonoBehaviour
     }
     public void BuyTriBall()
     {
-        if (Manager.Instance.Coins >= price && !sold)
+        if (Manager.Instance.Coins >= price && !sold && Manager.Instance.TriBallPow < Manager.Instance.MaxPowerups)
         {
             shopManager.UpdateCoinText(-price);
             Manager.Instance.Coins -= price;
@@ -75,7 +75,7 @@ public class ShopObject : MonoBehaviour
     }
     public void BuyLobBall()
     {
-        if (Manager.Instance.Coins >= price && !sold)
+        if (Manager.Instance.Coins >= price && !sold && Manager.Instance.LobBallPow < Manager.Instance.MaxPowerups)
         {
             shopManager.UpdateCoinText(-price);
             Manager.Instance.Coins -= price;
