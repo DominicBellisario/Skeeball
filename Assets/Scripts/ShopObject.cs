@@ -13,76 +13,53 @@ public class ShopObject : MonoBehaviour
     [SerializeField] TextMeshProUGUI priceText;
     int price;
     bool sold = false;
+    int ID;
 
-    public void SetValues(int ID, string _itemText, int _price)
+    public void SetValues(int _ID, string _itemText, int _price)
     {
         //set variables
         price = _price;
         itemText.text = _itemText;
         priceText.text = "$" + _price;
+        ID = _ID;
 
         //determine what the button will do when clicked
-        if (ID == 0) { button.onClick.AddListener(delegate { BuyGoldBall(); }); }
-        else if (ID == 1) { button.onClick.AddListener(delegate { BuyMarkedBall(); }); }
-        else if (ID == 2) { button.onClick.AddListener(delegate { BuyTriBall(); }); }
-        else if (ID == 3) { button.onClick.AddListener(delegate { BuyLobBall(); }); }
+        if (ID == 0) { button.onClick.AddListener(delegate { BuyPowerup(ref Manager.Instance.goldBallPow); }); }
+        else if (ID == 1) { button.onClick.AddListener(delegate { BuyPowerup(ref Manager.Instance.markedBallPow); }); }
+        else if (ID == 2) { button.onClick.AddListener(delegate { BuyPowerup(ref Manager.Instance.triBallPow); }); }
+        else if (ID == 3) { button.onClick.AddListener(delegate { BuyPowerup(ref Manager.Instance.lobBallPow); }); }
         else if (ID == 4) { button.onClick.AddListener(delegate { BuyMultiplier(); }); }
     }
 
-    public void BuyGoldBall()
+    public void BuyPowerup(ref int powerupReference)
     {
-        if (Manager.Instance.Coins >= price && !sold && Helper.Instance.HasMaxPowerups(Manager.Instance.GoldBallPow))
+        //sold already
+        if (sold) { return; }
+        //not enough money
+        else if (Manager.Instance.Coins < price) { shopManager.NotEnoughMoney(); }
+        //already at max powerups
+        else if (Helper.Instance.HasMaxPowerups(powerupReference)) { shopManager.AlreadyAtMaxPowerups(ID); }
+        //can be bought
+        else
         {
             Manager.Instance.Coins -= price;
-            Manager.Instance.GoldBallPow++;
+            powerupReference++;
             shopManager.UpdateUI();
             SoldOut();
         }
-        else { shopManager.NotEnoughMoney(); }
     }
-    public void BuyMarkedBall()
-    {
-        if (Manager.Instance.Coins >= price && !sold && Helper.Instance.HasMaxPowerups(Manager.Instance.MarkedBallPow))
-        {
-            Manager.Instance.Coins -= price;
-            Manager.Instance.MarkedBallPow++;
-            shopManager.UpdateUI();
-            SoldOut();
-        }
-        else { shopManager.NotEnoughMoney(); }
-    }
-    public void BuyTriBall()
-    {
-        if (Manager.Instance.Coins >= price && !sold && Helper.Instance.HasMaxPowerups(Manager.Instance.TriBallPow))
-        {
-            Manager.Instance.Coins -= price;
-            Manager.Instance.TriBallPow++;
-            shopManager.UpdateUI();
-            SoldOut();
-        }
-        else { shopManager.NotEnoughMoney(); }
-    }
-    public void BuyLobBall()
-    {
-        if (Manager.Instance.Coins >= price && !sold && Helper.Instance.HasMaxPowerups(Manager.Instance.LobBallPow))
-        {
-            Manager.Instance.Coins -= price;
-            Manager.Instance.LobBallPow++;
-            shopManager.UpdateUI();
-            SoldOut();
-        }
-        else { shopManager.NotEnoughMoney(); }
-    }
+
     public void BuyMultiplier()
     {
-        if (Manager.Instance.Coins >= price && !sold)
+        if (sold) { return; }
+        else if (Manager.Instance.Coins < price) { shopManager.NotEnoughMoney(); }
+        else
         {
             Manager.Instance.Coins -= price;
             Manager.Instance.Multiplier++;
             shopManager.UpdateUI();
             SoldOut();
         }
-        else { shopManager.NotEnoughMoney(); }
     }
 
     private void SoldOut()

@@ -70,15 +70,15 @@ public class Manager : MonoBehaviour
     /// <summary>
     /// number of marked ball powwerups
     /// </summary>
-    int markedBallPow;
+    public int markedBallPow;
     /// <summary>
     /// number of tri ball powwerups
     /// </summary>
-    int triBallPow;
+    public int triBallPow;
     /// <summary>
     /// number of lob ball powwerups
     /// </summary>
-    int lobBallPow;
+    public int lobBallPow;
     /// <summary>
     /// wether or not the current ball is a lobball
     /// </summary>

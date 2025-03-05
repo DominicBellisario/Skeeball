@@ -33,7 +33,7 @@ public class Helper : MonoBehaviour
     /// <returns></returns>
     public bool HasMaxPowerups(int currentPowerups)
     {
-        if (currentPowerups < Manager.Instance.MaxPowerups)
+        if (currentPowerups >= Manager.Instance.MaxPowerups)
         {
             return true;
         }

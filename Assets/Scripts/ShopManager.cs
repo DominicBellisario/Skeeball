@@ -97,11 +97,27 @@ public class ShopManager : MonoBehaviour
     public void NotEnoughMoney()
     {
         coinText.color = Color.red;
-        StartCoroutine(ResetCoinColor());
+        StartCoroutine(ResetUIColor());
     }
-    IEnumerator ResetCoinColor()
+    IEnumerator ResetUIColor()
     {
         yield return new WaitForSeconds(1);
         coinText.color = Color.white;
+        goldBallTxt.color = Color.white;
+        markedBallTxt.color = Color.white;
+        triBallTxt.color = Color.white;
+        lobBallTxt.color = Color.white;
     }
+
+    //powerup counter in question flashes red
+    public void AlreadyAtMaxPowerups(int ID)
+    {
+        if (ID == 0) { goldBallTxt.color = Color.red; }
+        else if (ID == 1) { markedBallTxt.color = Color.red; }
+        else if (ID == 2) { triBallTxt.color = Color.red; }
+        else if (ID == 3) { lobBallTxt.color = Color.red; }
+        StartCoroutine(ResetUIColor());
+    }
+
+    
 }
