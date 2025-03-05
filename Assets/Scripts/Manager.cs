@@ -66,7 +66,7 @@ public class Manager : MonoBehaviour
     /// <summary>
     /// number of gold ball powwerups
     /// </summary>
-    int goldBallPow;
+    public int goldBallPow;
     /// <summary>
     /// number of marked ball powwerups
     /// </summary>
@@ -157,7 +157,7 @@ public class Manager : MonoBehaviour
     public bool Endless { get { return endless; } }
     public int TotalPoints { get { return totalPoints; } }
     public int Coins { get { return coins; } set { coins = value; } }
-    public float Multiplier { get { return multiplier; } }
+    public float Multiplier { get { return multiplier; } set { multiplier = value; } }
     public float MultiplierIncreaseAmt { get { return multiplierIncreaseAmt; } }
     public int NumberOfCompletedLevelsInRound { get { return numberOfCompletedLevelsInRound; } }
     public int LevelsInCurrentRound { get { return levelsInCurrentRound; } }
@@ -297,7 +297,7 @@ public class Manager : MonoBehaviour
         Instance.endless = true;
         Instance.levelsInCurrentDifficulty = easyLevels;
         Instance.currentDifficulty = "easy";
-        Instance.numberOfCompletedLevelsInRound = 0; //SET TO 0 WHEN NOT DEBUGGING
+        Instance.numberOfCompletedLevelsInRound = 2; //SET TO 0 WHEN NOT DEBUGGING
         Instance.GoToNextEndlessLevel();
     }
 
@@ -523,7 +523,7 @@ public class Manager : MonoBehaviour
         yield return new WaitForSeconds(timeBetweenObjects);
         //disable level ui event handler
         LevelUILogic.Instance.EventHandler.SetActive(false);
-        if (!endless) 
+        if (!endless)
         {
             //unlock the next level if they won
             if (score >= minScore && currentLevelNumber != numberOfLevels)

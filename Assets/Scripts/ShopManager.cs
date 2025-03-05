@@ -14,17 +14,12 @@ public class ShopManager : MonoBehaviour
 
     #region UI Objects and Values
     [SerializeField] TextMeshProUGUI coinText;
-    int numberOfCoins = 0;
     [SerializeField] TextMeshProUGUI scoreTxt;
     [SerializeField] TextMeshProUGUI multiTxt;
     [SerializeField] TextMeshProUGUI goldBallTxt;
-    int goldBallCount = 0;
     [SerializeField] TextMeshProUGUI markedBallTxt;
-    int markedBallCount = 0;
     [SerializeField] TextMeshProUGUI triBallTxt;
-    int triBallCount = 0;
     [SerializeField] TextMeshProUGUI lobBallTxt;
-    int lobBallCount = 0;
     #endregion
 
 
@@ -38,12 +33,7 @@ public class ShopManager : MonoBehaviour
 
         //set UI text
         scoreTxt.text = "Score: " + Manager.Instance.TotalPoints;
-        multiTxt.text = "Multi: " + Manager.Instance.Multiplier;
-        UpdateCoinText(Manager.Instance.Coins);
-        UpdateGoldText(Manager.Instance.GoldBallPow);
-        UpdateMarkedText(Manager.Instance.MarkedBallPow);
-        UpdateTriText(Manager.Instance.TriBallPow);
-        UpdateLobText(Manager.Instance.LobBallPow);
+        UpdateUI();
 
         //start with all objects deactivated
         foreach (GameObject item in itemObjects)
@@ -93,30 +83,14 @@ public class ShopManager : MonoBehaviour
     }
 
     //functions that update ui
-    public void UpdateCoinText(int amount)
+    public void UpdateUI()
     {
-        numberOfCoins += amount;
-        coinText.text = numberOfCoins.ToString();
-    }
-    public void UpdateGoldText(int amount)
-    {
-        goldBallCount += amount;
-        goldBallTxt.text = "Gold Ball: " + goldBallCount;
-    }
-    public void UpdateMarkedText(int amount)
-    {
-        markedBallCount += amount;
-        markedBallTxt.text = "Marked Ball: " + markedBallCount;
-    }
-    public void UpdateTriText(int amount)
-    {
-        triBallCount += amount;
-        triBallTxt.text = "Triball: " + triBallCount;
-    }
-    public void UpdateLobText(int amount)
-    {
-        lobBallCount += amount;
-        lobBallTxt.text = "Lobball: " + lobBallCount;
+        coinText.text = Manager.Instance.Coins.ToString();
+        goldBallTxt.text = "Gold Ball: " + Manager.Instance.GoldBallPow;
+        markedBallTxt.text = "Marked Ball: " + Manager.Instance.MarkedBallPow;
+        triBallTxt.text = "Triball: " + Manager.Instance.TriBallPow;
+        lobBallTxt.text = "Lobball: " + Manager.Instance.LobBallPow;
+        multiTxt.text = "Multi: " + Manager.Instance.Multiplier;
     }
 
     //coin counter flashes red

@@ -13,74 +13,73 @@ public class ShopObject : MonoBehaviour
     [SerializeField] TextMeshProUGUI priceText;
     int price;
     bool sold = false;
-    
+
     public void SetValues(int ID, string _itemText, int _price)
     {
+        //set variables
         price = _price;
         itemText.text = _itemText;
         priceText.text = "$" + _price;
-        if (ID == 0)
-        {
-            button.onClick.AddListener(delegate { BuyGoldBall(); });
-        }
-        else if (ID == 1)
-        {
-            button.onClick.AddListener(delegate { BuyMarkedBall(); });
-        }
-        else if (ID == 2)
-        {
-            button.onClick.AddListener(delegate { BuyTriBall(); });
-        }
-        else if (ID == 3)
-        {
-            button.onClick.AddListener(delegate { BuyLobBall(); });
-        }
+
+        //determine what the button will do when clicked
+        if (ID == 0) { button.onClick.AddListener(delegate { BuyGoldBall(); }); }
+        else if (ID == 1) { button.onClick.AddListener(delegate { BuyMarkedBall(); }); }
+        else if (ID == 2) { button.onClick.AddListener(delegate { BuyTriBall(); }); }
+        else if (ID == 3) { button.onClick.AddListener(delegate { BuyLobBall(); }); }
+        else if (ID == 4) { button.onClick.AddListener(delegate { BuyMultiplier(); }); }
     }
 
     public void BuyGoldBall()
     {
-        if (Manager.Instance.Coins >= price && !sold && Manager.Instance.GoldBallPow < Manager.Instance.MaxPowerups)
+        if (Manager.Instance.Coins >= price && !sold && Helper.Instance.HasMaxPowerups(Manager.Instance.GoldBallPow))
         {
-            shopManager.UpdateCoinText(-price);
             Manager.Instance.Coins -= price;
             Manager.Instance.GoldBallPow++;
-            shopManager.UpdateGoldText(1);
+            shopManager.UpdateUI();
             SoldOut();
         }
         else { shopManager.NotEnoughMoney(); }
     }
     public void BuyMarkedBall()
     {
-        if (Manager.Instance.Coins >= price && !sold && Manager.Instance.MarkedBallPow < Manager.Instance.MaxPowerups)
+        if (Manager.Instance.Coins >= price && !sold && Helper.Instance.HasMaxPowerups(Manager.Instance.MarkedBallPow))
         {
-            shopManager.UpdateCoinText(-price);
             Manager.Instance.Coins -= price;
             Manager.Instance.MarkedBallPow++;
-            shopManager.UpdateMarkedText(1);
+            shopManager.UpdateUI();
             SoldOut();
         }
         else { shopManager.NotEnoughMoney(); }
     }
     public void BuyTriBall()
     {
-        if (Manager.Instance.Coins >= price && !sold && Manager.Instance.TriBallPow < Manager.Instance.MaxPowerups)
+        if (Manager.Instance.Coins >= price && !sold && Helper.Instance.HasMaxPowerups(Manager.Instance.TriBallPow))
         {
-            shopManager.UpdateCoinText(-price);
             Manager.Instance.Coins -= price;
             Manager.Instance.TriBallPow++;
-            shopManager.UpdateTriText(1);
+            shopManager.UpdateUI();
             SoldOut();
         }
         else { shopManager.NotEnoughMoney(); }
     }
     public void BuyLobBall()
     {
-        if (Manager.Instance.Coins >= price && !sold && Manager.Instance.LobBallPow < Manager.Instance.MaxPowerups)
+        if (Manager.Instance.Coins >= price && !sold && Helper.Instance.HasMaxPowerups(Manager.Instance.LobBallPow))
         {
-            shopManager.UpdateCoinText(-price);
             Manager.Instance.Coins -= price;
             Manager.Instance.LobBallPow++;
-            shopManager.UpdateLobText(1);
+            shopManager.UpdateUI();
+            SoldOut();
+        }
+        else { shopManager.NotEnoughMoney(); }
+    }
+    public void BuyMultiplier()
+    {
+        if (Manager.Instance.Coins >= price && !sold)
+        {
+            Manager.Instance.Coins -= price;
+            Manager.Instance.Multiplier++;
+            shopManager.UpdateUI();
             SoldOut();
         }
         else { shopManager.NotEnoughMoney(); }

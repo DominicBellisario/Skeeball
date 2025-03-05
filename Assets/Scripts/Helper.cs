@@ -25,4 +25,18 @@ public class Helper : MonoBehaviour
     {
         return Mathf.RoundToInt(Random.Range(min, max));
     }
+
+    /// <summary>
+    /// checks if the player already has the max powerup amount
+    /// </summary>
+    /// <param name="currentPowerups"></param>
+    /// <returns></returns>
+    public bool HasMaxPowerups(int currentPowerups)
+    {
+        if (currentPowerups < Manager.Instance.MaxPowerups)
+        {
+            return true;
+        }
+        return false;
+    }
 }

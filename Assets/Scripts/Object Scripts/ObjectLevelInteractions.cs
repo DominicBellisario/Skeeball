@@ -57,7 +57,7 @@ public abstract class ObjectLevelInteractions : MonoBehaviour
         //if the object hits a powerup, destroy it and add it to the inventory
         else if (trigger.gameObject.CompareTag("GoldenBallPowerup"))
         {
-            if (Manager.Instance.GoldBallPow < Manager.Instance.MaxPowerups)
+            if (Helper.Instance.HasMaxPowerups(Manager.Instance.GoldBallPow))
             {
                 Manager.Instance.GoldBallPow++;
                 LevelUILogic.Instance.UpdatePowerups();
@@ -67,7 +67,7 @@ public abstract class ObjectLevelInteractions : MonoBehaviour
         }
         else if (trigger.gameObject.CompareTag("MarkedBallPowerup"))
         {
-            if (Manager.Instance.MarkedBallPow < Manager.Instance.MaxPowerups)
+            if (Helper.Instance.HasMaxPowerups(Manager.Instance.MarkedBallPow))
             {
                 Manager.Instance.MarkedBallPow++;
                 LevelUILogic.Instance.UpdatePowerups();
@@ -76,7 +76,7 @@ public abstract class ObjectLevelInteractions : MonoBehaviour
         }
         else if (trigger.gameObject.CompareTag("TriBallPowerup"))
         {
-            if (Manager.Instance.TriBallPow < Manager.Instance.MaxPowerups)
+            if (Helper.Instance.HasMaxPowerups(Manager.Instance.TriBallPow))
             {
                 Manager.Instance.TriBallPow++;
                 LevelUILogic.Instance.UpdatePowerups();
@@ -85,7 +85,7 @@ public abstract class ObjectLevelInteractions : MonoBehaviour
         }
         else if (trigger.gameObject.CompareTag("LobBallPowerup"))
         {
-            if (Manager.Instance.LobBallPow < Manager.Instance.MaxPowerups)
+            if (Helper.Instance.HasMaxPowerups(Manager.Instance.LobBallPow))
             {
                 Manager.Instance.LobBallPow++;
                 LevelUILogic.Instance.UpdatePowerups();
