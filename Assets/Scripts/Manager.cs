@@ -88,9 +88,11 @@ public class Manager : MonoBehaviour
     [SerializeField] int[] easyLevels;
     [SerializeField] int[] mediumLevels;
     [SerializeField] int[] hardLevels;
+    [SerializeField] int[] secretLevels;
     int[] randomLevels;
     string currentDifficulty;
     int[] levelsInCurrentDifficulty;
+    bool nextLevelIsSecret;
     /// <summary>
     /// the players total point count
     /// </summary>
@@ -155,6 +157,7 @@ public class Manager : MonoBehaviour
     public bool LobBallEnabled { get { return lobBallEnabled; } set { lobBallEnabled = value; } }
     //endless
     public bool Endless { get { return endless; } }
+    public bool NextLevelIsSecret { get { return nextLevelIsSecret; } set { nextLevelIsSecret = value; } }
     public int TotalPoints { get { return totalPoints; } }
     public int Coins { get { return coins; } set { coins = value; } }
     public float Multiplier { get { return multiplier; } set { multiplier = value; } }
@@ -179,6 +182,7 @@ public class Manager : MonoBehaviour
             Instance = this;
         }
         endless = false;
+        nextLevelIsSecret = false;
         //random levels are all levels in endless mode
         randomLevels = new int[easyLevels.Count() + mediumLevels.Count() + hardLevels.Count()];
         for (int i = 0; i < randomLevels.Count(); i++)
@@ -268,6 +272,7 @@ public class Manager : MonoBehaviour
         scored = true;
         currentCameraPosition = 0;
         canSwitchCamera = true;
+        nextLevelIsSecret = false;
     }
 
     /// <summary>
@@ -313,6 +318,11 @@ public class Manager : MonoBehaviour
     /// </summary>
     public void GoToNextEndlessLevel()
     {
+        if (nextLevelIsSecret)
+        {
+            SceneHandler.Instance.LoadLevel("ELS" + secretLevels[Helper.Instance.RandomInt(0, secretLevels.Count() - 1)]);
+            return;
+        }
         //if the round is over, go to shop
         if (numberOfCompletedLevelsInRound == levelsInCurrentRound)
         {

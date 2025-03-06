@@ -173,5 +173,37 @@ public abstract class ObjectLevelInteractions : MonoBehaviour
                 Manager.Instance.DestroyObject(gameObject);
             }
         }
+        //if the object is fully within a star hole
+        if (trigger.gameObject.CompareTag("StarHoleActivateTrigger"))
+        {
+            int points;
+
+            //the next level will be secret
+            Manager.Instance.NextLevelIsSecret = true;
+
+            //the hole is not bad, they scored
+            Manager.Instance.Scored = true;
+
+            //player is guarenteed enough points to win
+            if (Manager.Instance.MinScore > Manager.Instance.Score)
+            {
+                points = Manager.Instance.MinScore - Manager.Instance.Score;
+            }
+            else
+            {
+                points = 0;
+            }
+            Manager.Instance.UpdateScore(points);
+            Manager.Instance.UpdateTotalScore(points);
+
+            //spawn hole text
+            trigger.gameObject.GetComponentInParent<StarHoleVariables>().SpawnHoleText(points, transform.position);
+
+            //destroy the object if the hole requires that
+            if (trigger.GetComponentInParent<StarHoleVariables>().DestroyBall)
+            {
+                Manager.Instance.DestroyObject(gameObject);
+            }
+        }
     }
 }
