@@ -114,6 +114,11 @@ public class Manager : MonoBehaviour
     /// </summary>
     [SerializeField] float starHoleChance; //serialise debug
     /// <summary>
+    /// how much the star hole chance increases each round
+    /// </summary>
+    [SerializeField] float starHoleChanceIncreaseAmount; //serialise debug
+
+    /// <summary>
     /// the number of levels the player completed in the current round
     /// </summary>
     int numberOfCompletedLevelsInRound = 0;
@@ -323,6 +328,11 @@ public class Manager : MonoBehaviour
     public void NextRound()
     {
         Instance.currentRoundNumber++;
+        //increase the chance for a star hole up to a point
+        if (Instance.currentRoundNumber < 6)
+        {
+            Instance.starHoleChance += Instance.starHoleChanceIncreaseAmount;
+        }
         Instance.numberOfCompletedLevelsInRound = 0; //SET TO 0 WHEN NOT DEBUGGING
         Instance.GoToNextEndlessLevel();
     }
