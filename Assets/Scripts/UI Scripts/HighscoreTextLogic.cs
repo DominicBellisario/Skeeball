@@ -8,6 +8,6 @@ public class HighscoreTextLogic : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        GetComponent<TextMeshProUGUI>().text = "HighScore: " + PlayerPrefs.GetInt("highscore");
+        GetComponent<TextMeshProUGUI>().text = "High Score: " + PlayerPrefs.GetInt("highscore");
     }
 }

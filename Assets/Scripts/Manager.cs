@@ -37,7 +37,7 @@ public class Manager : MonoBehaviour
     /// <summary>
     /// how fast the camera moves between camera positions
     /// </summary>
-    [SerializeField] float cameraMoveSpeed;
+    [SerializeField] float cameraMoveSpeed; //serialise debug
     bool canSwitchCamera;
 
 
@@ -57,7 +57,7 @@ public class Manager : MonoBehaviour
     /// <summary>
     /// the current number of extra balls the player has
     /// </summary>
-    int numberOfObjects;
+    [SerializeField] int numberOfObjects; //serialise debug
     /// <summary>
     /// the ID of the level being played
     /// </summary>
@@ -66,19 +66,19 @@ public class Manager : MonoBehaviour
     /// <summary>
     /// number of gold ball powwerups
     /// </summary>
-    public int goldBallPow;
+    public int goldBallPow; //serialise debug
     /// <summary>
     /// number of marked ball powwerups
     /// </summary>
-    public int markedBallPow;
+    public int markedBallPow; //serialise debug
     /// <summary>
     /// number of tri ball powwerups
     /// </summary>
-    public int triBallPow;
+    public int triBallPow; //serialise debug
     /// <summary>
     /// number of lob ball powwerups
     /// </summary>
-    public int lobBallPow;
+    public int lobBallPow; //serialise debug
     /// <summary>
     /// wether or not the current ball is a lobball
     /// </summary>
@@ -93,6 +93,8 @@ public class Manager : MonoBehaviour
     string currentDifficulty;
     int[] levelsInCurrentDifficulty;
     bool nextLevelIsSecret;
+    GameObject starHole;
+
     /// <summary>
     /// the players total point count
     /// </summary>
@@ -105,8 +107,12 @@ public class Manager : MonoBehaviour
     /// <summary>
     /// the current number of coins
     /// </summary>
-    [SerializeField] int coins = 0;
+    [SerializeField] int coins = 0; //serialise debug
     [SerializeField] int maxPowerups;
+    /// <summary>
+    /// the chance for the star hole in a level that has a star hole to be visible
+    /// </summary>
+    [SerializeField] float starHoleChance; //serialise debug
     /// <summary>
     /// the number of levels the player completed in the current round
     /// </summary>
@@ -217,7 +223,7 @@ public class Manager : MonoBehaviour
     /// <param name="_triBallPow"></param>
     /// <param name="_lobBallPow"></param>
     /// <param name="_multiHoles"></param>
-    public virtual void RecieveValues(int _currentLevelNumber, GameObject _objectSpawnPos, GameObject _mainCamera, List<GameObject> _cameraPositions, int _startingNumberOfObjects, int _minScore, int _secretScore, int _goldBallPow, int _markedBallPow, int _triBallPow, int _lobBallPow, GameObject[] _multiHoles)
+    public virtual void RecieveValues(int _currentLevelNumber, GameObject _objectSpawnPos, GameObject _mainCamera, List<GameObject> _cameraPositions, int _startingNumberOfObjects, int _minScore, int _secretScore, int _goldBallPow, int _markedBallPow, int _triBallPow, int _lobBallPow, GameObject[] _multiHoles, GameObject _starHole)
     {
         currentLevelNumber = _currentLevelNumber;
         objectSpawnPos = _objectSpawnPos;
@@ -226,6 +232,7 @@ public class Manager : MonoBehaviour
         numberOfObjects = _startingNumberOfObjects;
         minScore = _minScore;
         secretScore = _secretScore;
+        
         //if normal mode
         if (!endless)
         {
@@ -246,6 +253,13 @@ public class Manager : MonoBehaviour
             lobBallPow += _lobBallPow;
             //get multiholes
             multiHoles = _multiHoles;
+            //get star hole
+            starHole = _starHole;
+            //if the level has a star hole, see if it is visible to the player
+            if (starHole != null && Helper.Instance.RandomInt(1, 100) <= starHoleChance * 100)
+            {
+                starHole.SetActive(true);
+            }
         }
 
 
