@@ -29,6 +29,7 @@ public class ShopObject : MonoBehaviour
         else if (ID == 2) { button.onClick.AddListener(delegate { BuyPowerup(ref Manager.Instance.triBallPow); }); }
         else if (ID == 3) { button.onClick.AddListener(delegate { BuyPowerup(ref Manager.Instance.lobBallPow); }); }
         else if (ID == 4) { button.onClick.AddListener(delegate { BuyMultiplier(); }); }
+        else if (ID == 5) { button.onClick.AddListener(delegate { BuyStarHoleChanceUpgrade(); }); }
     }
 
     public void BuyPowerup(ref int powerupReference)
@@ -57,6 +58,20 @@ public class ShopObject : MonoBehaviour
         {
             Manager.Instance.Coins -= price;
             Manager.Instance.Multiplier++;
+            shopManager.UpdateUI();
+            SoldOut();
+        }
+    }
+
+    public void BuyStarHoleChanceUpgrade()
+    {
+        if (sold) { return; }
+        else if (Manager.Instance.Coins < price) { shopManager.NotEnoughMoney(); }
+        else
+        {
+            Manager.Instance.Coins -= price;
+            Manager.Instance.StarHoleChanceUpgradesBought++;
+            Debug.Log(Manager.Instance.StarHoleChanceUpgradesBought);
             shopManager.UpdateUI();
             SoldOut();
         }

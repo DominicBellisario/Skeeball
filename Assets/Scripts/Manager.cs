@@ -95,6 +95,9 @@ public class Manager : MonoBehaviour
     bool nextLevelIsSecret;
     GameObject starHole;
 
+    int starHoleChanceUpgradesBought = 0;
+    [SerializeField] float starHoleUpgradeIncreaseAmt;
+
     /// <summary>
     /// the players total point count
     /// </summary>
@@ -179,6 +182,7 @@ public class Manager : MonoBehaviour
     public bool Scored { get { return scored; } set { scored = value; } }
     public int MaxPowerups { get { return maxPowerups; } }
     public List<GameObject> ActivatedMultiHoles { get { return activatedMultiHoles; } }
+    public int StarHoleChanceUpgradesBought { get { return starHoleChanceUpgradesBought; } set { starHoleChanceUpgradesBought = value; } }
 
     protected virtual void Awake()
     {
@@ -311,6 +315,7 @@ public class Manager : MonoBehaviour
         markedBallPow = 0;
         triBallPow = 0;
         lobBallPow = 0;
+        starHoleChance = 0.05f; //make this responsive
     }
 
     /// <summary>
@@ -334,6 +339,10 @@ public class Manager : MonoBehaviour
             Instance.starHoleChance += Instance.starHoleChanceIncreaseAmount;
         }
         Instance.numberOfCompletedLevelsInRound = 0; //SET TO 0 WHEN NOT DEBUGGING
+
+        //apply round-based upgrades
+        Instance.starHoleChance += Instance.starHoleChanceUpgradesBought * Instance.starHoleUpgradeIncreaseAmt;
+
         Instance.GoToNextEndlessLevel();
     }
 
@@ -350,6 +359,10 @@ public class Manager : MonoBehaviour
         //if the round is over, go to shop
         if (numberOfCompletedLevelsInRound == levelsInCurrentRound)
         {
+            //disable all round-based upgrades that the player got
+            starHoleChance -= starHoleChanceUpgradesBought * starHoleUpgradeIncreaseAmt;
+            starHoleChanceUpgradesBought = 0;
+
             SceneHandler.Instance.LoadScene("Shop");
             return;
         }

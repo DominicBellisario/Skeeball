@@ -35,7 +35,8 @@ public class MaterialManager : MonoBehaviour
             Instance = this;
         }
 
-        StartCoroutine(CycleRainbowColors());
+        StartCoroutine(CycleRainbow(rainbowFastCycleSpeed, rainbowFastMaterial));
+        StartCoroutine(CycleRainbow(rainbowSlowCycleSpeed, rainbowSlowMaterial));
     }
 
     // Update is called once per frame
@@ -50,25 +51,17 @@ public class MaterialManager : MonoBehaviour
         }
     }
 
-    /// <summary>
-    /// lerp between rainbow colros
-    /// </summary>
-    /// <returns></returns>
-    IEnumerator CycleRainbowColors()
+    IEnumerator CycleRainbow(float cycleSpeed, Material rainbowMaterial)
     {
         int i = 0;
         while (true)
         {
-            for (float interpolant = 0; interpolant < 1f; interpolant += rainbowFastCycleSpeed * Time.deltaTime)
+            for (float interpolant = 0; interpolant < 1f; interpolant += cycleSpeed * Time.deltaTime)
             {
-                rainbowFastMaterial.SetColor("_Color", Color.Lerp(rainbowColors[i % rainbowColors.Length], rainbowColors[(i + 1) % rainbowColors.Length], interpolant));
-            }
-            for (float interpolant = 0; interpolant < 1f; interpolant += rainbowSlowCycleSpeed * Time.deltaTime)
-            {
-                rainbowSlowMaterial.SetColor("_Color", Color.Lerp(rainbowColors[i % rainbowColors.Length], rainbowColors[(i + 1) % rainbowColors.Length], interpolant));
+                rainbowMaterial.SetColor("_Color", Color.Lerp(rainbowColors[i % rainbowColors.Length], rainbowColors[(i + 1) % rainbowColors.Length], interpolant));
                 yield return null;
             }
-            i++;
+            i++; 
         }
     }
 
