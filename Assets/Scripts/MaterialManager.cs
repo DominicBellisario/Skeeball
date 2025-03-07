@@ -5,11 +5,19 @@ using UnityEngine;
 
 public class MaterialManager : MonoBehaviour
 {
-    float timer = 0;
+    float pulseTimer = 0;
+
     [SerializeField] Material[] pulseMaterials;
     [SerializeField] float pulseSpeed;
     [SerializeField] float pulseIntensity;
     float pulseValue;
+
+    [SerializeField] Material rainbowFastMaterial;
+    [SerializeField] float rainbowFastCycleSpeed;
+    [SerializeField] Material rainbowSlowMaterial;
+    [SerializeField] float rainbowSlowCycleSpeed;
+
+    [SerializeField] Color32[] rainbowColors;
 
     public static MaterialManager Instance { get; private set; }
 
@@ -26,24 +34,52 @@ public class MaterialManager : MonoBehaviour
             DontDestroyOnLoad(gameObject);
             Instance = this;
         }
+
+        StartCoroutine(CycleRainbowColors());
     }
 
     // Update is called once per frame
     void Update()
     {
-        timer += pulseSpeed * Time.deltaTime;
-        pulseValue = Mathf.Sin(timer) * pulseIntensity;
+        //pulse all pulse materials
+        pulseTimer += pulseSpeed * Time.deltaTime;
+        pulseValue = Mathf.Sin(pulseTimer) * pulseIntensity;
         foreach (Material material in pulseMaterials)
         {
             material.SetColor("_EmissionColor", new Color(pulseValue, pulseValue, pulseValue));
         }
     }
 
+    /// <summary>
+    /// lerp between rainbow colros
+    /// </summary>
+    /// <returns></returns>
+    IEnumerator CycleRainbowColors()
+    {
+        int i = 0;
+        while (true)
+        {
+            for (float interpolant = 0; interpolant < 1f; interpolant += rainbowFastCycleSpeed * Time.deltaTime)
+            {
+                rainbowFastMaterial.SetColor("_Color", Color.Lerp(rainbowColors[i % rainbowColors.Length], rainbowColors[(i + 1) % rainbowColors.Length], interpolant));
+            }
+            for (float interpolant = 0; interpolant < 1f; interpolant += rainbowSlowCycleSpeed * Time.deltaTime)
+            {
+                rainbowSlowMaterial.SetColor("_Color", Color.Lerp(rainbowColors[i % rainbowColors.Length], rainbowColors[(i + 1) % rainbowColors.Length], interpolant));
+                yield return null;
+            }
+            i++;
+        }
+    }
+
     private void OnApplicationQuit()
     {
+        //reset all materials
         foreach (Material material in pulseMaterials)
         {
             material.SetColor("_EmissionColor", new Color(0, 0, 0));
         }
+        rainbowFastMaterial.SetColor("_Color", Color.red);
+        rainbowSlowMaterial.SetColor("_Color", Color.red);
     }
 }
