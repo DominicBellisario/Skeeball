@@ -30,7 +30,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &7562513025274096708
 MonoBehaviour:
@@ -44,6 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc5b32c5c3f7c594fa85e46d686ce137, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  numberOfLevels: 16
   ballPrefab: {fileID: 9073041401583007651, guid: 59b197a2e8862a94593a182c3a64834e,
     type: 3}
   beanbagPrefab: {fileID: 6372135606302323029, guid: f07e05250a004cd479606e15b85ad2d6,
@@ -52,8 +53,23 @@ MonoBehaviour:
   switchCameraOnLaunch: 1
   timeBetweenObjects: 1
   objects: []
+  cameraMoveSpeed: 10
+  score: 0
+  numberOfObjects: 0
+  goldBallPow: 0
+  markedBallPow: 0
+  triBallPow: 0
+  lobBallPow: 0
   easyLevels: 01000000020000000300000004000000
   mediumLevels: 05000000060000000700000008000000
-  hardLevels: 090000000a0000000b0000000c000000
+  hardLevels: 090000000a0000000b0000000c0000000d0000000e0000000f000000
+  secretLevels: 01000000
+  starHoleUpgradeIncreaseAmt: 0.2
   totalPoints: 0
   multiplier: 1
+  multiplierIncreaseAmt: 0.25
+  coins: 0
+  maxPowerups: 3
+  starHoleChance: 0
+  startingStarHoleChance: 0.05
+  starHoleChanceIncreaseAmount: 0.02

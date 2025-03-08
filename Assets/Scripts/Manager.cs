@@ -116,6 +116,7 @@ public class Manager : MonoBehaviour
     /// the chance for the star hole in a level that has a star hole to be visible
     /// </summary>
     [SerializeField] float starHoleChance; //serialise debug
+    [SerializeField] float startingStarHoleChance; //serialise debug
     /// <summary>
     /// how much the star hole chance increases each round
     /// </summary>
@@ -205,6 +206,7 @@ public class Manager : MonoBehaviour
             randomLevels[i] = i + 1;
         }
         objects = new List<GameObject>();
+        starHoleChance = startingStarHoleChance;
     }
 
     public void Update()
@@ -315,7 +317,7 @@ public class Manager : MonoBehaviour
         markedBallPow = 0;
         triBallPow = 0;
         lobBallPow = 0;
-        starHoleChance = 0.05f; //make this responsive
+        starHoleChance = startingStarHoleChance;
     }
 
     /// <summary>
@@ -326,7 +328,7 @@ public class Manager : MonoBehaviour
         Instance.endless = true;
         Instance.levelsInCurrentDifficulty = easyLevels;
         Instance.currentDifficulty = "easy";
-        Instance.numberOfCompletedLevelsInRound = 2; //SET TO 0 WHEN NOT DEBUGGING
+        Instance.numberOfCompletedLevelsInRound = 0; //SET TO 0 WHEN NOT DEBUGGING
         Instance.GoToNextEndlessLevel();
     }
 
