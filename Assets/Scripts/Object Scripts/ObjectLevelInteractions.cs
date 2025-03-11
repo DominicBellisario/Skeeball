@@ -102,6 +102,7 @@ public abstract class ObjectLevelInteractions : MonoBehaviour
         else if (trigger.gameObject.CompareTag("Coin"))
         {
             Manager.Instance.UpdateCoins(trigger.gameObject.GetComponent<Coin>().Value);
+            Manager.Instance.SpawnCollectEffect(trigger.gameObject.transform.position, LevelUILogic.Instance.CoinsTextPos, LevelUILogic.Instance.gameObject, 0);
             Destroy(trigger.gameObject);
         }
 

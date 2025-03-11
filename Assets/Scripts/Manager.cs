@@ -10,6 +10,7 @@ public class Manager : MonoBehaviour
     [SerializeField] int numberOfLevels;
     [SerializeField] GameObject ballPrefab;
     [SerializeField] GameObject beanbagPrefab;
+    [SerializeField] GameObject collectEffect;
     [SerializeField] Vector3 objectCameraOffset;
     /// <summary>
     /// when true, camera automaticaly switches to ball cam when launched
@@ -92,7 +93,7 @@ public class Manager : MonoBehaviour
     int[] randomLevels;
     string currentDifficulty;
     int[] levelsInCurrentDifficulty;
-    bool nextLevelIsSecret;
+    [SerializeField] bool nextLevelIsSecret; //serialise debug
     GameObject starHole;
 
     int starHoleChanceUpgradesBought = 0;
@@ -723,5 +724,12 @@ public class Manager : MonoBehaviour
             return true;
         }
         return false;
+    }
+
+    public void SpawnCollectEffect(Vector3 _worldStartPoint, Vector3 _screenEndPoint, GameObject parent, int _spriteNum)
+    {
+        GameObject newCollectEffect = Instantiate(collectEffect);
+        newCollectEffect.transform.SetParent(parent.transform);
+        newCollectEffect.GetComponent<CollectEffect>().SetValuesAndStart(mainCamera.GetComponent<Camera>(), _worldStartPoint, _screenEndPoint, _spriteNum);
     }
 }

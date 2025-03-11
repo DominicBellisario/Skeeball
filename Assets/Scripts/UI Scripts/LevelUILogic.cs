@@ -26,6 +26,7 @@ public class LevelUILogic : MonoBehaviour
 
     public GameObject EventHandler { get { return eventHandler; } set { eventHandler = value; } }
     public static LevelUILogic Instance { get; private set; }
+    public Vector3 CoinsTextPos { get { return coinsText.GetComponent<RectTransform>().anchoredPosition; } }
 
     private void Awake()
     {
