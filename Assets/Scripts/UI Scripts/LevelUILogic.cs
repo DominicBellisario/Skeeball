@@ -27,6 +27,11 @@ public class LevelUILogic : MonoBehaviour
     public GameObject EventHandler { get { return eventHandler; } set { eventHandler = value; } }
     public static LevelUILogic Instance { get; private set; }
     public Vector3 CoinsTextPos { get { return coinsText.GetComponent<RectTransform>().anchoredPosition; } }
+    public Vector3 BallsTextPos { get { return ballsText.GetComponent<RectTransform>().anchoredPosition; } }
+    public Vector3 GoldBallButtonPos { get { return goldBallButton.GetComponent<RectTransform>().anchoredPosition; } }
+    public Vector3 MarkedBallButtonPos { get { return markedBallButton.GetComponent<RectTransform>().anchoredPosition; } }
+    public Vector3 TriBallButtonPos { get { return triBallButton.GetComponent<RectTransform>().anchoredPosition; } }
+    public Vector3 LobBallButtonPos { get { return lobBallButton.GetComponent<RectTransform>().anchoredPosition; } }
 
     private void Awake()
     {

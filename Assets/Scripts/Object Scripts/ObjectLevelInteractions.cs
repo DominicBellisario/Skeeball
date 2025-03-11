@@ -60,6 +60,7 @@ public abstract class ObjectLevelInteractions : MonoBehaviour
             if (!Helper.Instance.HasMaxPowerups(Manager.Instance.GoldBallPow))
             {
                 Manager.Instance.GoldBallPow++;
+                Manager.Instance.SpawnCollectEffect(trigger.gameObject.transform.position, LevelUILogic.Instance.GoldBallButtonPos, LevelUILogic.Instance.gameObject, 1);
                 LevelUILogic.Instance.UpdatePowerups();
             }
 
@@ -70,6 +71,7 @@ public abstract class ObjectLevelInteractions : MonoBehaviour
             if (!Helper.Instance.HasMaxPowerups(Manager.Instance.MarkedBallPow))
             {
                 Manager.Instance.MarkedBallPow++;
+                Manager.Instance.SpawnCollectEffect(trigger.gameObject.transform.position, LevelUILogic.Instance.MarkedBallButtonPos, LevelUILogic.Instance.gameObject, 2);
                 LevelUILogic.Instance.UpdatePowerups();
             }
             Destroy(trigger.gameObject);
@@ -79,6 +81,7 @@ public abstract class ObjectLevelInteractions : MonoBehaviour
             if (!Helper.Instance.HasMaxPowerups(Manager.Instance.TriBallPow))
             {
                 Manager.Instance.TriBallPow++;
+                Manager.Instance.SpawnCollectEffect(trigger.gameObject.transform.position, LevelUILogic.Instance.TriBallButtonPos, LevelUILogic.Instance.gameObject, 3);
                 LevelUILogic.Instance.UpdatePowerups();
             }
             Destroy(trigger.gameObject);
@@ -88,6 +91,7 @@ public abstract class ObjectLevelInteractions : MonoBehaviour
             if (!Helper.Instance.HasMaxPowerups(Manager.Instance.LobBallPow))
             {
                 Manager.Instance.LobBallPow++;
+                Manager.Instance.SpawnCollectEffect(trigger.gameObject.transform.position, LevelUILogic.Instance.LobBallButtonPos, LevelUILogic.Instance.gameObject, 4);
                 LevelUILogic.Instance.UpdatePowerups();
             }
             Destroy(trigger.gameObject);
@@ -95,6 +99,7 @@ public abstract class ObjectLevelInteractions : MonoBehaviour
         else if (trigger.gameObject.CompareTag("2BallPowerup"))
         {
             Manager.Instance.UpdateObjects(2);
+            Manager.Instance.SpawnCollectEffect(trigger.gameObject.transform.position, LevelUILogic.Instance.BallsTextPos, LevelUILogic.Instance.gameObject, 5);
             Destroy(trigger.gameObject);
         }
 
