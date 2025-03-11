@@ -6,9 +6,11 @@ using UnityEngine.UI;
 
 public class LevelSelectUILogic : MonoBehaviour
 {
+    [SerializeField] GameObject[] pages;
     [SerializeField] Button[] buttons;
     [SerializeField] ColorBlock normalColors;
     [SerializeField] ColorBlock secretColors;
+    int page = 1;
 
     // Start is called before the first frame update
     void Start()
@@ -28,6 +30,22 @@ public class LevelSelectUILogic : MonoBehaviour
             else
             {
                 buttons[i].colors = secretColors;
+            }
+        }
+    }
+
+    public void UpdatePageNumber(int change)
+    {
+        //page must be between 1 and number of pages
+        if (page + change > 0 && page + change <= pages.Length)
+        {
+            page += change;
+
+            //deactivate all pages exept the current one
+            for (int i = 1; i <= pages.Length; i++)
+            {
+                if (i == page) {pages[i - 1].SetActive(true); }
+                else { pages[i - 1].SetActive(false); }
             }
         }
     }
