@@ -12,6 +12,7 @@ public class HoleVariables : MonoBehaviour
     //wether or not the ball is destroyed when passing through
     [SerializeField] bool destroyBall;
     [SerializeField] MeshRenderer holeRimMesh;
+    [SerializeField] ParticleSystem holeScoreParticles;
 
     //all possible hole materials.  Each color has their own subset of materials
     [SerializeField] Material[] greenMaterials;
@@ -75,5 +76,15 @@ public class HoleVariables : MonoBehaviour
         if (isGold) { shownPoints *= 2; }
         newHoleText.GetComponent<HoleText>().SetText(Mathf.RoundToInt(shownPoints * Manager.Instance.Multiplier).ToString());
         newHoleText.GetComponent<HoleText>().SetColor(isGold, !(startingPoints == points));
+    }
+
+    public void SpawnHoleParticles()
+    {
+        ParticleSystem newParticles = Instantiate(holeScoreParticles);
+        newParticles.gameObject.transform.parent = transform;
+        newParticles.gameObject.transform.position = transform.position;
+        newParticles.startRotation3D = transform.rotation.eulerAngles * Mathf.Deg2Rad;
+        newParticles.startSize *= transform.localScale.x;
+        newParticles.Play();
     }
 }

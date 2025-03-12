@@ -176,8 +176,6 @@ public abstract class ObjectEffects : MonoBehaviour
         newParticles.gameObject.transform.position = transform.position;
         newParticles.startColor = color;
         newParticles.Play();
-        Debug.Log(gameObject.name + ":   particles spawned");
-        Debug.Log(newParticles.GetComponentInParent<ObjectEffects>().gameObject.name + " is this particles parent");
     }
 
     //reset the material when the application closes
@@ -185,10 +183,5 @@ public abstract class ObjectEffects : MonoBehaviour
     {
         dottedLineMaterial.mainTextureOffset = Vector2.zero;
         dottedLineMaterial.color = Color.white;
-    }
-
-    private void OnDestroy()
-    {
-        Debug.Log(gameObject.name + ": destroyed");
     }
 }

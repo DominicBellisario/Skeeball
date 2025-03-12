@@ -165,8 +165,9 @@ public abstract class ObjectLevelInteractions : MonoBehaviour
                 Manager.Instance.UpdateTotalScore(points);
             }
 
-            //spawn hole text
+            //spawn hole text and ring
             trigger.gameObject.GetComponentInParent<HoleVariables>().SpawnHoleText(gold, transform.position);
+            trigger.gameObject.GetComponentInParent<HoleVariables>().SpawnHoleParticles();
 
             //if the object was marked, double the hole's point value and make it glow
             if (GetComponent<ObjectEffects>().MarkedBallEnabled)
