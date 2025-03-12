@@ -501,9 +501,9 @@ public class Manager : MonoBehaviour
         newObject.GetComponent<Rigidbody>().AddForce(force);
 
         //set the powerup states
-        if (gold) { newObject.GetComponent<ObjectEffects>().ToggleGoldBall(); }
-        if (marked) { newObject.GetComponent<ObjectEffects>().ToggleMarkedBall(); }
-        if (tri) { newObject.GetComponent<ObjectEffects>().ToggleTriBall(); }
+        if (gold) { newObject.GetComponent<ObjectEffects>().ToggleGoldBall(false); ; }
+        if (marked) { newObject.GetComponent<ObjectEffects>().ToggleMarkedBall(false); }
+        if (tri) { newObject.GetComponent<ObjectEffects>().ToggleTriBall(false); }
 
         //if this is the first ball, set it
         if (objects.Count <= 0)
@@ -650,6 +650,8 @@ public class Manager : MonoBehaviour
             objects.Add(newBeanbag);
             Destroy(startingObject);
             startingObject = newBeanbag;
+
+            newBeanbag.GetComponent<ObjectEffects>().ToggleLobBallEffects(lobBallEnabled);
         }
         else
         {
@@ -657,11 +659,13 @@ public class Manager : MonoBehaviour
             GameObject newBall = SpawnNewObject(ballPrefab, objectSpawnPos.transform.position, Vector3.zero, objects[0].GetComponent<ObjectEffects>().GoldBallEnabled,
                 objects[0].GetComponent<ObjectEffects>().MarkedBallEnabled, objects[0].GetComponent<ObjectEffects>().TriBallEnabled);
 
-            //make beanbag the starting object
+            //make ball the starting object
             objects.Clear();
             objects.Add(newBall);
             Destroy(startingObject);
             startingObject = newBall;
+
+            newBall.GetComponent<ObjectEffects>().ToggleLobBallEffects(lobBallEnabled);
         }
     }
 

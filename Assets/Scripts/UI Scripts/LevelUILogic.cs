@@ -130,7 +130,7 @@ public class LevelUILogic : MonoBehaviour
         {
             if (manager.GoldBallPow > 0 && !manager.StartingObject.GetComponent<ObjectControls>().IsLaunched)
             {
-                manager.StartingObject.GetComponent<ObjectEffects>().ToggleGoldBall();
+                manager.StartingObject.GetComponent<ObjectEffects>().ToggleGoldBall(true);
             }
         }
     }
@@ -142,7 +142,7 @@ public class LevelUILogic : MonoBehaviour
         {
             if (manager.MarkedBallPow > 0 && !manager.StartingObject.GetComponent<ObjectControls>().IsLaunched)
             {
-                manager.StartingObject.GetComponent<ObjectEffects>().ToggleMarkedBall();
+                manager.StartingObject.GetComponent<ObjectEffects>().ToggleMarkedBall(true);
             }
         }
     }
@@ -154,7 +154,7 @@ public class LevelUILogic : MonoBehaviour
         {
             if (manager.TriBallPow > 0 && !manager.StartingObject.GetComponent<ObjectControls>().IsLaunched)
             {
-                manager.StartingObject.GetComponent<ObjectEffects>().ToggleTriBall();
+                manager.StartingObject.GetComponent<ObjectEffects>().ToggleTriBall(true);
             }
         }
     }

@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEngine.ParticleSystem;
 
 public abstract class ObjectEffects : MonoBehaviour
 {
@@ -13,6 +14,8 @@ public abstract class ObjectEffects : MonoBehaviour
 
     //the particle trail
     [SerializeField] protected GameObject particleTrail;
+    [SerializeField] protected ParticleSystem activatePowerupParticles;
+    [SerializeField] protected ParticleSystem deactivatePowerupParticles;
 
     //the objects that appear when triball is active
     [SerializeField] protected GameObject leftTriBall;
@@ -98,35 +101,61 @@ public abstract class ObjectEffects : MonoBehaviour
     }
 
     //toggles for powerups
-    public void ToggleGoldBall()
+    public void ToggleGoldBall(bool buttonPressed)
     {
         goldBallEnabled = !goldBallEnabled;
-        if (goldBallEnabled) { materials[1] = goldBallMaterial; }
-        else { materials[1] = transMaterial; }
+        if (goldBallEnabled)
+        {
+            materials[1] = goldBallMaterial;
+            if (buttonPressed) { SpawnParticles(activatePowerupParticles, Color.yellow); }
+        }
+        else
+        {
+            materials[1] = transMaterial;
+            if (buttonPressed) { SpawnParticles(deactivatePowerupParticles, Color.yellow); }
+        }
         UpdateMaterials();
     }
-    public void ToggleMarkedBall()
+    public void ToggleMarkedBall(bool buttonPressed)
     {
         markedBallEnabled = !markedBallEnabled;
-        if (markedBallEnabled) { materials[2] = markedBallMaterial; }
-        else { materials[2] = transMaterial; }
+        if (markedBallEnabled)
+        {
+            materials[2] = markedBallMaterial;
+            if (buttonPressed) { SpawnParticles(activatePowerupParticles, Color.red); }
+        }
+        else
+        {
+            materials[2] = transMaterial;
+            if (buttonPressed) { SpawnParticles(deactivatePowerupParticles, Color.red); }
+        }
         UpdateMaterials();
     }
-    public void ToggleTriBall()
+    public void ToggleTriBall(bool buttonPressed)
     {
         triBallEnabled = !triBallEnabled;
+        if (buttonPressed)
+        {
+            if (triBallEnabled) { SpawnParticles(activatePowerupParticles, Color.blue); }
+            else { SpawnParticles(deactivatePowerupParticles, Color.blue); }
+        }
         //turns triball visual effects on or off
         leftTriBall.SetActive(triBallEnabled);
         rightTriBall.SetActive(triBallEnabled);
         leftAimLine.gameObject.SetActive(triBallEnabled);
         rightAimLine.gameObject.SetActive(triBallEnabled);
-
     }
 
     public void DisableTriBalls()
     {
         leftTriBall.SetActive(false);
         rightTriBall.SetActive(false);
+    }
+
+    public void ToggleLobBallEffects(bool enabled)
+    {
+        if (enabled) { SpawnParticles(activatePowerupParticles, Color.green); }
+        else { SpawnParticles(deactivatePowerupParticles, Color.green); }
     }
 
     /// <summary>
@@ -139,10 +168,27 @@ public abstract class ObjectEffects : MonoBehaviour
         rightTriBall.GetComponent<MeshRenderer>().materials = materials;
     }
 
+    private void SpawnParticles(ParticleSystem particles, Color color)
+    {
+        ParticleSystem newParticles = Instantiate(particles);
+        newParticles.gameObject.transform.parent = transform;
+        newParticles.gameObject.transform.localScale = Vector3.one;
+        newParticles.gameObject.transform.position = transform.position;
+        newParticles.startColor = color;
+        newParticles.Play();
+        Debug.Log(gameObject.name + ":   particles spawned");
+        Debug.Log(newParticles.GetComponentInParent<ObjectEffects>().gameObject.name + " is this particles parent");
+    }
+
     //reset the material when the application closes
     private void OnApplicationQuit()
     {
         dottedLineMaterial.mainTextureOffset = Vector2.zero;
         dottedLineMaterial.color = Color.white;
+    }
+
+    private void OnDestroy()
+    {
+        Debug.Log(gameObject.name + ": destroyed");
     }
 }
