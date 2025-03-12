@@ -108,6 +108,7 @@ public abstract class ObjectLevelInteractions : MonoBehaviour
         {
             Manager.Instance.UpdateCoins(trigger.gameObject.GetComponent<Coin>().Value);
             Manager.Instance.SpawnCollectEffect(trigger.gameObject.transform.position, LevelUILogic.Instance.CoinsTextPos, LevelUILogic.Instance.gameObject, 0);
+            trigger.gameObject.GetComponent<Coin>().SpawnDeathParticles();
             Destroy(trigger.gameObject);
         }
 
