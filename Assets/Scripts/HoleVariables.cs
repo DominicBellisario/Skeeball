@@ -16,6 +16,8 @@ public class HoleVariables : MonoBehaviour
 
     //the cylinder's renderer
     [SerializeField] Renderer holeRenderer;
+    [SerializeField] Color normalPulseColor;
+    [SerializeField] Color badPulseColor;
     //how long the cylinder will pulse for
     [SerializeField] float pulseTime;
 
@@ -77,6 +79,7 @@ public class HoleVariables : MonoBehaviour
 
     public void SpawnHoleEffects(bool isGold, Vector3 ballPos)
     {
+        //spawn hole text
         int shownPoints = points;
         GameObject newHoleText = Instantiate(holeText);
         newHoleText.transform.position = ballPos += transform.up;
@@ -84,6 +87,7 @@ public class HoleVariables : MonoBehaviour
         newHoleText.GetComponent<HoleText>().SetText(Mathf.RoundToInt(shownPoints * Manager.Instance.Multiplier).ToString());
         newHoleText.GetComponent<HoleText>().SetColor(isGold, !(startingPoints == points));
 
+        //spawn ring particle
         ParticleSystem newParticles = Instantiate(holeScoreParticles);
         newParticles.gameObject.transform.parent = transform;
         newParticles.gameObject.transform.position = transform.position;
@@ -91,7 +95,10 @@ public class HoleVariables : MonoBehaviour
         newParticles.startSize *= transform.localScale.x;
         newParticles.Play();
 
-        StartCoroutine(PulseCylinder(Color.grey));
+        //pulse cylinder
+        if (points >= 0) { StartCoroutine(PulseCylinder(normalPulseColor)); }
+        else { StartCoroutine(PulseCylinder(badPulseColor)); }
+        
     }
 
     private IEnumerator PulseCylinder(Color startColor)
@@ -110,6 +117,7 @@ public class HoleVariables : MonoBehaviour
             startColorRGB = new(startColor.r, startColor.g, startColor.b);
             endColorRGB = new(endColor.r, endColor.g, endColor.b);
             currentColorRGB = Vector3.Lerp(startColorRGB, endColorRGB, t);
+            Debug.Log(currentColorRGB);
 
             holeRenderer.material.color = new Color(currentColorRGB.x, currentColorRGB.y, currentColorRGB.z, 1);
             yield return new WaitForEndOfFrame();
