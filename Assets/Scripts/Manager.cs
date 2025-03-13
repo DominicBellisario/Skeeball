@@ -487,6 +487,22 @@ public class Manager : MonoBehaviour
         LevelUILogic.Instance.UpdateCoins(coins);
     }
 
+    public bool UpdatePowerup(ref int powerupReference, int powerupChange)
+    {
+        //not over max powerups yet
+        if (powerupReference + powerupChange <= maxPowerups)
+        {
+            powerupReference += powerupChange;
+            return false;
+        }
+        //exeded max powerups
+        else
+        {
+            powerupReference = maxPowerups;
+            return true;
+        }
+    }
+
     /// <summary>
     /// spawns a new ball
     /// </summary>
@@ -730,10 +746,10 @@ public class Manager : MonoBehaviour
         return false;
     }
 
-    public void SpawnCollectEffect(Vector3 _worldStartPoint, Vector3 _screenEndPoint, GameObject parent, int _spriteNum)
+    public void SpawnCollectEffect(Vector3 _worldStartPoint, Vector3 _screenEndPoint, GameObject parent, int _spriteNum, bool _alreadyAtMax)
     {
         GameObject newCollectEffect = Instantiate(collectEffect);
         newCollectEffect.transform.SetParent(parent.transform);
-        newCollectEffect.GetComponent<CollectEffect>().SetValuesAndStart(mainCamera.GetComponent<Camera>(), _worldStartPoint, _screenEndPoint, _spriteNum);
+        newCollectEffect.GetComponent<CollectEffect>().SetValuesAndStart(mainCamera.GetComponent<Camera>(), _worldStartPoint, _screenEndPoint, _spriteNum, _alreadyAtMax);
     }
 }

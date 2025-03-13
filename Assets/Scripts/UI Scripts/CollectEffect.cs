@@ -7,6 +7,7 @@ public class CollectEffect : MonoBehaviour
 {
     Camera cam;
     [SerializeField] RectTransform rectTransform;
+    [SerializeField] Rigidbody2D rb;
     /// <summary>
     /// beginning of lerp
     /// </summary>
@@ -15,7 +16,7 @@ public class CollectEffect : MonoBehaviour
     /// end of lerp
     /// </summary>
     Vector3 endPoint;
-    bool ready = false;
+
     [SerializeField] Sprite[] allSprites;
     /// <summary>
     /// how long before the object begins to move
@@ -26,28 +27,16 @@ public class CollectEffect : MonoBehaviour
     /// </summary>
     [SerializeField] float lerpTime;
 
-    float startTime;
+    /// <summary>
+    /// the object bounces off of its end target and "falls" off the screen
+    /// </summary>
+    bool bounceOff;
+    [SerializeField] Vector2 bounceOffForce;
 
-    private void Update()
-    {
-        //once time is up, move the object to its destination
-        if (ready)
-        {
-            float t = (Time.time - startTime + 0.001f) / lerpTime;
-            
-            rectTransform.anchoredPosition = new Vector2(Mathf.SmoothStep(startPoint.x, endPoint.x, t), Mathf.SmoothStep(startPoint.y, endPoint.y, t));
-        }
-
-        //destroy it once it reaches
-        if (Vector3.Distance(rectTransform.anchoredPosition, endPoint) < 1)
-        {
-            Destroy(gameObject);
-        }
-    }
-
-    public void SetValuesAndStart(Camera _cam, Vector3 _worldStartPoint, Vector3 _screenEndPoint, int _spriteNum)
+    public void SetValuesAndStart(Camera _cam, Vector3 _worldStartPoint, Vector3 _screenEndPoint, int _spriteNum, bool _bounceOff)
     {
         cam = _cam;
+        bounceOff = _bounceOff;
 
         //calculate the position of the object on the UI
         Vector3 startPointUnscaled = cam.WorldToViewportPoint(_worldStartPoint);
@@ -66,7 +55,36 @@ public class CollectEffect : MonoBehaviour
     private IEnumerator WaitUntilLerp()
     {
         yield return new WaitForSeconds(timeBeforeLerp);
-        startTime = Time.time;
-        ready = true;
+        if (bounceOff) { StartCoroutine(LerpToTarget(100)); }
+        else { StartCoroutine(LerpToTarget(1)); }
+        
+    }
+
+    private IEnumerator LerpToTarget(float distanceBuffer)
+    {
+        float startTime = Time.time;
+        //lerp to target
+        while (Vector3.Distance(rectTransform.anchoredPosition, endPoint) > distanceBuffer)
+        {
+            float t = (Time.time - startTime + 0.001f) / lerpTime;
+            rectTransform.anchoredPosition = new Vector2(Mathf.SmoothStep(startPoint.x, endPoint.x, t), Mathf.SmoothStep(startPoint.y, endPoint.y, t));
+            yield return new WaitForEndOfFrame();
+        }
+
+        //once it reaches, update powerups to reflect internal values
+        LevelUILogic.Instance.UpdatePowerups();
+
+        //then, check if it bounces off or not
+        if (bounceOff)
+        {
+            //bounce it
+            rb.bodyType = RigidbodyType2D.Dynamic;
+            rb.AddForce(bounceOffForce);
+
+            //after a bit, destroy it
+            yield return new WaitForSeconds(4);
+            Destroy(gameObject);
+        }
+        else { Destroy(gameObject); }
     }
 }

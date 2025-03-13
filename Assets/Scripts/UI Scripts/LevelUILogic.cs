@@ -104,10 +104,6 @@ public class LevelUILogic : MonoBehaviour
     {
         levelAndRoundText.GetComponentInChildren<TextMeshProUGUI>().text = "L: " + completedLevels + "/" + totalLevels + "  R: " + currentRound;
     }
-    public void UpdateCoins(float multiplier)
-    {
-        multiplierText.GetComponentInChildren<TextMeshProUGUI>().text = "Multiplier: " + multiplier;
-    }
 
     public void UpdateCoins(int coins)
     {

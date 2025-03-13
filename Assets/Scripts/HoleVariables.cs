@@ -103,13 +103,17 @@ public class HoleVariables : MonoBehaviour
 
     private IEnumerator PulseCylinder(Color startColor)
     {
+        //initilize varibales
         float timer = 0f;
         Color endColor = holeRenderer.material.color;
         Vector3 startColorRGB;
         Vector3 endColorRGB;
         Vector3 currentColorRGB;
         float t;
+
+        //change cylinder color to start color
         holeRenderer.material.color = startColor;
+        //lerp color to end color
         while (timer < pulseTime)
         {
             timer += Time.deltaTime;
@@ -117,7 +121,6 @@ public class HoleVariables : MonoBehaviour
             startColorRGB = new(startColor.r, startColor.g, startColor.b);
             endColorRGB = new(endColor.r, endColor.g, endColor.b);
             currentColorRGB = Vector3.Lerp(startColorRGB, endColorRGB, t);
-            Debug.Log(currentColorRGB);
 
             holeRenderer.material.color = new Color(currentColorRGB.x, currentColorRGB.y, currentColorRGB.z, 1);
             yield return new WaitForEndOfFrame();
