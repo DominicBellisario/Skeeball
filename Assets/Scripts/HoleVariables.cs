@@ -14,12 +14,19 @@ public class HoleVariables : MonoBehaviour
     [SerializeField] MeshRenderer holeRimMesh;
     [SerializeField] ParticleSystem holeScoreParticles;
 
+    //the cylinder's renderer
+    [SerializeField] Renderer holeRenderer;
+    //how long the cylinder will pulse for
+    [SerializeField] float pulseTime;
+
     //all possible hole materials.  Each color has their own subset of materials
     [SerializeField] Material[] greenMaterials;
     [SerializeField] Material[] orangeMaterials;
     [SerializeField] Material[] blueMaterials;
     [SerializeField] Material[] redMaterials;
     [SerializeField] Material[] goldMaterials;
+
+
 
     public int Points { get { return points; } }
     public bool Marked { get { return marked; } }
@@ -68,7 +75,7 @@ public class HoleVariables : MonoBehaviour
         holeRimMesh.material = color[materialIndex];
     }
 
-    public void SpawnHoleText(bool isGold, Vector3 ballPos)
+    public void SpawnHoleEffects(bool isGold, Vector3 ballPos)
     {
         int shownPoints = points;
         GameObject newHoleText = Instantiate(holeText);
@@ -76,15 +83,37 @@ public class HoleVariables : MonoBehaviour
         if (isGold) { shownPoints *= 2; }
         newHoleText.GetComponent<HoleText>().SetText(Mathf.RoundToInt(shownPoints * Manager.Instance.Multiplier).ToString());
         newHoleText.GetComponent<HoleText>().SetColor(isGold, !(startingPoints == points));
-    }
 
-    public void SpawnHoleParticles()
-    {
         ParticleSystem newParticles = Instantiate(holeScoreParticles);
         newParticles.gameObject.transform.parent = transform;
         newParticles.gameObject.transform.position = transform.position;
         newParticles.startRotation3D = transform.rotation.eulerAngles * Mathf.Deg2Rad;
         newParticles.startSize *= transform.localScale.x;
         newParticles.Play();
+
+        StartCoroutine(PulseCylinder(Color.grey));
+    }
+
+    private IEnumerator PulseCylinder(Color startColor)
+    {
+        float timer = 0f;
+        Color endColor = holeRenderer.material.color;
+        Vector3 startColorRGB;
+        Vector3 endColorRGB;
+        Vector3 currentColorRGB;
+        float t;
+        holeRenderer.material.color = startColor;
+        while (timer < pulseTime)
+        {
+            timer += Time.deltaTime;
+            t = timer / pulseTime;
+            startColorRGB = new(startColor.r, startColor.g, startColor.b);
+            endColorRGB = new(endColor.r, endColor.g, endColor.b);
+            currentColorRGB = Vector3.Lerp(startColorRGB, endColorRGB, t);
+
+            holeRenderer.material.color = new Color(currentColorRGB.x, currentColorRGB.y, currentColorRGB.z, 1);
+            yield return new WaitForEndOfFrame();
+        }
+        
     }
 }
