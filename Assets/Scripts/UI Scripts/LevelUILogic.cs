@@ -26,6 +26,9 @@ public class LevelUILogic : MonoBehaviour
 
     public GameObject EventHandler { get { return eventHandler; } set { eventHandler = value; } }
     public static LevelUILogic Instance { get; private set; }
+    public Vector3 ScoreTextPos { get { return scoreText.GetComponent<RectTransform>().anchoredPosition; } }
+    public Vector3 TotalScoreTextPos { get { return totalScoreText.GetComponent<RectTransform>().anchoredPosition; } }
+    public Vector3 MultiplierTextPos { get { return multiplierText.GetComponent<RectTransform>().anchoredPosition; } }
     public Vector3 CoinsTextPos { get { return coinsText.GetComponent<RectTransform>().anchoredPosition; } }
     public Vector3 BallsTextPos { get { return ballsText.GetComponent<RectTransform>().anchoredPosition; } }
     public Vector3 GoldBallButtonPos { get { return goldBallButton.GetComponent<RectTransform>().anchoredPosition; } }
@@ -43,7 +46,10 @@ public class LevelUILogic : MonoBehaviour
     {
         expandedPowerupUI = false;
         //activate and update endless info if in endless mode
-        UpdatePowerups();
+        UpdateGoldBall();
+        UpdateMarkedBall();
+        UpdateTriBall();
+        UpdateLobBall();
         if (Manager.Instance.Endless) { SetUpEndlessUI(); }
     }
 
@@ -53,61 +59,66 @@ public class LevelUILogic : MonoBehaviour
         multiplierText.SetActive(true);
         levelAndRoundText.SetActive(true);
         coinsText.SetActive(true);
-        UpdateTotalScore(Manager.Instance.TotalPoints);
-        UpdateMultiplier(Manager.Instance.Multiplier);
-        UpdateLevelAndRoundText(Manager.Instance.NumberOfCompletedLevelsInRound, Manager.Instance.LevelsInCurrentRound, Manager.Instance.CurrentRoundNumber);
+        UpdateTotalScore();
+        UpdateMultiplier();
+        UpdateLevelAndRoundText();
     }
 
     /// <summary>
     /// refresh the score UI with new value
     /// </summary>
-    public void UpdateScore(int updatedScore)
+    public void UpdateScore()
     {
-        scoreText.text = "Score: " + updatedScore + " / " + Manager.Instance.MinScore;
+        scoreText.text = "Score: " + Manager.Instance.Score + " / " + Manager.Instance.MinScore;
     }
 
     /// <summary>
     /// refresh the ball UI with new value
     /// </summary>
-    public void UpdateBalls(int updatedBallCount)
+    public void UpdateBalls()
     {
-        ballsText.text = "Balls: " + updatedBallCount;
+        ballsText.text = "Balls: " + Manager.Instance.NumberOfObjects;
     }
 
-    /// <summary>
-    /// refresh the powerup inventory UI to reflect current values
-    /// </summary>
-    public void UpdatePowerups()
+    public void UpdateGoldBall()
     {
-        Manager manager = Manager.Instance;
-        goldBallButton.GetComponentInChildren<TextMeshProUGUI>().text = "Gold Ball: " + manager.GoldBallPow;
+        goldBallButton.GetComponentInChildren<TextMeshProUGUI>().text = "Gold Ball: " + Manager.Instance.GoldBallPow;
         goldBallButton.SetActive(expandedPowerupUI);
-        markedBallButton.GetComponentInChildren<TextMeshProUGUI>().text = "Marked Ball: " + manager.MarkedBallPow;
+    }
+    public void UpdateMarkedBall()
+    {
+        markedBallButton.GetComponentInChildren<TextMeshProUGUI>().text = "Marked Ball: " + Manager.Instance.MarkedBallPow;
         markedBallButton.SetActive(expandedPowerupUI);
-        triBallButton.GetComponentInChildren<TextMeshProUGUI>().text = "Tri Ball: " + manager.TriBallPow;
+    }
+    public void UpdateTriBall()
+    {
+        triBallButton.GetComponentInChildren<TextMeshProUGUI>().text = "Tri Ball: " + Manager.Instance.TriBallPow;
         triBallButton.SetActive(expandedPowerupUI);
-        lobBallButton.GetComponentInChildren<TextMeshProUGUI>().text = "Lob Ball: " + manager.LobBallPow;
+    }
+    public void UpdateLobBall()
+    {
+        lobBallButton.GetComponentInChildren<TextMeshProUGUI>().text = "Lob Ball: " + Manager.Instance.LobBallPow;
         lobBallButton.SetActive(expandedPowerupUI);
     }
 
-    public void UpdateTotalScore(int totalScore)
+    public void UpdateTotalScore()
     {
-        totalScoreText.GetComponentInChildren<TextMeshProUGUI>().text = "Total Score: " + totalScore;
+        totalScoreText.GetComponentInChildren<TextMeshProUGUI>().text = "Total Score: " + Manager.Instance.TotalPoints;
     }
 
-    public void UpdateMultiplier(float multiplier)
+    public void UpdateMultiplier()
     {
-        multiplierText.GetComponentInChildren<TextMeshProUGUI>().text = multiplier + "x multiplier";
+        multiplierText.GetComponentInChildren<TextMeshProUGUI>().text = Manager.Instance.Multiplier + "x multiplier";
     }
 
-    public void UpdateLevelAndRoundText(int completedLevels, int totalLevels, int currentRound)
+    public void UpdateLevelAndRoundText()
     {
-        levelAndRoundText.GetComponentInChildren<TextMeshProUGUI>().text = "L: " + completedLevels + "/" + totalLevels + "  R: " + currentRound;
+        levelAndRoundText.GetComponentInChildren<TextMeshProUGUI>().text = "L: " + Manager.Instance.NumberOfCompletedLevelsInRound + "/" + Manager.Instance.LevelsInCurrentRound + "  R: " + Manager.Instance.CurrentRoundNumber;
     }
 
-    public void UpdateCoins(int coins)
+    public void UpdateCoins()
     {
-        coinsText.GetComponentInChildren<TextMeshProUGUI>().text = "Coins: " + coins;
+        coinsText.GetComponentInChildren<TextMeshProUGUI>().text = "Coins: " + Manager.Instance.Coins;
     }
 
     /// <summary>
@@ -116,7 +127,10 @@ public class LevelUILogic : MonoBehaviour
     public void ToggleExpandedPowerupUI()
     {
         expandedPowerupUI = !expandedPowerupUI;
-        UpdatePowerups();
+        UpdateGoldBall();
+        UpdateMarkedBall();
+        UpdateTriBall();
+        UpdateLobBall();
     }
 
     public void ToggleGoldBallPowerup()

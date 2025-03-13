@@ -79,6 +79,7 @@ public class HoleVariables : MonoBehaviour
 
     public void SpawnHoleEffects(bool isGold, Vector3 ballPos)
     {
+        /*
         //spawn hole text
         int shownPoints = points;
         GameObject newHoleText = Instantiate(holeText);
@@ -86,7 +87,7 @@ public class HoleVariables : MonoBehaviour
         if (isGold) { shownPoints *= 2; }
         newHoleText.GetComponent<HoleText>().SetText(Mathf.RoundToInt(shownPoints * Manager.Instance.Multiplier).ToString());
         newHoleText.GetComponent<HoleText>().SetColor(isGold, !(startingPoints == points));
-
+        */
         //spawn ring particle
         ParticleSystem newParticles = Instantiate(holeScoreParticles);
         newParticles.gameObject.transform.parent = transform;

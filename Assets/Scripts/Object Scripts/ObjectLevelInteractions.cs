@@ -58,7 +58,7 @@ public abstract class ObjectLevelInteractions : MonoBehaviour
         else if (trigger.gameObject.CompareTag("GoldenBallPowerup"))
         {
             bool alreadyAtMax = Manager.Instance.UpdatePowerup(ref Manager.Instance.goldBallPow, 1);
-            Manager.Instance.SpawnCollectEffect(trigger.gameObject.transform.position, LevelUILogic.Instance.GoldBallButtonPos, LevelUILogic.Instance.gameObject, 1, alreadyAtMax);
+            Manager.Instance.SpawnCollectEffect(trigger.gameObject.transform.position, LevelUILogic.Instance.GoldBallButtonPos, LevelUILogic.Instance.gameObject, 1, alreadyAtMax, "UpdateGoldBall");
             //LevelUILogic.Instance.UpdatePowerups();
 
             Destroy(trigger.gameObject);
@@ -66,14 +66,14 @@ public abstract class ObjectLevelInteractions : MonoBehaviour
         else if (trigger.gameObject.CompareTag("MarkedBallPowerup"))
         {
             bool alreadyAtMax = Manager.Instance.UpdatePowerup(ref Manager.Instance.markedBallPow, 1);
-            Manager.Instance.SpawnCollectEffect(trigger.gameObject.transform.position, LevelUILogic.Instance.MarkedBallButtonPos, LevelUILogic.Instance.gameObject, 2, alreadyAtMax);
+            Manager.Instance.SpawnCollectEffect(trigger.gameObject.transform.position, LevelUILogic.Instance.MarkedBallButtonPos, LevelUILogic.Instance.gameObject, 2, alreadyAtMax, "UpdateMarkedBall");
             //LevelUILogic.Instance.UpdatePowerups();
             Destroy(trigger.gameObject);
         }
         else if (trigger.gameObject.CompareTag("TriBallPowerup"))
         {
             bool alreadyAtMax = Manager.Instance.UpdatePowerup(ref Manager.Instance.triBallPow, 1);
-            Manager.Instance.SpawnCollectEffect(trigger.gameObject.transform.position, LevelUILogic.Instance.TriBallButtonPos, LevelUILogic.Instance.gameObject, 3, alreadyAtMax);
+            Manager.Instance.SpawnCollectEffect(trigger.gameObject.transform.position, LevelUILogic.Instance.TriBallButtonPos, LevelUILogic.Instance.gameObject, 3, alreadyAtMax, "UpdateTriBall");
             //LevelUILogic.Instance.UpdatePowerups();
 
             Destroy(trigger.gameObject);
@@ -81,7 +81,7 @@ public abstract class ObjectLevelInteractions : MonoBehaviour
         else if (trigger.gameObject.CompareTag("LobBallPowerup"))
         {
             bool alreadyAtMax = Manager.Instance.UpdatePowerup(ref Manager.Instance.lobBallPow, 1);
-            Manager.Instance.SpawnCollectEffect(trigger.gameObject.transform.position, LevelUILogic.Instance.LobBallButtonPos, LevelUILogic.Instance.gameObject, 4, alreadyAtMax);
+            Manager.Instance.SpawnCollectEffect(trigger.gameObject.transform.position, LevelUILogic.Instance.LobBallButtonPos, LevelUILogic.Instance.gameObject, 4, alreadyAtMax, "UpdateLobBall");
             //LevelUILogic.Instance.UpdatePowerups();
 
             Destroy(trigger.gameObject);
@@ -89,7 +89,7 @@ public abstract class ObjectLevelInteractions : MonoBehaviour
         else if (trigger.gameObject.CompareTag("2BallPowerup"))
         {
             Manager.Instance.UpdateObjects(2);
-            Manager.Instance.SpawnCollectEffect(trigger.gameObject.transform.position, LevelUILogic.Instance.BallsTextPos, LevelUILogic.Instance.gameObject, 5, false);
+            Manager.Instance.SpawnCollectEffect(trigger.gameObject.transform.position, LevelUILogic.Instance.BallsTextPos, LevelUILogic.Instance.gameObject, 5, false, "UpdateBalls");
             Destroy(trigger.gameObject);
         }
 
@@ -97,7 +97,7 @@ public abstract class ObjectLevelInteractions : MonoBehaviour
         else if (trigger.gameObject.CompareTag("Coin"))
         {
             Manager.Instance.UpdateCoins(trigger.gameObject.GetComponent<Coin>().Value);
-            Manager.Instance.SpawnCollectEffect(trigger.gameObject.transform.position, LevelUILogic.Instance.CoinsTextPos, LevelUILogic.Instance.gameObject, 0, false);
+            Manager.Instance.SpawnCollectEffect(trigger.gameObject.transform.position, LevelUILogic.Instance.CoinsTextPos, LevelUILogic.Instance.gameObject, 0, false, "UpdateCoins");
             trigger.gameObject.GetComponent<Coin>().SpawnDeathParticles();
             Destroy(trigger.gameObject);
         }
@@ -139,6 +139,7 @@ public abstract class ObjectLevelInteractions : MonoBehaviour
             if (Manager.Instance.ActivatedMultiHoles.Contains(trigger.gameObject.GetComponentInParent<HoleVariables>().gameObject))
             {
                 Manager.Instance.UpdateMultiplier(Manager.Instance.MultiplierIncreaseAmt);
+                Manager.Instance.SpawnTextEffect(transform.position, LevelUILogic.Instance.MultiplierTextPos, -300, LevelUILogic.Instance.gameObject, Manager.Instance.MultiplierIncreaseAmt.ToString(), "UpdateMultiplier");
             }
 
             //x2 points if gold ball
@@ -150,9 +151,11 @@ public abstract class ObjectLevelInteractions : MonoBehaviour
 
             //add points to point count
             Manager.Instance.UpdateScore(points);
+            Manager.Instance.SpawnTextEffect(transform.position, LevelUILogic.Instance.ScoreTextPos, 0, LevelUILogic.Instance.gameObject, points.ToString(), "UpdateScore");
             if (Manager.Instance.Endless)
             {
                 Manager.Instance.UpdateTotalScore(points);
+                Manager.Instance.SpawnTextEffect(transform.position, LevelUILogic.Instance.TotalScoreTextPos, -150, LevelUILogic.Instance.gameObject, Mathf.RoundToInt(points * Manager.Instance.Multiplier).ToString(), "UpdateTotalScore");
             }
 
             //spawn hole text and ring

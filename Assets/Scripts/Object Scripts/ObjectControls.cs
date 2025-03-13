@@ -116,10 +116,12 @@ public abstract class ObjectControls : MonoBehaviour
                     if (effects.GoldBallEnabled)
                     {
                         manager.GoldBallPow--;
+                        LevelUILogic.Instance.UpdateGoldBall();
                     }
                     if (effects.MarkedBallEnabled)
                     {
                         manager.MarkedBallPow--;
+                        LevelUILogic.Instance.UpdateMarkedBall();
                     }
                     if (effects.TriBallEnabled)
                     {
@@ -127,18 +129,19 @@ public abstract class ObjectControls : MonoBehaviour
                         effects.DisableTriBalls();
                         //spawn 2 new objects and make their powerup states the same as the parent
                         SpawnNewTriObjects(effects);
+                        LevelUILogic.Instance.UpdateTriBall();
                     }
                     if (manager.LobBallEnabled)
                     {
                         manager.LobBallPow--;
                         manager.LobBallEnabled = false;
+                        LevelUILogic.Instance.UpdateLobBall();
                     }
 
                     if (manager.SwitchCameraOnLaunch)
                     {
                         manager.SwitchCameraView(1);
                     }
-                    LevelUILogic.Instance.UpdatePowerups();
                 }
                 isHeld = false;
             }

@@ -10,7 +10,8 @@ public class Manager : MonoBehaviour
     [SerializeField] int numberOfLevels;
     [SerializeField] GameObject ballPrefab;
     [SerializeField] GameObject beanbagPrefab;
-    [SerializeField] GameObject collectEffect;
+    [SerializeField] GameObject imageCollectEffect;
+    [SerializeField] GameObject textCollectEffect;
     [SerializeField] Vector3 objectCameraOffset;
     /// <summary>
     /// when true, camera automaticaly switches to ball cam when launched
@@ -160,6 +161,7 @@ public class Manager : MonoBehaviour
     public static Manager Instance { get; private set; }
     public int NumberOfLevels { get { return numberOfLevels; } }
     public int CurrentLevelNumber { get { return currentLevelNumber; } }
+    public int NumberOfObjects { get { return numberOfObjects; } }
     public int Score { get { return score; } }
     public int MinScore { get { return minScore; } }
     public int SecretScore { get { return secretScore; } }
@@ -276,9 +278,9 @@ public class Manager : MonoBehaviour
 
 
         //update UI with starting values
-        UpdateScore(0);
-        UpdateObjects(0);
-        UpdateCoins(0);
+        LevelUILogic.Instance.UpdateScore();
+        LevelUILogic.Instance.UpdateBalls();
+        LevelUILogic.Instance.UpdateCoins();
         LevelUILogic.Instance.UpdateCameraText(0, cameraPositions.Count);
 
 
@@ -429,7 +431,6 @@ public class Manager : MonoBehaviour
     public void UpdateScore(int scoreChange)
     {
         score += scoreChange;
-        LevelUILogic.Instance.UpdateScore(score);
     }
 
     /// <summary>
@@ -438,7 +439,6 @@ public class Manager : MonoBehaviour
     private void ResetScore()
     {
         score = 0;
-        LevelUILogic.Instance.UpdateScore(score);
     }
 
     /// <summary>
@@ -454,7 +454,6 @@ public class Manager : MonoBehaviour
             PlayerPrefs.SetInt("highscore", totalPoints);
             PlayerPrefs.Save();
         }
-        LevelUILogic.Instance.UpdateTotalScore(totalPoints);
     }
 
     /// <summary>
@@ -464,7 +463,7 @@ public class Manager : MonoBehaviour
     public void UpdateObjects(int ballsChange)
     {
         numberOfObjects += ballsChange;
-        LevelUILogic.Instance.UpdateBalls(numberOfObjects);
+        LevelUILogic.Instance.UpdateBalls();
     }
 
     /// <summary>
@@ -474,7 +473,6 @@ public class Manager : MonoBehaviour
     public void UpdateMultiplier(float multiplierChange)
     {
         multiplier += multiplierChange;
-        LevelUILogic.Instance.UpdateMultiplier(multiplier);
     }
 
     /// <summary>
@@ -484,7 +482,6 @@ public class Manager : MonoBehaviour
     public void UpdateCoins(int coinsChange)
     {
         coins += coinsChange;
-        LevelUILogic.Instance.UpdateCoins(coins);
     }
 
     public bool UpdatePowerup(ref int powerupReference, int powerupChange)
@@ -587,6 +584,10 @@ public class Manager : MonoBehaviour
     private IEnumerator EndLevel()
     {
         yield return new WaitForSeconds(timeBetweenObjects);
+        //update level UI
+        LevelUILogic.Instance.UpdateScore();
+        LevelUILogic.Instance.UpdateTotalScore();
+        LevelUILogic.Instance.UpdateMultiplier();
         //disable level ui event handler
         LevelUILogic.Instance.EventHandler.SetActive(false);
         if (!endless)
@@ -627,15 +628,11 @@ public class Manager : MonoBehaviour
         {
             //reset multiplier if player did not score last ball
             UpdateMultiplier(-multiplier + 1);
+            LevelUILogic.Instance.UpdateMultiplier();
         }
         //if there are no more objects in play and the player still has more objects
         if (objects.Count <= 0 && numberOfObjects > 0)
         {
-            //reset multiplier if player did not score last ball
-            if (!scored)
-            {
-                UpdateMultiplier(-multiplier + 1);
-            }
             //spawn a new ball (after a delay)
             StartCoroutine(SpawnNewStartingBall());
         }
@@ -746,10 +743,17 @@ public class Manager : MonoBehaviour
         return false;
     }
 
-    public void SpawnCollectEffect(Vector3 _worldStartPoint, Vector3 _screenEndPoint, GameObject parent, int _spriteNum, bool _alreadyAtMax)
+    public void SpawnCollectEffect(Vector3 _worldStartPoint, Vector3 _screenEndPoint, GameObject _parent, int _spriteNum, bool _alreadyAtMax, string _functionToCall)
     {
-        GameObject newCollectEffect = Instantiate(collectEffect);
-        newCollectEffect.transform.SetParent(parent.transform);
-        newCollectEffect.GetComponent<CollectEffect>().SetValuesAndStart(mainCamera.GetComponent<Camera>(), _worldStartPoint, _screenEndPoint, _spriteNum, _alreadyAtMax);
+        GameObject newCollectEffect = Instantiate(imageCollectEffect);
+        newCollectEffect.transform.SetParent(_parent.transform);
+        newCollectEffect.GetComponent<ImageCollectEffect>().SetValuesAndStart(mainCamera.GetComponent<Camera>(), _worldStartPoint, _screenEndPoint, _spriteNum, _alreadyAtMax, _functionToCall);
+    }
+
+    public void SpawnTextEffect(Vector3 _worldStartPoint, Vector3 _screenEndPoint, float _verticalOffset, GameObject _parent, string _text, string _functionToCall)
+    {
+        GameObject newTextEffect = Instantiate(textCollectEffect);
+        newTextEffect.transform.SetParent(_parent.transform);
+        newTextEffect.GetComponent<TextCollectEffect>().SetValuesAndStart(mainCamera.GetComponent<Camera>(), _worldStartPoint, _screenEndPoint, _verticalOffset, _text, _functionToCall);
     }
 }
