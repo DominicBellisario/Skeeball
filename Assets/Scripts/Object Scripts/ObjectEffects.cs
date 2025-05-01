@@ -60,6 +60,8 @@ public abstract class ObjectEffects : MonoBehaviour
     private void Start()
     {
         triBallAngleRads = GetComponent<ObjectControls>().TriBallAngleRads;
+        materials[0] = defaultMaterial;
+        UpdateMaterials();
     }
 
     // Update is called once per frame
