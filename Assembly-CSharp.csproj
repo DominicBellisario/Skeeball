@@ -1,21 +1,26 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+﻿<Project ToolsVersion="Current">
   <!-- Generated file, do not modify, your changes will be overwritten (use AssetPostprocessor.OnGeneratedCSProject) -->
   <PropertyGroup>
-    <LangVersion>9.0</LangVersion>
+    <BaseIntermediateOutputPath>Temp\obj\$(Configuration)\$(MSBuildProjectName)</BaseIntermediateOutputPath>
+    <IntermediateOutputPath>$(BaseIntermediateOutputPath)</IntermediateOutputPath>
   </PropertyGroup>
+  <Import Project="Sdk.props" Sdk="Microsoft.NET.Sdk" />
+  <ItemGroup>
+    <ProjectCapability Include="Unity" />
+  </ItemGroup>
   <PropertyGroup>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <EnableDefaultItems>false</EnableDefaultItems>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    <LangVersion>9.0</LangVersion>
+    <Configurations>Debug;Release</Configurations>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>10.0.20506</ProductVersion>
-    <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{1BB41CA7-CA6D-4976-7667-0F4E5F53513A}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <AssemblyName>Assembly-CSharp</AssemblyName>
-    <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
+    <TargetFramework>netstandard2.1</TargetFramework>
     <BaseDirectory>.</BaseDirectory>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -39,23 +44,22 @@
     <AllowUnsafeBlocks>False</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup>
-    <NoConfig>true</NoConfig>
+    <NoStandardLibraries>true</NoStandardLibraries>
     <NoStdLib>true</NoStdLib>
-    <AddAdditionalExplicitAssemblyReferences>false</AddAdditionalExplicitAssemblyReferences>
-    <ImplicitlyExpandNETStandardFacades>false</ImplicitlyExpandNETStandardFacades>
-    <ImplicitlyExpandDesignTimeFacades>false</ImplicitlyExpandDesignTimeFacades>
+    <NoConfig>true</NoConfig>
+    <DisableImplicitFrameworkReferences>true</DisableImplicitFrameworkReferences>
+    <MSBuildWarningsAsMessages>MSB3277</MSBuildWarningsAsMessages>
   </PropertyGroup>
   <PropertyGroup>
-    <ProjectTypeGuids>{E097FAD1-6243-4DAD-9C02-E9B9EFC3FFC1};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <UnityProjectGenerator>Package</UnityProjectGenerator>
     <UnityProjectGeneratorVersion>2.0.22</UnityProjectGeneratorVersion>
-    <UnityProjectGeneratorStyle>Legacy</UnityProjectGeneratorStyle>
+    <UnityProjectGeneratorStyle>SDK</UnityProjectGeneratorStyle>
     <UnityProjectType>Game:1</UnityProjectType>
     <UnityBuildTarget>StandaloneWindows64:19</UnityBuildTarget>
     <UnityVersion>2022.3.4f1</UnityVersion>
   </PropertyGroup>
   <ItemGroup>
-    <Analyzer Include="C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\Extensions\Microsoft\Visual Studio Tools for Unity\Analyzers\Microsoft.Unity.Analyzers.dll" />
+    <Analyzer Include="C:\Users\dbell\.vscode\extensions\visualstudiotoolsforunity.vstuc-1.1.1\Analyzers\Microsoft.Unity.Analyzers.dll" />
     <Analyzer Include="C:\Program Files\Unity\Hub\Editor\2022.3.4f1\Editor\Data\Tools\Unity.SourceGenerators\Unity.SourceGenerators.dll" />
     <Analyzer Include="C:\Program Files\Unity\Hub\Editor\2022.3.4f1\Editor\Data\Tools\Unity.SourceGenerators\Unity.Properties.SourceGenerator.dll" />
   </ItemGroup>
@@ -467,12 +471,16 @@
       <HintPath>Library\PackageCache\com.unity.visualscripting@1.9.4\Runtime\VisualScripting.Flow\Dependencies\NCalc\Unity.VisualScripting.Antlr3.Runtime.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="UnityEditor.iOS.Extensions.Xcode">
-      <HintPath>C:\Program Files\Unity\Hub\Editor\2022.3.4f1\Editor\Data\PlaybackEngines\iOSSupport\UnityEditor.iOS.Extensions.Xcode.dll</HintPath>
+    <Reference Include="Unity.Android.Types">
+      <HintPath>C:\Program Files\Unity\Hub\Editor\2022.3.4f1\Editor\Data\PlaybackEngines\AndroidPlayer\Unity.Android.Types.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="UnityEditor.iOS.Extensions.Common">
-      <HintPath>C:\Program Files\Unity\Hub\Editor\2022.3.4f1\Editor\Data\PlaybackEngines\iOSSupport\UnityEditor.iOS.Extensions.Common.dll</HintPath>
+    <Reference Include="Unity.Android.Gradle">
+      <HintPath>C:\Program Files\Unity\Hub\Editor\2022.3.4f1\Editor\Data\PlaybackEngines\AndroidPlayer\Unity.Android.Gradle.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Unity.Android.GradleProject">
+      <HintPath>C:\Program Files\Unity\Hub\Editor\2022.3.4f1\Editor\Data\PlaybackEngines\AndroidPlayer\Unity.Android.GradleProject.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="netstandard">
@@ -963,132 +971,135 @@
       <HintPath>C:\Program Files\Unity\Hub\Editor\2022.3.4f1\Editor\Data\NetStandard\compat\2.1.0\shims\netfx\System.Xml.Serialization.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="Unity.AdaptivePerformance.Samsung.Android">
+      <HintPath>Library\ScriptAssemblies\Unity.AdaptivePerformance.Samsung.Android.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Unity.Timeline.Editor">
+      <HintPath>Library\ScriptAssemblies\Unity.Timeline.Editor.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Unity.VisualScripting.Shared.Editor">
+      <HintPath>Library\ScriptAssemblies\Unity.VisualScripting.Shared.Editor.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Unity.AdaptivePerformance.Simulator.VRR.Extension">
+      <HintPath>Library\ScriptAssemblies\Unity.AdaptivePerformance.Simulator.VRR.Extension.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Unity.AdaptivePerformance">
+      <HintPath>Library\ScriptAssemblies\Unity.AdaptivePerformance.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Unity.VisualStudio.Editor">
+      <HintPath>Library\ScriptAssemblies\Unity.VisualStudio.Editor.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Unity.AdaptivePerformance.Simulator.Extension">
+      <HintPath>Library\ScriptAssemblies\Unity.AdaptivePerformance.Simulator.Extension.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEditor.UI">
+      <HintPath>Library\ScriptAssemblies\UnityEditor.UI.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Unity.VisualScripting.Core">
+      <HintPath>Library\ScriptAssemblies\Unity.VisualScripting.Core.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Unity.AdaptivePerformance.Profiler.Editor">
+      <HintPath>Library\ScriptAssemblies\Unity.AdaptivePerformance.Profiler.Editor.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEngine.UI">
+      <HintPath>Library\ScriptAssemblies\UnityEngine.UI.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Unity.VisualScripting.Core.Editor">
+      <HintPath>Library\ScriptAssemblies\Unity.VisualScripting.Core.Editor.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Unity.Rider.Editor">
+      <HintPath>Library\ScriptAssemblies\Unity.Rider.Editor.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Unity.AdaptivePerformance.Simulator.Editor">
+      <HintPath>Library\ScriptAssemblies\Unity.AdaptivePerformance.Simulator.Editor.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Unity.AdaptivePerformance.Samsung.Android.Editor">
+      <HintPath>Library\ScriptAssemblies\Unity.AdaptivePerformance.Samsung.Android.Editor.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Unity.2D.Sprite.Editor">
+      <HintPath>Library\ScriptAssemblies\Unity.2D.Sprite.Editor.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Unity.AdaptivePerformance.UI.Editor">
+      <HintPath>Library\ScriptAssemblies\Unity.AdaptivePerformance.UI.Editor.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Unity.VisualScripting.Flow">
+      <HintPath>Library\ScriptAssemblies\Unity.VisualScripting.Flow.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Unity.VisualScripting.Flow.Editor">
+      <HintPath>Library\ScriptAssemblies\Unity.VisualScripting.Flow.Editor.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Unity.Timeline">
+      <HintPath>Library\ScriptAssemblies\Unity.Timeline.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Unity.VisualScripting.SettingsProvider.Editor">
+      <HintPath>Library\ScriptAssemblies\Unity.VisualScripting.SettingsProvider.Editor.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Unity.PlasticSCM.Editor">
+      <HintPath>Library\ScriptAssemblies\Unity.PlasticSCM.Editor.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Unity.VisualScripting.State.Editor">
+      <HintPath>Library\ScriptAssemblies\Unity.VisualScripting.State.Editor.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Unity.TextMeshPro">
+      <HintPath>Library\ScriptAssemblies\Unity.TextMeshPro.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Unity.TextMeshPro.Editor">
+      <HintPath>Library\ScriptAssemblies\Unity.TextMeshPro.Editor.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Unity.AdaptivePerformance.Editor">
+      <HintPath>Library\ScriptAssemblies\Unity.AdaptivePerformance.Editor.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Unity.VisualScripting.State">
+      <HintPath>Library\ScriptAssemblies\Unity.VisualScripting.State.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Unity.VSCode.Editor">
+      <HintPath>Library\ScriptAssemblies\Unity.VSCode.Editor.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Unity.Profiling.Core">
+      <HintPath>Library\ScriptAssemblies\Unity.Profiling.Core.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="Unity.AdaptivePerformance.Samsung.Android.csproj">
-      <Project>{9C423725-7306-5F4A-F669-9E51FB7C34DB}</Project>
-      <Name>Unity.AdaptivePerformance.Samsung.Android</Name>
-    </ProjectReference>
-    <ProjectReference Include="Unity.Timeline.Editor.csproj">
-      <Project>{02398639-D217-E86C-C5DD-E9403FC0ED89}</Project>
-      <Name>Unity.Timeline.Editor</Name>
-    </ProjectReference>
-    <ProjectReference Include="Unity.VisualScripting.Shared.Editor.csproj">
-      <Project>{E8CCE378-4258-2C80-6FD4-33F99991C8E3}</Project>
-      <Name>Unity.VisualScripting.Shared.Editor</Name>
-    </ProjectReference>
-    <ProjectReference Include="Unity.AdaptivePerformance.Simulator.VRR.Extension.csproj">
-      <Project>{51E15543-832F-71E7-50C2-AAEA03E9B0D1}</Project>
-      <Name>Unity.AdaptivePerformance.Simulator.VRR.Extension</Name>
-    </ProjectReference>
-    <ProjectReference Include="Unity.AdaptivePerformance.csproj">
-      <Project>{7E840819-B071-D910-90C7-92CAEAA2AC19}</Project>
-      <Name>Unity.AdaptivePerformance</Name>
-    </ProjectReference>
-    <ProjectReference Include="Unity.VisualStudio.Editor.csproj">
-      <Project>{7AE3E0B6-18B5-2F04-8D3A-400421A89F01}</Project>
-      <Name>Unity.VisualStudio.Editor</Name>
-    </ProjectReference>
-    <ProjectReference Include="Unity.AdaptivePerformance.Simulator.Extension.csproj">
-      <Project>{A3A64505-CED1-F009-A834-FF227CAA18CD}</Project>
-      <Name>Unity.AdaptivePerformance.Simulator.Extension</Name>
-    </ProjectReference>
-    <ProjectReference Include="UnityEditor.UI.csproj">
-      <Project>{5A0BD390-06BE-637E-C6D3-7F7264DCB00B}</Project>
-      <Name>UnityEditor.UI</Name>
-    </ProjectReference>
-    <ProjectReference Include="Unity.VisualScripting.Core.csproj">
-      <Project>{CB5CD7E1-3A17-630B-728D-093CE5187E06}</Project>
-      <Name>Unity.VisualScripting.Core</Name>
-    </ProjectReference>
-    <ProjectReference Include="Unity.AdaptivePerformance.Profiler.Editor.csproj">
-      <Project>{653D0878-91C4-5437-637B-80960FFAC4E8}</Project>
-      <Name>Unity.AdaptivePerformance.Profiler.Editor</Name>
-    </ProjectReference>
-    <ProjectReference Include="UnityEngine.UI.csproj">
-      <Project>{11208041-03E4-C0CA-DD14-BD9F22A3D0DE}</Project>
-      <Name>UnityEngine.UI</Name>
-    </ProjectReference>
-    <ProjectReference Include="Unity.VisualScripting.Core.Editor.csproj">
-      <Project>{A198A929-37E5-D643-09B9-3E51B14649D9}</Project>
-      <Name>Unity.VisualScripting.Core.Editor</Name>
-    </ProjectReference>
-    <ProjectReference Include="Unity.Rider.Editor.csproj">
-      <Project>{0D726621-DF10-EB8B-DF03-01184E9CC3C5}</Project>
-      <Name>Unity.Rider.Editor</Name>
-    </ProjectReference>
-    <ProjectReference Include="Unity.AdaptivePerformance.Simulator.Editor.csproj">
-      <Project>{3AA779F5-EF95-0626-1F91-CB89AEE748F4}</Project>
-      <Name>Unity.AdaptivePerformance.Simulator.Editor</Name>
-    </ProjectReference>
-    <ProjectReference Include="Unity.AdaptivePerformance.Samsung.Android.Editor.csproj">
-      <Project>{74554144-E5E5-47B0-B5E9-30FFC36E0C40}</Project>
-      <Name>Unity.AdaptivePerformance.Samsung.Android.Editor</Name>
-    </ProjectReference>
-    <ProjectReference Include="Unity.2D.Sprite.Editor.csproj">
-      <Project>{5EABBF8F-8F27-25AE-38B0-13196C807827}</Project>
-      <Name>Unity.2D.Sprite.Editor</Name>
-    </ProjectReference>
-    <ProjectReference Include="Unity.AdaptivePerformance.UI.Editor.csproj">
-      <Project>{4E873FF6-2B67-0AF3-43C8-D2DA3CB06F97}</Project>
-      <Name>Unity.AdaptivePerformance.UI.Editor</Name>
-    </ProjectReference>
-    <ProjectReference Include="Unity.VisualScripting.Flow.csproj">
-      <Project>{669FBADC-2469-891F-400A-84C401734063}</Project>
-      <Name>Unity.VisualScripting.Flow</Name>
-    </ProjectReference>
-    <ProjectReference Include="Unity.VisualScripting.Flow.Editor.csproj">
-      <Project>{3375162B-573D-9AFF-3D48-A56E8C694E77}</Project>
-      <Name>Unity.VisualScripting.Flow.Editor</Name>
-    </ProjectReference>
-    <ProjectReference Include="Unity.Timeline.csproj">
-      <Project>{588FF83C-854A-2E42-4DC1-1E57D9A380B3}</Project>
-      <Name>Unity.Timeline</Name>
-    </ProjectReference>
-    <ProjectReference Include="Unity.VisualScripting.SettingsProvider.Editor.csproj">
-      <Project>{9C3F70B5-E83B-505F-5E84-FC1A7422442F}</Project>
-      <Name>Unity.VisualScripting.SettingsProvider.Editor</Name>
-    </ProjectReference>
-    <ProjectReference Include="Unity.PlasticSCM.Editor.csproj">
-      <Project>{42A534EA-277D-4517-A9C0-FB98D7CD24E8}</Project>
-      <Name>Unity.PlasticSCM.Editor</Name>
-    </ProjectReference>
-    <ProjectReference Include="Unity.VisualScripting.State.Editor.csproj">
-      <Project>{575FC0A7-5649-31F0-7F73-C638E9BD7124}</Project>
-      <Name>Unity.VisualScripting.State.Editor</Name>
-    </ProjectReference>
-    <ProjectReference Include="Unity.TextMeshPro.csproj">
-      <Project>{9A951974-040F-5B22-E554-F91ABDEA0E22}</Project>
-      <Name>Unity.TextMeshPro</Name>
-    </ProjectReference>
-    <ProjectReference Include="Unity.TextMeshPro.Editor.csproj">
-      <Project>{16472007-A93A-69A5-CD95-DAD330C505C6}</Project>
-      <Name>Unity.TextMeshPro.Editor</Name>
-    </ProjectReference>
-    <ProjectReference Include="Unity.AdaptivePerformance.Editor.csproj">
-      <Project>{7EA67A18-DCE5-2C9F-047B-B5323408FCD7}</Project>
-      <Name>Unity.AdaptivePerformance.Editor</Name>
-    </ProjectReference>
-    <ProjectReference Include="Unity.VisualScripting.State.csproj">
-      <Project>{8675A1C7-2DA8-C170-0D77-9D638AF6041C}</Project>
-      <Name>Unity.VisualScripting.State</Name>
-    </ProjectReference>
-    <ProjectReference Include="Unity.VSCode.Editor.csproj">
-      <Project>{CAACE7E0-EC98-8A5A-5D20-73E93F262866}</Project>
-      <Name>Unity.VSCode.Editor</Name>
-    </ProjectReference>
-    <ProjectReference Include="Unity.Profiling.Core.csproj">
-      <Project>{6A437F0C-E636-446D-6DB7-1AE8D4C3F3A3}</Project>
-      <Name>Unity.Profiling.Core</Name>
-    </ProjectReference>
   </ItemGroup>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <Target Name="GenerateTargetFrameworkMonikerAttribute" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
-  <Target Name="AfterBuild">
-  </Target>
-  -->
+  <Import Project="Sdk.targets" Sdk="Microsoft.NET.Sdk" />
+  <ItemGroup>
+    <ProjectCapability Remove="LaunchProfiles" />
+    <ProjectCapability Remove="SharedProjectReferences" />
+    <ProjectCapability Remove="ReferenceManagerSharedProjects" />
+    <ProjectCapability Remove="ProjectReferences" />
+    <ProjectCapability Remove="ReferenceManagerProjects" />
+    <ProjectCapability Remove="COMReferences" />
+    <ProjectCapability Remove="ReferenceManagerCOM" />
+    <ProjectCapability Remove="AssemblyReferences" />
+    <ProjectCapability Remove="ReferenceManagerAssemblies" />
+  </ItemGroup>
 </Project>
