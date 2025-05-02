@@ -43,11 +43,6 @@ public class Manager : MonoBehaviour
     bool canSwitchCamera;
 
     /// <summary>
-    /// the current skin the player has equipped
-    /// </summary>
-    [SerializeField] int currentSkin; //serialise debug
-
-    /// <summary>
     /// the current level score
     /// </summary>
     [SerializeField] int score; //serialise debug
@@ -191,7 +186,6 @@ public class Manager : MonoBehaviour
     public int MaxPowerups { get { return maxPowerups; } }
     public List<GameObject> ActivatedMultiHoles { get { return activatedMultiHoles; } }
     public int StarHoleChanceUpgradesBought { get { return starHoleChanceUpgradesBought; } set { starHoleChanceUpgradesBought = value; } }
-    public int CurrentSkin { get { return currentSkin; } set { Instance.currentSkin = value;} }
 
     protected virtual void Awake()
     {

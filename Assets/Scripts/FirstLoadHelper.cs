@@ -10,10 +10,12 @@ public class FirstLoadHelper : MonoBehaviour
         {
             //all levels but the 1st one start out locked 
             PlayerPrefs.GetInt("unlockLevel_" + i, 0);
-            //all secrets are locked
+            //all secrets except the first one start out locked
             PlayerPrefs.GetInt("unlockSecret_" + i, 0);
         }
-        PlayerPrefs.SetInt("unlockLevel_" + 1, 1);
+        PlayerPrefs.GetInt("selectedSkin", 1);
+        PlayerPrefs.SetInt("unlockLevel_1", 1);
+        
         PlayerPrefs.Save();
     }
 }

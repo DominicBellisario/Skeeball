@@ -698,7 +698,7 @@ Camera:
   near clip plane: 0.3
   far clip plane: 1000
   field of view: 60
-  orthographic: 0
+  orthographic: 1
   orthographic size: 5
   m_Depth: -1
   m_CullingMask:
@@ -1878,8 +1878,8 @@ Canvas:
   m_GameObject: {fileID: 1512393322}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 0
-  m_Camera: {fileID: 0}
+  m_RenderMode: 1
+  m_Camera: {fileID: 402896449}
   m_PlaneDistance: 100
   m_PixelPerfect: 0
   m_ReceivesEvents: 1
@@ -2396,13 +2396,16 @@ MonoBehaviour:
   - serializedVersion: 2
     rgba: 16711808
   ballNormalMaterials:
+  - {fileID: 2100000, guid: 8dfbb467137b52840a822f0b1f456f1b, type: 2}
   - {fileID: 2100000, guid: cf78d4bcc3c4a464eb87d74f929a6ee7, type: 2}
   - {fileID: 2100000, guid: 53ee93ffe257a5a4b8f2a34bd39c7a2a, type: 2}
   - {fileID: 2100000, guid: fcf504a566ce88e45918d041bc76f8e3, type: 2}
   ballGoldMaterials:
+  - {fileID: 2100000, guid: 7694aa2aef3ace644b9e06014bfe0dc0, type: 2}
   - {fileID: 2100000, guid: 4d3d996ee917198469baef2aea63d53d, type: 2}
   - {fileID: 2100000, guid: 6537d96976d144446a520a77d2c7b316, type: 2}
   - {fileID: 2100000, guid: c0fe25bb9abfe0b4892e1e6f26db888c, type: 2}
+  pitchBlack: {fileID: 2100000, guid: 350dd32b9172a0a459a103712c1e9a4e, type: 2}
 --- !u!4 &1852042559
 Transform:
   m_ObjectHideFlags: 0

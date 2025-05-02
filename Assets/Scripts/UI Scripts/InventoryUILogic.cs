@@ -10,26 +10,13 @@ public class InventoryUILogic : MonoBehaviour
     [SerializeField] Button[] buttons;
     [SerializeField] ColorBlock normalColors;
     [SerializeField] ColorBlock secretColors;
+    [SerializeField] ColorBlock selectedColors;
     int page = 1;
 
     // Start is called before the first frame update
     void Start()
     {
-        for (int i = 0; i < Manager.Instance.NumberOfLevels; i++)
-        {
-            if (PlayerPrefs.GetInt("unlockSecret_" + (i + 1)) == 0)
-            {
-                buttons[i].GetComponentInChildren<TextMeshProUGUI>().text = "X";
-                buttons[i].colors = normalColors;
-                buttons[i].enabled = false;
-            }
-            else
-            {
-                buttons[i].GetComponentInChildren<TextMeshProUGUI>().text = "";
-                buttons[i].colors = secretColors;
-                buttons[i].enabled = true;
-            }
-        }
+        UpdateButtons(PlayerPrefs.GetInt("selectedSkin"));
     }
 
     public void UpdatePageNumber(int change)
@@ -44,6 +31,32 @@ public class InventoryUILogic : MonoBehaviour
             {
                 if (i == page) { pages[i - 1].SetActive(true); }
                 else { pages[i - 1].SetActive(false); }
+            }
+        }
+    }
+
+    public void UpdateButtons(int selectedButtonIndex)
+    {
+        PlayerPrefs.SetInt("selectedSkin", selectedButtonIndex);
+        PlayerPrefs.Save();
+
+        for (int i = 1; i <= Manager.Instance.NumberOfLevels; i++)
+        {
+            if (PlayerPrefs.GetInt("unlockSecret_" + i) == 0 && i != 1)
+            {
+                buttons[i-1].GetComponentInChildren<MeshRenderer>().material = MaterialManager.Instance.PitchBlack;
+                buttons[i-1].colors = normalColors;
+                buttons[i-1].enabled = false;
+            }
+            else
+            {
+                buttons[i-1].GetComponentInChildren<MeshRenderer>().material = MaterialManager.Instance.GetBallMaterialSet(i)[0];
+                buttons[i-1].colors = secretColors;
+                buttons[i-1].enabled = true;
+            }
+            if (i == selectedButtonIndex)
+            {
+                buttons[i-1].colors = selectedColors;
             }
         }
     }

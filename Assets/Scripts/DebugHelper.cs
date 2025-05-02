@@ -18,6 +18,7 @@ public class DebugHelper : MonoBehaviour
             PlayerPrefs.SetInt("unlockSecret_" + i, 0);
         }
         PlayerPrefs.SetInt("unlockLevel_1", 1);
+        PlayerPrefs.SetInt("selectedSkin", 1);
         PlayerPrefs.Save();
     }
 
