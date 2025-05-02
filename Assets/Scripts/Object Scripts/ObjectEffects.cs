@@ -60,6 +60,11 @@ public abstract class ObjectEffects : MonoBehaviour
     private void Start()
     {
         triBallAngleRads = GetComponent<ObjectControls>().TriBallAngleRads;
+
+        //update ball materials to the selected skin
+        Material[] getBallSkins = MaterialManager.Instance.GetCurrentBallSkin(Manager.Instance.CurrentSkin);
+        defaultMaterial = getBallSkins[0];
+        goldBallMaterial = getBallSkins[1];
         materials[0] = defaultMaterial;
         UpdateMaterials();
     }

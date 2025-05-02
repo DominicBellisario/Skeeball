@@ -19,7 +19,13 @@ public class MaterialManager : MonoBehaviour
 
     [SerializeField] Color32[] rainbowColors;
 
+    [SerializeField] Material[] ballNormalMaterials;
+    [SerializeField] Material[] ballGoldMaterials;
+
     public static MaterialManager Instance { get; private set; }
+
+    public Material[] BallNormalMaterials { get { return ballNormalMaterials; } }
+    public Material[] BallGoldMaterials { get { return ballGoldMaterials; } }
 
     // Start is called before the first frame update
     void Awake()
@@ -74,5 +80,10 @@ public class MaterialManager : MonoBehaviour
         }
         rainbowFastMaterial.SetColor("_Color", Color.red);
         rainbowSlowMaterial.SetColor("_Color", Color.red);
+    }
+
+    public Material[] GetCurrentBallSkin(int currentSkin)
+    {
+        return new Material[] { ballNormalMaterials[currentSkin - 1], ballGoldMaterials[currentSkin - 1] };
     }
 }
