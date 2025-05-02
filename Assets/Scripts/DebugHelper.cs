@@ -29,4 +29,13 @@ public class DebugHelper : MonoBehaviour
         }
         PlayerPrefs.Save();
     }
+
+    public void UnlockAllSecrets()
+    {
+        for (int i = 1; i <= Manager.Instance.NumberOfLevels; i++)
+        {
+            PlayerPrefs.SetInt("unlockSecret_" + i, 1);
+        }
+        PlayerPrefs.Save();
+    }
 }
