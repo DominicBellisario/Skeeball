@@ -113,12 +113,12 @@ public abstract class ObjectEffects : MonoBehaviour
         goldBallEnabled = !goldBallEnabled;
         if (goldBallEnabled)
         {
-            materials[1] = goldBallMaterial;
+            materials[0] = goldBallMaterial;
             if (buttonPressed) { SpawnParticles(activatePowerupParticles, Color.yellow); }
         }
         else
         {
-            materials[1] = transMaterial;
+            materials[0] = defaultMaterial;
             if (buttonPressed) { SpawnParticles(deactivatePowerupParticles, Color.yellow); }
         }
         UpdateMaterials();
@@ -128,12 +128,12 @@ public abstract class ObjectEffects : MonoBehaviour
         markedBallEnabled = !markedBallEnabled;
         if (markedBallEnabled)
         {
-            materials[2] = markedBallMaterial;
+            materials[1] = markedBallMaterial;
             if (buttonPressed) { SpawnParticles(activatePowerupParticles, Color.red); }
         }
         else
         {
-            materials[2] = transMaterial;
+            materials[1] = transMaterial;
             if (buttonPressed) { SpawnParticles(deactivatePowerupParticles, Color.red); }
         }
         UpdateMaterials();
