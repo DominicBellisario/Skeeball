@@ -16,6 +16,7 @@ public class HoleVariables : MonoBehaviour
 
     //the cylinder's renderer
     [SerializeField] Renderer holeRenderer;
+    Color defaultColor;
     [SerializeField] Color normalPulseColor;
     [SerializeField] Color badPulseColor;
     //how long the cylinder will pulse for
@@ -37,6 +38,7 @@ public class HoleVariables : MonoBehaviour
     private void Start()
     {
         startingPoints = points;
+        defaultColor = holeRenderer.material.color;
     }
 
     public void MakeNormalHole()
@@ -97,6 +99,8 @@ public class HoleVariables : MonoBehaviour
         newParticles.Play();
 
         //pulse cylinder
+        StopAllCoroutines();
+        holeRenderer.material.color = defaultColor;
         if (points >= 0) { StartCoroutine(PulseCylinder(normalPulseColor)); }
         else { StartCoroutine(PulseCylinder(badPulseColor)); }
         
