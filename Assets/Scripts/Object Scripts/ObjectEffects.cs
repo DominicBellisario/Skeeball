@@ -65,7 +65,8 @@ public abstract class ObjectEffects : MonoBehaviour
         Material[] getBallSkins = MaterialManager.Instance.GetBallMaterialSet(PlayerPrefs.GetInt("selectedSkin"));
         defaultMaterial = getBallSkins[0];
         goldBallMaterial = getBallSkins[1];
-        materials[0] = defaultMaterial;
+        if(!goldBallEnabled){materials[0] = defaultMaterial;}
+        else{materials[0] = goldBallMaterial;}
         UpdateMaterials();
     }
 
@@ -110,6 +111,7 @@ public abstract class ObjectEffects : MonoBehaviour
     //toggles for powerups
     public void ToggleGoldBall(bool buttonPressed)
     {
+        
         goldBallEnabled = !goldBallEnabled;
         if (goldBallEnabled)
         {

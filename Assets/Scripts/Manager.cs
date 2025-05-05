@@ -513,7 +513,7 @@ public class Manager : MonoBehaviour
         newObject.GetComponent<Rigidbody>().AddForce(force);
 
         //set the powerup states
-        if (gold) { newObject.GetComponent<ObjectEffects>().ToggleGoldBall(false); ; }
+        if (gold) { newObject.GetComponent<ObjectEffects>().ToggleGoldBall(false); }
         if (marked) { newObject.GetComponent<ObjectEffects>().ToggleMarkedBall(false); }
         if (tri) { newObject.GetComponent<ObjectEffects>().ToggleTriBall(false); }
 
