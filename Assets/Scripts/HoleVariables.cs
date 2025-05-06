@@ -38,7 +38,7 @@ public class HoleVariables : MonoBehaviour
     private void Start()
     {
         startingPoints = points;
-        defaultColor = holeRenderer.material.color;
+        if (holeRenderer != null) { defaultColor = holeRenderer.material.color; }
     }
 
     public void MakeNormalHole()
@@ -98,12 +98,15 @@ public class HoleVariables : MonoBehaviour
         newParticles.startSize *= transform.localScale.x;
         newParticles.Play();
 
-        //pulse cylinder
-        StopAllCoroutines();
-        holeRenderer.material.color = defaultColor;
-        if (points >= 0) { StartCoroutine(PulseCylinder(normalPulseColor)); }
-        else { StartCoroutine(PulseCylinder(badPulseColor)); }
-        
+        //pulse cylinder if it is not a ring hole
+        if (holeRenderer != null)
+        {
+            StopAllCoroutines();
+            holeRenderer.material.color = defaultColor;
+            if (points >= 0) { StartCoroutine(PulseCylinder(normalPulseColor)); }
+            else { StartCoroutine(PulseCylinder(badPulseColor)); }
+        }
+
     }
 
     private IEnumerator PulseCylinder(Color startColor)
@@ -130,6 +133,6 @@ public class HoleVariables : MonoBehaviour
             holeRenderer.material.color = new Color(currentColorRGB.x, currentColorRGB.y, currentColorRGB.z, 1);
             yield return new WaitForEndOfFrame();
         }
-        
+
     }
 }
