@@ -106,6 +106,7 @@ public abstract class ObjectControls : MonoBehaviour
                 //if not, launch it
                 else
                 {
+                    Debug.Log(powerPercent);
                     LaunchObject();
                     isLaunched = true;
                     objectLevelInteractions.IsLaunched = true;

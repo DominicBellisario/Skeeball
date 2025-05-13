@@ -8,7 +8,10 @@ public abstract class SinMovement : MonoBehaviour
     [SerializeField] protected float magnitude;
     //the angle where the object starts in the wave
     [SerializeField] protected float startingWavePos = 0;
-    //where the obkect starts in the world
+    [SerializeField] protected bool useTranslate = false;
+    [SerializeField] protected bool useLocalCoordinateSystem = false;
+    
+    //where the object starts in the world
     protected Vector3 startingWorldPos;
 
     protected float currentPos;

@@ -6,6 +6,20 @@ public class ZAxisSinMovement : SinMovement
     protected override void Update()
     {
         base.Update();
-        transform.position = new Vector3(transform.position.x, transform.position.y, startingWorldPos.z + currentPos);
+        if (useTranslate) 
+        {
+            if (useLocalCoordinateSystem)
+            {
+                transform.Translate(new Vector3(0,0,1) * currentPos * Time.deltaTime, Space.Self);
+            }
+            else
+            {
+                transform.Translate(new Vector3(0,0,1) * currentPos * Time.deltaTime, Space.World);
+            }
+        }
+        else
+        {
+            transform.position = new Vector3(transform.position.x, transform.position.y, startingWorldPos.z + currentPos);
+        }
     }
 }
