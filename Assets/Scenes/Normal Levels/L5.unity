@@ -373,6 +373,7 @@ MonoBehaviour:
   minScore: 100
   secretScore: 270
   numberOfObjects: 5
+  starHole: {fileID: 0}
   multiHoles: []
   coinPositions: []
   goldBallPow: 0
@@ -1090,6 +1091,8 @@ MonoBehaviour:
   speed: 30
   magnitude: 0.866
   startingWavePos: 210
+  useTranslate: 0
+  useLocalCoordinateSystem: 0
 --- !u!114 &449810801
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1105,6 +1108,8 @@ MonoBehaviour:
   speed: -30
   magnitude: 0.5
   startingWavePos: 155
+  useTranslate: 0
+  useLocalCoordinateSystem: 0
 --- !u!1001 &514063338
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1537,6 +1542,8 @@ MonoBehaviour:
   speed: 30
   magnitude: 1.8
   startingWavePos: 60
+  useTranslate: 0
+  useLocalCoordinateSystem: 0
 --- !u!1 &1145320944 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1530170540082604406, guid: 73c6032f971edad43874c7861a2a8ab7,
@@ -1558,6 +1565,8 @@ MonoBehaviour:
   speed: 30
   magnitude: 1.8
   startingWavePos: 60
+  useTranslate: 0
+  useLocalCoordinateSystem: 0
 --- !u!4 &1145320952 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3869804087663749162, guid: 73c6032f971edad43874c7861a2a8ab7,
@@ -1585,6 +1594,8 @@ MonoBehaviour:
   speed: 30
   magnitude: 1.8
   startingWavePos: 0
+  useTranslate: 0
+  useLocalCoordinateSystem: 0
 --- !u!1001 &1186226703
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1723,6 +1734,8 @@ MonoBehaviour:
   speed: 30
   magnitude: 0.866
   startingWavePos: 30
+  useTranslate: 0
+  useLocalCoordinateSystem: 0
 --- !u!114 &1186226708
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1738,6 +1751,8 @@ MonoBehaviour:
   speed: -30
   magnitude: 0.5
   startingWavePos: -25
+  useTranslate: 0
+  useLocalCoordinateSystem: 0
 --- !u!1 &1291573885 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1530170540082604406, guid: 1fb5cae7bab66544198c0acb87d41246,
@@ -1759,6 +1774,8 @@ MonoBehaviour:
   speed: -30
   magnitude: 0.5
   startingWavePos: 155
+  useTranslate: 0
+  useLocalCoordinateSystem: 0
 --- !u!4 &1291573887 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3869804087663749162, guid: 1fb5cae7bab66544198c0acb87d41246,
@@ -2003,6 +2020,8 @@ MonoBehaviour:
   speed: 30
   magnitude: 1.8
   startingWavePos: 30
+  useTranslate: 0
+  useLocalCoordinateSystem: 0
 --- !u!1 &1690619585
 GameObject:
   m_ObjectHideFlags: 0
@@ -2135,7 +2154,7 @@ MeshCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1722487769}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 8d682f8f6f2f7de4b85e531badafff0b, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0

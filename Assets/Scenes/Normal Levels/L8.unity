@@ -297,6 +297,7 @@ MonoBehaviour:
   minScore: 200
   secretScore: 700
   numberOfObjects: 4
+  starHole: {fileID: 0}
   multiHoles: []
   coinPositions: []
   goldBallPow: 0
@@ -806,6 +807,8 @@ MonoBehaviour:
   speed: 40
   magnitude: 1.5
   startingWavePos: 0
+  useTranslate: 0
+  useLocalCoordinateSystem: 0
 --- !u!1 &510475022
 GameObject:
   m_ObjectHideFlags: 0
@@ -2229,7 +2232,7 @@ MeshCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1722487769}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 8d682f8f6f2f7de4b85e531badafff0b, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
