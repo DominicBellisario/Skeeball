@@ -107,7 +107,7 @@ public abstract class ObjectControls : MonoBehaviour
                 else
                 {
                     LaunchObject();
-                    Time.timeScale = 0.25f;
+                    //Time.timeScale = 0.25f;
                     isLaunched = true;
                     objectLevelInteractions.IsLaunched = true;
 

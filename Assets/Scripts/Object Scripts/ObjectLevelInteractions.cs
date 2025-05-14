@@ -109,6 +109,17 @@ public abstract class ObjectLevelInteractions : MonoBehaviour
             rb.AddForce(trigger.gameObject.transform.up * trigger.gameObject.GetComponentInParent<Spring>().ForceMultiplier);
             trigger.gameObject.GetComponentInParent<Spring>().ActivateSpring();
         }
+        /*
+        //if the object hits a ramp, launch it in the direction the ramp is facing
+        else if (trigger.gameObject.CompareTag("Ramp"))
+        {
+            Debug.Log(rb.velocity);
+            Vector3 startVelocity = rb.velocity;
+            rb.velocity = Vector3.zero;
+            rb.velocity = trigger.gameObject.transform.localRotation.eulerAngles.normalized * startVelocity.magnitude;
+            Debug.Log(trigger.gameObject.transform.forward * startVelocity.magnitude);
+        }
+        */
     }
 
     private void OnTriggerStay(Collider other)
