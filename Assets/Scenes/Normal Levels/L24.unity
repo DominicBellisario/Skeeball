@@ -1698,6 +1698,8 @@ MonoBehaviour:
   speed: 100
   magnitude: 1.5
   startingWavePos: 0
+  useTranslate: 0
+  useLocalCoordinateSystem: 0
 --- !u!4 &571009877 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3869804087663749162, guid: 6bafd423e97fbe24ca01f0c436f5a87c,
@@ -1728,7 +1730,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 595228588}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 33, z: -51.1}
+  m_LocalPosition: {x: 0, y: 33.16001, z: -51.1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2162,6 +2164,8 @@ MonoBehaviour:
   speed: 90
   magnitude: 1.3
   startingWavePos: 0
+  useTranslate: 0
+  useLocalCoordinateSystem: 0
 --- !u!4 &929392792 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4417413627553195476, guid: ac1a717b60f32cf4492991406f7a8b77,
@@ -2189,13 +2193,15 @@ MonoBehaviour:
   speed: 90
   magnitude: 1.3
   startingWavePos: 0
+  useTranslate: 0
+  useLocalCoordinateSystem: 0
 --- !u!4 &937855157 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4417413627553195476, guid: ac1a717b60f32cf4492991406f7a8b77,
     type: 3}
   m_PrefabInstance: {fileID: 1959616860}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &957866817
+--- !u!1 &955972741
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2203,8 +2209,8 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 957866819}
-  - component: {fileID: 957866818}
+  - component: {fileID: 955972743}
+  - component: {fileID: 955972742}
   m_Layer: 0
   m_Name: Death Plain
   m_TagString: DeathPlain
@@ -2212,13 +2218,13 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!65 &957866818
+--- !u!65 &955972742
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 957866817}
+  m_GameObject: {fileID: 955972741}
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -2231,17 +2237,17 @@ BoxCollider:
   m_ProvidesContacts: 1
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 500, y: 1, z: 500}
-  m_Center: {x: 1.7198277, y: 0, z: 3.517128}
---- !u!4 &957866819
+  m_Size: {x: 103.408325, y: 0.25776994, z: 98.86412}
+  m_Center: {x: 1.7198257, y: -0.37111503, z: 3.517128}
+--- !u!4 &955972743
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 957866817}
+  m_GameObject: {fileID: 955972741}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -6.36, z: 0}
+  m_LocalPosition: {x: 0, y: -1.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -4544,6 +4550,8 @@ MonoBehaviour:
   speed: 70
   magnitude: 1
   startingWavePos: 0
+  useTranslate: 0
+  useLocalCoordinateSystem: 0
 --- !u!1 &2109504370
 GameObject:
   m_ObjectHideFlags: 0

@@ -192,6 +192,7 @@ MonoBehaviour:
   minScore: 40
   secretScore: 100
   numberOfObjects: 4
+  starHole: {fileID: 0}
   multiHoles: []
   coinPositions: []
   goldBallPow: 0
@@ -248,6 +249,8 @@ MonoBehaviour:
   speed: 30
   magnitude: 3
   startingWavePos: 0
+  useTranslate: 0
+  useLocalCoordinateSystem: 0
 --- !u!65 &208069865
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -368,6 +371,59 @@ Transform:
   - {fileID: 350315301}
   m_Father: {fileID: 0}
   m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &290175313
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 290175315}
+  - component: {fileID: 290175314}
+  m_Layer: 0
+  m_Name: Death Plain
+  m_TagString: DeathPlain
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!65 &290175314
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 290175313}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 1
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 103.408325, y: 0.25776994, z: 98.86412}
+  m_Center: {x: 1.7198257, y: -0.37111503, z: 3.517128}
+--- !u!4 &290175315
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 290175313}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -1.5, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &341772912
 GameObject:
@@ -658,7 +714,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 595228588}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.378, z: -8.145}
+  m_LocalPosition: {x: 0, y: 0.4, z: -8.145}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -806,6 +862,8 @@ MonoBehaviour:
   speed: -50
   magnitude: 2.75
   startingWavePos: 0
+  useTranslate: 0
+  useLocalCoordinateSystem: 0
 --- !u!1001 &821401857
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -924,59 +982,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 821401857}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &957866817
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 957866819}
-  - component: {fileID: 957866818}
-  m_Layer: 0
-  m_Name: Death Plain
-  m_TagString: DeathPlain
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!65 &957866818
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 957866817}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 1
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 103.408325, y: 1, z: 98.86412}
-  m_Center: {x: 1.7198277, y: 0, z: 3.517128}
---- !u!4 &957866819
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 957866817}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -6.36, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &970577611
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1250,6 +1255,8 @@ MonoBehaviour:
   speed: 100
   magnitude: 1
   startingWavePos: 90
+  useTranslate: 0
+  useLocalCoordinateSystem: 0
 --- !u!114 &1488609278
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1265,6 +1272,8 @@ MonoBehaviour:
   speed: 50
   magnitude: 3.5
   startingWavePos: 0
+  useTranslate: 0
+  useLocalCoordinateSystem: 0
 --- !u!1 &1690619585
 GameObject:
   m_ObjectHideFlags: 0

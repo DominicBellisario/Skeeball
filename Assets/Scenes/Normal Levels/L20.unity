@@ -822,7 +822,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 595228588}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.378, z: -8.145}
+  m_LocalPosition: {x: 0, y: 0.4, z: -8.145}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1246,7 +1246,7 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 949274635}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &957866817
+--- !u!1 &986230307
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1254,8 +1254,8 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 957866819}
-  - component: {fileID: 957866818}
+  - component: {fileID: 986230309}
+  - component: {fileID: 986230308}
   m_Layer: 0
   m_Name: Death Plain
   m_TagString: DeathPlain
@@ -1263,13 +1263,13 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!65 &957866818
+--- !u!65 &986230308
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 957866817}
+  m_GameObject: {fileID: 986230307}
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -1282,17 +1282,17 @@ BoxCollider:
   m_ProvidesContacts: 1
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 103.408325, y: 1, z: 98.86412}
-  m_Center: {x: 1.7198277, y: 0, z: 3.517128}
---- !u!4 &957866819
+  m_Size: {x: 103.408325, y: 0.25776994, z: 98.86412}
+  m_Center: {x: 1.7198257, y: -0.37111503, z: 3.517128}
+--- !u!4 &986230309
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 957866817}
+  m_GameObject: {fileID: 986230307}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -6.36, z: 0}
+  m_LocalPosition: {x: 0, y: -1.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1802,6 +1802,8 @@ MonoBehaviour:
   speed: 50
   magnitude: 3
   startingWavePos: 0
+  useTranslate: 0
+  useLocalCoordinateSystem: 0
 --- !u!1 &1690619585
 GameObject:
   m_ObjectHideFlags: 0
