@@ -506,10 +506,10 @@ public class Manager : MonoBehaviour
     /// <param name="force"></param>
     public GameObject SpawnNewObject(GameObject objectPrefab, Vector3 spawnPos, Vector3 force, bool gold, bool marked, bool tri)
     {
-        GameObject newObject = Instantiate(objectPrefab);
+        GameObject newObject = Instantiate(objectPrefab, spawnPos, Quaternion.identity);
 
         //set its position and velocity
-        newObject.transform.position = spawnPos;
+        //newObject.transform.position = spawnPos;
         newObject.GetComponent<Rigidbody>().AddForce(force);
 
         //set the powerup states
