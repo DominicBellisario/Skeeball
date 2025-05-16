@@ -29,7 +29,7 @@ public class TextCollectEffect : MonoBehaviour
 
     string functionToCall;
 
-    public void SetValuesAndStart(Camera _cam, Vector3 _worldStartPoint, Vector3 _screenEndPoint, float _verticalOffset, string _text, string _functionToCall)
+    public void SetValuesAndStart(Camera _cam, Vector3 _worldStartPoint, Vector3 _screenEndPoint, float _verticalOffset, Color _textColor, string _text, string _functionToCall)
     {
         cam = _cam;
         functionToCall = _functionToCall;
@@ -41,6 +41,9 @@ public class TextCollectEffect : MonoBehaviour
 
         //set text
         textMesh.text = _text;
+
+        //set color
+        textMesh.color = _textColor;
 
         //set its position
         rectTransform.anchoredPosition = startPoint;

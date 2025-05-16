@@ -1,4 +1,6 @@
 using System.Linq;
+using System.Runtime.CompilerServices;
+using UnityEditor.Timeline;
 using UnityEngine;
 
 public abstract class ObjectLevelInteractions : MonoBehaviour
@@ -136,7 +138,7 @@ public abstract class ObjectLevelInteractions : MonoBehaviour
         //if the object is fully within a hole
         if (trigger.gameObject.CompareTag("HoleActivateTrigger"))
         {
-            bool gold = false;
+            Color color = Color.white;
             //get the hole's value
             int points = trigger.GetComponentInParent<HoleVariables>().Points;
 
@@ -150,27 +152,32 @@ public abstract class ObjectLevelInteractions : MonoBehaviour
             if (Manager.Instance.ActivatedMultiHoles.Contains(trigger.gameObject.GetComponentInParent<HoleVariables>().gameObject))
             {
                 Manager.Instance.UpdateMultiplier(Manager.Instance.MultiplierIncreaseAmt);
-                Manager.Instance.SpawnTextEffect(transform.position, LevelUILogic.Instance.MultiplierTextPos, -300, LevelUILogic.Instance.gameObject, Manager.Instance.MultiplierIncreaseAmt.ToString(), "UpdateMultiplier");
+                Manager.Instance.SpawnTextEffect(transform.position, LevelUILogic.Instance.MultiplierTextPos, -300, LevelUILogic.Instance.gameObject, color, Manager.Instance.MultiplierIncreaseAmt.ToString(), "UpdateMultiplier");
             }
 
             //x2 points if gold ball
             if (GetComponent<ObjectEffects>().GoldBallEnabled)
             {
                 points *= 2;
-                gold = true;
+                color = Color.yellow;
+            }
+            //text is red if the object was marked
+            if (GetComponent<ObjectEffects>().MarkedBallEnabled)
+            {
+                color = Color.red;
             }
 
             //add points to point count
             Manager.Instance.UpdateScore(points);
-            Manager.Instance.SpawnTextEffect(transform.position, LevelUILogic.Instance.ScoreTextPos, 0, LevelUILogic.Instance.gameObject, points.ToString(), "UpdateScore");
+            Manager.Instance.SpawnTextEffect(transform.position, LevelUILogic.Instance.ScoreTextPos, 0, LevelUILogic.Instance.gameObject, color, points.ToString(), "UpdateScore");
             if (Manager.Instance.Endless)
             {
                 Manager.Instance.UpdateTotalScore(points);
-                Manager.Instance.SpawnTextEffect(transform.position, LevelUILogic.Instance.TotalScoreTextPos, -150, LevelUILogic.Instance.gameObject, Mathf.RoundToInt(points * Manager.Instance.Multiplier).ToString(), "UpdateTotalScore");
+                Manager.Instance.SpawnTextEffect(transform.position, LevelUILogic.Instance.TotalScoreTextPos, -150, LevelUILogic.Instance.gameObject, color, Mathf.RoundToInt(points * Manager.Instance.Multiplier).ToString(), "UpdateTotalScore");
             }
 
-            //spawn hole text and ring
-            trigger.gameObject.GetComponentInParent<HoleVariables>().SpawnHoleEffects(gold, transform.position);
+            //spawn hole ring
+            trigger.gameObject.GetComponentInParent<HoleVariables>().SpawnHoleEffects(color);
 
             //if the object was marked, double the hole's point value and make it glow
             if (GetComponent<ObjectEffects>().MarkedBallEnabled)

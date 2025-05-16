@@ -79,23 +79,15 @@ public class HoleVariables : MonoBehaviour
         holeRimMesh.material = color[materialIndex];
     }
 
-    public void SpawnHoleEffects(bool isGold, Vector3 ballPos)
+    public void SpawnHoleEffects(Color particleColor)
     {
-        /*
-        //spawn hole text
-        int shownPoints = points;
-        GameObject newHoleText = Instantiate(holeText);
-        newHoleText.transform.position = ballPos += transform.up;
-        if (isGold) { shownPoints *= 2; }
-        newHoleText.GetComponent<HoleText>().SetText(Mathf.RoundToInt(shownPoints * Manager.Instance.Multiplier).ToString());
-        newHoleText.GetComponent<HoleText>().SetColor(isGold, !(startingPoints == points));
-        */
         //spawn ring particle
         ParticleSystem newParticles = Instantiate(holeScoreParticles);
         newParticles.gameObject.transform.parent = transform;
         newParticles.gameObject.transform.position = transform.position;
         newParticles.startRotation3D = transform.rotation.eulerAngles * Mathf.Deg2Rad;
         newParticles.startSize *= transform.localScale.x;
+        newParticles.startColor = particleColor;
         newParticles.Play();
 
         //pulse cylinder if it is not a ring hole
