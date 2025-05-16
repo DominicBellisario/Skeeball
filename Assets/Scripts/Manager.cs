@@ -541,7 +541,6 @@ public class Manager : MonoBehaviour
     {
         yield return new WaitForSeconds(timeBetweenObjects);
         SpawnNewObject(ballPrefab, objectSpawnPos.transform.position, Vector3.zero, false, false, false);
-        UpdateObjects(-1);
         //switch to main camera view
         SwitchCameraView(0);
         //if in endless mode

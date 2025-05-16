@@ -107,11 +107,14 @@ public abstract class ObjectControls : MonoBehaviour
                 else
                 {
                     LaunchObject();
-                    //Time.timeScale = 0.1f;
+                    Time.timeScale = 0.1f;
                     isLaunched = true;
                     objectLevelInteractions.IsLaunched = true;
 
                     effects.ResetParticleTrail();
+
+                    //decrease the number of objects remaining
+                    Manager.Instance.UpdateObjects(-1);
 
                     //use powerups if they were applied to the ball
                     if (effects.GoldBallEnabled)

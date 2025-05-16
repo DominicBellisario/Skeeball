@@ -9,7 +9,7 @@ public class BeanbagControls : ObjectControls
 
     public Vector3 PredictVelocity(float _angle)
     {
-        return new Vector3(-powerPercent * Mathf.Sin(_angle) * forceMultiplyer / 7, powerPercent * heightMultipliter / 7, -powerPercent * Mathf.Cos(_angle) * forceMultiplyer / 7);
+        return new Vector3(-powerPercent * Mathf.Sin(_angle) * forceMultiplyer / 6.85f, powerPercent * heightMultipliter / 6.85f, -powerPercent * Mathf.Cos(_angle) * forceMultiplyer / 6.85f);
     }
 
     /// <summary>
