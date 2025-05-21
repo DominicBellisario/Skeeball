@@ -177,6 +177,11 @@ public abstract class ObjectEffects : MonoBehaviour
         rightTriBall.GetComponent<MeshRenderer>().materials = materials;
     }
 
+    /// <summary>
+    /// spawns particles at the balls position and changes their color
+    /// </summary>
+    /// <param name="particles"></param>
+    /// <param name="color"></param>
     private void SpawnParticles(ParticleSystem particles, Color color)
     {
         ParticleSystem newParticles = Instantiate(particles);
