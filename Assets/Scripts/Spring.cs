@@ -16,7 +16,7 @@ public class Spring : MonoBehaviour
         springBoard.transform.position += transform.up * 0.5f;
         pole.transform.position += transform.up * 0.5f;
         springBoard.GetComponent<BoxCollider>().enabled = false;
-        pole.SetActive(true);
+        //pole.SetActive(true);
         StartCoroutine(DeactivateSpring());
     }
 
@@ -26,6 +26,6 @@ public class Spring : MonoBehaviour
         springBoard.transform.position -= transform.up * 0.5f;
         pole.transform.position -= transform.up * 0.5f;
         springBoard.GetComponent<BoxCollider>().enabled = true;
-        pole.SetActive(false);
+        //pole.SetActive(false);
     }
 }
