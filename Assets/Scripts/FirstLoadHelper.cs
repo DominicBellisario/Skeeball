@@ -6,6 +6,7 @@ public class FirstLoadHelper : MonoBehaviour
 {
     void Awake()
     {
+        PlayerPrefs.GetInt("unlockSecret_0", 1);
         for (int i = 1; i <= Manager.Instance.NumberOfLevels; i++)
         {
             //all levels but the 1st one start out locked 

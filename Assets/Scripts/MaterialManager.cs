@@ -83,6 +83,6 @@ public class MaterialManager : MonoBehaviour
 
     public Material[] GetBallMaterialSet(int materialNumber)
     {
-        return new Material[] { ballNormalMaterials[materialNumber - 1], ballGoldMaterials[materialNumber - 1] };
+        return new Material[] { ballNormalMaterials[materialNumber], ballGoldMaterials[materialNumber] };
     }
 }

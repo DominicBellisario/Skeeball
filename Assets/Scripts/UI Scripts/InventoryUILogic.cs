@@ -48,26 +48,26 @@ public class InventoryUILogic : MonoBehaviour
         skinSphere.GetComponent<MeshRenderer>().material = MaterialManager.Instance.GetBallMaterialSet(selectedButtonIndex)[0];
 
         //look at each button
-        for (int i = 1; i <= Manager.Instance.NumberOfLevels; i++)
+        for (int i = 0; i <= Manager.Instance.NumberOfLevels; i++)
         {
             //deactive locked buttons and make their sphere black
-            if (PlayerPrefs.GetInt("unlockSecret_" + i) == 0 && i != 1)
+            if (PlayerPrefs.GetInt("unlockSecret_" + i) == 0)
             {
-                buttons[i - 1].GetComponentInChildren<MeshRenderer>().material = MaterialManager.Instance.PitchBlack;
-                buttons[i - 1].colors = normalColors;
-                buttons[i - 1].enabled = false;
+                buttons[i].GetComponentInChildren<MeshRenderer>().material = MaterialManager.Instance.PitchBlack;
+                buttons[i].colors = normalColors;
+                buttons[i].enabled = false;
             }
             //activate unlocked buttons and make their sphere the color of the skin
             else
             {
-                buttons[i - 1].GetComponentInChildren<MeshRenderer>().material = MaterialManager.Instance.GetBallMaterialSet(i)[0];
-                buttons[i - 1].colors = secretColors;
-                buttons[i - 1].enabled = true;
+                buttons[i].GetComponentInChildren<MeshRenderer>().material = MaterialManager.Instance.GetBallMaterialSet(i)[0];
+                buttons[i].colors = secretColors;
+                buttons[i].enabled = true;
             }
             //make the selected button color selectedColor
             if (i == selectedButtonIndex)
             {
-                buttons[i - 1].colors = selectedColors;
+                buttons[i].colors = selectedColors;
             }
         }
     }
