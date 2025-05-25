@@ -26,7 +26,6 @@ public class MaterialManager : MonoBehaviour
     public static MaterialManager Instance { get; private set; }
     public Material PitchBlack { get { return pitchBlack; } }
 
-    // Start is called before the first frame update
     void Awake()
     {
         //create singleton instance

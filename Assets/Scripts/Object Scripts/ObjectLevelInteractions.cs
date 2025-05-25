@@ -56,6 +56,12 @@ public abstract class ObjectLevelInteractions : MonoBehaviour
             Manager.Instance.DestroyObject(gameObject);
         }
 
+        else if (trigger.gameObject.CompareTag("Surface"))
+        {
+            //if the objects hits a surface, play a sound
+            SoundManager.Instance.PlaySound(0);
+        }
+
         //if the object hits a powerup, destroy it and add it to the inventory
         else if (trigger.gameObject.CompareTag("GoldenBallPowerup"))
         {
