@@ -74,6 +74,16 @@ public class HoleVariables : MonoBehaviour
         else if (startingPoints == 100) { ChangeMaterial(goldMaterials, 2); }
     }
 
+    public void PlayHoleSound()
+    {
+        if (startingPoints == 10) { SoundManager.Instance.PlaySound(1); }
+        else if (startingPoints == 20) { SoundManager.Instance.PlaySound(2); }
+        else if (startingPoints == 30) { SoundManager.Instance.PlaySound(3); }
+        else if (startingPoints == 50) { SoundManager.Instance.PlaySound(4); }
+        else if (startingPoints == 100) { SoundManager.Instance.PlaySound(5); }
+        else if (startingPoints < 0) { SoundManager.Instance.PlaySound(7); }
+    }
+
     private void ChangeMaterial(Material[] color, int materialIndex)
     {
         holeRimMesh.material = color[materialIndex];

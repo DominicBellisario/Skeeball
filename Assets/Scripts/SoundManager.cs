@@ -24,13 +24,17 @@ public class SoundManager : MonoBehaviour
     }
 
     // plays a sound at the camera's position
-    public void PlaySound(int index, float volume = 1.0f)
+    public void PlaySound(int index, float volume = 1.0f, float pitch = 1.0f)
     {
         if (index < 0 || index >= sounds.Length)
         {
             Debug.LogWarning("Sound index out of range: " + index);
             return;
         }
-        GetComponent<AudioSource>().PlayOneShot(sounds[index], volume);
+        AudioSource audioSource = GetComponent<AudioSource>();
+        audioSource.clip = sounds[index];
+        audioSource.volume = volume;
+        audioSource.pitch = pitch;
+        audioSource.Play();
     }
 }

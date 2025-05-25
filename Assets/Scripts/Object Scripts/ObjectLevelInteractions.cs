@@ -56,12 +56,6 @@ public abstract class ObjectLevelInteractions : MonoBehaviour
             Manager.Instance.DestroyObject(gameObject);
         }
 
-        else if (trigger.gameObject.CompareTag("Surface"))
-        {
-            //if the objects hits a surface, play a sound
-            SoundManager.Instance.PlaySound(0);
-        }
-
         //if the object hits a powerup, destroy it and add it to the inventory
         else if (trigger.gameObject.CompareTag("GoldenBallPowerup"))
         {
@@ -117,17 +111,6 @@ public abstract class ObjectLevelInteractions : MonoBehaviour
             rb.AddForce(trigger.gameObject.transform.up * trigger.gameObject.GetComponentInParent<Spring>().ForceMultiplier);
             trigger.gameObject.GetComponentInParent<Spring>().ActivateSpring();
         }
-        /*
-        //if the object hits a ramp, launch it in the direction the ramp is facing
-        else if (trigger.gameObject.CompareTag("Ramp"))
-        {
-            Debug.Log(rb.velocity);
-            Vector3 startVelocity = rb.velocity;
-            rb.velocity = Vector3.zero;
-            rb.velocity = trigger.gameObject.transform.localRotation.eulerAngles.normalized * startVelocity.magnitude;
-            Debug.Log(trigger.gameObject.transform.forward * startVelocity.magnitude);
-        }
-        */
     }
 
     private void OnTriggerStay(Collider other)
@@ -196,6 +179,9 @@ public abstract class ObjectLevelInteractions : MonoBehaviour
             {
                 Manager.Instance.DestroyObject(gameObject);
             }
+
+            //play the hole sound corrisponding to the hole's color
+            trigger.gameObject.GetComponentInParent<HoleVariables>().PlayHoleSound();
         }
         //if the object is fully within a star hole
         if (trigger.gameObject.CompareTag("StarHoleActivateTrigger"))

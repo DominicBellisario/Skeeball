@@ -1,3 +1,5 @@
+using System.Xml.Serialization;
+using UnityEditor.ShaderGraph.Internal;
 using UnityEngine;
 
 public abstract class ObjectControls : MonoBehaviour
@@ -34,6 +36,9 @@ public abstract class ObjectControls : MonoBehaviour
 
     [SerializeField] protected float triBallAngle;
     protected float triBallAngleRads;
+
+    //the modulo amount for when the wind up sound is played compared to the power percent;
+    [SerializeField] protected float windUpSoundIncrements;
 
     //properties
 
@@ -74,6 +79,9 @@ public abstract class ObjectControls : MonoBehaviour
             //get the angle between the pixel origin and current mouse pos
             angle = Mathf.Atan2(Input.mousePosition.x - objectPixelOrigin.x, Input.mousePosition.y - objectPixelOrigin.y);
 
+            //get the power percent from last frame
+            float prevPowerPercent = powerPercent;
+
             //get the percentage of max force that will be applied to the object upon release
             powerPercent = Vector2.Distance(objectPixelOrigin, Input.mousePosition) / pixelAimingCircleRadius;
             if (powerPercent > 1)
@@ -87,6 +95,17 @@ public abstract class ObjectControls : MonoBehaviour
                 objectOrigin.y,
                 objectOrigin.z + (Mathf.Cos(angle) * aimingCircleRadius * powerPercent)
                 );
+
+            //if the power percent reaches specific points, play a sound
+            for (float i = 0f; i <= 1f; i += windUpSoundIncrements)
+            {
+                if ((powerPercent >= i && prevPowerPercent < i) || (powerPercent < i && prevPowerPercent >= i))
+                {
+                    //change its pitch based on the power percent
+                    SoundManager.Instance.PlaySound(0, 1, (powerPercent * 0.5f) + 0.75f);
+                    break;
+                }
+            }
         }
 
         //if the player releases the mouse
