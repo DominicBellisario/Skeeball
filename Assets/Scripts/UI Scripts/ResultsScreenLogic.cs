@@ -24,21 +24,27 @@ public class ResultsScreenLogic : MonoBehaviour
             restartButton.SetActive(false);
         }
         //check how the player did
-        //tell the player they epic win and (later), give them an unlock
+        //tell the player they epic win
         if (Manager.Instance.Score >= Manager.Instance.SecretScore)
         {
             resultsText.text = "You Win but EPIC!";
+            //play epic win sound
+            SoundManager.Instance.PlaySound(14);
         }
         //tell the player they won
         else if (Manager.Instance.Score >= Manager.Instance.MinScore)
         {
             resultsText.text = "You Win!";
+            //play win sound
+            SoundManager.Instance.PlaySound(13);
         }
         //tell the player they lost and disable next level option
         else
         {
             resultsText.text = "You Lose!";
             nextLevelButton.SetActive(false);
+            //play loss sound
+            SoundManager.Instance.PlaySound(12);
         }
 
         //show all the score stuff
