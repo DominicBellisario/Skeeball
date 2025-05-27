@@ -116,12 +116,22 @@ public abstract class ObjectEffects : MonoBehaviour
         if (goldBallEnabled)
         {
             materials[0] = goldBallMaterial;
-            if (buttonPressed) { SpawnParticles(activatePowerupParticles, Color.yellow); }
+            if (buttonPressed)
+            {
+                SpawnParticles(activatePowerupParticles, Color.yellow);
+                //play powerup activate sound
+                SoundManager.Instance.PlaySound(8);
+            }
         }
         else
         {
             materials[0] = defaultMaterial;
-            if (buttonPressed) { SpawnParticles(deactivatePowerupParticles, Color.yellow); }
+            if (buttonPressed)
+            {
+                SpawnParticles(deactivatePowerupParticles, Color.yellow);
+                //play powerup deactivate sound
+                SoundManager.Instance.PlaySound(9);
+            }
         }
         UpdateMaterials();
     }
@@ -131,12 +141,20 @@ public abstract class ObjectEffects : MonoBehaviour
         if (markedBallEnabled)
         {
             materials[1] = markedBallMaterial;
-            if (buttonPressed) { SpawnParticles(activatePowerupParticles, Color.red); }
+            if (buttonPressed)
+            {
+                SpawnParticles(activatePowerupParticles, Color.red);
+                SoundManager.Instance.PlaySound(8);
+            }
         }
         else
         {
             materials[1] = transMaterial;
-            if (buttonPressed) { SpawnParticles(deactivatePowerupParticles, Color.red); }
+            if (buttonPressed)
+            {
+                SpawnParticles(deactivatePowerupParticles, Color.red);
+                SoundManager.Instance.PlaySound(9);
+            }
         }
         UpdateMaterials();
     }
@@ -145,8 +163,16 @@ public abstract class ObjectEffects : MonoBehaviour
         triBallEnabled = !triBallEnabled;
         if (buttonPressed)
         {
-            if (triBallEnabled) { SpawnParticles(activatePowerupParticles, Color.blue); }
-            else { SpawnParticles(deactivatePowerupParticles, Color.blue); }
+            if (triBallEnabled)
+            {
+                SpawnParticles(activatePowerupParticles, Color.blue);
+                SoundManager.Instance.PlaySound(8);
+            }
+            else
+            {
+                SpawnParticles(deactivatePowerupParticles, Color.blue);
+                SoundManager.Instance.PlaySound(9);
+            }
         }
         //turns triball visual effects on or off
         leftTriBall.SetActive(triBallEnabled);
@@ -163,8 +189,16 @@ public abstract class ObjectEffects : MonoBehaviour
 
     public void ToggleLobBallEffects(bool enabled)
     {
-        if (enabled) { SpawnParticles(activatePowerupParticles, Color.green); }
-        else { SpawnParticles(deactivatePowerupParticles, Color.green); }
+        if (enabled)
+        {
+            SpawnParticles(activatePowerupParticles, Color.green);
+            SoundManager.Instance.PlaySound(8);
+        }
+        else
+        {
+            SpawnParticles(deactivatePowerupParticles, Color.green);
+            SoundManager.Instance.PlaySound(9);
+        }
     }
 
     /// <summary>
