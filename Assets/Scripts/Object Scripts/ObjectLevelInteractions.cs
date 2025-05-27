@@ -53,6 +53,9 @@ public abstract class ObjectLevelInteractions : MonoBehaviour
         //destroy the object if it hits the death plane
         else if (trigger.gameObject.CompareTag("DeathPlain"))
         {
+            //play death sound and spawn death particles
+            SoundManager.Instance.PlaySound(9);
+            GetComponent<ObjectEffects>().SpawnDeathParticles();
             Manager.Instance.DestroyObject(gameObject);
         }
 

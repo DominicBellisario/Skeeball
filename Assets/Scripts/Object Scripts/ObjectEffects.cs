@@ -16,6 +16,7 @@ public abstract class ObjectEffects : MonoBehaviour
     [SerializeField] protected GameObject particleTrail;
     [SerializeField] protected ParticleSystem activatePowerupParticles;
     [SerializeField] protected ParticleSystem deactivatePowerupParticles;
+    [SerializeField] protected ParticleSystem deathParticles;
 
     //the objects that appear when triball is active
     [SerializeField] protected GameObject leftTriBall;
@@ -118,7 +119,7 @@ public abstract class ObjectEffects : MonoBehaviour
             materials[0] = goldBallMaterial;
             if (buttonPressed)
             {
-                SpawnParticles(activatePowerupParticles, Color.yellow);
+                SpawnParticles(activatePowerupParticles, Color.yellow, transform);
                 //play powerup activate sound
                 SoundManager.Instance.PlaySound(8);
             }
@@ -128,7 +129,7 @@ public abstract class ObjectEffects : MonoBehaviour
             materials[0] = defaultMaterial;
             if (buttonPressed)
             {
-                SpawnParticles(deactivatePowerupParticles, Color.yellow);
+                SpawnParticles(deactivatePowerupParticles, Color.yellow, transform);
                 //play powerup deactivate sound
                 SoundManager.Instance.PlaySound(9);
             }
@@ -143,7 +144,7 @@ public abstract class ObjectEffects : MonoBehaviour
             materials[1] = markedBallMaterial;
             if (buttonPressed)
             {
-                SpawnParticles(activatePowerupParticles, Color.red);
+                SpawnParticles(activatePowerupParticles, Color.red, transform);
                 SoundManager.Instance.PlaySound(8);
             }
         }
@@ -152,7 +153,7 @@ public abstract class ObjectEffects : MonoBehaviour
             materials[1] = transMaterial;
             if (buttonPressed)
             {
-                SpawnParticles(deactivatePowerupParticles, Color.red);
+                SpawnParticles(deactivatePowerupParticles, Color.red, transform);
                 SoundManager.Instance.PlaySound(9);
             }
         }
@@ -165,12 +166,12 @@ public abstract class ObjectEffects : MonoBehaviour
         {
             if (triBallEnabled)
             {
-                SpawnParticles(activatePowerupParticles, Color.blue);
+                SpawnParticles(activatePowerupParticles, Color.blue, transform);
                 SoundManager.Instance.PlaySound(8);
             }
             else
             {
-                SpawnParticles(deactivatePowerupParticles, Color.blue);
+                SpawnParticles(deactivatePowerupParticles, Color.blue, transform);
                 SoundManager.Instance.PlaySound(9);
             }
         }
@@ -191,12 +192,12 @@ public abstract class ObjectEffects : MonoBehaviour
     {
         if (enabled)
         {
-            SpawnParticles(activatePowerupParticles, Color.green);
+            SpawnParticles(activatePowerupParticles, Color.green, transform);
             SoundManager.Instance.PlaySound(8);
         }
         else
         {
-            SpawnParticles(deactivatePowerupParticles, Color.green);
+            SpawnParticles(deactivatePowerupParticles, Color.green, transform);
             SoundManager.Instance.PlaySound(9);
         }
     }
@@ -216,14 +217,19 @@ public abstract class ObjectEffects : MonoBehaviour
     /// </summary>
     /// <param name="particles"></param>
     /// <param name="color"></param>
-    private void SpawnParticles(ParticleSystem particles, Color color)
+    private void SpawnParticles(ParticleSystem particles, Color color, Transform parent)
     {
         ParticleSystem newParticles = Instantiate(particles);
-        newParticles.gameObject.transform.parent = transform;
+        newParticles.gameObject.transform.parent = parent;
         newParticles.gameObject.transform.localScale = Vector3.one;
         newParticles.gameObject.transform.position = transform.position;
         newParticles.startColor = color;
         newParticles.Play();
+    }
+
+    public void SpawnDeathParticles()
+    {
+        SpawnParticles(deathParticles, Color.white, null);
     }
 
     //reset the material when the application closes

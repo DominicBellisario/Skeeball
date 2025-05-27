@@ -177,8 +177,6 @@ public class LevelUILogic : MonoBehaviour
             if (manager.LobBallPow > 0 && !manager.StartingObject.GetComponent<ObjectControls>().IsLaunched)
             {
                 manager.ToggleLobBall();
-                //play powerup activate sound
-                SoundManager.Instance.PlaySound(8);
             }
         }
     }
