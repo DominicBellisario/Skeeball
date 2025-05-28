@@ -34,6 +34,11 @@ public class InventoryUILogic : MonoBehaviour
                 if (i == page) { pages[i - 1].SetActive(true); }
                 else { pages[i - 1].SetActive(false); }
             }
+
+            //play high ui sound
+            if (change > 0) { SoundManager.Instance.PlayUISound(19); }
+            //play low ui sound
+            else { SoundManager.Instance.PlayUISound(20); }
         }
     }
 
@@ -50,7 +55,7 @@ public class InventoryUILogic : MonoBehaviour
         //look at each button
         for (int i = 0; i <= Manager.Instance.NumberOfLevels; i++)
         {
-            //deactive locked buttons and make their sphere black
+            //deactivate locked buttons and make their sphere black
             if (PlayerPrefs.GetInt("unlockSecret_" + i) == 0)
             {
                 buttons[i].GetComponentInChildren<MeshRenderer>().material = MaterialManager.Instance.PitchBlack;

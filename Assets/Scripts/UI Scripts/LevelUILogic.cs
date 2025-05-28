@@ -191,6 +191,9 @@ public class LevelUILogic : MonoBehaviour
         //disable the level ui event handler
         eventHandler.SetActive(false);
 
+        //play pause sound
+        SoundManager.Instance.PlaySound(4, 21);
+
         //pause the game
         Time.timeScale = 0.0f;
     }

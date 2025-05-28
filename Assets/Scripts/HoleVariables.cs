@@ -76,12 +76,12 @@ public class HoleVariables : MonoBehaviour
 
     public void PlayHoleSound()
     {
-        if (startingPoints == 10) { SoundManager.Instance.PlaySound(3, 1); }
-        else if (startingPoints == 20) { SoundManager.Instance.PlaySound(3, 2); }
-        else if (startingPoints == 30) { SoundManager.Instance.PlaySound(3, 3); }
-        else if (startingPoints == 50) { SoundManager.Instance.PlaySound(3, 4); }
-        else if (startingPoints == 100) { SoundManager.Instance.PlaySound(3, 5); }
-        else if (startingPoints < 0) { SoundManager.Instance.PlaySound(3, 7); }
+        if (startingPoints == 10) { SoundManager.Instance.PlaySound(2, 1); }
+        else if (startingPoints == 20) { SoundManager.Instance.PlaySound(2, 2); }
+        else if (startingPoints == 30) { SoundManager.Instance.PlaySound(2, 3); }
+        else if (startingPoints == 50) { SoundManager.Instance.PlaySound(2, 4); }
+        else if (startingPoints == 100) { SoundManager.Instance.PlaySound(2, 5); }
+        else if (startingPoints < 0) { SoundManager.Instance.PlaySound(2, 7); }
     }
 
     private void ChangeMaterial(Material[] color, int materialIndex)

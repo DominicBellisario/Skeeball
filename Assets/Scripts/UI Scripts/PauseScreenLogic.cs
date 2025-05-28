@@ -24,6 +24,8 @@ public class PauseScreenLogic : MonoBehaviour
     {
         StartCoroutine(EnableEventHandler());
         Time.timeScale = 1;
+        //play unpause sound
+        SoundManager.Instance.PlaySound(4, 22);
         SceneHandler.Instance.UnloadScene("PauseScreen");
     }
 
@@ -31,6 +33,8 @@ public class PauseScreenLogic : MonoBehaviour
     public void RestartLevel()
     {
         Time.timeScale = 1;
+        //play unpause sound
+        SoundManager.Instance.PlaySound(4, 22);
         SceneHandler.Instance.LoadLevel("L" + Manager.Instance.CurrentLevelNumber.ToString());
         SceneHandler.Instance.UnloadScene("PauseScreen");
         Manager.Instance.ResetValues();
@@ -40,6 +44,8 @@ public class PauseScreenLogic : MonoBehaviour
     public void LoadMainMenu()
     {
         Time.timeScale = 1;
+        //play main menu sound
+        SoundManager.Instance.PlaySound(4, 23);
         SceneHandler.Instance.LoadScene("HomeScreen");
         Manager.Instance.ResetValues();
         Manager.Instance.EndlessReset();

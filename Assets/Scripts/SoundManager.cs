@@ -39,4 +39,9 @@ public class SoundManager : MonoBehaviour
         audioSources[sourceIndex].pitch = pitch;
         audioSources[sourceIndex].Play();
     }
+
+    public void PlayUISound(int soundToPlay)
+    {
+        Instance.PlaySound(4, soundToPlay);
+    }
 }

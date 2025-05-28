@@ -44,8 +44,13 @@ public class LevelSelectUILogic : MonoBehaviour
             //deactivate all pages exept the current one
             for (int i = 1; i <= pages.Length; i++)
             {
-                if (i == page) {pages[i - 1].SetActive(true); }
+                if (i == page) { pages[i - 1].SetActive(true); }
                 else { pages[i - 1].SetActive(false); }
+
+                //play high ui sound
+                if (change > 0) { SoundManager.Instance.PlayUISound(19); }
+                //play low ui sound
+                else { SoundManager.Instance.PlayUISound(20); }
             }
         }
     }
