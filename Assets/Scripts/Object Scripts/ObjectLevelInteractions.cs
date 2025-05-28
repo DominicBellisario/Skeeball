@@ -113,6 +113,8 @@ public abstract class ObjectLevelInteractions : MonoBehaviour
             rb.velocity = Vector3.zero;
             rb.AddForce(trigger.gameObject.transform.up * trigger.gameObject.GetComponentInParent<Spring>().ForceMultiplier);
             trigger.gameObject.GetComponentInParent<Spring>().ActivateSpring();
+            //play spring sound
+            SoundManager.Instance.PlaySound(16 + Helper.Instance.RandomInt(0, 2));
         }
     }
 
