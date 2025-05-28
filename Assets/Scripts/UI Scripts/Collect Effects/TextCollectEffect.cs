@@ -82,7 +82,7 @@ public class TextCollectEffect : MonoBehaviour
         //update the function needed
         LevelUILogic.Instance.Invoke(functionToCall, 0);
         //play score update sound with a random pitch
-        SoundManager.Instance.PlaySound(3, 15, 0.75f, 0.75f + Helper.Instance.RandomInt(1, 50) * 0.01f);
+        SoundManager.Instance.PlaySound(3, 15, 1, 0.75f + Helper.Instance.RandomInt(1, 50) * 0.01f);
 
         //then, destroy it
         Destroy(gameObject);

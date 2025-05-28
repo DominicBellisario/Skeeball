@@ -133,7 +133,7 @@ public abstract class ObjectControls : MonoBehaviour
                     effects.ResetParticleTrail();
 
                     //play the launch sound at the correct volume
-                    SoundManager.Instance.PlaySound(0, 11, 0.5f + (powerPercent * 0.5f), 1);
+                    SoundManager.Instance.PlaySound(0, 11, 0.2f + (powerPercent * 0.8f), 1);
 
                     //decrease the number of objects remaining
                     Manager.Instance.UpdateObjects(-1);
