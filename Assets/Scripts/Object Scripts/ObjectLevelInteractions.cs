@@ -124,6 +124,11 @@ public abstract class ObjectLevelInteractions : MonoBehaviour
         if (other.gameObject.CompareTag("Fan"))
         {
             rb.AddForce(other.gameObject.transform.up * other.gameObject.GetComponent<FanVariables>().ForceMultiplier * Time.deltaTime);
+            //if the object hits a fan, start the fan sound
+            if (!SoundManager.Instance.SourceIsPlaying(6))
+            {
+                SoundManager.Instance.PlaySound(6, 25);
+            }
         }
     }
 

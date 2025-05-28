@@ -6,7 +6,7 @@ public class SoundManager : MonoBehaviour
 {
     [SerializeField] AudioClip[] sounds;
 
-    //0: general, 1: windup, 2: holes, 3: score, 4: UI, 5: music
+    //0: general, 1: windup, 2: holes, 3: score, 4: UI, 5: music, 6: fan
     [SerializeField] AudioSource[] audioSources;
 
     public static SoundManager Instance { get; private set; }
@@ -43,5 +43,10 @@ public class SoundManager : MonoBehaviour
     public void PlayUISound(int soundToPlay)
     {
         Instance.PlaySound(4, soundToPlay);
+    }
+
+    public bool SourceIsPlaying(int sourceIndex)
+    {
+        return audioSources[sourceIndex].isPlaying;
     }
 }
