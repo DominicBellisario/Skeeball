@@ -6,6 +6,9 @@ public class SoundManager : MonoBehaviour
 {
     [SerializeField] AudioClip[] sounds;
 
+    //0: general, 1: windup, 2: holes, 3: score, 4: UI, 5: music
+    [SerializeField] AudioSource[] audioSources;
+
     public static SoundManager Instance { get; private set; }
 
 
@@ -24,17 +27,16 @@ public class SoundManager : MonoBehaviour
     }
 
     // plays a sound at the camera's position
-    public void PlaySound(int index, float volume = 1.0f, float pitch = 1.0f)
+    public void PlaySound(int sourceIndex, int soundIndex, float volume = 1.0f, float pitch = 1.0f)
     {
-        if (index < 0 || index >= sounds.Length)
+        if (soundIndex < 0 || soundIndex >= sounds.Length)
         {
-            Debug.LogWarning("Sound index out of range: " + index);
+            Debug.LogWarning("Sound index out of range: " + soundIndex);
             return;
         }
-        AudioSource audioSource = GetComponent<AudioSource>();
-        audioSource.clip = sounds[index];
-        audioSource.volume = volume;
-        audioSource.pitch = pitch;
-        audioSource.Play();
+        audioSources[sourceIndex].clip = sounds[soundIndex];
+        audioSources[sourceIndex].volume = volume;
+        audioSources[sourceIndex].pitch = pitch;
+        audioSources[sourceIndex].Play();
     }
 }

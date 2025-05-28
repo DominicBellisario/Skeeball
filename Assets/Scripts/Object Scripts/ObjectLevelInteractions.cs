@@ -54,7 +54,7 @@ public abstract class ObjectLevelInteractions : MonoBehaviour
         else if (trigger.gameObject.CompareTag("DeathPlain"))
         {
             //play death sound and spawn death particles
-            SoundManager.Instance.PlaySound(10);
+            SoundManager.Instance.PlaySound(0, 10);
             GetComponent<ObjectEffects>().SpawnDeathParticles();
             Manager.Instance.DestroyObject(gameObject);
         }
@@ -114,7 +114,7 @@ public abstract class ObjectLevelInteractions : MonoBehaviour
             rb.AddForce(trigger.gameObject.transform.up * trigger.gameObject.GetComponentInParent<Spring>().ForceMultiplier);
             trigger.gameObject.GetComponentInParent<Spring>().ActivateSpring();
             //play spring sound
-            SoundManager.Instance.PlaySound(16 + Helper.Instance.RandomInt(0, 2));
+            SoundManager.Instance.PlaySound(0, 16 + Helper.Instance.RandomInt(0, 2));
         }
     }
 

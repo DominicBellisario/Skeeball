@@ -29,14 +29,14 @@ public class ResultsScreenLogic : MonoBehaviour
         {
             resultsText.text = "You Win but EPIC!";
             //play epic win sound
-            SoundManager.Instance.PlaySound(14);
+            SoundManager.Instance.PlaySound(5, 14);
         }
         //tell the player they won
         else if (Manager.Instance.Score >= Manager.Instance.MinScore)
         {
             resultsText.text = "You Win!";
             //play win sound
-            SoundManager.Instance.PlaySound(13);
+            SoundManager.Instance.PlaySound(5, 13);
         }
         //tell the player they lost and disable next level option
         else
@@ -44,7 +44,7 @@ public class ResultsScreenLogic : MonoBehaviour
             resultsText.text = "You Lose!";
             nextLevelButton.SetActive(false);
             //play loss sound
-            SoundManager.Instance.PlaySound(12);
+            SoundManager.Instance.PlaySound(5, 12);
         }
 
         //show all the score stuff

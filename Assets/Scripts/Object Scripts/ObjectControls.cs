@@ -102,7 +102,7 @@ public abstract class ObjectControls : MonoBehaviour
                 if ((powerPercent >= i && prevPowerPercent < i) || (powerPercent < i && prevPowerPercent >= i))
                 {
                     //change its pitch based on the power percent
-                    SoundManager.Instance.PlaySound(0, 1, (powerPercent * 0.5f) + 0.75f);
+                    SoundManager.Instance.PlaySound(1, 0, 1, (powerPercent * 0.5f) + 0.75f);
                     break;
                 }
             }
@@ -133,7 +133,7 @@ public abstract class ObjectControls : MonoBehaviour
                     effects.ResetParticleTrail();
 
                     //play the launch sound at the correct volume
-                    SoundManager.Instance.PlaySound(11, 0.5f + (powerPercent * 0.5f), 1);
+                    SoundManager.Instance.PlaySound(0, 11, 0.5f + (powerPercent * 0.5f), 1);
 
                     //decrease the number of objects remaining
                     Manager.Instance.UpdateObjects(-1);
