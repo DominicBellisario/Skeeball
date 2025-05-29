@@ -84,10 +84,18 @@ public class ImageCollectEffect : MonoBehaviour
             rb.bodyType = RigidbodyType2D.Dynamic;
             rb.AddForce(bounceOffForce);
 
+            //play bounce-off sound
+            SoundManager.Instance.PlaySound(3, 31, 0.5f, 1f);
+
             //after a bit, destroy it
             yield return new WaitForSeconds(4);
             Destroy(gameObject);
         }
-        else { Destroy(gameObject); }
+        else
+        {
+            //play powerup update sound with a random pitch
+            SoundManager.Instance.PlaySound(3, 15, 1, 0.75f + Helper.Instance.RandomInt(1, 50) * 0.01f);
+            Destroy(gameObject);
+        }
     }
 }

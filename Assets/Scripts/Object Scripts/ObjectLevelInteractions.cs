@@ -68,6 +68,9 @@ public abstract class ObjectLevelInteractions : MonoBehaviour
             bool alreadyAtMax = Manager.Instance.UpdatePowerup(ref Manager.Instance.goldBallPow, 1);
             Manager.Instance.SpawnCollectEffect(trigger.gameObject.transform.position, endPos, LevelUILogic.Instance.gameObject, 1, alreadyAtMax, "UpdateGoldBall");
 
+            //play sound
+            SoundManager.Instance.PlaySound(7, 8);
+
             Destroy(trigger.gameObject);
         }
         else if (trigger.gameObject.CompareTag("MarkedBallPowerup"))
@@ -77,6 +80,10 @@ public abstract class ObjectLevelInteractions : MonoBehaviour
 
             bool alreadyAtMax = Manager.Instance.UpdatePowerup(ref Manager.Instance.markedBallPow, 1);
             Manager.Instance.SpawnCollectEffect(trigger.gameObject.transform.position, endPos, LevelUILogic.Instance.gameObject, 2, alreadyAtMax, "UpdateMarkedBall");
+
+            //play sound
+            SoundManager.Instance.PlaySound(7, 8);
+
             Destroy(trigger.gameObject);
         }
         else if (trigger.gameObject.CompareTag("TriBallPowerup"))
@@ -86,6 +93,9 @@ public abstract class ObjectLevelInteractions : MonoBehaviour
 
             bool alreadyAtMax = Manager.Instance.UpdatePowerup(ref Manager.Instance.triBallPow, 1);
             Manager.Instance.SpawnCollectEffect(trigger.gameObject.transform.position, endPos, LevelUILogic.Instance.gameObject, 3, alreadyAtMax, "UpdateTriBall");
+
+            //play sound
+            SoundManager.Instance.PlaySound(7, 8);
 
             Destroy(trigger.gameObject);
         }
@@ -97,12 +107,19 @@ public abstract class ObjectLevelInteractions : MonoBehaviour
             bool alreadyAtMax = Manager.Instance.UpdatePowerup(ref Manager.Instance.lobBallPow, 1);
             Manager.Instance.SpawnCollectEffect(trigger.gameObject.transform.position, endPos, LevelUILogic.Instance.gameObject, 4, alreadyAtMax, "UpdateLobBall");
 
+            //play sound
+            SoundManager.Instance.PlaySound(7, 8);
+
             Destroy(trigger.gameObject);
         }
         else if (trigger.gameObject.CompareTag("2BallPowerup"))
         {
             Manager.Instance.UpdateObjects(2);
             Manager.Instance.SpawnCollectEffect(trigger.gameObject.transform.position, LevelUILogic.Instance.BallsTextPos, LevelUILogic.Instance.gameObject, 5, false, "UpdateBalls");
+
+            //play sound
+            SoundManager.Instance.PlaySound(7, 29);
+
             Destroy(trigger.gameObject);
         }
 
@@ -168,14 +185,14 @@ public abstract class ObjectLevelInteractions : MonoBehaviour
                 points *= 2;
                 color = Color.yellow;
                 //play gold ball sound
-                SoundManager.Instance.PlaySound(7, 26);
+                SoundManager.Instance.PlaySound(7, 26, 0.7f, 1f);
             }
             //text is red if the object was marked
             if (GetComponent<ObjectEffects>().MarkedBallEnabled)
             {
                 color = Color.red;
                 //play marked ball sound
-                SoundManager.Instance.PlaySound(8, 27);
+                SoundManager.Instance.PlaySound(8, 27, 0.7f, 1f);
             }
 
             //add points to point count

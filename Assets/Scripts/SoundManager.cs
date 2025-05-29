@@ -6,7 +6,7 @@ public class SoundManager : MonoBehaviour
 {
     [SerializeField] AudioClip[] sounds;
 
-    //0: general, 1: windup, 2: holes, 3: score, 4: UI, 5: music, 6: fan, 7: gold, 8: marked, 9: lob
+    //0: general, 1: windup, 2: holes, 3: score, 4: UI, 5: music, 6: fan, 7: gold, 8: marked, 9: tri, 10: lob
     [SerializeField] AudioSource[] audioSources;
 
     public static SoundManager Instance { get; private set; }

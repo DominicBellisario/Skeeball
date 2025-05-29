@@ -9,7 +9,7 @@ public class BeanbagLevelInteractions : ObjectLevelInteractions
         //if the object is fully within a hole, play the beanbag sound
         if (trigger.gameObject.CompareTag("HoleActivateTrigger"))
         {
-            SoundManager.Instance.PlaySound(9, 28);
+            SoundManager.Instance.PlaySound(10, 28, 0.7f, 1f);
         }
     }
 }

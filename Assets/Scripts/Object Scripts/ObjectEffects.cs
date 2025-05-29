@@ -121,7 +121,7 @@ public abstract class ObjectEffects : MonoBehaviour
             {
                 SpawnParticles(activatePowerupParticles, Color.yellow, transform);
                 //play powerup activate sound
-                SoundManager.Instance.PlaySound(0, 8);
+                SoundManager.Instance.PlaySound(7, 26);
             }
         }
         else
@@ -131,7 +131,7 @@ public abstract class ObjectEffects : MonoBehaviour
             {
                 SpawnParticles(deactivatePowerupParticles, Color.yellow, transform);
                 //play powerup deactivate sound
-                SoundManager.Instance.PlaySound(0, 9);
+                SoundManager.Instance.PlaySound(7, 9);
             }
         }
         UpdateMaterials();
@@ -145,7 +145,7 @@ public abstract class ObjectEffects : MonoBehaviour
             if (buttonPressed)
             {
                 SpawnParticles(activatePowerupParticles, Color.red, transform);
-                SoundManager.Instance.PlaySound(0, 8);
+                SoundManager.Instance.PlaySound(8, 27);
             }
         }
         else
@@ -154,7 +154,7 @@ public abstract class ObjectEffects : MonoBehaviour
             if (buttonPressed)
             {
                 SpawnParticles(deactivatePowerupParticles, Color.red, transform);
-                SoundManager.Instance.PlaySound(0, 9);
+                SoundManager.Instance.PlaySound(8, 9);
             }
         }
         UpdateMaterials();
@@ -167,12 +167,12 @@ public abstract class ObjectEffects : MonoBehaviour
             if (triBallEnabled)
             {
                 SpawnParticles(activatePowerupParticles, Color.blue, transform);
-                SoundManager.Instance.PlaySound(0, 8);
+                SoundManager.Instance.PlaySound(9, 30);
             }
             else
             {
                 SpawnParticles(deactivatePowerupParticles, Color.blue, transform);
-                SoundManager.Instance.PlaySound(0, 9);
+                SoundManager.Instance.PlaySound(9, 9);
             }
         }
         //turns triball visual effects on or off
@@ -193,12 +193,12 @@ public abstract class ObjectEffects : MonoBehaviour
         if (enabled)
         {
             SpawnParticles(activatePowerupParticles, Color.green, transform);
-            SoundManager.Instance.PlaySound(0, 8);
+            SoundManager.Instance.PlaySound(10, 28, 1.5f, 1f);
         }
         else
         {
             SpawnParticles(deactivatePowerupParticles, Color.green, transform);
-            SoundManager.Instance.PlaySound(0, 9);
+            SoundManager.Instance.PlaySound(10, 9, 1.5f, 1f);
         }
     }
 
