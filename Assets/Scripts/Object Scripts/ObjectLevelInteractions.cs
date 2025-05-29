@@ -167,11 +167,15 @@ public abstract class ObjectLevelInteractions : MonoBehaviour
             {
                 points *= 2;
                 color = Color.yellow;
+                //play gold ball sound
+                SoundManager.Instance.PlaySound(7, 26);
             }
             //text is red if the object was marked
             if (GetComponent<ObjectEffects>().MarkedBallEnabled)
             {
                 color = Color.red;
+                //play marked ball sound
+                SoundManager.Instance.PlaySound(8, 27);
             }
 
             //add points to point count
