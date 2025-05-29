@@ -245,7 +245,7 @@ public class Manager : MonoBehaviour
         numberOfObjects = _startingNumberOfObjects;
         minScore = _minScore;
         secretScore = _secretScore;
-        
+
         //if normal mode
         if (!endless)
         {

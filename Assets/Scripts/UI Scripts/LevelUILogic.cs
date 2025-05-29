@@ -35,6 +35,8 @@ public class LevelUILogic : MonoBehaviour
     public Vector3 MarkedBallButtonPos { get { return markedBallButton.GetComponent<RectTransform>().anchoredPosition; } }
     public Vector3 TriBallButtonPos { get { return triBallButton.GetComponent<RectTransform>().anchoredPosition; } }
     public Vector3 LobBallButtonPos { get { return lobBallButton.GetComponent<RectTransform>().anchoredPosition; } }
+    public Vector3 PowerupButtonPos { get { return powerupButton.GetComponent<RectTransform>().anchoredPosition; } }
+    public bool ExpandedPowerupUI { get { return expandedPowerupUI; } }
 
     private void Awake()
     {

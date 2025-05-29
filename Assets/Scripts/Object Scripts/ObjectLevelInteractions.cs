@@ -62,32 +62,40 @@ public abstract class ObjectLevelInteractions : MonoBehaviour
         //if the object hits a powerup, destroy it and add it to the inventory
         else if (trigger.gameObject.CompareTag("GoldenBallPowerup"))
         {
+            Vector3 endPos = LevelUILogic.Instance.GoldBallButtonPos;
+            if (!LevelUILogic.Instance.ExpandedPowerupUI) { endPos = LevelUILogic.Instance.PowerupButtonPos; }
+
             bool alreadyAtMax = Manager.Instance.UpdatePowerup(ref Manager.Instance.goldBallPow, 1);
-            Manager.Instance.SpawnCollectEffect(trigger.gameObject.transform.position, LevelUILogic.Instance.GoldBallButtonPos, LevelUILogic.Instance.gameObject, 1, alreadyAtMax, "UpdateGoldBall");
-            //LevelUILogic.Instance.UpdatePowerups();
+            Manager.Instance.SpawnCollectEffect(trigger.gameObject.transform.position, endPos, LevelUILogic.Instance.gameObject, 1, alreadyAtMax, "UpdateGoldBall");
 
             Destroy(trigger.gameObject);
         }
         else if (trigger.gameObject.CompareTag("MarkedBallPowerup"))
         {
+            Vector3 endPos = LevelUILogic.Instance.MarkedBallButtonPos;
+            if (!LevelUILogic.Instance.ExpandedPowerupUI) { endPos = LevelUILogic.Instance.PowerupButtonPos; }
+
             bool alreadyAtMax = Manager.Instance.UpdatePowerup(ref Manager.Instance.markedBallPow, 1);
-            Manager.Instance.SpawnCollectEffect(trigger.gameObject.transform.position, LevelUILogic.Instance.MarkedBallButtonPos, LevelUILogic.Instance.gameObject, 2, alreadyAtMax, "UpdateMarkedBall");
-            //LevelUILogic.Instance.UpdatePowerups();
+            Manager.Instance.SpawnCollectEffect(trigger.gameObject.transform.position, endPos, LevelUILogic.Instance.gameObject, 2, alreadyAtMax, "UpdateMarkedBall");
             Destroy(trigger.gameObject);
         }
         else if (trigger.gameObject.CompareTag("TriBallPowerup"))
         {
+            Vector3 endPos = LevelUILogic.Instance.TriBallButtonPos;
+            if (!LevelUILogic.Instance.ExpandedPowerupUI) { endPos = LevelUILogic.Instance.PowerupButtonPos; }
+
             bool alreadyAtMax = Manager.Instance.UpdatePowerup(ref Manager.Instance.triBallPow, 1);
-            Manager.Instance.SpawnCollectEffect(trigger.gameObject.transform.position, LevelUILogic.Instance.TriBallButtonPos, LevelUILogic.Instance.gameObject, 3, alreadyAtMax, "UpdateTriBall");
-            //LevelUILogic.Instance.UpdatePowerups();
+            Manager.Instance.SpawnCollectEffect(trigger.gameObject.transform.position, endPos, LevelUILogic.Instance.gameObject, 3, alreadyAtMax, "UpdateTriBall");
 
             Destroy(trigger.gameObject);
         }
         else if (trigger.gameObject.CompareTag("LobBallPowerup"))
         {
+            Vector3 endPos = LevelUILogic.Instance.LobBallButtonPos;
+            if (!LevelUILogic.Instance.ExpandedPowerupUI) { endPos = LevelUILogic.Instance.PowerupButtonPos; }
+
             bool alreadyAtMax = Manager.Instance.UpdatePowerup(ref Manager.Instance.lobBallPow, 1);
-            Manager.Instance.SpawnCollectEffect(trigger.gameObject.transform.position, LevelUILogic.Instance.LobBallButtonPos, LevelUILogic.Instance.gameObject, 4, alreadyAtMax, "UpdateLobBall");
-            //LevelUILogic.Instance.UpdatePowerups();
+            Manager.Instance.SpawnCollectEffect(trigger.gameObject.transform.position, endPos, LevelUILogic.Instance.gameObject, 4, alreadyAtMax, "UpdateLobBall");
 
             Destroy(trigger.gameObject);
         }
