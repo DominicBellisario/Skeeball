@@ -10,9 +10,10 @@ public class InventoryUILogic : MonoBehaviour
     [SerializeField] GameObject skinSphere;
     [SerializeField] TextMeshProUGUI skinDescription;
     [SerializeField] Button[] buttons;
-    [SerializeField] ColorBlock normalColors;
-    [SerializeField] ColorBlock secretColors;
-    [SerializeField] ColorBlock selectedColors;
+
+    [SerializeField] Sprite normalSprite;
+    [SerializeField] Sprite secretSprite;
+    [SerializeField] Sprite selectedSprite;
     int page = 1;
 
     // Start is called before the first frame update
@@ -59,20 +60,20 @@ public class InventoryUILogic : MonoBehaviour
             if (PlayerPrefs.GetInt("unlockSecret_" + i) == 0)
             {
                 buttons[i].GetComponentInChildren<MeshRenderer>().material = MaterialManager.Instance.PitchBlack;
-                buttons[i].colors = normalColors;
+                buttons[i].GetComponent<Image>().sprite = normalSprite;
                 buttons[i].enabled = false;
             }
             //activate unlocked buttons and make their sphere the color of the skin
             else
             {
                 buttons[i].GetComponentInChildren<MeshRenderer>().material = MaterialManager.Instance.GetBallMaterialSet(i)[0];
-                buttons[i].colors = secretColors;
+                buttons[i].GetComponent<Image>().sprite = secretSprite;
                 buttons[i].enabled = true;
             }
             //make the selected button color selectedColor
             if (i == selectedButtonIndex)
             {
-                buttons[i].colors = selectedColors;
+                buttons[i].GetComponent<Image>().sprite = selectedSprite;
             }
         }
     }

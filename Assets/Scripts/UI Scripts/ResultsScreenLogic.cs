@@ -1,8 +1,11 @@
 using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
 
 public class ResultsScreenLogic : MonoBehaviour
 {
+    [SerializeField] Image backgroundImage;
+
     [SerializeField] GameObject restartButton;
     //text that shows wether or not the player won
     [SerializeField] TextMeshProUGUI resultsText;
@@ -28,6 +31,9 @@ public class ResultsScreenLogic : MonoBehaviour
         if (Manager.Instance.Score >= Manager.Instance.SecretScore)
         {
             resultsText.text = "You Win but EPIC!";
+
+            //change the background to epic win color
+            backgroundImage.color = Color.yellow;
             //play epic win sound
             SoundManager.Instance.PlaySound(5, 14);
         }
@@ -35,6 +41,9 @@ public class ResultsScreenLogic : MonoBehaviour
         else if (Manager.Instance.Score >= Manager.Instance.MinScore)
         {
             resultsText.text = "You Win!";
+
+            //change the background to win color
+            backgroundImage.color = Color.white;
             //play win sound
             SoundManager.Instance.PlaySound(5, 13);
         }
@@ -43,6 +52,9 @@ public class ResultsScreenLogic : MonoBehaviour
         {
             resultsText.text = "You Lose!";
             nextLevelButton.SetActive(false);
+
+            //change the background to loss color   
+            backgroundImage.color = Color.red;
             //play loss sound
             SoundManager.Instance.PlaySound(5, 12);
         }

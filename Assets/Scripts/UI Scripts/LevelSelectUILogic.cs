@@ -8,8 +8,11 @@ public class LevelSelectUILogic : MonoBehaviour
 {
     [SerializeField] GameObject[] pages;
     [SerializeField] Button[] buttons;
-    [SerializeField] ColorBlock normalColors;
-    [SerializeField] ColorBlock secretColors;
+
+    [SerializeField] Sprite disabledSprite;
+    [SerializeField] Sprite normalSprite;
+    [SerializeField] Sprite secretSprite;
+
     int page = 1;
 
     // Start is called before the first frame update
@@ -17,19 +20,23 @@ public class LevelSelectUILogic : MonoBehaviour
     {
         for (int i = 0; i < Manager.Instance.NumberOfLevels; i++)
         {
+            //if the level is not unlocked, disable the button
             if (PlayerPrefs.GetInt("unlockLevel_" + (i + 1)) == 0)
             {
                 buttons[i].GetComponentInChildren<TextMeshProUGUI>().text = "X";
+                buttons[i].GetComponent<Image>().sprite = disabledSprite;
                 buttons[i].enabled = false;
             }
-
-            if (PlayerPrefs.GetInt("unlockSecret_" + (i + 1)) == 0)
-            {
-                buttons[i].colors = normalColors;
-            }
+            //level is unlocked
             else
             {
-                buttons[i].colors = secretColors;
+                buttons[i].GetComponent<Image>().sprite = normalSprite;
+            }
+
+            //secret is unlocked
+            if (PlayerPrefs.GetInt("unlockSecret_" + (i + 1)) == 1)
+            {
+                buttons[i].GetComponent<Image>().sprite = secretSprite;
             }
         }
     }
