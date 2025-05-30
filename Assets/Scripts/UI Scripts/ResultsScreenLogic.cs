@@ -48,9 +48,9 @@ public class ResultsScreenLogic : MonoBehaviour
         }
 
         //show all the score stuff
-        playerScoreText.text = "Your Score: " + Manager.Instance.Score;
-        minScoreText.text = "Min Score: " + Manager.Instance.MinScore;
-        secretScoreText.text = "Secret Score: " + Manager.Instance.SecretScore;
+        playerScoreText.text = Manager.Instance.Score.ToString();
+        minScoreText.text = Manager.Instance.MinScore.ToString();
+        secretScoreText.text = Manager.Instance.SecretScore.ToString();
     }
 
     //bring back the level ui and unpause
