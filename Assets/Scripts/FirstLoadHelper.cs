@@ -6,6 +6,7 @@ public class FirstLoadHelper : MonoBehaviour
 {
     void Awake()
     {
+        //GAME UNLOCKS
         PlayerPrefs.GetInt("unlockSecret_0", 1);
         for (int i = 1; i <= Manager.Instance.NumberOfLevels; i++)
         {
@@ -16,6 +17,10 @@ public class FirstLoadHelper : MonoBehaviour
         }
         PlayerPrefs.GetInt("selectedSkin", 1);
         PlayerPrefs.SetInt("unlockLevel_1", 1);
+
+        //SETTINGS
+        PlayerPrefs.GetFloat("masterVolume", 5f);
+        PlayerPrefs.GetInt("autoBallCam", 1);
         
         PlayerPrefs.Save();
     }
