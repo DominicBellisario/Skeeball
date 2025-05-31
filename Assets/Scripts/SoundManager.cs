@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System.Diagnostics;
 
 public class SoundManager : MonoBehaviour
 {
@@ -27,12 +26,6 @@ public class SoundManager : MonoBehaviour
         }
     }
 
-    void Start()
-    {
-        //set master volume from PlayerPrefs
-        //SetMasterVolume(PlayerPrefs.GetFloat("masterVolume"));
-    }
-
     public void SetMasterVolume(float volume)
     {
         PlayerPrefs.SetFloat("masterVolume", volume);
@@ -40,21 +33,18 @@ public class SoundManager : MonoBehaviour
 
         volume /= 10f;
         AudioListener.volume = volume;
-        UnityEngine.Debug.Log("yo");
+        // Play a sound to test the volume change
+        Instance.PlaySound(0, 3); 
     }
 
     // plays a sound at the camera's position
     public void PlaySound(int sourceIndex, int soundIndex, float volume = 1.0f, float pitch = 1.0f)
     {
-        if (soundIndex < 0 || soundIndex >= sounds.Length)
-        {
-            UnityEngine.Debug.LogWarning("Sound index out of range: " + soundIndex);
-            return;
-        }
         audioSources[sourceIndex].clip = sounds[soundIndex];
         audioSources[sourceIndex].volume = volume;
         audioSources[sourceIndex].pitch = pitch;
         audioSources[sourceIndex].Play();
+        Debug.Log("Playing sound: " + sounds[soundIndex].name + " from source: " + sourceIndex);
     }
 
     public void PlayUISound(int soundToPlay)
@@ -65,5 +55,10 @@ public class SoundManager : MonoBehaviour
     public bool SourceIsPlaying(int sourceIndex)
     {
         return audioSources[sourceIndex].isPlaying;
+    }
+
+    public void StopSound(int sourceIndex)
+    {
+        audioSources[sourceIndex].Pause();
     }
 }

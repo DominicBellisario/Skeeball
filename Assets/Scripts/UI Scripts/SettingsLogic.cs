@@ -12,6 +12,7 @@ public class SettingsLogic : MonoBehaviour
     {
         // Load settings from PlayerPrefs and apply them to the UI elements
         volumeSlider.value = PlayerPrefs.GetFloat("masterVolume");
+        SoundManager.Instance.StopSound(0);
         autoBallCamToggle.isOn = PlayerPrefs.GetInt("autoBallCam") == 1;
     }
 }
