@@ -16,7 +16,7 @@ public class Manager : MonoBehaviour
     /// <summary>
     /// when true, camera automaticaly switches to ball cam when launched
     /// </summary>
-    [SerializeField] bool switchCameraOnLaunch;
+    bool switchCameraOnLaunch;
     /// <summary>
     /// the time between the last active objects and a new spawn
     /// </summary>
@@ -166,7 +166,17 @@ public class Manager : MonoBehaviour
     public int SecretScore { get { return secretScore; } }
     public int CurrentCameraPos { get { return currentCameraPosition; } }
     public GameObject StartingObject { get { return startingObject; } }
-    public bool SwitchCameraOnLaunch { get { return switchCameraOnLaunch; } }
+    public bool SwitchCameraOnLaunch
+    {
+        get { return switchCameraOnLaunch; }
+        set
+        {
+            Instance.switchCameraOnLaunch = value;
+            PlayerPrefs.SetInt("autoBallCam", Instance.switchCameraOnLaunch ? 1 : 0);
+            Debug.Log(PlayerPrefs.GetInt("autoBallCam"));
+            PlayerPrefs.Save();
+        }
+    }
     public int GoldBallPow { get { return goldBallPow; } set { goldBallPow = value; } }
     public int MarkedBallPow { get { return markedBallPow; } set { markedBallPow = value; } }
     public int TriBallPow { get { return triBallPow; } set { triBallPow = value; } }
