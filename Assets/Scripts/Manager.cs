@@ -173,7 +173,6 @@ public class Manager : MonoBehaviour
         {
             Instance.switchCameraOnLaunch = value;
             PlayerPrefs.SetInt("autoBallCam", Instance.switchCameraOnLaunch ? 1 : 0);
-            Debug.Log(PlayerPrefs.GetInt("autoBallCam"));
             PlayerPrefs.Save();
         }
     }
@@ -219,6 +218,11 @@ public class Manager : MonoBehaviour
         }
         objects = new List<GameObject>();
         starHoleChance = startingStarHoleChance;
+    }
+
+    protected void Start()
+    {
+        switchCameraOnLaunch = PlayerPrefs.GetInt("autoBallCam") == 1;
     }
 
     public void Update()
@@ -695,6 +699,9 @@ public class Manager : MonoBehaviour
     /// </summary>
     public void SwitchCameraView(int activeCameraPosition)
     {
+        //stop any current camera lerp
+        StopAllCoroutines();
+
         //go to next cam position if a cam is not given
         if (activeCameraPosition == -1)
         {
@@ -711,13 +718,7 @@ public class Manager : MonoBehaviour
         }
 
         //lerp camera to the active positon
-        for (int i = 0; i < cameraPositions.Count; i++)
-        {
-            if (i == currentCameraPosition)
-            {
-                StartCoroutine(LerpCamera(cameraPositions[i].transform));
-            }
-        }
+        StartCoroutine(LerpCamera(cameraPositions[currentCameraPosition].transform));
         //update the UI
         LevelUILogic.Instance.UpdateCameraText(currentCameraPosition, cameraPositions.Count);
     }

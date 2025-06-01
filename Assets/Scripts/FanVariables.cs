@@ -12,8 +12,7 @@ public class FanVariables : MonoBehaviour
     {
         //set the particle lifetime.  they disapear once they reach the end of the fan's effect
         var main = ps.main;
-        main.startLifetime = ((GetComponent<BoxCollider>().size.y) * scale) / ps.main.startSpeed.constant;
-        Debug.Log(gameObject.transform.localScale.y);
+        main.startLifetime = GetComponent<BoxCollider>().size.y * scale / ps.main.startSpeed.constant;
         ps.Play();
     }
 }

@@ -71,7 +71,7 @@ public class ShopObject : MonoBehaviour
         {
             Manager.Instance.Coins -= price;
             Manager.Instance.StarHoleChanceUpgradesBought++;
-            Debug.Log(Manager.Instance.StarHoleChanceUpgradesBought);
+            //Debug.Log(Manager.Instance.StarHoleChanceUpgradesBought);
             shopManager.UpdateUI();
             SoldOut();
         }
