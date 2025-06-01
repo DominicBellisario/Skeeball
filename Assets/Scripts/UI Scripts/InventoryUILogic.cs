@@ -8,7 +8,9 @@ public class InventoryUILogic : MonoBehaviour
 {
     [SerializeField] GameObject[] pages;
     [SerializeField] GameObject skinSphere;
-    [SerializeField] TextMeshProUGUI skinDescription;
+    [SerializeField] TextMeshProUGUI skinNameText;
+    [SerializeField] TextMeshProUGUI skinDescriptionText;
+    [SerializeField] string[] skinDescriptions;
     [SerializeField] Button[] buttons;
 
     [SerializeField] Sprite normalSprite;
@@ -50,7 +52,9 @@ public class InventoryUILogic : MonoBehaviour
         PlayerPrefs.Save();
 
         //update the description and skin on the display sphere to the name and material of the selected skin
-        skinDescription.text = MaterialManager.Instance.GetBallMaterialSet(selectedButtonIndex)[0].name;
+        skinNameText.text = MaterialManager.Instance.GetBallMaterialSet(selectedButtonIndex)[0].name;
+        skinDescriptionText.text = skinDescriptions[selectedButtonIndex];
+
         skinSphere.GetComponent<MeshRenderer>().material = MaterialManager.Instance.GetBallMaterialSet(selectedButtonIndex)[0];
 
         //look at each button
