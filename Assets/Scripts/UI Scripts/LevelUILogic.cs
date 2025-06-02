@@ -210,6 +210,6 @@ public class LevelUILogic : MonoBehaviour
 
     public void UpdateCameraText(int activeCameraNum, int numOfCamerasInLevel)
     {
-        cameraText.text = "Switch Camera:\n\n" + (activeCameraNum + 1) + "/" + numOfCamerasInLevel;
+        cameraText.text = (activeCameraNum + 1).ToString() + "/" + numOfCamerasInLevel;
     }
 }
