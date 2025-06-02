@@ -8,6 +8,7 @@ public class LevelUILogic : MonoBehaviour
     [SerializeField] GameObject eventHandler;
 
     [SerializeField] TextMeshProUGUI scoreText;
+    [SerializeField] TextMeshProUGUI minScoreText;
     [SerializeField] TextMeshProUGUI ballsText;
     [SerializeField] TextMeshProUGUI cameraText;
 
@@ -26,11 +27,11 @@ public class LevelUILogic : MonoBehaviour
 
     public GameObject EventHandler { get { return eventHandler; } set { eventHandler = value; } }
     public static LevelUILogic Instance { get; private set; }
-    public Vector3 ScoreTextPos { get { return scoreText.GetComponent<RectTransform>().anchoredPosition; } }
+    public Vector3 ScoreTextPos { get { return scoreText.transform.parent.GetComponent<RectTransform>().anchoredPosition; } }
     public Vector3 TotalScoreTextPos { get { return totalScoreText.GetComponent<RectTransform>().anchoredPosition; } }
     public Vector3 MultiplierTextPos { get { return multiplierText.GetComponent<RectTransform>().anchoredPosition; } }
     public Vector3 CoinsTextPos { get { return coinsText.GetComponent<RectTransform>().anchoredPosition; } }
-    public Vector3 BallsTextPos { get { return ballsText.GetComponent<RectTransform>().anchoredPosition; } }
+    public Vector3 BallsTextPos { get { return ballsText.transform.parent.GetComponent<RectTransform>().anchoredPosition; } }
     public Vector3 GoldBallButtonPos { get { return goldBallButton.GetComponent<RectTransform>().anchoredPosition; } }
     public Vector3 MarkedBallButtonPos { get { return markedBallButton.GetComponent<RectTransform>().anchoredPosition; } }
     public Vector3 TriBallButtonPos { get { return triBallButton.GetComponent<RectTransform>().anchoredPosition; } }
@@ -71,7 +72,8 @@ public class LevelUILogic : MonoBehaviour
     /// </summary>
     public void UpdateScore()
     {
-        scoreText.text = "Score: " + Manager.Instance.Score + " / " + Manager.Instance.MinScore;
+        scoreText.text = Manager.Instance.Score.ToString();
+        minScoreText.text = Manager.Instance.MinScore.ToString();
     }
 
     /// <summary>
@@ -79,7 +81,7 @@ public class LevelUILogic : MonoBehaviour
     /// </summary>
     public void UpdateBalls()
     {
-        ballsText.text = "Balls: " + Manager.Instance.NumberOfObjects;
+        ballsText.text = Manager.Instance.NumberOfObjects.ToString();
     }
 
     public void UpdateGoldBall()
