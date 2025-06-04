@@ -14,7 +14,10 @@ public class LevelUILogic : MonoBehaviour
     [SerializeField] TextMeshProUGUI minScoreText;
     [SerializeField] RectTransform minColorSlider;
     [SerializeField] RectTransform secretColorSlider;
+    [SerializeField] Material goldUIMaterial;
     [SerializeField] float sliderLerpSpeed;
+    [SerializeField] ParticleSystem goldUIParticles;
+
     [SerializeField] TextMeshProUGUI ballsText;
     [SerializeField] TextMeshProUGUI cameraText;
 
@@ -98,7 +101,8 @@ public class LevelUILogic : MonoBehaviour
         if (secretPointPercentage >= 1)
         {
             secretPointPercentage = 1;
-            secretColorSlider.gameObject.GetComponent<Image>().color = new(1, 0.84f, 0); // gold color
+            secretColorSlider.gameObject.GetComponent<Image>().material = goldUIMaterial;
+            goldUIParticles.Play();
         }
 
         //move the color sliders to its new position
