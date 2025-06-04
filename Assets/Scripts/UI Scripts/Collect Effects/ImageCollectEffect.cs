@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -51,6 +52,9 @@ public class ImageCollectEffect : MonoBehaviour
         //set its position
         rectTransform.anchoredPosition = startPoint;
 
+        //resize it to fit in the smaller UI
+        rectTransform.localScale = Vector3.one;
+
         //begin the lerp after a bit
         StartCoroutine(WaitUntilLerp());
     }
@@ -58,19 +62,19 @@ public class ImageCollectEffect : MonoBehaviour
     private IEnumerator WaitUntilLerp()
     {
         yield return new WaitForSeconds(timeBeforeLerp);
-        if (bounceOff) { StartCoroutine(LerpToTarget(100)); }
-        else { StartCoroutine(LerpToTarget(1)); }
+        if (bounceOff) { StartCoroutine(LerpToTarget()); }
+        else { StartCoroutine(LerpToTarget()); }
         
     }
 
-    private IEnumerator LerpToTarget(float distanceBuffer)
+    private IEnumerator LerpToTarget()
     {
-        float startTime = Time.time;
+        float t = 0;
         //lerp to target
-        while (Vector3.Distance(rectTransform.anchoredPosition, endPoint) > distanceBuffer)
+        while (t < lerpTime)
         {
-            float t = (Time.time - startTime + 0.001f) / lerpTime;
-            rectTransform.anchoredPosition = new Vector2(Mathf.SmoothStep(startPoint.x, endPoint.x, t), Mathf.SmoothStep(startPoint.y, endPoint.y, t));
+            t += Time.deltaTime;
+            rectTransform.anchoredPosition = new Vector2(Mathf.SmoothStep(startPoint.x, endPoint.x, t / lerpTime), Mathf.SmoothStep(startPoint.y, endPoint.y, t / lerpTime));
             yield return new WaitForEndOfFrame();
         }
 

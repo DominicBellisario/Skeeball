@@ -117,7 +117,7 @@ public class LevelUILogic : MonoBehaviour
         //lerp the slider
         while (elapsedTime < 1f)
         {
-            slider.anchoredPosition = Vector2.Lerp(startPos, endPos, 1 - Mathf.Pow(1 - elapsedTime, 2));
+            slider.anchoredPosition = Vector2.Lerp(startPos, endPos, 1 - Mathf.Pow(1 - elapsedTime, 3));
             elapsedTime += Time.deltaTime / duration;
             yield return null;
         }

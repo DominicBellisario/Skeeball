@@ -43,7 +43,7 @@ public class ResultsScreenLogic : MonoBehaviour
             resultsText.text = "You Win!";
 
             //change the background to win color
-            backgroundImage.color = Color.white;
+            backgroundImage.color = Color.green;
             //play win sound
             SoundManager.Instance.PlaySound(5, 13);
         }

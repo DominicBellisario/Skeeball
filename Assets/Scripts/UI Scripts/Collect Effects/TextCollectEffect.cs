@@ -48,33 +48,37 @@ public class TextCollectEffect : MonoBehaviour
         //set its position
         rectTransform.anchoredPosition = startPoint;
 
+        //resize it to fit in the smaller UI
+        rectTransform.localScale = Vector3.one;
+
         //perform movements
         StartCoroutine(LerpToTarget());
     }
 
     private IEnumerator LerpToTarget()
     {
-        float startTime = Time.time;
         Vector3 currentEndPoint = startPoint + new Vector3(0, upDistance, 0);
+        float t = 0;
         //lerp up and fade in
-        while (Vector3.Distance(rectTransform.anchoredPosition, currentEndPoint) > 1)
+        while (t < lerpTime)
         {
-            float t = (Time.time - startTime) / lerpTime;
-            rectTransform.anchoredPosition = new Vector2(Mathf.Lerp(startPoint.x, currentEndPoint.x, t), Mathf.Lerp(startPoint.y, currentEndPoint.y, t));
+            t += Time.deltaTime;
+            rectTransform.anchoredPosition = new Vector2(Mathf.Lerp(startPoint.x, currentEndPoint.x, t / lerpTime), Mathf.Lerp(startPoint.y, currentEndPoint.y, t / lerpTime));
             textMesh.alpha = t * 2;
-            
+
             yield return new WaitForEndOfFrame();
         }
 
-        startTime = Time.time;
         startPoint = rectTransform.anchoredPosition;
         float startFontSize = textMesh.fontSize;
+        t = 0;
+
         //lerp to target and shrink
-        while (Vector3.Distance(rectTransform.anchoredPosition, endPoint) > 1)
+        while (t < lerpTime)
         {
-            float t = (Time.time - startTime) / lerpTime;
-            rectTransform.anchoredPosition = new Vector2(Mathf.SmoothStep(startPoint.x, endPoint.x, t), Mathf.SmoothStep(startPoint.y, endPoint.y, t));
-            textMesh.fontSize = startFontSize * (1 - t);
+            t += Time.deltaTime;
+            rectTransform.anchoredPosition = new Vector2(Mathf.SmoothStep(startPoint.x, endPoint.x, t / lerpTime), Mathf.SmoothStep(startPoint.y, endPoint.y, t / lerpTime));
+            textMesh.fontSize = startFontSize * (1 - t / lerpTime);
             yield return new WaitForEndOfFrame();
         }
 
