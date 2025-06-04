@@ -601,7 +601,7 @@ public class Manager : MonoBehaviour
     /// <returns></returns>
     private IEnumerator EndLevel()
     {
-        yield return new WaitForSeconds(timeBetweenObjects);
+        yield return new WaitForSeconds(timeBetweenObjects + 0.9f);
         //update level UI
         LevelUILogic.Instance.UpdateScore();
         LevelUILogic.Instance.UpdateTotalScore();
