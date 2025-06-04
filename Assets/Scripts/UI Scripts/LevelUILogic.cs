@@ -1,6 +1,8 @@
 using System.Collections;
 using TMPro;
+using UnityEditor.ShaderGraph.Internal;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class LevelUILogic : MonoBehaviour
 {
@@ -9,6 +11,8 @@ public class LevelUILogic : MonoBehaviour
 
     [SerializeField] TextMeshProUGUI scoreText;
     [SerializeField] TextMeshProUGUI minScoreText;
+    [SerializeField] RectTransform minColorSlider;
+    [SerializeField] RectTransform secretColorSlider;
     [SerializeField] TextMeshProUGUI ballsText;
     [SerializeField] TextMeshProUGUI cameraText;
 
@@ -24,6 +28,8 @@ public class LevelUILogic : MonoBehaviour
     [SerializeField] GameObject coinsText;
 
     bool expandedPowerupUI;
+
+    float pointContainerHeight;
 
     public GameObject EventHandler { get { return eventHandler; } set { eventHandler = value; } }
     public static LevelUILogic Instance { get; private set; }
@@ -43,16 +49,19 @@ public class LevelUILogic : MonoBehaviour
     {
         if (Instance != null && Instance != this) { Destroy(this); }
         else { Instance = this; }
+
+        expandedPowerupUI = false;
+        pointContainerHeight = scoreText.transform.parent.GetComponent<RectTransform>().sizeDelta.y;
     }
 
     private void Start()
     {
-        expandedPowerupUI = false;
-        //activate and update endless info if in endless mode
         UpdateGoldBall();
         UpdateMarkedBall();
         UpdateTriBall();
         UpdateLobBall();
+
+        //activate and update endless info if in endless mode
         if (Manager.Instance.Endless) { SetUpEndlessUI(); }
     }
 
@@ -68,12 +77,32 @@ public class LevelUILogic : MonoBehaviour
     }
 
     /// <summary>
-    /// refresh the score UI with new value
+    /// refresh the score UI
     /// </summary>
     public void UpdateScore()
     {
+        //update the score text
         scoreText.text = Manager.Instance.Score.ToString();
         minScoreText.text = Manager.Instance.MinScore.ToString();
+
+        //calculate where the sliders should move to
+        float pointPercentage = (float)Manager.Instance.Score / (float)Manager.Instance.MinScore;
+        float secretPointPercentage = (float)(Manager.Instance.Score - Manager.Instance.MinScore) / (float)(Manager.Instance.SecretScore - Manager.Instance.MinScore);
+        if (pointPercentage >= 1)
+        {
+            pointPercentage = 1;
+            minColorSlider.gameObject.GetComponent<Image>().color = Color.green;
+        }
+        if (secretPointPercentage >= 1)
+        {
+            secretPointPercentage = 1;
+            secretColorSlider.gameObject.GetComponent<Image>().color = new Color(1, 0.84f, 0); // gold color
+        }
+
+        Debug.Log("PP: " + pointPercentage + "    SPP: " + secretPointPercentage);
+        //move the color sliders to its new position
+        minColorSlider.anchoredPosition = new Vector2(minColorSlider.anchoredPosition.x, (pointContainerHeight * pointPercentage) - pointContainerHeight);
+        secretColorSlider.anchoredPosition = new Vector2(secretColorSlider.anchoredPosition.x, (pointContainerHeight * secretPointPercentage) - pointContainerHeight);
     }
 
     /// <summary>
@@ -82,6 +111,12 @@ public class LevelUILogic : MonoBehaviour
     public void UpdateBalls()
     {
         ballsText.text = Manager.Instance.NumberOfObjects.ToString();
+
+        Image ballsTextImage = ballsText.transform.parent.GetComponent<Image>();
+        // the background changes color depending on the number of balls remaining
+        if (Manager.Instance.NumberOfObjects > 2) { ballsTextImage.color = Color.green; }
+        else if (Manager.Instance.NumberOfObjects == 2) { ballsTextImage.color = Color.yellow; }
+        else { ballsTextImage.color = Color.red; }
     }
 
     public void UpdateGoldBall()
@@ -135,6 +170,10 @@ public class LevelUILogic : MonoBehaviour
         UpdateMarkedBall();
         UpdateTriBall();
         UpdateLobBall();
+
+        //play corrispnding sound
+        if (expandedPowerupUI) { SoundManager.Instance.PlaySound(4, 19); }
+        else { SoundManager.Instance.PlaySound(4, 20); }
     }
 
     public void ToggleGoldBallPowerup()
