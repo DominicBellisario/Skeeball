@@ -7,6 +7,7 @@ public class PauseScreenLogic : MonoBehaviour
 
     private void Start()
     {
+        Manager.Instance.IsPaused = true;
         //no restarting level for endless mode
         if (Manager.Instance.Endless)
         {
@@ -14,16 +15,13 @@ public class PauseScreenLogic : MonoBehaviour
         }
     }
 
-    IEnumerator EnableEventHandler()
-    {
-        yield return new WaitForEndOfFrame();
-        LevelUILogic.Instance.EventHandler.SetActive(true);
-    }
     //unpause, resume game without resetting
     public void ResumeGame()
     {
-        StartCoroutine(EnableEventHandler());
+        //enable level UI event handler after this scene is unloaded
+        LevelUILogic.Instance.StartCoroutine(LevelUILogic.Instance.EnableEventHandler());
         Time.timeScale = 1;
+        Manager.Instance.IsPaused = false;
         //play unpause sound
         SoundManager.Instance.PlaySound(4, 22);
         SceneHandler.Instance.UnloadScene("PauseScreen");
@@ -33,6 +31,7 @@ public class PauseScreenLogic : MonoBehaviour
     public void RestartLevel()
     {
         Time.timeScale = 1;
+        Manager.Instance.IsPaused = false;
         //play unpause sound
         SoundManager.Instance.PlaySound(4, 22);
         SceneHandler.Instance.LoadLevel("L" + Manager.Instance.CurrentLevelNumber.ToString());
@@ -44,6 +43,7 @@ public class PauseScreenLogic : MonoBehaviour
     public void LoadMainMenu()
     {
         Time.timeScale = 1;
+        Manager.Instance.IsPaused = false;
         //play main menu sound
         SoundManager.Instance.PlaySound(4, 23);
         SceneHandler.Instance.LoadScene("HomeScreen");

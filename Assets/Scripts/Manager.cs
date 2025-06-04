@@ -85,6 +85,11 @@ public class Manager : MonoBehaviour
     /// </summary>
     bool lobBallEnabled;
 
+    /// <summary>
+    /// wether or not the game is paused
+    /// </summary>
+    bool isPaused;
+
     //endless
     [SerializeField] int[] easyLevels;
     [SerializeField] int[] mediumLevels;
@@ -195,6 +200,7 @@ public class Manager : MonoBehaviour
     public int MaxPowerups { get { return maxPowerups; } }
     public List<GameObject> ActivatedMultiHoles { get { return activatedMultiHoles; } }
     public int StarHoleChanceUpgradesBought { get { return starHoleChanceUpgradesBought; } set { starHoleChanceUpgradesBought = value; } }
+    public bool IsPaused { get { return isPaused; } set { isPaused = value; } }
 
     protected virtual void Awake()
     {

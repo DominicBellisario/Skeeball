@@ -177,7 +177,7 @@ public abstract class ObjectControls : MonoBehaviour
     //if the player clicks the ball in the main camera view, they are holding it
     protected void OnMouseDown()
     {
-        if (Manager.Instance.CurrentCameraPos == 0)
+        if (Manager.Instance.CurrentCameraPos == 0 && !Manager.Instance.IsPaused)
         {
             isHeld = true;
         }

@@ -100,7 +100,7 @@ public class LevelUILogic : MonoBehaviour
             secretPointPercentage = 1;
             secretColorSlider.gameObject.GetComponent<Image>().color = new(1, 0.84f, 0); // gold color
         }
-        
+
         //move the color sliders to its new position
         StartCoroutine(LerpScoreSlider(minColorSlider, (pointContainerHeight * pointPercentage) - pointContainerHeight, sliderLerpSpeed));
         //minColorSlider.anchoredPosition = new Vector2(minColorSlider.anchoredPosition.x, (pointContainerHeight * pointPercentage) - pointContainerHeight);
@@ -271,5 +271,11 @@ public class LevelUILogic : MonoBehaviour
     public void UpdateCameraText(int activeCameraNum, int numOfCamerasInLevel)
     {
         cameraText.text = (activeCameraNum + 1).ToString() + "/" + numOfCamerasInLevel;
+    }
+    
+    public IEnumerator EnableEventHandler()
+    {
+        yield return new WaitForSeconds(0.1f);
+        EventHandler.SetActive(true);
     }
 }
