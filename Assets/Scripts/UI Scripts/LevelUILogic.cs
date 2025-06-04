@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using TMPro;
 using UnityEditor.ShaderGraph.Internal;
@@ -13,6 +14,7 @@ public class LevelUILogic : MonoBehaviour
     [SerializeField] TextMeshProUGUI minScoreText;
     [SerializeField] RectTransform minColorSlider;
     [SerializeField] RectTransform secretColorSlider;
+    [SerializeField] float sliderLerpSpeed;
     [SerializeField] TextMeshProUGUI ballsText;
     [SerializeField] TextMeshProUGUI cameraText;
 
@@ -96,13 +98,30 @@ public class LevelUILogic : MonoBehaviour
         if (secretPointPercentage >= 1)
         {
             secretPointPercentage = 1;
-            secretColorSlider.gameObject.GetComponent<Image>().color = new Color(1, 0.84f, 0); // gold color
+            secretColorSlider.gameObject.GetComponent<Image>().color = new(1, 0.84f, 0); // gold color
         }
-
-        Debug.Log("PP: " + pointPercentage + "    SPP: " + secretPointPercentage);
+        
         //move the color sliders to its new position
-        minColorSlider.anchoredPosition = new Vector2(minColorSlider.anchoredPosition.x, (pointContainerHeight * pointPercentage) - pointContainerHeight);
-        secretColorSlider.anchoredPosition = new Vector2(secretColorSlider.anchoredPosition.x, (pointContainerHeight * secretPointPercentage) - pointContainerHeight);
+        StartCoroutine(LerpScoreSlider(minColorSlider, (pointContainerHeight * pointPercentage) - pointContainerHeight, sliderLerpSpeed));
+        //minColorSlider.anchoredPosition = new Vector2(minColorSlider.anchoredPosition.x, (pointContainerHeight * pointPercentage) - pointContainerHeight);
+        StartCoroutine(LerpScoreSlider(secretColorSlider, (pointContainerHeight * secretPointPercentage) - pointContainerHeight, sliderLerpSpeed));
+    }
+
+    //lerp a slider to a target position with an ease out effect
+    private IEnumerator LerpScoreSlider(RectTransform slider, float targetY, float duration)
+    {
+        //initilize variables
+        Vector2 startPos = slider.GetComponent<RectTransform>().anchoredPosition;
+        Vector2 endPos = new(startPos.x, targetY);
+        float elapsedTime = 0f;
+        //lerp the slider
+        while (elapsedTime < 1f)
+        {
+            slider.anchoredPosition = Vector2.Lerp(startPos, endPos, 1 - Mathf.Pow(1 - elapsedTime, 2));
+            elapsedTime += Time.deltaTime / duration;
+            yield return null;
+        }
+        slider.anchoredPosition = endPos;
     }
 
     /// <summary>
