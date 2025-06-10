@@ -130,6 +130,7 @@ public abstract class ObjectControls : MonoBehaviour
                     isLaunched = true;
                     objectLevelInteractions.IsLaunched = true;
 
+                    //reset the previous ball path
                     effects.ResetParticleTrail();
 
                     //play the launch sound at the correct volume

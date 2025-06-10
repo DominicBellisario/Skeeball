@@ -147,22 +147,22 @@ public class LevelUILogic : MonoBehaviour
 
     public void UpdateGoldBall()
     {
-        goldBallButton.GetComponentInChildren<TextMeshProUGUI>().text = "Gold Ball: " + Manager.Instance.GoldBallPow;
+        goldBallButton.GetComponentInChildren<TextMeshProUGUI>().text = Manager.Instance.GoldBallPow.ToString();
         goldBallButton.SetActive(expandedPowerupUI);
     }
     public void UpdateMarkedBall()
     {
-        markedBallButton.GetComponentInChildren<TextMeshProUGUI>().text = "Marked Ball: " + Manager.Instance.MarkedBallPow;
+        markedBallButton.GetComponentInChildren<TextMeshProUGUI>().text = Manager.Instance.MarkedBallPow.ToString();
         markedBallButton.SetActive(expandedPowerupUI);
     }
     public void UpdateTriBall()
     {
-        triBallButton.GetComponentInChildren<TextMeshProUGUI>().text = "Tri Ball: " + Manager.Instance.TriBallPow;
+        triBallButton.GetComponentInChildren<TextMeshProUGUI>().text = Manager.Instance.TriBallPow.ToString();
         triBallButton.SetActive(expandedPowerupUI);
     }
     public void UpdateLobBall()
     {
-        lobBallButton.GetComponentInChildren<TextMeshProUGUI>().text = "Lob Ball: " + Manager.Instance.LobBallPow;
+        lobBallButton.GetComponentInChildren<TextMeshProUGUI>().text = Manager.Instance.LobBallPow.ToString();
         lobBallButton.SetActive(expandedPowerupUI);
     }
 

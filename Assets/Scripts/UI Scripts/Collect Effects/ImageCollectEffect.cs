@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -9,6 +10,7 @@ public class ImageCollectEffect : MonoBehaviour
     Camera cam;
     [SerializeField] RectTransform rectTransform;
     [SerializeField] Rigidbody2D rb;
+    [SerializeField] ParticleSystem particles;
     /// <summary>
     /// beginning of lerp
     /// </summary>
@@ -19,6 +21,7 @@ public class ImageCollectEffect : MonoBehaviour
     Vector3 endPoint;
 
     [SerializeField] Sprite[] allSprites;
+    [SerializeField] Color[] allColors;
     /// <summary>
     /// how long before the object begins to move
     /// </summary>
@@ -48,12 +51,15 @@ public class ImageCollectEffect : MonoBehaviour
 
         endPoint = _screenEndPoint;
         GetComponent<Image>().sprite = allSprites[_spriteNum];
+        particles.startColor = allColors[_spriteNum];
+        particles.Play();
 
         //set its position
         rectTransform.anchoredPosition = startPoint;
 
         //resize it to fit in the smaller UI
         rectTransform.localScale = Vector3.one;
+
 
         //begin the lerp after a bit
         StartCoroutine(WaitUntilLerp());

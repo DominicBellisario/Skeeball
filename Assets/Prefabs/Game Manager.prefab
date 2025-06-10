@@ -44,13 +44,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc5b32c5c3f7c594fa85e46d686ce137, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  numberOfLevels: 16
+  numberOfLevels: 36
   ballPrefab: {fileID: 9073041401583007651, guid: 59b197a2e8862a94593a182c3a64834e,
     type: 3}
   beanbagPrefab: {fileID: 6372135606302323029, guid: f07e05250a004cd479606e15b85ad2d6,
     type: 3}
+  imageCollectEffect: {fileID: 3729842958424864005, guid: 25a59fdd1cc098e4f8c76abd4df39d31,
+    type: 3}
+  textCollectEffect: {fileID: 8640442880970357566, guid: 69e1f33120982c14cafbcc2156f25be5,
+    type: 3}
   objectCameraOffset: {x: 0, y: 3, z: -5}
-  switchCameraOnLaunch: 1
   timeBetweenObjects: 1
   objects: []
   cameraMoveSpeed: 10
@@ -64,6 +67,7 @@ MonoBehaviour:
   mediumLevels: 05000000060000000700000008000000
   hardLevels: 090000000a0000000b0000000c0000000d0000000e0000000f000000
   secretLevels: 01000000
+  nextLevelIsSecret: 0
   starHoleUpgradeIncreaseAmt: 0.2
   totalPoints: 0
   multiplier: 1
