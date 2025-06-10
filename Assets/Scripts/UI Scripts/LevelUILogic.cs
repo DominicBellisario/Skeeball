@@ -21,6 +21,9 @@ public class LevelUILogic : MonoBehaviour
     [SerializeField] TextMeshProUGUI ballsText;
     [SerializeField] TextMeshProUGUI cameraText;
 
+    [SerializeField] Sprite powerupButtonUnactive;
+    [SerializeField] Sprite powerupButtonActive;
+
     [SerializeField] GameObject powerupButton;
     [SerializeField] GameObject goldBallButton;
     [SerializeField] GameObject markedBallButton;
@@ -194,9 +197,17 @@ public class LevelUILogic : MonoBehaviour
         UpdateTriBall();
         UpdateLobBall();
 
-        //play corrispnding sound
-        if (expandedPowerupUI) { SoundManager.Instance.PlaySound(4, 19); }
-        else { SoundManager.Instance.PlaySound(4, 20); }
+        //update the powerup button icon and play corrispnding sound
+        if (expandedPowerupUI)
+        {
+            powerupButton.GetComponent<Image>().sprite = powerupButtonActive;
+            SoundManager.Instance.PlaySound(4, 19);
+        }
+        else
+        {
+            powerupButton.GetComponent<Image>().sprite = powerupButtonUnactive;
+            SoundManager.Instance.PlaySound(4, 20);
+        }
     }
 
     public void ToggleGoldBallPowerup()
