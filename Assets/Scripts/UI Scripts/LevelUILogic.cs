@@ -1,7 +1,6 @@
 using System;
 using System.Collections;
 using TMPro;
-using UnityEditor.ShaderGraph.Internal;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -23,6 +22,11 @@ public class LevelUILogic : MonoBehaviour
 
     [SerializeField] Sprite powerupButtonUnactive;
     [SerializeField] Sprite powerupButtonActive;
+    [SerializeField] RectTransform goldButtonPosition;
+    [SerializeField] RectTransform markedButtonPosition;
+    [SerializeField] RectTransform triButtonPosition;
+    [SerializeField] RectTransform lobButtonPosition;
+    [SerializeField] float lerpTime;
 
     [SerializeField] GameObject powerupButton;
     [SerializeField] GameObject goldBallButton;
@@ -148,22 +152,22 @@ public class LevelUILogic : MonoBehaviour
     public void UpdateGoldBall()
     {
         goldBallButton.GetComponentInChildren<TextMeshProUGUI>().text = Manager.Instance.GoldBallPow.ToString();
-        goldBallButton.SetActive(expandedPowerupUI);
+        //goldBallButton.SetActive(expandedPowerupUI);
     }
     public void UpdateMarkedBall()
     {
         markedBallButton.GetComponentInChildren<TextMeshProUGUI>().text = Manager.Instance.MarkedBallPow.ToString();
-        markedBallButton.SetActive(expandedPowerupUI);
+        //markedBallButton.SetActive(expandedPowerupUI);
     }
     public void UpdateTriBall()
     {
         triBallButton.GetComponentInChildren<TextMeshProUGUI>().text = Manager.Instance.TriBallPow.ToString();
-        triBallButton.SetActive(expandedPowerupUI);
+        //triBallButton.SetActive(expandedPowerupUI);
     }
     public void UpdateLobBall()
     {
         lobBallButton.GetComponentInChildren<TextMeshProUGUI>().text = Manager.Instance.LobBallPow.ToString();
-        lobBallButton.SetActive(expandedPowerupUI);
+        //lobBallButton.SetActive(expandedPowerupUI);
     }
 
     public void UpdateTotalScore()
@@ -201,11 +205,29 @@ public class LevelUILogic : MonoBehaviour
         if (expandedPowerupUI)
         {
             powerupButton.GetComponent<Image>().sprite = powerupButtonActive;
+            //move the buttons to their new position
+            StartCoroutine(EaseInToTarget(goldBallButton.GetComponent<RectTransform>(),
+            powerupButton.GetComponent<RectTransform>().anchoredPosition, goldButtonPosition.GetComponent<RectTransform>().anchoredPosition));
+            StartCoroutine(EaseInToTarget(markedBallButton.GetComponent<RectTransform>(),
+            powerupButton.GetComponent<RectTransform>().anchoredPosition, markedButtonPosition.GetComponent<RectTransform>().anchoredPosition));
+            StartCoroutine(EaseInToTarget(triBallButton.GetComponent<RectTransform>(),
+            powerupButton.GetComponent<RectTransform>().anchoredPosition, triButtonPosition.GetComponent<RectTransform>().anchoredPosition));
+            StartCoroutine(EaseInToTarget(lobBallButton.GetComponent<RectTransform>(),
+            powerupButton.GetComponent<RectTransform>().anchoredPosition, lobButtonPosition.GetComponent<RectTransform>().anchoredPosition));
             SoundManager.Instance.PlaySound(4, 19);
         }
         else
         {
             powerupButton.GetComponent<Image>().sprite = powerupButtonUnactive;
+            //move the buttons back to the powerup button position
+            StartCoroutine(EaseInToTarget(goldBallButton.GetComponent<RectTransform>(),
+            goldButtonPosition.GetComponent<RectTransform>().anchoredPosition, powerupButton.GetComponent<RectTransform>().anchoredPosition));
+            StartCoroutine(EaseInToTarget(markedBallButton.GetComponent<RectTransform>(),
+            markedButtonPosition.GetComponent<RectTransform>().anchoredPosition, powerupButton.GetComponent<RectTransform>().anchoredPosition));
+            StartCoroutine(EaseInToTarget(triBallButton.GetComponent<RectTransform>(),
+            triButtonPosition.GetComponent<RectTransform>().anchoredPosition, powerupButton.GetComponent<RectTransform>().anchoredPosition));
+            StartCoroutine(EaseInToTarget(lobBallButton.GetComponent<RectTransform>(),
+            lobButtonPosition.GetComponent<RectTransform>().anchoredPosition, powerupButton.GetComponent<RectTransform>().anchoredPosition));
             SoundManager.Instance.PlaySound(4, 20);
         }
     }
@@ -280,6 +302,7 @@ public class LevelUILogic : MonoBehaviour
         if (Manager.Instance.CanToggleCamera())
         {
             Manager.Instance.SwitchCameraView(-1);
+            SoundManager.Instance.PlaySound(4, 32);
         }
     }
 
@@ -287,10 +310,22 @@ public class LevelUILogic : MonoBehaviour
     {
         cameraText.text = (activeCameraNum + 1).ToString() + "/" + numOfCamerasInLevel;
     }
-    
+
     public IEnumerator EnableEventHandler()
     {
         yield return new WaitForSeconds(0.1f);
         EventHandler.SetActive(true);
+    }
+    
+    private IEnumerator EaseInToTarget(RectTransform targetObject, Vector2 startPos, Vector2 targetPos)
+    {
+        float t = 0;
+        //lerp to target
+        while (t < lerpTime)
+        {
+            t += Time.deltaTime;
+            targetObject.anchoredPosition = new Vector2(Mathf.SmoothStep(startPos.x, targetPos.x, t / lerpTime), Mathf.SmoothStep(startPos.y, targetPos.y, t / lerpTime));
+            yield return new WaitForEndOfFrame();
+        }
     }
 }
