@@ -22,6 +22,13 @@ public class InventoryUILogic : MonoBehaviour
     void Start()
     {
         UpdateButtons(PlayerPrefs.GetInt("selectedSkin"));
+        if (Screen.height / Screen.width <= 1.3f)
+        {
+            skinSphere.SetActive(false);
+            skinNameText.gameObject.SetActive(false);
+            skinDescriptionText.gameObject.SetActive(false);
+        }
+        Debug.Log((float)Screen.height / Screen.width);
     }
 
     public void UpdatePageNumber(int change)
