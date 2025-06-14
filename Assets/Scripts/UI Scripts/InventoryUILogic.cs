@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 public class InventoryUILogic : MonoBehaviour
 {
+    [SerializeField] RectTransform skinDisplayMover;
     [SerializeField] GameObject[] pages;
     [SerializeField] GameObject skinSphere;
     [SerializeField] TextMeshProUGUI skinNameText;
@@ -22,11 +23,13 @@ public class InventoryUILogic : MonoBehaviour
     void Start()
     {
         UpdateButtons(PlayerPrefs.GetInt("selectedSkin"));
-        if (Screen.height / Screen.width <= 1.3f)
+        if ((float)Screen.height / Screen.width <= 1.5f)
         {
-            skinSphere.SetActive(false);
-            skinNameText.gameObject.SetActive(false);
-            skinDescriptionText.gameObject.SetActive(false);
+            skinDisplayMover.anchoredPosition = new Vector2(-150, -100);
+            skinSphere.GetComponent<RectTransform>().anchoredPosition = new Vector2(450, 250);
+            skinNameText.fontSize = 75;
+            skinNameText.gameObject.GetComponent<RectTransform>().anchoredPosition = new Vector2(450, 550);
+            skinDescriptionText.gameObject.GetComponent<RectTransform>().anchoredPosition = new Vector2(450, -300);
         }
         Debug.Log((float)Screen.height / Screen.width);
     }
