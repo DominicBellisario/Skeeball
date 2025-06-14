@@ -58,7 +58,7 @@ public abstract class ObjectControls : MonoBehaviour
         objectOrigin = gameObject.transform.position;
         objectPixelOrigin = new Vector2(Screen.width / 2, Screen.height / 7f);
 
-        pixelAimingCircleRadius = Screen.width * 0.25f;
+        pixelAimingCircleRadius = (Screen.width + Screen.height) * 0.08f;
 
         isHeld = false;
         isLaunched = false;
