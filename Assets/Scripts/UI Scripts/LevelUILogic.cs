@@ -45,16 +45,23 @@ public class LevelUILogic : MonoBehaviour
 
     public GameObject EventHandler { get { return eventHandler; } set { eventHandler = value; } }
     public static LevelUILogic Instance { get; private set; }
-    public Vector3 ScoreTextPos { get { return scoreText.transform.parent.GetComponent<RectTransform>().anchoredPosition; } }
+    public Vector3 ScoreTextPos { get { return new Vector2(scoreText.transform.parent.GetComponent<RectTransform>().anchoredPosition.x + (Screen.width/2), 
+    scoreText.transform.parent.GetComponent<RectTransform>().anchoredPosition.y - (Screen.height/2)); } }
     public Vector3 TotalScoreTextPos { get { return totalScoreText.GetComponent<RectTransform>().anchoredPosition; } }
     public Vector3 MultiplierTextPos { get { return multiplierText.GetComponent<RectTransform>().anchoredPosition; } }
     public Vector3 CoinsTextPos { get { return coinsText.GetComponent<RectTransform>().anchoredPosition; } }
-    public Vector3 BallsTextPos { get { return ballsText.transform.parent.GetComponent<RectTransform>().anchoredPosition; } }
-    public Vector3 GoldBallButtonPos { get { return goldBallButton.GetComponent<RectTransform>().anchoredPosition; } }
-    public Vector3 MarkedBallButtonPos { get { return markedBallButton.GetComponent<RectTransform>().anchoredPosition; } }
-    public Vector3 TriBallButtonPos { get { return triBallButton.GetComponent<RectTransform>().anchoredPosition; } }
-    public Vector3 LobBallButtonPos { get { return lobBallButton.GetComponent<RectTransform>().anchoredPosition; } }
-    public Vector3 PowerupButtonPos { get { return powerupButton.GetComponent<RectTransform>().anchoredPosition; } }
+    public Vector3 BallsTextPos { get { return new Vector2(ballsText.transform.parent.GetComponent<RectTransform>().anchoredPosition.x + (Screen.width/2), 
+    ballsText.transform.parent.GetComponent<RectTransform>().anchoredPosition.y - (Screen.height/2)); } }
+    public Vector3 GoldBallButtonPos { get { return new Vector2(goldBallButton.transform.GetComponent<RectTransform>().anchoredPosition.x - (Screen.width/2), 
+    goldBallButton.transform.GetComponent<RectTransform>().anchoredPosition.y - (Screen.height/2)); } }
+    public Vector3 MarkedBallButtonPos { get { return new Vector2(markedBallButton.transform.GetComponent<RectTransform>().anchoredPosition.x - (Screen.width/2), 
+    markedBallButton.transform.GetComponent<RectTransform>().anchoredPosition.y - (Screen.height/2)); } }
+    public Vector3 TriBallButtonPos { get { return new Vector2(triBallButton.transform.GetComponent<RectTransform>().anchoredPosition.x - (Screen.width/2), 
+    triBallButton.transform.GetComponent<RectTransform>().anchoredPosition.y - (Screen.height/2)); } }
+    public Vector3 LobBallButtonPos { get { return new Vector2(lobBallButton.transform.GetComponent<RectTransform>().anchoredPosition.x - (Screen.width/2), 
+    lobBallButton.transform.GetComponent<RectTransform>().anchoredPosition.y - (Screen.height/2)); } }
+    public Vector3 PowerupButtonPos { get { return new Vector2(powerupButton.transform.GetComponent<RectTransform>().anchoredPosition.x - (Screen.width/2), 
+    powerupButton.transform.GetComponent<RectTransform>().anchoredPosition.y - (Screen.height/2)); } }
     public bool ExpandedPowerupUI { get { return expandedPowerupUI; } }
 
     private void Awake()
