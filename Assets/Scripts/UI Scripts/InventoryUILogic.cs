@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -31,7 +29,6 @@ public class InventoryUILogic : MonoBehaviour
             skinNameText.gameObject.GetComponent<RectTransform>().anchoredPosition = new Vector2(450, 550);
             skinDescriptionText.gameObject.GetComponent<RectTransform>().anchoredPosition = new Vector2(450, -300);
         }
-        Debug.Log((float)Screen.height / Screen.width);
     }
 
     public void UpdatePageNumber(int change)
