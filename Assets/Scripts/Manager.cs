@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class Manager : MonoBehaviour
 {
+    [SerializeField] Vector2 screenSize;
     [SerializeField] int numberOfLevels;
     [SerializeField] GameObject ballPrefab;
     [SerializeField] GameObject beanbagPrefab;
@@ -222,6 +223,7 @@ public class Manager : MonoBehaviour
         }
         objects = new List<GameObject>();
         starHoleChance = startingStarHoleChance;
+        Screen.SetResolution((int)screenSize.x, (int)screenSize.y, false);
     }
 
     protected void Start()
