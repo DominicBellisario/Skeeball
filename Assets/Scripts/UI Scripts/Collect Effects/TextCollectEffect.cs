@@ -4,7 +4,6 @@ using TMPro;
 
 public class TextCollectEffect : MonoBehaviour
 {
-    Camera cam;
     [SerializeField] RectTransform rectTransform;
     [SerializeField] TextMeshProUGUI textMesh;
 
@@ -28,29 +27,36 @@ public class TextCollectEffect : MonoBehaviour
 
     string functionToCall;
 
-    public void SetValuesAndStart(Camera _cam, Vector3 _worldStartPoint, Vector3 _screenEndPoint, float _verticalOffset, Color _textColor, string _text, string _functionToCall)
+    public void SetValuesAndStart(Canvas canvas, Camera worldCam, Camera uiCam, Vector3 worldStartPoint, Vector3 screenEndPoint, float verticalOffset, Color textColor, string text, string functionToCall)
     {
-        cam = _cam;
-        functionToCall = _functionToCall;
+        this.functionToCall = functionToCall;
 
-        //calculate the position of the object on the UI
-        Vector3 startPointUnscaled = cam.WorldToViewportPoint(_worldStartPoint);
-        startPoint = new Vector3((startPointUnscaled.x * Screen.width) - (Screen.width / 2), (startPointUnscaled.y * Screen.height) - (Screen.height / 2) + _verticalOffset, 0);
-        endPoint = _screenEndPoint;
+        // Convert world point to screen point using the world camera
+        Vector3 screenPoint = RectTransformUtility.WorldToScreenPoint(worldCam, worldStartPoint);
 
-        //set text
-        textMesh.text = _text;
+        // Convert screen point to local point in canvas space using the UI camera
+        RectTransform canvasRect = canvas.GetComponent<RectTransform>();
+        Vector2 localStart;
+        RectTransformUtility.ScreenPointToLocalPointInRectangle(canvasRect, screenPoint, uiCam, out localStart);
 
-        //set color
-        textMesh.color = _textColor;
+        // Apply vertical offset (in UI units)
+        localStart.y += verticalOffset;
+        startPoint = localStart;
 
-        //set its position
+        // Convert screen-space end point to canvas-local point using the UI camera
+        Vector2 localEnd;
+        RectTransformUtility.ScreenPointToLocalPointInRectangle(canvasRect, screenEndPoint, uiCam, out localEnd);
+        endPoint = localEnd;
+
+        // Set up text
+        textMesh.text = text;
+        textMesh.color = textColor;
+
+        // Position and reset scale
         rectTransform.anchoredPosition = startPoint;
-
-        //resize it to fit in the smaller UI
         rectTransform.localScale = Vector3.one;
 
-        //perform movements
+        // Start animation
         StartCoroutine(LerpToTarget());
     }
 

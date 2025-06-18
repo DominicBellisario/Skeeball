@@ -760,13 +760,13 @@ public class Manager : MonoBehaviour
     {
         GameObject newCollectEffect = Instantiate(imageCollectEffect);
         newCollectEffect.transform.SetParent(_parent.transform);
-        newCollectEffect.GetComponent<ImageCollectEffect>().SetValuesAndStart(mainCamera.GetComponent<Camera>(), _worldStartPoint, _screenEndPoint, _spriteNum, _alreadyAtMax, _functionToCall);
+        newCollectEffect.GetComponent<ImageCollectEffect>().SetValuesAndStart(LevelUILogic.Instance.Canvas, Camera.main, LevelUILogic.Instance.Canvas.worldCamera, _worldStartPoint, _screenEndPoint, _spriteNum, _alreadyAtMax, _functionToCall);
     }
 
     public void SpawnTextEffect(Vector3 _worldStartPoint, Vector3 _screenEndPoint, float _verticalOffset, GameObject _parent, Color _textColor, string _text, string _functionToCall)
     {
         GameObject newTextEffect = Instantiate(textCollectEffect);
         newTextEffect.transform.SetParent(_parent.transform);
-        newTextEffect.GetComponent<TextCollectEffect>().SetValuesAndStart(mainCamera.GetComponent<Camera>(), _worldStartPoint, _screenEndPoint, _verticalOffset, _textColor, _text, _functionToCall);
+        newTextEffect.GetComponent<TextCollectEffect>().SetValuesAndStart(LevelUILogic.Instance.Canvas, Camera.main, LevelUILogic.Instance.Canvas.worldCamera, _worldStartPoint, _screenEndPoint, _verticalOffset, _textColor, _text, _functionToCall);
     }
 }

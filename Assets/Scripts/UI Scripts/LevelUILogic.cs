@@ -7,6 +7,7 @@ public class LevelUILogic : MonoBehaviour
 {
     //turns off when the game is paused
     [SerializeField] GameObject eventHandler;
+    [SerializeField] Canvas canvas;
 
     [SerializeField] TextMeshProUGUI scoreText;
     [SerializeField] TextMeshProUGUI minScoreText;
@@ -44,24 +45,18 @@ public class LevelUILogic : MonoBehaviour
 
     public GameObject EventHandler { get { return eventHandler; } set { eventHandler = value; } }
     public static LevelUILogic Instance { get; private set; }
-    public Vector3 ScoreTextPos { get { return new Vector2(scoreText.transform.parent.GetComponent<RectTransform>().anchoredPosition.x + (Screen.width/2), 
-    scoreText.transform.parent.GetComponent<RectTransform>().anchoredPosition.y - (Screen.height/2)); } }
-    public Vector3 TotalScoreTextPos { get { return totalScoreText.GetComponent<RectTransform>().anchoredPosition; } }
-    public Vector3 MultiplierTextPos { get { return multiplierText.GetComponent<RectTransform>().anchoredPosition; } }
-    public Vector3 CoinsTextPos { get { return coinsText.GetComponent<RectTransform>().anchoredPosition; } }
-    public Vector3 BallsTextPos { get { return new Vector2(ballsText.transform.parent.GetComponent<RectTransform>().anchoredPosition.x + (Screen.width/2), 
-    ballsText.transform.parent.GetComponent<RectTransform>().anchoredPosition.y - (Screen.height/2)); } }
-    public Vector3 GoldBallButtonPos { get { return new Vector2(goldBallButton.transform.GetComponent<RectTransform>().anchoredPosition.x - (Screen.width/2), 
-    goldBallButton.transform.GetComponent<RectTransform>().anchoredPosition.y - (Screen.height/2)); } }
-    public Vector3 MarkedBallButtonPos { get { return new Vector2(markedBallButton.transform.GetComponent<RectTransform>().anchoredPosition.x - (Screen.width/2), 
-    markedBallButton.transform.GetComponent<RectTransform>().anchoredPosition.y - (Screen.height/2)); } }
-    public Vector3 TriBallButtonPos { get { return new Vector2(triBallButton.transform.GetComponent<RectTransform>().anchoredPosition.x - (Screen.width/2), 
-    triBallButton.transform.GetComponent<RectTransform>().anchoredPosition.y - (Screen.height/2)); } }
-    public Vector3 LobBallButtonPos { get { return new Vector2(lobBallButton.transform.GetComponent<RectTransform>().anchoredPosition.x - (Screen.width/2), 
-    lobBallButton.transform.GetComponent<RectTransform>().anchoredPosition.y - (Screen.height/2)); } }
-    public Vector3 PowerupButtonPos { get { return new Vector2(powerupButton.transform.GetComponent<RectTransform>().anchoredPosition.x - (Screen.width/2), 
-    powerupButton.transform.GetComponent<RectTransform>().anchoredPosition.y - (Screen.height/2)); } }
+    public Vector3 ScoreTextPos { get { return RectTransformUtility.WorldToScreenPoint(canvas.worldCamera, scoreText.GetComponent<RectTransform>().position); } }
+    public Vector3 TotalScoreTextPos { get { return RectTransformUtility.WorldToScreenPoint(canvas.worldCamera, totalScoreText.GetComponent<RectTransform>().position); } }
+    public Vector3 MultiplierTextPos { get { return RectTransformUtility.WorldToScreenPoint(canvas.worldCamera, multiplierText.GetComponent<RectTransform>().position); } }
+    public Vector3 CoinsTextPos { get { return RectTransformUtility.WorldToScreenPoint(canvas.worldCamera, coinsText.GetComponent<RectTransform>().position); } }
+    public Vector3 BallsTextPos { get { return RectTransformUtility.WorldToScreenPoint(canvas.worldCamera, ballsText.GetComponent<RectTransform>().position); } }
+    public Vector3 GoldBallButtonPos { get { return RectTransformUtility.WorldToScreenPoint(canvas.worldCamera, goldBallButton.GetComponent<RectTransform>().position); } }
+    public Vector3 MarkedBallButtonPos { get { return RectTransformUtility.WorldToScreenPoint(canvas.worldCamera, markedBallButton.GetComponent<RectTransform>().position); } }
+    public Vector3 TriBallButtonPos { get { return RectTransformUtility.WorldToScreenPoint(canvas.worldCamera, triBallButton.GetComponent<RectTransform>().position); } }
+    public Vector3 LobBallButtonPos { get { return RectTransformUtility.WorldToScreenPoint(canvas.worldCamera, lobBallButton.GetComponent<RectTransform>().position); } }
+    public Vector3 PowerupButtonPos { get { return RectTransformUtility.WorldToScreenPoint(canvas.worldCamera, powerupButton.GetComponent<RectTransform>().position); } }
     public bool ExpandedPowerupUI { get { return expandedPowerupUI; } }
+    public Canvas Canvas { get { return canvas; } }
 
     private void Awake()
     {

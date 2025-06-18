@@ -11,11 +11,11 @@ public class ImageCollectEffect : MonoBehaviour
     /// <summary>
     /// beginning of lerp
     /// </summary>
-    Vector3 startPoint;
+    Vector2 startPoint;
     /// <summary>
     /// end of lerp
     /// </summary>
-    Vector3 endPoint;
+    Vector2 endPoint;
 
     [SerializeField] Sprite[] allSprites;
     [SerializeField] Color[] allColors;
@@ -36,29 +36,30 @@ public class ImageCollectEffect : MonoBehaviour
 
     string functionToCall;
 
-    public void SetValuesAndStart(Camera _cam, Vector3 _worldStartPoint, Vector3 _screenEndPoint, int _spriteNum, bool _bounceOff, string _functionToCall)
+    public void SetValuesAndStart(Canvas canvas, Camera worldCam, Camera uiCam, Vector3 worldStartPoint, Vector3 screenEndPoint, int spriteNum, bool bounceOff, string functionToCall)
     {
-        cam = _cam;
-        bounceOff = _bounceOff;
-        functionToCall = _functionToCall;
+        this.bounceOff = bounceOff;
+        this.functionToCall = functionToCall;
 
-        //calculate the position of the object on the UI
-        Vector3 startPointUnscaled = cam.WorldToViewportPoint(_worldStartPoint);
-        startPoint = new Vector3((startPointUnscaled.x * Screen.width) - (Screen.width / 2), (startPointUnscaled.y * Screen.height) - (Screen.height / 2), 0);
+        // Convert world start point to screen point
+        Vector3 screenStartPoint = RectTransformUtility.WorldToScreenPoint(worldCam, worldStartPoint);
 
-        endPoint = _screenEndPoint;
-        GetComponent<Image>().sprite = allSprites[_spriteNum];
-        particles.startColor = allColors[_spriteNum];
+        // Convert to local UI position
+        RectTransform canvasRect = canvas.GetComponent<RectTransform>();
+        RectTransformUtility.ScreenPointToLocalPointInRectangle(canvasRect, screenStartPoint, uiCam, out startPoint);
+
+        // Convert screen end point (already in screen space) to local UI position
+        RectTransformUtility.ScreenPointToLocalPointInRectangle(canvasRect, screenEndPoint, uiCam, out endPoint);
+
+        // Set sprite and particles
+        GetComponent<Image>().sprite = allSprites[spriteNum];
+        particles.startColor = allColors[spriteNum];
         particles.Play();
 
-        //set its position
+        // Set position
         rectTransform.anchoredPosition = startPoint;
-
-        //resize it to fit in the smaller UI
         rectTransform.localScale = Vector3.one;
 
-
-        //begin the lerp after a bit
         StartCoroutine(WaitUntilLerp());
     }
 
@@ -67,7 +68,7 @@ public class ImageCollectEffect : MonoBehaviour
         yield return new WaitForSeconds(timeBeforeLerp);
         if (bounceOff) { StartCoroutine(LerpToTarget()); }
         else { StartCoroutine(LerpToTarget()); }
-        
+
     }
 
     private IEnumerator LerpToTarget()
