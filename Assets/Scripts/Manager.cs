@@ -223,7 +223,7 @@ public class Manager : MonoBehaviour
         }
         objects = new List<GameObject>();
         starHoleChance = startingStarHoleChance;
-        Screen.SetResolution((int)screenSize.x, (int)screenSize.y, false);
+        //Screen.SetResolution((int)screenSize.x, (int)screenSize.y, false);
     }
 
     protected void Start()

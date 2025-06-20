@@ -15,6 +15,7 @@ public class ResultsScreenLogic : MonoBehaviour
     [SerializeField] TextMeshProUGUI minScoreText;
     //text that shows the secret score for the level
     [SerializeField] TextMeshProUGUI secretScoreText;
+    [SerializeField] GameObject reminderText;
 
     //the next level button.  disabled if the player lost
     [SerializeField] GameObject nextLevelButton;
@@ -30,7 +31,8 @@ public class ResultsScreenLogic : MonoBehaviour
         //tell the player they epic win
         if (Manager.Instance.Score >= Manager.Instance.SecretScore)
         {
-            resultsText.text = "You Win but EPIC!";
+            resultsText.text = "EPIC Win!";
+            reminderText.SetActive(true);
 
             //change the background to epic win color
             backgroundImage.color = Color.yellow;
@@ -41,6 +43,7 @@ public class ResultsScreenLogic : MonoBehaviour
         else if (Manager.Instance.Score >= Manager.Instance.MinScore)
         {
             resultsText.text = "You Win!";
+            reminderText.SetActive(false);
 
             //change the background to win color
             backgroundImage.color = Color.green;
@@ -51,6 +54,7 @@ public class ResultsScreenLogic : MonoBehaviour
         else
         {
             resultsText.text = "You Lose!";
+            reminderText.SetActive(false);
             nextLevelButton.SetActive(false);
 
             //change the background to loss color   

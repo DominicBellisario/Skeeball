@@ -43,7 +43,7 @@ public class BeanbagEffects : ObjectEffects
             dottedLineMaterial.mainTextureOffset = new Vector2(totalOffset, 0);
 
             //change the color from white to red depending on the power percent
-            dottedLineMaterial.color = new Color(1, 1 - powerPercent, 1 - powerPercent);
+            dottedLineMaterial.color = new Color(1, 1 - powerPercent, 1 - powerPercent, dottedLineAlpha);
         }
         else
         {

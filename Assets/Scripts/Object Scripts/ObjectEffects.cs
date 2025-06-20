@@ -10,6 +10,7 @@ public abstract class ObjectEffects : MonoBehaviour
     [SerializeField] protected LineRenderer rightAimLine;
     //the aim line material
     [SerializeField] protected Material dottedLineMaterial;
+    [SerializeField] protected float dottedLineAlpha = 0.8f;
 
     //the particle trail
     [SerializeField] protected GameObject particleTrail;
