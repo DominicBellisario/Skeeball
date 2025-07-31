@@ -3,12 +3,10 @@ using UnityEngine;
 
 public class MaterialManager : MonoBehaviour
 {
-    float pulseTimer = 0;
-
     [SerializeField] Material[] pulseMaterials;
+    [SerializeField] Material pulseUIMaterial; //used for UI pulsing
     [SerializeField] float pulseSpeed;
     [SerializeField] float pulseIntensity;
-    float pulseValue;
 
     [SerializeField] Material rainbowFastMaterial;
     [SerializeField] float rainbowFastCycleSpeed;
@@ -41,15 +39,13 @@ public class MaterialManager : MonoBehaviour
         StartCoroutine(CycleRainbow(rainbowSlowCycleSpeed, rainbowSlowMaterial));
     }
 
-    // Update is called once per frame
-    void Update()
+    void Start()
     {
-        //pulse all pulse materials
-        pulseTimer += pulseSpeed * Time.deltaTime;
-        pulseValue = Mathf.Sin(pulseTimer) * pulseIntensity;
+        //start pulsing all pulse materials
         foreach (Material material in pulseMaterials)
         {
-            material.SetColor("_EmissionColor", new Color(pulseValue, pulseValue, pulseValue));
+            material.EnableKeyword("_EMISSION");
+            StartCoroutine(PulseMaterial(material, pulseSpeed, pulseIntensity));
         }
     }
 
@@ -67,6 +63,19 @@ public class MaterialManager : MonoBehaviour
         }
     }
 
+    IEnumerator PulseMaterial(Material material, float speed, float intensity)
+    {
+        float timer = 0;
+        float pulseValue;
+        while (true)
+        {
+            timer += speed * Time.deltaTime;
+            pulseValue = Mathf.Sin(timer) * intensity;
+            material.SetColor("_EmissionColor", new Color(pulseValue, pulseValue, pulseValue));
+            yield return null;
+        }
+    }
+
     private void OnApplicationQuit()
     {
         //reset all materials
@@ -74,6 +83,7 @@ public class MaterialManager : MonoBehaviour
         {
             material.SetColor("_EmissionColor", new Color(0, 0, 0));
         }
+        pulseUIMaterial.SetColor("_EmissionColor", new Color(0, 0, 0));
         rainbowFastMaterial.SetColor("_Color", Color.red);
         rainbowSlowMaterial.SetColor("_Color", Color.red);
     }

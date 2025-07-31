@@ -11,6 +11,9 @@ public class LevelSelectUILogic : MonoBehaviour
     [SerializeField] Sprite normalSprite;
     [SerializeField] Sprite secretSprite;
 
+    [SerializeField] GameObject previousButton;
+    [SerializeField] GameObject nextButton;
+
     int page = 1;
 
     // Start is called before the first frame update
@@ -21,7 +24,7 @@ public class LevelSelectUILogic : MonoBehaviour
             //if the level is not unlocked, disable the button
             if (PlayerPrefs.GetInt("unlockLevel_" + (i + 1)) == 0)
             {
-                buttons[i].GetComponentInChildren<TextMeshProUGUI>().text = "X";
+                buttons[i].GetComponentInChildren<TextMeshPro>().text = "X";
                 buttons[i].GetComponent<Image>().sprite = disabledSprite;
                 buttons[i].enabled = false;
             }
@@ -37,6 +40,8 @@ public class LevelSelectUILogic : MonoBehaviour
                 buttons[i].GetComponent<Image>().sprite = secretSprite;
             }
         }
+
+        UpdatePageButtons();
     }
 
     public void UpdatePageNumber(int change)
@@ -44,6 +49,8 @@ public class LevelSelectUILogic : MonoBehaviour
         //page must be between 1 and number of pages
         if (page + change > 0 && page + change <= pages.Length)
         {
+            previousButton.SetActive(true);
+            nextButton.SetActive(true);
             page += change;
 
             //deactivate all pages exept the current one
@@ -57,6 +64,16 @@ public class LevelSelectUILogic : MonoBehaviour
                 //play low ui sound
                 else { SoundManager.Instance.PlayUISound(20); }
             }
+
+            UpdatePageButtons();
         }
+    }
+
+    private void UpdatePageButtons()
+    {
+        //if the current page is the first one, disable the previous button
+        if (page == 1) { previousButton.SetActive(false); }
+        //if the current page is the last one, disable the next button
+        if (page == pages.Length) { nextButton.SetActive(false); }
     }
 }

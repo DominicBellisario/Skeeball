@@ -1,0 +1,244 @@
+﻿#include "pch-c.h"
+#ifndef _MSC_VER
+# include <alloca.h>
+#else
+# include <malloc.h>
+#endif
+
+
+#include "codegen/il2cpp-codegen-metadata.h"
+
+
+
+
+
+extern void ParticleSystem_Emit_m27ED2FE38DEE11C9C98F7D30392BB5B39B6A16ED (void);
+extern void ParticleSystem_Emit_m329091E7F55C972CE85A100CA624192AD8442688 (void);
+extern void ParticleSystem_get_startSize_m1B22CB5B4B1BC3F2BA2305D1B08B728ABDCC6E3C (void);
+extern void ParticleSystem_set_startSize_m46D039E084DE9E8A2CDAC3B74D7D890257BDD89A (void);
+extern void ParticleSystem_set_startColor_m6BBB3C39FFEA387D41A84899EE5AFFACC00B61A3 (void);
+extern void ParticleSystem_set_startRotation3D_m8BF6BE81C39536FAF406E24D05150E6B33EB91F9 (void);
+extern void ParticleSystem_Play_m4A59E0A2C7CA49EF75287A067305ABB314A16E62 (void);
+extern void ParticleSystem_Play_mD943E601BFE16CB9BB5D1F5E6AED5C36F5F11EF5 (void);
+extern void ParticleSystem_Stop_mB5761CB85083F593FFEC3D27931CACF1855A6326 (void);
+extern void ParticleSystem_Stop_m6CA855033D5CE2D3AF7927B6709BC65DBCD632DF (void);
+extern void ParticleSystem_Stop_m2D8D4967496EF0F5BFEF679C49A9E65A9646C423 (void);
+extern void ParticleSystem_Clear_m26F18A1A58006417A0F66688E3124CFD1E880E11 (void);
+extern void ParticleSystem_Clear_mE026AF9610248EB560530CD292FEED0F7571F732 (void);
+extern void ParticleSystem_Emit_m3E9E6359087607E84E0D4D35844D80D9452AD72D (void);
+extern void ParticleSystem_Emit_Internal_m54D6D9A78E8634846C9DB6445C0E0A0885E8A20E (void);
+extern void ParticleSystem_Emit_m5AD1A3F02A19B61E3B0CC738FD498B52D19B65AA (void);
+extern void ParticleSystem_EmitOld_Internal_mD22E235F6AB32455147A7DAF814AC8B4949C89D3 (void);
+extern void ParticleSystem_get_main_mD86DFCD96150E2CE760CD2F37052BB3BCA33C189 (void);
+extern void ParticleSystem_Emit_Injected_mC5638D07E58C6EDB8C0CD3717A66A61CBA30C3A6 (void);
+extern void MainModule__ctor_m5F7D2DD815C741DE3FA18A0C1BB2F2776612EF7A (void);
+extern void MainModule_set_startLifetime_mDFC2433853CB12C0C93C8BF16FEDB4EA2E0B3514 (void);
+extern void MainModule_get_startSpeed_m2F9A0CF5D05AA3522424EAD30CF226F0CDF8382B (void);
+extern void MainModule_get_startSizeMultiplier_m334F381A4FA8863BF11759EB5A01EE69D0CD04EC (void);
+extern void MainModule_set_startSizeMultiplier_m4561E105FF6755975C4ABBF4C62C8F338685EE02 (void);
+extern void MainModule_set_startRotationXMultiplier_m23EED38F1C33CCB5992536B87714C8D03ABC13C6 (void);
+extern void MainModule_set_startRotationYMultiplier_mADF58CC09C5F1998E2B8DF4D2766087CBE869834 (void);
+extern void MainModule_set_startRotationZMultiplier_m526C944907FADC856F24E12FAA983F463058213F (void);
+extern void MainModule_set_startColor_m504911284CAC53A7C1B97B5D01BBDD2FA67D0E7A (void);
+extern void MainModule_set_startLifetime_Injected_m6EB92974DED01D362E15FC6708FEDEDF71BE850E (void);
+extern void MainModule_get_startSpeed_Injected_m6CF0BA547DB427231676C501D0114A2005BDA8B9 (void);
+extern void MainModule_get_startSizeMultiplier_Injected_m9D467F1E4758F159CAE188B668D45696EB645EB6 (void);
+extern void MainModule_set_startSizeMultiplier_Injected_m61F668DEF7B27E11F0D1BA0318F47E503015C947 (void);
+extern void MainModule_set_startRotationXMultiplier_Injected_mCA7784FC9C4E0995562639B6CB83297422A30B12 (void);
+extern void MainModule_set_startRotationYMultiplier_Injected_m5DED3DEBE2291974919F89CDF8C7CFCEA968BA1E (void);
+extern void MainModule_set_startRotationZMultiplier_Injected_mD7E0C830F62FFCA62BF374E86410B8EA6C8ECA16 (void);
+extern void MainModule_set_startColor_Injected_mF946A6488A011017014FD84C86FAC959F2909812 (void);
+extern void Particle_set_lifetime_m29360AF093721364BF46996EE1D400256DB95911 (void);
+extern void Particle_set_position_mE9103000DB4EA6CE09D25650F5A2915731F7A63E (void);
+extern void Particle_set_velocity_mF4C1DE326CCABE480F44D3DF3873241E85A6303B (void);
+extern void Particle_set_remainingLifetime_m3E58D8B3599B0BA6790D43022C3DF16E6896D018 (void);
+extern void Particle_set_startLifetime_mCD0B16F2B1F2E2AEED84C4FCD85D5AD96F853A77 (void);
+extern void Particle_set_startColor_mC3031F4238B0C003DFA5BF9AB4B3141B7CF71538 (void);
+extern void Particle_set_randomSeed_mCC3C02CCBF9C0EA80E2CE01EC47AD30F31D5F6C2 (void);
+extern void Particle_set_startSize_mBBEBF7365A4E68FF2044E2ECEACC562376EA4A1F (void);
+extern void Particle_set_rotation3D_mC0B19BFEBA780F95C763DE14C80B29764E519D62 (void);
+extern void Particle_set_angularVelocity3D_m56AE22FE7AFB178DD206EA2A7E0DA64B360D7EA8 (void);
+extern void MinMaxCurve__ctor_m1D3846251475D7BBC7B128CCD7DFF40B16AAEF9E (void);
+extern void MinMaxCurve_get_constant_m4F2B7693C00CC9FAEDE1DAD32FEEE893414FBE91 (void);
+extern void MinMaxCurve_op_Implicit_m133028E91CF2F823F5E20F6B19A3332A02404086 (void);
+extern void MinMaxGradient__ctor_m982C2A8AD071EA714E5583F90727C306B126F062 (void);
+extern void MinMaxGradient_op_Implicit_mAA6154D6644E72BBA49EB34DC957538EE929DE02 (void);
+extern void ParticleSystemRenderer_GetMeshes_m3CA9AA8947C7F0468F6C0B7F1344D747EA43D440 (void);
+static Il2CppMethodPointer s_methodPointers[52] = 
+{
+	ParticleSystem_Emit_m27ED2FE38DEE11C9C98F7D30392BB5B39B6A16ED,
+	ParticleSystem_Emit_m329091E7F55C972CE85A100CA624192AD8442688,
+	ParticleSystem_get_startSize_m1B22CB5B4B1BC3F2BA2305D1B08B728ABDCC6E3C,
+	ParticleSystem_set_startSize_m46D039E084DE9E8A2CDAC3B74D7D890257BDD89A,
+	ParticleSystem_set_startColor_m6BBB3C39FFEA387D41A84899EE5AFFACC00B61A3,
+	ParticleSystem_set_startRotation3D_m8BF6BE81C39536FAF406E24D05150E6B33EB91F9,
+	ParticleSystem_Play_m4A59E0A2C7CA49EF75287A067305ABB314A16E62,
+	ParticleSystem_Play_mD943E601BFE16CB9BB5D1F5E6AED5C36F5F11EF5,
+	ParticleSystem_Stop_mB5761CB85083F593FFEC3D27931CACF1855A6326,
+	ParticleSystem_Stop_m6CA855033D5CE2D3AF7927B6709BC65DBCD632DF,
+	ParticleSystem_Stop_m2D8D4967496EF0F5BFEF679C49A9E65A9646C423,
+	ParticleSystem_Clear_m26F18A1A58006417A0F66688E3124CFD1E880E11,
+	ParticleSystem_Clear_mE026AF9610248EB560530CD292FEED0F7571F732,
+	ParticleSystem_Emit_m3E9E6359087607E84E0D4D35844D80D9452AD72D,
+	ParticleSystem_Emit_Internal_m54D6D9A78E8634846C9DB6445C0E0A0885E8A20E,
+	ParticleSystem_Emit_m5AD1A3F02A19B61E3B0CC738FD498B52D19B65AA,
+	ParticleSystem_EmitOld_Internal_mD22E235F6AB32455147A7DAF814AC8B4949C89D3,
+	ParticleSystem_get_main_mD86DFCD96150E2CE760CD2F37052BB3BCA33C189,
+	ParticleSystem_Emit_Injected_mC5638D07E58C6EDB8C0CD3717A66A61CBA30C3A6,
+	MainModule__ctor_m5F7D2DD815C741DE3FA18A0C1BB2F2776612EF7A,
+	MainModule_set_startLifetime_mDFC2433853CB12C0C93C8BF16FEDB4EA2E0B3514,
+	MainModule_get_startSpeed_m2F9A0CF5D05AA3522424EAD30CF226F0CDF8382B,
+	MainModule_get_startSizeMultiplier_m334F381A4FA8863BF11759EB5A01EE69D0CD04EC,
+	MainModule_set_startSizeMultiplier_m4561E105FF6755975C4ABBF4C62C8F338685EE02,
+	MainModule_set_startRotationXMultiplier_m23EED38F1C33CCB5992536B87714C8D03ABC13C6,
+	MainModule_set_startRotationYMultiplier_mADF58CC09C5F1998E2B8DF4D2766087CBE869834,
+	MainModule_set_startRotationZMultiplier_m526C944907FADC856F24E12FAA983F463058213F,
+	MainModule_set_startColor_m504911284CAC53A7C1B97B5D01BBDD2FA67D0E7A,
+	MainModule_set_startLifetime_Injected_m6EB92974DED01D362E15FC6708FEDEDF71BE850E,
+	MainModule_get_startSpeed_Injected_m6CF0BA547DB427231676C501D0114A2005BDA8B9,
+	MainModule_get_startSizeMultiplier_Injected_m9D467F1E4758F159CAE188B668D45696EB645EB6,
+	MainModule_set_startSizeMultiplier_Injected_m61F668DEF7B27E11F0D1BA0318F47E503015C947,
+	MainModule_set_startRotationXMultiplier_Injected_mCA7784FC9C4E0995562639B6CB83297422A30B12,
+	MainModule_set_startRotationYMultiplier_Injected_m5DED3DEBE2291974919F89CDF8C7CFCEA968BA1E,
+	MainModule_set_startRotationZMultiplier_Injected_mD7E0C830F62FFCA62BF374E86410B8EA6C8ECA16,
+	MainModule_set_startColor_Injected_mF946A6488A011017014FD84C86FAC959F2909812,
+	Particle_set_lifetime_m29360AF093721364BF46996EE1D400256DB95911,
+	Particle_set_position_mE9103000DB4EA6CE09D25650F5A2915731F7A63E,
+	Particle_set_velocity_mF4C1DE326CCABE480F44D3DF3873241E85A6303B,
+	Particle_set_remainingLifetime_m3E58D8B3599B0BA6790D43022C3DF16E6896D018,
+	Particle_set_startLifetime_mCD0B16F2B1F2E2AEED84C4FCD85D5AD96F853A77,
+	Particle_set_startColor_mC3031F4238B0C003DFA5BF9AB4B3141B7CF71538,
+	Particle_set_randomSeed_mCC3C02CCBF9C0EA80E2CE01EC47AD30F31D5F6C2,
+	Particle_set_startSize_mBBEBF7365A4E68FF2044E2ECEACC562376EA4A1F,
+	Particle_set_rotation3D_mC0B19BFEBA780F95C763DE14C80B29764E519D62,
+	Particle_set_angularVelocity3D_m56AE22FE7AFB178DD206EA2A7E0DA64B360D7EA8,
+	MinMaxCurve__ctor_m1D3846251475D7BBC7B128CCD7DFF40B16AAEF9E,
+	MinMaxCurve_get_constant_m4F2B7693C00CC9FAEDE1DAD32FEEE893414FBE91,
+	MinMaxCurve_op_Implicit_m133028E91CF2F823F5E20F6B19A3332A02404086,
+	MinMaxGradient__ctor_m982C2A8AD071EA714E5583F90727C306B126F062,
+	MinMaxGradient_op_Implicit_mAA6154D6644E72BBA49EB34DC957538EE929DE02,
+	ParticleSystemRenderer_GetMeshes_m3CA9AA8947C7F0468F6C0B7F1344D747EA43D440,
+};
+extern void MainModule__ctor_m5F7D2DD815C741DE3FA18A0C1BB2F2776612EF7A_AdjustorThunk (void);
+extern void MainModule_set_startLifetime_mDFC2433853CB12C0C93C8BF16FEDB4EA2E0B3514_AdjustorThunk (void);
+extern void MainModule_get_startSpeed_m2F9A0CF5D05AA3522424EAD30CF226F0CDF8382B_AdjustorThunk (void);
+extern void MainModule_get_startSizeMultiplier_m334F381A4FA8863BF11759EB5A01EE69D0CD04EC_AdjustorThunk (void);
+extern void MainModule_set_startSizeMultiplier_m4561E105FF6755975C4ABBF4C62C8F338685EE02_AdjustorThunk (void);
+extern void MainModule_set_startRotationXMultiplier_m23EED38F1C33CCB5992536B87714C8D03ABC13C6_AdjustorThunk (void);
+extern void MainModule_set_startRotationYMultiplier_mADF58CC09C5F1998E2B8DF4D2766087CBE869834_AdjustorThunk (void);
+extern void MainModule_set_startRotationZMultiplier_m526C944907FADC856F24E12FAA983F463058213F_AdjustorThunk (void);
+extern void MainModule_set_startColor_m504911284CAC53A7C1B97B5D01BBDD2FA67D0E7A_AdjustorThunk (void);
+extern void Particle_set_lifetime_m29360AF093721364BF46996EE1D400256DB95911_AdjustorThunk (void);
+extern void Particle_set_position_mE9103000DB4EA6CE09D25650F5A2915731F7A63E_AdjustorThunk (void);
+extern void Particle_set_velocity_mF4C1DE326CCABE480F44D3DF3873241E85A6303B_AdjustorThunk (void);
+extern void Particle_set_remainingLifetime_m3E58D8B3599B0BA6790D43022C3DF16E6896D018_AdjustorThunk (void);
+extern void Particle_set_startLifetime_mCD0B16F2B1F2E2AEED84C4FCD85D5AD96F853A77_AdjustorThunk (void);
+extern void Particle_set_startColor_mC3031F4238B0C003DFA5BF9AB4B3141B7CF71538_AdjustorThunk (void);
+extern void Particle_set_randomSeed_mCC3C02CCBF9C0EA80E2CE01EC47AD30F31D5F6C2_AdjustorThunk (void);
+extern void Particle_set_startSize_mBBEBF7365A4E68FF2044E2ECEACC562376EA4A1F_AdjustorThunk (void);
+extern void Particle_set_rotation3D_mC0B19BFEBA780F95C763DE14C80B29764E519D62_AdjustorThunk (void);
+extern void Particle_set_angularVelocity3D_m56AE22FE7AFB178DD206EA2A7E0DA64B360D7EA8_AdjustorThunk (void);
+extern void MinMaxCurve__ctor_m1D3846251475D7BBC7B128CCD7DFF40B16AAEF9E_AdjustorThunk (void);
+extern void MinMaxCurve_get_constant_m4F2B7693C00CC9FAEDE1DAD32FEEE893414FBE91_AdjustorThunk (void);
+extern void MinMaxGradient__ctor_m982C2A8AD071EA714E5583F90727C306B126F062_AdjustorThunk (void);
+static Il2CppTokenAdjustorThunkPair s_adjustorThunks[22] = 
+{
+	{ 0x06000014, MainModule__ctor_m5F7D2DD815C741DE3FA18A0C1BB2F2776612EF7A_AdjustorThunk },
+	{ 0x06000015, MainModule_set_startLifetime_mDFC2433853CB12C0C93C8BF16FEDB4EA2E0B3514_AdjustorThunk },
+	{ 0x06000016, MainModule_get_startSpeed_m2F9A0CF5D05AA3522424EAD30CF226F0CDF8382B_AdjustorThunk },
+	{ 0x06000017, MainModule_get_startSizeMultiplier_m334F381A4FA8863BF11759EB5A01EE69D0CD04EC_AdjustorThunk },
+	{ 0x06000018, MainModule_set_startSizeMultiplier_m4561E105FF6755975C4ABBF4C62C8F338685EE02_AdjustorThunk },
+	{ 0x06000019, MainModule_set_startRotationXMultiplier_m23EED38F1C33CCB5992536B87714C8D03ABC13C6_AdjustorThunk },
+	{ 0x0600001A, MainModule_set_startRotationYMultiplier_mADF58CC09C5F1998E2B8DF4D2766087CBE869834_AdjustorThunk },
+	{ 0x0600001B, MainModule_set_startRotationZMultiplier_m526C944907FADC856F24E12FAA983F463058213F_AdjustorThunk },
+	{ 0x0600001C, MainModule_set_startColor_m504911284CAC53A7C1B97B5D01BBDD2FA67D0E7A_AdjustorThunk },
+	{ 0x06000025, Particle_set_lifetime_m29360AF093721364BF46996EE1D400256DB95911_AdjustorThunk },
+	{ 0x06000026, Particle_set_position_mE9103000DB4EA6CE09D25650F5A2915731F7A63E_AdjustorThunk },
+	{ 0x06000027, Particle_set_velocity_mF4C1DE326CCABE480F44D3DF3873241E85A6303B_AdjustorThunk },
+	{ 0x06000028, Particle_set_remainingLifetime_m3E58D8B3599B0BA6790D43022C3DF16E6896D018_AdjustorThunk },
+	{ 0x06000029, Particle_set_startLifetime_mCD0B16F2B1F2E2AEED84C4FCD85D5AD96F853A77_AdjustorThunk },
+	{ 0x0600002A, Particle_set_startColor_mC3031F4238B0C003DFA5BF9AB4B3141B7CF71538_AdjustorThunk },
+	{ 0x0600002B, Particle_set_randomSeed_mCC3C02CCBF9C0EA80E2CE01EC47AD30F31D5F6C2_AdjustorThunk },
+	{ 0x0600002C, Particle_set_startSize_mBBEBF7365A4E68FF2044E2ECEACC562376EA4A1F_AdjustorThunk },
+	{ 0x0600002D, Particle_set_rotation3D_mC0B19BFEBA780F95C763DE14C80B29764E519D62_AdjustorThunk },
+	{ 0x0600002E, Particle_set_angularVelocity3D_m56AE22FE7AFB178DD206EA2A7E0DA64B360D7EA8_AdjustorThunk },
+	{ 0x0600002F, MinMaxCurve__ctor_m1D3846251475D7BBC7B128CCD7DFF40B16AAEF9E_AdjustorThunk },
+	{ 0x06000030, MinMaxCurve_get_constant_m4F2B7693C00CC9FAEDE1DAD32FEEE893414FBE91_AdjustorThunk },
+	{ 0x06000032, MinMaxGradient__ctor_m982C2A8AD071EA714E5583F90727C306B126F062_AdjustorThunk },
+};
+static const int32_t s_InvokerIndices[52] = 
+{
+	405,
+	4129,
+	4942,
+	4037,
+	3912,
+	4089,
+	3908,
+	5004,
+	1709,
+	3908,
+	5004,
+	3908,
+	5004,
+	3970,
+	3970,
+	2216,
+	3896,
+	5035,
+	1699,
+	3998,
+	4127,
+	5036,
+	4942,
+	4037,
+	4037,
+	4037,
+	4037,
+	4128,
+	6554,
+	6554,
+	6942,
+	6559,
+	6559,
+	6559,
+	6559,
+	6554,
+	4037,
+	4089,
+	4089,
+	4037,
+	4037,
+	3913,
+	4085,
+	4037,
+	4089,
+	4089,
+	4037,
+	4942,
+	7070,
+	3912,
+	7071,
+	3338,
+};
+IL2CPP_EXTERN_C const Il2CppCodeGenModule g_UnityEngine_ParticleSystemModule_CodeGenModule;
+const Il2CppCodeGenModule g_UnityEngine_ParticleSystemModule_CodeGenModule = 
+{
+	"UnityEngine.ParticleSystemModule.dll",
+	52,
+	s_methodPointers,
+	22,
+	s_adjustorThunks,
+	s_InvokerIndices,
+	0,
+	NULL,
+	0,
+	NULL,
+	0,
+	NULL,
+	NULL,
+	NULL,
+	NULL,
+	NULL,
+	NULL,
+};

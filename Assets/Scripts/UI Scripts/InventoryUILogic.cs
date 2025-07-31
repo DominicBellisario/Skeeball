@@ -11,6 +11,8 @@ public class InventoryUILogic : MonoBehaviour
     [SerializeField] TextMeshProUGUI skinDescriptionText;
     [SerializeField] string[] skinDescriptions;
     [SerializeField] Button[] buttons;
+    [SerializeField] GameObject previousButton;
+    [SerializeField] GameObject nextButton;
 
     [SerializeField] Sprite normalSprite;
     [SerializeField] Sprite secretSprite;
@@ -21,6 +23,7 @@ public class InventoryUILogic : MonoBehaviour
     void Start()
     {
         UpdateButtons(PlayerPrefs.GetInt("selectedSkin"));
+        UpdatePageButtons();
         if ((float)Screen.height / Screen.width <= 1.5f)
         {
             skinDisplayMover.anchoredPosition = new Vector2(-150, -100);
@@ -28,7 +31,7 @@ public class InventoryUILogic : MonoBehaviour
             skinNameText.fontSize = 75;
             skinNameText.gameObject.GetComponent<RectTransform>().anchoredPosition = new Vector2(450, 550);
             skinDescriptionText.gameObject.GetComponent<RectTransform>().anchoredPosition = new Vector2(450, -300);
-        }
+        } 
     }
 
     public void UpdatePageNumber(int change)
@@ -36,6 +39,8 @@ public class InventoryUILogic : MonoBehaviour
         //page must be between 1 and number of pages
         if (page + change > 0 && page + change <= pages.Length)
         {
+            previousButton.SetActive(true);
+            nextButton.SetActive(true);
             page += change;
 
             //deactivate all pages exept the current one
@@ -50,6 +55,7 @@ public class InventoryUILogic : MonoBehaviour
             //play low ui sound
             else { SoundManager.Instance.PlayUISound(20); }
         }
+        UpdatePageButtons();
     }
 
     public void UpdateButtons(int selectedButtonIndex)
@@ -87,5 +93,13 @@ public class InventoryUILogic : MonoBehaviour
                 buttons[i].GetComponent<Image>().sprite = selectedSprite;
             }
         }
+    }
+
+    private void UpdatePageButtons()
+    {
+        //if the current page is the first one, disable the previous button
+        if (page == 1) { previousButton.SetActive(false); }
+        //if the current page is the last one, disable the next button
+        if (page == pages.Length) { nextButton.SetActive(false); }
     }
 }

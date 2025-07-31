@@ -36,8 +36,8 @@ public class SceneHandler : MonoBehaviour
         SceneManager.LoadScene("LevelUI", LoadSceneMode.Additive);
     }
 
-    public bool UnloadScene(string sceneName)
+    public void UnloadScene(string sceneName)
     {
-        return SceneManager.UnloadSceneAsync(sceneName).isDone;
+        SceneManager.UnloadSceneAsync(sceneName);
     }
 }

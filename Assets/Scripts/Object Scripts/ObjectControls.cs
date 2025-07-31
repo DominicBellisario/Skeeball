@@ -30,6 +30,9 @@ public abstract class ObjectControls : MonoBehaviour
     //the percent of max launch force that will be applied to the object
     protected float powerPercent;
 
+    [SerializeField]
+    protected float powerPercentMin;
+
     [SerializeField] protected int forceMultiplyer;
 
     [SerializeField] protected float triBallAngle;
@@ -171,6 +174,17 @@ public abstract class ObjectControls : MonoBehaviour
                 isHeld = false;
             }
         }
+    }
+
+    /// <summary>
+    /// adusts power percent to match the desired strength range
+    /// </summary>
+    /// <param name="percent"></param>
+    /// <returns></returns>
+    protected float CorrectPowerPercent(float percent)
+    {
+        float newPercent = (percent / (1/(1-powerPercentMin))) + powerPercentMin;
+        return newPercent;
     }
 
     //if the player clicks the ball in the main camera view, they are holding it

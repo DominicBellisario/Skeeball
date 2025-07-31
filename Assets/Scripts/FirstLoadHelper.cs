@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class FirstLoadHelper : MonoBehaviour
 {
-    void Awake()
+    void Start()
     {
         //if the game is loaded for the first time, set all PlayerPrefs to default values
         if (!PlayerPrefs.HasKey("firstLoad"))

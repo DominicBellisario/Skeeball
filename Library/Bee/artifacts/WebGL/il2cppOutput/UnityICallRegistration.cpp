@@ -2066,6 +2066,10 @@ void RegisterAllStrippedInternalCalls()
 
 	//Start Registrations for type : UnityEngine.ParticleSystem
 
+		//System.Void UnityEngine.ParticleSystem::Clear(System.Boolean)
+		void Register_UnityEngine_ParticleSystem_Clear();
+		Register_UnityEngine_ParticleSystem_Clear();
+
 		//System.Void UnityEngine.ParticleSystem::EmitOld_Internal(UnityEngine.ParticleSystem/Particle&)
 		void Register_UnityEngine_ParticleSystem_EmitOld_Internal();
 		Register_UnityEngine_ParticleSystem_EmitOld_Internal();
@@ -2081,6 +2085,10 @@ void RegisterAllStrippedInternalCalls()
 		//System.Void UnityEngine.ParticleSystem::Play(System.Boolean)
 		void Register_UnityEngine_ParticleSystem_Play();
 		Register_UnityEngine_ParticleSystem_Play();
+
+		//System.Void UnityEngine.ParticleSystem::Stop(System.Boolean,UnityEngine.ParticleSystemStopBehavior)
+		void Register_UnityEngine_ParticleSystem_Stop();
+		Register_UnityEngine_ParticleSystem_Stop();
 
 	//End Registrations for type : UnityEngine.ParticleSystem
 

@@ -7,7 +7,7 @@ public class BallControls : ObjectControls
     /// </summary>
     protected override void LaunchObject()
     {
-        rb.AddForce(-powerPercent * Mathf.Sin(angle) * forceMultiplyer, 0, -powerPercent * Mathf.Cos(angle) * forceMultiplyer);
+        rb.AddForce(-CorrectPowerPercent(powerPercent) * Mathf.Sin(angle) * forceMultiplyer, 0, -CorrectPowerPercent(powerPercent) * Mathf.Cos(angle) * forceMultiplyer);
     }
 
     /// <summary>
@@ -17,12 +17,12 @@ public class BallControls : ObjectControls
     protected override void SpawnNewTriObjects(ObjectEffects effects)
     {
         GameObject leftObject = Manager.Instance.SpawnNewObject(gameObject, new Vector3(gameObject.transform.position.x - .5f, gameObject.transform.position.y, gameObject.transform.position.z),
-                        new Vector3(-powerPercent * Mathf.Sin(angle - triBallAngleRads) * forceMultiplyer, 0, -powerPercent * Mathf.Cos(angle - triBallAngleRads) * forceMultiplyer),
+                        new Vector3(-CorrectPowerPercent(powerPercent) * Mathf.Sin(angle - triBallAngleRads) * forceMultiplyer, 0, -CorrectPowerPercent(powerPercent) * Mathf.Cos(angle - triBallAngleRads) * forceMultiplyer),
                         effects.GoldBallEnabled, effects.MarkedBallEnabled, false);
         leftObject.GetComponent<ObjectLevelInteractions>().IsLaunched = true;
 
         GameObject rightObject = Manager.Instance.SpawnNewObject(gameObject, new Vector3(gameObject.transform.position.x + .5f, gameObject.transform.position.y, gameObject.transform.position.z),
-                        new Vector3(-powerPercent * Mathf.Sin(angle + triBallAngleRads) * forceMultiplyer, 0, -powerPercent * Mathf.Cos(angle + triBallAngleRads) * forceMultiplyer),
+                        new Vector3(-CorrectPowerPercent(powerPercent) * Mathf.Sin(angle + triBallAngleRads) * forceMultiplyer, 0, -CorrectPowerPercent(powerPercent) * Mathf.Cos(angle + triBallAngleRads) * forceMultiplyer),
                         effects.GoldBallEnabled, effects.MarkedBallEnabled, false);
         rightObject.GetComponent<ObjectLevelInteractions>().IsLaunched = true;
     }

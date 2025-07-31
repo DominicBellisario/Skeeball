@@ -20,6 +20,8 @@ public class ResultsScreenLogic : MonoBehaviour
     //the next level button.  disabled if the player lost
     [SerializeField] GameObject nextLevelButton;
 
+    [SerializeField] GameObject ballsButton;
+
     private void Start()
     {
         //no restart in endless mode
@@ -33,6 +35,7 @@ public class ResultsScreenLogic : MonoBehaviour
         {
             resultsText.text = "EPIC Win!";
             reminderText.SetActive(true);
+            ballsButton.SetActive(true);
 
             //change the background to epic win color
             backgroundImage.color = Color.yellow;
@@ -63,6 +66,12 @@ public class ResultsScreenLogic : MonoBehaviour
             SoundManager.Instance.PlaySound(5, 12);
         }
 
+        //if they beat the last level, disable the next level button
+        if (Manager.Instance.CurrentLevelNumber == Manager.Instance.NumberOfLevels)
+        {
+            nextLevelButton.SetActive(false);
+        }
+
         //show all the score stuff
         playerScoreText.text = Manager.Instance.Score.ToString();
         minScoreText.text = Manager.Instance.MinScore.ToString();
@@ -89,6 +98,14 @@ public class ResultsScreenLogic : MonoBehaviour
     {
         Time.timeScale = 1;
         SceneHandler.Instance.LoadScene("HomeScreen");
+        Manager.Instance.ResetValues();
+        Manager.Instance.EndlessReset();
+    }
+
+    public void LoadInventory()
+    {
+        Time.timeScale = 1;
+        SceneHandler.Instance.LoadScene("Inventory");
         Manager.Instance.ResetValues();
         Manager.Instance.EndlessReset();
     }

@@ -1,5 +1,6 @@
 using System.Collections;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -14,6 +15,7 @@ public class LevelUILogic : MonoBehaviour
     [SerializeField] RectTransform minColorSlider;
     [SerializeField] RectTransform secretColorSlider;
     [SerializeField] Material goldUIMaterial;
+    [SerializeField] Color lightGreen;
     [SerializeField] float sliderLerpSpeed;
     [SerializeField] ParticleSystem goldUIParticles;
 
@@ -33,6 +35,8 @@ public class LevelUILogic : MonoBehaviour
     [SerializeField] GameObject markedBallButton;
     [SerializeField] GameObject triBallButton;
     [SerializeField] GameObject lobBallButton;
+
+    [SerializeField] GameObject LevelNumberObject;
 
     [SerializeField] GameObject totalScoreText;
     [SerializeField] GameObject multiplierText;
@@ -74,6 +78,10 @@ public class LevelUILogic : MonoBehaviour
         UpdateTriBall();
         UpdateLobBall();
 
+        //update level number object and start fadeaway
+        LevelNumberObject.GetComponentInChildren<TextMeshProUGUI>().text = "Level " + Manager.Instance.CurrentLevelNumber;
+        StartCoroutine(FadeAway(LevelNumberObject, 1.5f, 1.5f));
+
         //activate and update endless info if in endless mode
         if (Manager.Instance.Endless) { SetUpEndlessUI(); }
     }
@@ -101,16 +109,30 @@ public class LevelUILogic : MonoBehaviour
         //calculate where the sliders should move to
         float pointPercentage = (float)Manager.Instance.Score / (float)Manager.Instance.MinScore;
         float secretPointPercentage = (float)(Manager.Instance.Score - Manager.Instance.MinScore) / (float)(Manager.Instance.SecretScore - Manager.Instance.MinScore);
+        //player is above the minimum score
         if (pointPercentage >= 1)
         {
             pointPercentage = 1;
             minColorSlider.gameObject.GetComponent<Image>().color = Color.green;
         }
+        //player is below the minimum score
+        else
+        {
+            minColorSlider.gameObject.GetComponent<Image>().color = lightGreen;
+        }
+        //player is above the secret score
         if (secretPointPercentage >= 1)
         {
             secretPointPercentage = 1;
             secretColorSlider.gameObject.GetComponent<Image>().material = goldUIMaterial;
             goldUIParticles.Play();
+        }
+        //player is below the secret score
+        else
+        {
+            secretColorSlider.gameObject.GetComponent<Image>().material = null;
+            goldUIParticles.Clear();
+            goldUIParticles.Stop();
         }
 
         //move the color sliders to its new position
@@ -317,7 +339,7 @@ public class LevelUILogic : MonoBehaviour
         yield return new WaitForSeconds(0.1f);
         EventHandler.SetActive(true);
     }
-    
+
     private IEnumerator EaseInToTarget(RectTransform targetObject, Vector2 startPos, Vector2 targetPos)
     {
         float t = 0;
@@ -328,5 +350,25 @@ public class LevelUILogic : MonoBehaviour
             targetObject.anchoredPosition = new Vector2(Mathf.SmoothStep(startPos.x, targetPos.x, t / lerpTime), Mathf.SmoothStep(startPos.y, targetPos.y, t / lerpTime));
             yield return new WaitForEndOfFrame();
         }
+    }
+
+    private IEnumerator FadeAway(GameObject objectToFade, float timeBeforeFade, float fadeTime)
+    {
+        //wait for a bit before starting the fade
+        yield return new WaitForSeconds(timeBeforeFade);
+        float t = 0;
+        Color startObjectColor = objectToFade.GetComponent<Image>().color;
+        Color startTextColor = objectToFade.GetComponentInChildren<TextMeshProUGUI>().color;
+        //fade the object away
+        while (t < fadeTime)
+        {
+            t += Time.deltaTime;
+            Color newTextColor = new Color(startTextColor.r, startTextColor.g, startTextColor.b, Mathf.SmoothStep(1, 0, t / fadeTime));
+            Color newObjectColor = new Color(startObjectColor.r, startObjectColor.g, startObjectColor.b, Mathf.SmoothStep(1, 0, t / fadeTime));
+            objectToFade.GetComponentInChildren<TextMeshProUGUI>().color = newTextColor;
+            objectToFade.GetComponent<Image>().color = newObjectColor;
+            yield return new WaitForEndOfFrame();
+        }
+        objectToFade.SetActive(false);
     }
 }

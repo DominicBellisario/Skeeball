@@ -89,6 +89,8 @@ public class Manager : MonoBehaviour
     /// </summary>
     bool isPaused;
 
+    bool gameJustStarted;
+
     //endless
     [SerializeField] int[] easyLevels;
     [SerializeField] int[] mediumLevels;
@@ -200,6 +202,7 @@ public class Manager : MonoBehaviour
     public List<GameObject> ActivatedMultiHoles { get { return activatedMultiHoles; } }
     public int StarHoleChanceUpgradesBought { get { return starHoleChanceUpgradesBought; } set { starHoleChanceUpgradesBought = value; } }
     public bool IsPaused { get { return isPaused; } set { isPaused = value; } }
+    public bool GameJustStarted { get { return gameJustStarted; } set { Instance.gameJustStarted = value; } }
 
     protected virtual void Awake()
     {
@@ -224,6 +227,7 @@ public class Manager : MonoBehaviour
         objects = new List<GameObject>();
         starHoleChance = startingStarHoleChance;
         //Screen.SetResolution((int)screenSize.x, (int)screenSize.y, false);
+        gameJustStarted = true; //set to true so that the title screen can do the fade in animation
     }
 
     protected void Start()
