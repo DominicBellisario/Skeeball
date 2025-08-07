@@ -16,7 +16,7 @@ public abstract class ObjectEffects : MonoBehaviour
     [SerializeField] protected GameObject particleTrail;
     [SerializeField] protected ParticleSystem activatePowerupParticles;
     [SerializeField] protected ParticleSystem deactivatePowerupParticles;
-    [SerializeField] protected ParticleSystem deathParticles;
+    [SerializeField] protected ParticleSystem[] deathParticles;
 
     //the objects that appear when triball is active
     [SerializeField] protected GameObject leftTriBall;
@@ -227,9 +227,9 @@ public abstract class ObjectEffects : MonoBehaviour
         newParticles.Play();
     }
 
-    public void SpawnDeathParticles()
+    public void SpawnDeathParticles(int deathParticleNumber)
     {
-        SpawnParticles(deathParticles, Color.white, null);
+        SpawnParticles(deathParticles[deathParticleNumber], Color.white, null);
     }
 
     //reset the material when the application closes

@@ -5633,6 +5633,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 71505921796b2934d8ad3ffb1cf777b0,
         type: 3}
+      propertyPath: m_RootOrder
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 71505921796b2934d8ad3ffb1cf777b0,
+        type: 3}
       propertyPath: m_LocalScale.x
       value: 75.52
       objectReference: {fileID: 0}
@@ -5649,7 +5654,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 71505921796b2934d8ad3ffb1cf777b0,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -116.46728
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 71505921796b2934d8ad3ffb1cf777b0,
         type: 3}
@@ -5659,7 +5664,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 71505921796b2934d8ad3ffb1cf777b0,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: -192.48116
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 71505921796b2934d8ad3ffb1cf777b0,
         type: 3}
@@ -5858,6 +5863,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   aimingCircleRadius: 1
   tooCloseRadius: 0.2
+  powerPercentMin: 0
   forceMultiplyer: 450
   triBallAngle: 2
   windUpSoundIncrements: 0.1
@@ -5886,8 +5892,10 @@ MonoBehaviour:
     type: 3}
   deactivatePowerupParticles: {fileID: 8071182062998253169, guid: bad70b742a4f4ba4d81bfc0dcf8e6730,
     type: 3}
-  deathParticles: {fileID: 8427190466489727016, guid: 1c2dd54a068c19649b8b25d443f58f75,
-    type: 3}
+  deathParticles:
+  - {fileID: 8427190466489727016, guid: 1c2dd54a068c19649b8b25d443f58f75, type: 3}
+  - {fileID: 8427190466489727016, guid: 36738b4f4d530794f85abeb0e1021d07, type: 3}
+  - {fileID: 8427190466489727016, guid: 3d16e4de9dead26459624455942d66a7, type: 3}
   leftTriBall: {fileID: 8428679969170410955}
   rightTriBall: {fileID: 2217124898505422502}
   minOffsetSpeed: 1

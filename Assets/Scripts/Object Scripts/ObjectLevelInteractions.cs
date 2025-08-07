@@ -51,8 +51,22 @@ public abstract class ObjectLevelInteractions : MonoBehaviour
         else if (trigger.gameObject.CompareTag("DeathPlain"))
         {
             //play death sound and spawn death particles
-            SoundManager.Instance.PlaySound(0, 10);
-            GetComponent<ObjectEffects>().SpawnDeathParticles();
+            if (trigger.gameObject.GetComponentInParent<MeshRenderer>().material.name == "Water Floor (Instance)")
+            {
+                SoundManager.Instance.PlaySound(0, 33);
+                GetComponent<ObjectEffects>().SpawnDeathParticles(1);
+            }
+            else if (trigger.gameObject.GetComponentInParent<MeshRenderer>().material.name == "Lava Floor (Instance)")
+            {
+                SoundManager.Instance.PlaySound(0, 34);
+                GetComponent<ObjectEffects>().SpawnDeathParticles(2);
+            }
+            else
+            {
+                SoundManager.Instance.PlaySound(0, 10);
+                GetComponent<ObjectEffects>().SpawnDeathParticles(0);
+            }
+            
             Manager.Instance.DestroyObject(gameObject);
         }
 

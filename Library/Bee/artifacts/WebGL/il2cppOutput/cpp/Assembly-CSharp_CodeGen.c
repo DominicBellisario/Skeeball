@@ -242,7 +242,7 @@ extern void ObjectEffects_DisableTriBalls_m7F80E28F2D44D80239F7CA20979F50BF1E34D
 extern void ObjectEffects_ToggleLobBallEffects_m1E19A48509DDD28B674CE0DB031E26B7863624CA (void);
 extern void ObjectEffects_UpdateMaterials_m89C16697346C112FAE134C85DAB7F641F47B6B67 (void);
 extern void ObjectEffects_SpawnParticles_mBF3103D279EC675E7AD6EDE757CEB644465023C0 (void);
-extern void ObjectEffects_SpawnDeathParticles_m659FEE4240975492092F8557D6429F4686779991 (void);
+extern void ObjectEffects_SpawnDeathParticles_m89BC7FA1B1671EF9EE1C19CFF6077B1FFF8D4D93 (void);
 extern void ObjectEffects_OnApplicationQuit_mE4C5421A1F76E31730471223D9D1E9F6DB0D8DB6 (void);
 extern void ObjectEffects__ctor_mA5C131A892FDC40020C8463F3B9A7FB4C01E472E (void);
 extern void ObjectLevelInteractions_get_IsLaunched_mFED696D3E3B2A6FEED9210275637D02B6FCEFD73 (void);
@@ -723,7 +723,7 @@ static Il2CppMethodPointer s_methodPointers[479] =
 	ObjectEffects_ToggleLobBallEffects_m1E19A48509DDD28B674CE0DB031E26B7863624CA,
 	ObjectEffects_UpdateMaterials_m89C16697346C112FAE134C85DAB7F641F47B6B67,
 	ObjectEffects_SpawnParticles_mBF3103D279EC675E7AD6EDE757CEB644465023C0,
-	ObjectEffects_SpawnDeathParticles_m659FEE4240975492092F8557D6429F4686779991,
+	ObjectEffects_SpawnDeathParticles_m89BC7FA1B1671EF9EE1C19CFF6077B1FFF8D4D93,
 	ObjectEffects_OnApplicationQuit_mE4C5421A1F76E31730471223D9D1E9F6DB0D8DB6,
 	ObjectEffects__ctor_mA5C131A892FDC40020C8463F3B9A7FB4C01E472E,
 	ObjectLevelInteractions_get_IsLaunched_mFED696D3E3B2A6FEED9210275637D02B6FCEFD73,
@@ -1205,7 +1205,7 @@ static const int32_t s_InvokerIndices[479] =
 	3868,
 	4932,
 	1094,
-	4932,
+	3928,
 	4932,
 	4932,
 	4743,
