@@ -16,6 +16,7 @@ public class Manager : MonoBehaviour
     /// when true, camera automaticaly switches to ball cam when launched
     /// </summary>
     bool switchCameraOnLaunch;
+    bool colorblind;
     /// <summary>
     /// the time between the last active objects and a new spawn
     /// </summary>
@@ -182,6 +183,17 @@ public class Manager : MonoBehaviour
             PlayerPrefs.Save();
         }
     }
+    public bool Colorblind
+    {
+        get { return colorblind; }
+        set
+        {
+            Instance.colorblind = value;
+            PlayerPrefs.SetInt("colorblind", Instance.colorblind ? 1 : 0);
+            PlayerPrefs.Save();
+        }
+    }
+
     public int GoldBallPow { get { return goldBallPow; } set { goldBallPow = value; } }
     public int MarkedBallPow { get { return markedBallPow; } set { markedBallPow = value; } }
     public int TriBallPow { get { return triBallPow; } set { triBallPow = value; } }

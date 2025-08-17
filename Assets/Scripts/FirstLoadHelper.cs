@@ -29,6 +29,7 @@ public class FirstLoadHelper : MonoBehaviour
         //SETTINGS
         PlayerPrefs.SetFloat("masterVolume", 5f);
         PlayerPrefs.SetInt("autoBallCam", 1);
+        PlayerPrefs.SetInt("colorblind", 0);
         
         PlayerPrefs.Save();
     }

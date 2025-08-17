@@ -5,6 +5,7 @@ public class SettingsLogic : MonoBehaviour
 {
     [SerializeField] Slider volumeSlider;
     [SerializeField] Toggle autoBallCamToggle;
+    [SerializeField] Toggle colorBlindToggle;
 
     void Start()
     {
@@ -12,5 +13,6 @@ public class SettingsLogic : MonoBehaviour
         volumeSlider.value = PlayerPrefs.GetFloat("masterVolume");
         SoundManager.Instance.StopSound(0);
         autoBallCamToggle.isOn = PlayerPrefs.GetInt("autoBallCam") == 1;
+        colorBlindToggle.isOn = PlayerPrefs.GetInt("colorblind") == 1;
     }
 }

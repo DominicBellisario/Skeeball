@@ -17,6 +17,7 @@ public class HoleVariables : MonoBehaviour
     //the cylinder's renderer
     [SerializeField] Renderer holeRenderer;
     Color defaultColor;
+    int defaultMaterialIndex = 0;
     [SerializeField] Color normalPulseColor;
     [SerializeField] Color badPulseColor;
     //how long the cylinder will pulse for
@@ -38,16 +39,22 @@ public class HoleVariables : MonoBehaviour
     private void Start()
     {
         startingPoints = points;
+        // switch the default material of colorblindness mode is on
+        if (PlayerPrefs.GetInt("colorblind") == 1) { defaultMaterialIndex = 3; }
+        // get the starting color of the hole
         if (holeRenderer != null) { defaultColor = holeRenderer.material.color; }
+
+        //make it a normal hole
+        MakeNormalHole();
     }
 
     public void MakeNormalHole()
     {
-        if (startingPoints == 10) { ChangeMaterial(greenMaterials, 0); }
-        else if (startingPoints == 20) { ChangeMaterial(orangeMaterials, 0); }
-        else if (startingPoints == 30) { ChangeMaterial(blueMaterials, 0); }
-        else if (startingPoints == 50) { ChangeMaterial(redMaterials, 0); }
-        else if (startingPoints == 100) { ChangeMaterial(goldMaterials, 0); }
+        if (startingPoints == 10) { ChangeMaterial(greenMaterials, defaultMaterialIndex); }
+        else if (startingPoints == 20) { ChangeMaterial(orangeMaterials, defaultMaterialIndex); }
+        else if (startingPoints == 30) { ChangeMaterial(blueMaterials, defaultMaterialIndex); }
+        else if (startingPoints == 50) { ChangeMaterial(redMaterials, defaultMaterialIndex); }
+        else if (startingPoints == 100) { ChangeMaterial(goldMaterials, defaultMaterialIndex); }
     }
 
     /// <summary>
