@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
 
@@ -7,6 +8,7 @@ public class BeanbagEffects : ObjectEffects
     [SerializeField] int steps;
     //a ghost beanbag that appears at the end of an aimline
     [SerializeField] GameObject[] ghosts;
+    [SerializeField] LayerMask ghostMask;
 
     protected override void Update()
     {
@@ -56,10 +58,14 @@ public class BeanbagEffects : ObjectEffects
         Vector3[] positions = UpdateAimLine(angle);
         line.positionCount = positions.Length;
         line.SetPositions(positions);
+        // don't look, oh the humanity
+        if (line.name == "Left Aim Line") { positions = UpdateAimLine(angle - 0.16f); }
+        else if (line.name == "Right Aim Line") { positions = UpdateAimLine(angle + 0.16f); }
+
         //make a linecast for the aimline
         for (int i = 0; i < positions.Length - 1; i++)
         {
-            if (Physics.Linecast(positions[i] + transform.position, positions[i + 1] + transform.position, out RaycastHit hit))
+            if (Physics.Linecast(positions[i] + transform.position, positions[i + 1] + transform.position, out RaycastHit hit, ghostMask))
             {
                 Debug.Log(line.name + " Hit: " + hit.collider.name);
                 ghost.SetActive(true);
