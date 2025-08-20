@@ -1,9 +1,12 @@
+using UnityEditor;
 using UnityEngine;
 
 public class BeanbagEffects : ObjectEffects
 {
     //the number of physics frames caculated each frame for the aiming line
     [SerializeField] int steps;
+    //a ghost beanbag that appears at the end of an aimline
+    [SerializeField] GameObject[] ghosts;
 
     protected override void Update()
     {
@@ -14,22 +17,13 @@ public class BeanbagEffects : ObjectEffects
             float powerPercent = GetComponent<ObjectControls>().PowerPercent;
 
             //update middle aim line
-            aimLine.enabled = true;
-            Vector3[] positions = UpdateAimLine(angle);
-            aimLine.positionCount = positions.Length;
-            aimLine.SetPositions(positions);
+            DrawAimLine(aimLine, angle, ghosts[1]);
 
+            //update left and right if tri is enabled
             if (triBallEnabled)
             {
-                leftAimLine.enabled = true;
-                positions = UpdateAimLine(angle - triBallAngleRads);
-                leftAimLine.positionCount = positions.Length;
-                leftAimLine.SetPositions(positions);
-
-                rightAimLine.enabled = true;
-                positions = UpdateAimLine(angle + triBallAngleRads);
-                rightAimLine.positionCount = positions.Length;
-                rightAimLine.SetPositions(positions);
+                DrawAimLine(leftAimLine, angle - triBallAngleRads, ghosts[0]);
+                DrawAimLine(rightAimLine, angle + triBallAngleRads, ghosts[2]);
             }
             else
             {
@@ -50,6 +44,29 @@ public class BeanbagEffects : ObjectEffects
             aimLine.enabled = false;
             leftAimLine.enabled = false;
             rightAimLine.enabled = false;
+            ghosts[0].SetActive(false);
+            ghosts[1].SetActive(false);
+            ghosts[2].SetActive(false);
+        }
+    }
+
+    private void DrawAimLine(LineRenderer line, float angle, GameObject ghost)
+    {
+        line.enabled = true;
+        Vector3[] positions = UpdateAimLine(angle);
+        line.positionCount = positions.Length;
+        line.SetPositions(positions);
+        //make a linecast for the aimline
+        for (int i = 0; i < positions.Length - 1; i++)
+        {
+            if (Physics.Linecast(positions[i] + transform.position, positions[i + 1] + transform.position, out RaycastHit hit))
+            {
+                Debug.Log(line.name + " Hit: " + hit.collider.name);
+                ghost.SetActive(true);
+                ghost.transform.position = hit.point;
+                //stop casting when it hits
+                return;
+            }
         }
     }
 

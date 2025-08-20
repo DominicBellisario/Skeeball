@@ -50,7 +50,7 @@ public class HoleVariables : MonoBehaviour
 
     public void MakeNormalHole()
     {
-        if (startingPoints == 10) { ChangeMaterial(greenMaterials, defaultMaterialIndex); }
+        if (startingPoints == 10 || startingPoints == -10) { ChangeMaterial(greenMaterials, defaultMaterialIndex); }
         else if (startingPoints == 20) { ChangeMaterial(orangeMaterials, defaultMaterialIndex); }
         else if (startingPoints == 30) { ChangeMaterial(blueMaterials, defaultMaterialIndex); }
         else if (startingPoints == 50) { ChangeMaterial(redMaterials, defaultMaterialIndex); }
