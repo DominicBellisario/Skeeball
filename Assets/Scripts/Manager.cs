@@ -642,11 +642,6 @@ public class Manager : MonoBehaviour
             {
                 PlayerPrefs.SetInt("unlockLevel_" + (currentLevelNumber + 1), 1);
             }
-            //unlock the secret if they got secret score
-            if (score >= secretScore)
-            {
-                PlayerPrefs.SetInt("unlockSecret_" + currentLevelNumber, 1);
-            }
             PlayerPrefs.Save();
 
             //bring up the results screen
@@ -655,7 +650,7 @@ public class Manager : MonoBehaviour
         else { SceneHandler.Instance.LoadSceneAdditively("ResultsScreenEndless"); }
 
         //pause the game
-        Time.timeScale = 0;
+        //Time.timeScale = 0;
     }
 
     /// <summary>

@@ -21,6 +21,7 @@ public class ResultsScreenLogic : MonoBehaviour
     [SerializeField] GameObject nextLevelButton;
 
     [SerializeField] GameObject ballsButton;
+    [SerializeField] GameObject sphere;
 
     private void Start()
     {
@@ -34,19 +35,28 @@ public class ResultsScreenLogic : MonoBehaviour
         if (Manager.Instance.Score >= Manager.Instance.SecretScore)
         {
             resultsText.text = "EPIC Win!";
-            reminderText.SetActive(true);
-            ballsButton.SetActive(true);
-
             //change the background to epic win color
             backgroundImage.color = Color.yellow;
             //play epic win sound
             SoundManager.Instance.PlaySound(5, 14);
+
+            // show the ball skin stuff if the skin was not already unlocked
+            if (PlayerPrefs.GetInt("unlockSecret_" + Manager.Instance.CurrentLevelNumber) == 0)
+            {
+                //unlock the secret
+                PlayerPrefs.SetInt("unlockSecret_" + Manager.Instance.CurrentLevelNumber, 1);
+                PlayerPrefs.Save();
+                
+                reminderText.SetActive(true);
+                sphere.SetActive(true);
+                ballsButton.SetActive(true);
+                sphere.GetComponent<MeshRenderer>().material = MaterialManager.Instance.GetBallMaterialSet(Manager.Instance.CurrentLevelNumber)[0];
+            }
         }
         //tell the player they won
         else if (Manager.Instance.Score >= Manager.Instance.MinScore)
         {
             resultsText.text = "You Win!";
-            reminderText.SetActive(false);
 
             //change the background to win color
             backgroundImage.color = Color.green;
@@ -57,7 +67,6 @@ public class ResultsScreenLogic : MonoBehaviour
         else
         {
             resultsText.text = "You Lose!";
-            reminderText.SetActive(false);
             nextLevelButton.SetActive(false);
 
             //change the background to loss color   
@@ -102,11 +111,12 @@ public class ResultsScreenLogic : MonoBehaviour
         Manager.Instance.EndlessReset();
     }
 
-    public void LoadInventory()
+    public void UpdateSkin()
     {
-        Time.timeScale = 1;
-        SceneHandler.Instance.LoadScene("Inventory");
-        Manager.Instance.ResetValues();
-        Manager.Instance.EndlessReset();
+        //update the selected button index to the one that was clicked
+        PlayerPrefs.SetInt("selectedSkin", Manager.Instance.CurrentLevelNumber);
+        PlayerPrefs.Save();
+
+        ballsButton.GetComponentInChildren<TextMeshProUGUI>().text = "Equipped";
     }
 }
