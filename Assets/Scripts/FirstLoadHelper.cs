@@ -30,6 +30,7 @@ public class FirstLoadHelper : MonoBehaviour
         PlayerPrefs.SetFloat("masterVolume", 5f);
         PlayerPrefs.SetInt("autoBallCam", 1);
         PlayerPrefs.SetInt("colorblind", 0);
+        PlayerPrefs.SetInt("enablePaths", 0);
         
         PlayerPrefs.Save();
     }

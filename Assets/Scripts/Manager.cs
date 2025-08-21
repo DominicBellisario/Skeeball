@@ -17,6 +17,7 @@ public class Manager : MonoBehaviour
     /// </summary>
     bool switchCameraOnLaunch;
     bool colorblind;
+    bool enablePaths;
     /// <summary>
     /// the time between the last active objects and a new spawn
     /// </summary>
@@ -190,6 +191,16 @@ public class Manager : MonoBehaviour
         {
             Instance.colorblind = value;
             PlayerPrefs.SetInt("colorblind", Instance.colorblind ? 1 : 0);
+            PlayerPrefs.Save();
+        }
+    }
+    public bool EnablePaths
+    {
+        get { return enablePaths; }
+        set
+        {
+            Instance.enablePaths = value;
+            PlayerPrefs.SetInt("enablePaths", Instance.enablePaths ? 1 : 0);
             PlayerPrefs.Save();
         }
     }

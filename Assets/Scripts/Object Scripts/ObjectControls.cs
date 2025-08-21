@@ -131,8 +131,8 @@ public abstract class ObjectControls : MonoBehaviour
                     isLaunched = true;
                     objectLevelInteractions.IsLaunched = true;
 
-                    //reset the previous ball path
-                    effects.ResetParticleTrail();
+                    //reset the previous ball path (if paths are enabled)
+                    if (PlayerPrefs.GetInt("enablePaths") == 1) { effects.ResetParticleTrail(); }
 
                     //play the launch sound at the correct volume
                     SoundManager.Instance.PlaySound(0, 11, 0.2f + (powerPercent * 0.8f), 1);
@@ -183,7 +183,7 @@ public abstract class ObjectControls : MonoBehaviour
     /// <returns></returns>
     protected float CorrectPowerPercent(float percent)
     {
-        float newPercent = (percent / (1/(1-powerPercentMin))) + powerPercentMin;
+        float newPercent = (percent / (1 / (1 - powerPercentMin))) + powerPercentMin;
         return newPercent;
     }
 
